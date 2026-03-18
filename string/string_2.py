@@ -1,6 +1,17 @@
+
+data = "18/03/2026"
+print("ano", data[6:])
+print("mes", data[3:5])
+print("dia", data[:2])
+
+
+
+
 frase = ('Praticando Curso de String')
 
-#// lembrar que começa do indice 0
+
+
+# lembrar que começa do indice 0
 print(frase[2])
 print(frase[0:4])
 print(frase[11:26])

@@ -1,40 +1,39 @@
-senha = "1234"
+senha = "1234" 
 print(len(senha)) # len() ver o tamanho 
-#!posso fazer um verificador de senhas, quantidades 
+#!posso fazer um verificador de senhas, quantidades   len()
+
+
+
 
 print("-"*40)
-
 text = '''
  olá, meu nome é Jack, tenho 2 casas, uma azul  e outra amarela, minha casas são antiga, casas do tempo, casas sem nexo casas casas iihlehgjerghejkrferg casas jbejglebgletjgtj casas '''
 print(text.count('casas')) # aqui ver a quantidade de palavra repetida
-#! aqui eu posso fazer um input aonde tem um texto e depois outro input para pesquisar quantas palavras
+#! aqui eu posso fazer um input aonde tem um texto e depois outro input para pesquisar quantas palavras count()
+
+
 
 print("-"*40)
-
-
 # aqui eu troco caracteres
 preco = '22,50'
 print(preco.replace(",", "."))
 telefone = '55-99-988213473'
 print(telefone.replace("-", "/")) 
-#** poderia ser "-", "" nesse caso 5599988213473
-
-print("-"*40)
-nome =  "Prin"
-idade = 27
-estado = "maranhão"
-print(f"meu nome é {nome} e tenho {idade} anos sou do {estado}")
-
+#** poderia ser "-", "" nesse caso 5599988213473 replace()
 print("-"*40)
 
-#? aqui ele cria listas com os grupos 
+
+#? aqui ele cria listas com os grupos ou separa em partes menores o texto 
 data = "09/02/2026"
 print(data.split("/"))
 
 data_file =  "1234,max,USA, 1999-03-25,M,+*"
-print(data_file.split("/"))
-
+print(data_file.split(","))
 print("-"*40)
+
+
+
+
 
 frase = "Princesa"
 print(frase[0])
@@ -50,7 +49,9 @@ print(texto)
 print(texto.lstrip()) # remove espaco em branco a esquerda
 print(texto.rstrip()) # remove espaco na direita
 print(texto.strip()) # remove todos espacos em branco direita e esquerda
- #!-------------------não funcionou-----------------------------------
+
+
+# BUG
 #@ agora tem como remover tudo, que quiser mas tem que falar o que com strip()
 print(texto.strip("#"))
 

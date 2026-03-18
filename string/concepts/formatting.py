@@ -1,3 +1,5 @@
+
+
 a = input('digite algo')
 print('O valor digitado foi {:-^10} \n veja as caracteristica dele ' \
 'abaixo'.format(a))
