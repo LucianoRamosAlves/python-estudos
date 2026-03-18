@@ -1,6 +1,6 @@
 senha = "1234" 
 print(len(senha)) # len() ver o tamanho 
-#!posso fazer um verificador de senhas, quantidades   len()
+#!posso fazer um verificador de senhas, quantidades   
 
 
 
@@ -51,7 +51,6 @@ print(texto.rstrip()) # remove espaco na direita
 print(texto.strip()) # remove todos espacos em branco direita e esquerda
 
 
-# BUG
 #@ agora tem como remover tudo, que quiser mas tem que falar o que com strip()
 print(texto.strip("#"))
 
@@ -64,3 +63,6 @@ print(phone.startswith('99')) #* procura se 99 ta
 
 email = 'lucas@gmail'
 print("@" in email) #// se @ ta no email
+
+#** aqui eu conta a partir, quando ele achar ele comeca ate o final
+print(phone[phone.find("-")+1:])
