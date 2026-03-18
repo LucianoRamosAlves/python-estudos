@@ -11,6 +11,7 @@ print(text.count('casas')) # aqui ver a quantidade de palavra repetida
 
 print("-"*40)
 
+
 # aqui eu troco caracteres
 preco = '22,50'
 print(preco.replace(",", "."))
