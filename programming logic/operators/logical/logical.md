@@ -4,4 +4,4 @@
 
 - and -> todas as condições tem que ser verdade
 - or -> basta apenas uma ser verdade
--not -> inverte o resultado
+- not -> inverte o resultado
