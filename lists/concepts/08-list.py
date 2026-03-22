@@ -46,3 +46,27 @@ for no in map(str.strip, nome):
 
 # NOTE
 
+print("""--- MENU PRINCINPAL ---
+      
+      [1] Consultas
+      [2] Quantidades
+      [3] Status
+      [4] Adicionar
+      [5] Remover
+      [6] Sair
+
+      
+      [1] ver grupo mais 20
+      [2] ver grupo mais 60
+      [3] quantidade no grupo mais 20
+      [4] quantidade no grupo mais 60
+      [5] mais velho no grupo mais 20
+      [6] mais velho no grupo mais 60
+      [3] adicionar no grupo mais 20
+      [3] adicionar no grupo mais 60
+      [4] adicionar geral
+      [4] ver grupo grupo mais 20
+      [4] ver grupo grupo mais 20
+      [7] ver geral 
+      [3] remove no grupo mais 20
+      [3] remover no grupo mais 60""")
