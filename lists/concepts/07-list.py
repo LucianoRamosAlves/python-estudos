@@ -8,9 +8,15 @@ letras_Copia.sort()
 print(letras_Copia)
 print(letras)
 
+
+
+
+#| aqui eu estico a variavel e coloco, junto com outra
 numeros.extend(letras)# pega o numero e estendi as letras
 print(numeros)
 
+
+#| aqui eu emparelho os intens, combino de forma organizado
 combo = list(zip(letras , numeros))
 print(combo)
 

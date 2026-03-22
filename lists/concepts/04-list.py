@@ -6,7 +6,7 @@ print(len(numeros))
 
 print("-"*50)
 
-print(all(numeros)) # retorna true pq tem um valor real para cada intem ou seja sem  vakor vazio ou zero
+print(all(numeros)) # retorna true pq tem um valor real para cada intem ou seja sem  vakor vazio ou zero ou none
 n = [1 , 2 , 0]
 l = ['a', 'b' , '']
 print(all(n))

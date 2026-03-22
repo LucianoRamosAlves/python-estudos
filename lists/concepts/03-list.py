@@ -10,3 +10,12 @@ print(pais)
 #* *detalhes , pais --- aqui, todos viram ddetlahes menos o pais
 
 #* nome, *detalhes------só quero o primeiro o resto vira variavél
+
+pessoa1 = ['Lucas', '29', 'Data Engineer', 'Bolivia']
+
+nome, *detalhes, pais = pessoa
+print(detalhes)
+
+#@ posso ficar com a primeira variavel e colocar detalhes no restante
+
+#@ nome, *dethalhes

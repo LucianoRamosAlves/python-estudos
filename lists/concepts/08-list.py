@@ -7,6 +7,9 @@ for i in letras:
     nova_lista.append(i.upper())# aqui eu estou percorrendo e colocando na nova lista e trasformando
 print(nova_lista)
 
+
+
+
 print(list(enumerate(letras, start=1))) # me retorna o indice
  #@ou posso usar assim
 for index, value in enumerate(letras):
@@ -16,10 +19,20 @@ for index, value in enumerate(letras):
 
 print("-"*30)
 
+
+
+
+
+
+
+
+#| usado para parear 2 listas
 for l, n in zip(letras , numeros):
     print(l , n)
 
  #* agora se eu quiser fazer alguma trasformação uso o map
+
+
 
 print(list(map(str.upper, letras)))
 print(list(map(int, numeros)))
@@ -30,4 +43,6 @@ nome = ['  maria', 'pedro ', '  marcos  ']
 print(nome)
 for no in map(str.strip, nome):
     print(no)
+
+# NOTE
 
