@@ -5,5 +5,8 @@ print(list(filter(bool, letras)))
 #@ perceba que ficou o 4 na lista
 letras_n = ['a', 'b', 'c', '4']
 print(list(filter(str.isalpha, letras_n)))
+
+
+
 for l in filter(str.isalpha, letras_n):
     print(l)
