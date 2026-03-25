@@ -75,3 +75,20 @@ def novo_cadastro():
         sair = input("\nDeseja continuar? (s/n): ").lower()
         if sair == "n":
             break
+        
+def formatacao_cpf(cpf):
+    inicial = cpf[:4]
+    final = cpf[-2]
+    
+    return inicial + "***.***_" + final
+
+def formatacao_nome(nome):
+    nome_formatado = {
+     k: v.capitalize()
+     for k, v in cadastro.items()
+     if cadastro["nome"]
+    }
+    
+    return nome_formatado
+    
+    
