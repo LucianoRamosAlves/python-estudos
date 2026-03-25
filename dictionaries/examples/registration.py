@@ -2,44 +2,76 @@ import string
 
 
 # aqui eu crio o dicionario
-cadrasto = dict.fromkeys(["nome", "cpf"], None)
+cadastro = []
+
 
 def validation_nome(nome):
     nome = nome.strip()
     max_caractere = 40
     min_caractere = 6
     
-    erros = []
+    erros_nome = []
     
     if len(nome) > max_caractere:
-        erros.append("Opss!, tamanho maximo atingindo.")
+        erros_nome.append("Opss!, tamanho maximo atingindo.")
     if len(nome) < min_caractere:
-        erros.append("Opss!, nome muito pequeno.")
+        erros_nome.append("Opss!, nome muito pequeno.")
     if nome == "":
-        erros.append("Campo vazio inválido")
+        erros_nome.append("Campo vazio inválido")
     if nome.isnumeric():
-        erros.append("Numeros não aceito nesse campo")
+        erros_nome.append("Numeros não aceito nesse campo")
     if any(i in string.punctuation for i in nome):
-        erros.append("Caractere especial não aceito !")
+        erros_nome.append("Caractere especial não aceito !")
     if any(i in string.digits for i in nome) and nome.isalnum():
-        erros.append("opss!, Nome com numeros não aceito")
+        erros_nome.append("opss!, Nome com numeros não aceito")
     
-    return erros, len(erros)
-    
-    
+    return erros_nome, len(erros_nome)
 
-while True:
+def validation_cpf(cpf):
+    max_tamanho = 11
+    min_tamanho  = 11
+    erros_cpf = []
     
-    print("\n--- CADASTRO ---")
+    if len(cpf) > max_tamanho or len(cpf) < min_tamanho:
+        erros_cpf.append("CPF deve conter 11 digitos")
+        
+    if  not cpf.isnumeric():
+        erros_cpf.append("Sómente numeros")
     
-    nome = input("digite seu nome")
+    return erros_cpf
+
+
+
+def novo_cadastro():
+    while True:
     
-    erros, quantidade_erros = validation_nome(nome)
+        print("\n--- CADASTRO ---")
     
-    if erros:
-        print(f"Corriga esses {quantidade_erros} erros encontrado: \n")
-        for erro in erros:
-            print(f"erro: {erro}" )
-    else:
-        cadrasto["nome"] = nome
-        print(cadrasto)
+        nome = input("digite seu nome")
+        erros_nome, quantidade_erros = validation_nome(nome)
+    
+        if erros_nome:
+            print(f"Corriga esses {quantidade_erros} erros encontrado: \n")
+            for erro in erros_nome:
+                print(f"erro: {erro}" )
+            continue
+        
+        cpf = input("digite seu cpf")
+        erros_cpf = validation_cpf(cpf)
+        
+        if erros_cpf:
+            print(f"\nCorrija os erros:")
+            for erro in erros_cpf:
+                print(f"Corriga o seguinte erro:\n {erros_cpf}")
+            continue
+    
+        usuario = {
+            "nome": nome,
+            "cpf": cpf
+        }
+
+        cadastro.append(usuario)
+        
+        sair = input("\nDeseja continuar? (s/n): ").lower()
+        if sair == "n":
+            break
