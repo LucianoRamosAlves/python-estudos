@@ -25,4 +25,4 @@ print(pessoa.keys())
 #retorna os valores
 print(pessoa.values())
 #para obter os 2
-print(pessoa.items()) ##@ melhor usa esse
+print(pessoa.items()) ##@ melhor usa esse, esse retorna uma tupla

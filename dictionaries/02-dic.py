@@ -18,5 +18,7 @@ print(pessoa)
 #@ para adcionar um novo dicionario ou atualizar
 pessoa.update({'idade': 28, 'city': 'codó'})
 print(f"${pessoa}")
+
+
 cor = pessoa.pop('cor', "não achei")
 print(f"${cor}")
