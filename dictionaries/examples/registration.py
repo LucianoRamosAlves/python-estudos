@@ -5,6 +5,8 @@ import string
 cadastro = []
 
 
+
+
 def validation_nome(nome):
     nome = nome.strip()
     max_caractere = 40
@@ -71,14 +73,14 @@ def novo_cadastro():
         }
 
         cadastro.append(usuario)
-        
+        print("\n✅ Cadastro realizado!")
         sair = input("\nDeseja continuar? (s/n): ").lower()
         if sair == "n":
             break
         
 def formatacao_cpf(cpf):
     inicial = cpf[:4]
-    final = cpf[-2]
+    final = cpf[-2:]
     
     return inicial + "***.***_" + final
 
@@ -90,5 +92,41 @@ def formatacao_nome(nome):
     }
     
     return nome_formatado
+
+def mostrar_cadastro():
+    if not cadastro:
+        print("Nenhum usuário cadastrado.")
+        return
     
+    print("\n--- USUÁRIOS ---")
+    for user in cadastro:
+        nome = user["nome"].capitalize()
+        cpf = formatacao_cpf(user["cpf"])
+        
+        print(f"Nome: {nome} | CPF: {cpf}")
+       
+        
+while True:
+    print("""==== MENU PRINCIPAL ====
+          
+          [1] Cadastrar usuario
+          [2] consultar usuarios
+          [3] sair""")
+    try:
+        opcao = int(input("escolha sua opççao"))
+    except ValueError:
+        print("Digite apenas números!")
+        continue
+    
+    if opcao == 1:
+        novo_cadastro()
+   
+    elif opcao == 2:
+        mostrar_cadastro()
+    
+    elif opcao == 3:
+        print("Encerrando...")
+        break
+    else:
+        print("Opção inválida!")
     
