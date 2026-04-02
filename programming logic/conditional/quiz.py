@@ -6,15 +6,27 @@ print("""--- Bem vindo ao Quiz de Programação Lógica ---
       Boa sorte!""")
 
 # Define as perguntas e respostas do quiz
-pergunta1 = input("1. Existe a linguagem de programação chamada 'Python'? (Sim/Não) ").lower()
+pergunta1 = input("""1. Existe a linguagem de programação chamada 'Python'? (Sim/Não) """).lower()
 
-pergunta2 = input("2. O que é uma variável em programação? (a) Um tipo de dado, (b) Um espaço na memória para armazenar valores, (c) Um operador lógico ").lower()
+pergunta2 = input("""2. O que é uma variável em programação?
+                  (a) Um tipo de dado
+                  (b) Um espaço na memória para armazenar valores
+                  (c) Um operador lógico """).lower()
 
-pergunta3 = input("3. O que é um loop em programação? (a) Uma estrutura de controle que repete um bloco de código, (b) Um tipo de função, (c) Um erro de sintaxe ").lower()
+pergunta3 = input("""3. O que é um loop em programação?
+                  (a) Uma estrutura de controle que repete um bloco de código
+                  (b) Um tipo de função
+                  (c) Um erro de sintaxe """).lower()
 
-pergunta4 = input("4. Quanto equivale em minutos 1.5 horas? (a) 90 minutos, (b) 60 minutos, (c) 120 minutos ").lower()
+pergunta4 = input("""4. Quanto equivale em minutos 1.5 horas?
+                  (a) 90 minutos
+                  (b) 60 minutos
+                  (c) 120 minutos """).lower()
 
-pergunta5 = input("5. O que é um algoritmo? (a) Um conjunto de instruções para resolver um problema, (b) Um tipo de dado, (c) Um erro de sintaxe ").lower()
+pergunta5 = input("""5. O que é um algoritmo?
+                  (a) Um conjunto de instruções para resolver um problema
+                  (b) Um tipo de dado
+                  (c) Um erro de sintaxe """).lower()
 
 # Inicializa a pontuação do quiz
 pontuacao = 0
