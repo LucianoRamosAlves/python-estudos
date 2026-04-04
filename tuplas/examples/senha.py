@@ -1,4 +1,4 @@
-import rich
+from rich import print
 
 # Tupla contendo a senha correta
 senhas_validas = ("123456", "admin123", "python2024")
