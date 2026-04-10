@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Meu App{% endblock %}</title>
+
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('login') }}">Login</a>
+    </nav>
+
+<hr>
+
+{% with messages = get_flashed_messages() %} <!-- essa parte é para exibir mensagens flash, ou seja, mensagens temporárias que podem ser definidas em uma rota e exibidas na próxima requisição, como por exemplo mensagens de sucesso ou erro após um formulário ser enviado -->
+
+    {% if messages %}
+        <div class="flash-messages">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+
+
+    <main>
+        <!-- esta parte é onde o conteúdo específico de cada página será inserido, usando o bloco 'content' que pode ser definido em cada template filho ou seja aqui é os conteudos das paginas-->
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
