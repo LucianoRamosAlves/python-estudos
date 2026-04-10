@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="../static/css/login.css">
+    <title>Document</title>
+</head>
+<body>
+            <div class="box-formulario">        
+        
+        <div class="formulario">
+            
+            <div class="box-title">
+              <h1 class="title">CARD BLUE<span class="subtitle">login de usuário</span></h1>
+            </div>
+
+            <form method="post" novalidate>
+                     
+
+                <span>
+                    <label for="number_card">Número do Cartão:</label>
+                    <input type="text" class="input-hidden" id="number_card" name="number_card" placeholder="xxx0xxx" autocomplete="off" required="" inputmode="numeric" maxlength="7">  
+                </span>
+
+                <span>
+                    <label for="password">Senha:</label>
+                    <input type="password" class="input-hidden" id="password" name="password" placeholder="Senha de 4 dígitos" autocomplete="off" required="" maxlength="4">
+                </span>
+
+                <div class="box-btn">
+                     <input type="button" value="Consultar Saldo" class="btn-submit">
+                </div>
+
+            </form>
+
+        </div>
+
+    </div><!--Box Formulario--> 
+</body>
+</html>
