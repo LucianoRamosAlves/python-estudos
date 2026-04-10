@@ -14,11 +14,11 @@ def login():
         password = request.form['password']
         
         #| aqui eu posso verificar se o username e password são válidos, e se forem, eu posso redirecionar o usuário para a página de perfil, usando url_for para gerar a URL da rota de perfil, e passando o nome do usuário como argumento.
-        if username == 'admin' and password == '1234':
+        if username == 'princesa' and password == '1234':
             flash('Login bem-sucedido!', 'success')
             return redirect(url_for("home"))
         else:
-            flash('Login falhou! Verifique seu username e password.', 'danger')
+            flash('Login falhou! Verifique seu nome de usuário e senha.', 'error')
             return redirect(url_for("login"))
     
     return render_template('login.html')

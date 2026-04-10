@@ -16,14 +16,13 @@
         <a href="{{ url_for('login') }}">Login</a>
     </nav>
 
-<hr>
 
-{% with messages = get_flashed_messages() %} <!-- essa parte é para exibir mensagens flash, ou seja, mensagens temporárias que podem ser definidas em uma rota e exibidas na próxima requisição, como por exemplo mensagens de sucesso ou erro após um formulário ser enviado -->
+{% with messages = get_flashed_messages(with_categories=true) %} <!-- essa parte é para exibir mensagens flash, ou seja, mensagens temporárias que podem ser definidas em uma rota e exibidas na próxima requisição, como por exemplo mensagens de sucesso ou erro após um formulário ser enviado -->
 
     {% if messages %}
         <div class="flash-messages">
-        {% for message in messages %}
-            <p>{{ message }}</p>
+        {% for category, message in messages %}
+            <p class="{{ category }}">{{ message }}</p>
         {% endfor %}
         </div>
     {% endif %}
