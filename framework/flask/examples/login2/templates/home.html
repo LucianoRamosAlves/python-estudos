@@ -1,58 +1,34 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--Links das Fontes e dos Icones-->
-<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    <title>Document</title>
+    <title>FinanceHub - Banco Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">  
+    <link rel="stylesheet" href="../static/css/home.css">  
 </head>
 <body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">Card-Blue</div>
+            <ul class="nav">
+                <li><a href="#login">Login</a></li>
+                <li><a href="#saldo">Saldo</a></li>
+                <li><a href="#contatos">Contatos</a></li>
+            </ul>
+        </nav>
 
-<!--Sidebar-->
-<input type="checkbox" id="check">
-
-<label for="check">
-  <i class="fas fa-bars" id="btn"></i>
-  <i class="fas fa-times" id="cancel"></i>
-</label>
-
-<div class="sidebar">
-  
-  <header>Menu</header>
-    
-    <a href="#" class="link-sidebar active">
-      <i class="fas fa-qrcode"></i>
-      <span>Dashboard</span>
-    </a>
-    
-    <a href="#" class="link-sidebar">
-      <i class="fas fa-link"></i>
-      <span>Links</span>
-    </a>
-  
-    <a href="#" class="link-sidebar">
-       <i class="fas fa-edit"></i>
-      <span>Blog</span>
-    </a>
-
-    <a href="#" class="link-sidebar">
-      <i class="far fa-question-circle"></i>
-      <span>Sobre</span>
-    </a>
-    
-    <a href="#" class="link-sidebar">
-      <i class="fas fa-sliders-h"></i>
-      <span>Serviços</span>
-    </a>
-    
-    <a href="#" class="link-sidebar">
-      <i class="far fa-envelope"></i>
-      <span>Contato</span>
-    </a>
-
-</div>
-<!--Sidebar-->
+        <main class="main-content">
+            <video class="video-background" autoplay muted loop>
+                <source src="../static/video/7821608-hd_1920_1080_30fps.mp4" type="video/mp4">
+            </video>
+            <div class="overlay"></div>
+            
+            <div class="hero">
+                <h1>Bem-vindo ao <span>Card-Blue</span></h1>
+            </div>
+        </main>
+    </div>
 </body>
 </html>
