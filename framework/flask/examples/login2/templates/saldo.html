@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saldo - FinanceHub</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">  
-    <link rel="stylesheet" href="../static/css/saldo.css">  
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/saldo.css') }}">
 </head>
 
 <body>
@@ -14,9 +14,9 @@
         <nav class="navbar">
             <div class="logo">Card-Blue</div>
             <ul class="nav">
-                <li><a href="/">Home</a></li>
-                <li><a href="#contatos">Contatos</a></li>
-                <li><a href="#logout">Sair</a></li>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('contatos') }}">Contatos</a></li>
+                <li><a href="{{ url_for('logout') }}">Sair</a></li>
             </ul>
         </nav>
         <main class="main-content">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
 
-                <a href="/" class="btn-voltar">Voltar</a>
+                <a href="{{ url_for('home') }}" class="btn-voltar">Voltar</a>
             </div>
         </main>
     </div>

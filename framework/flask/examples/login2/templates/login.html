@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-    <link rel="stylesheet" href="../static/css/login.css">
-    <title>Document</title>
+    <title>Login - Card Blue</title>
 </head>
 <body>
         <div class="box-formulario">        
@@ -19,23 +18,32 @@
                 <p>login bem-sucedido</p>
             </div>
 
-            <form method="post" novalidate>
+            <form action="{{ url_for('login') }}" method="post" novalidate>
                      
-
+            {% with messages = get_flashed_messages(with_categories=true) %}
                 <span>
                     <label for="number_card">Número do Cartão:</label>
-                    <input type="text" class="input-hidden" id="number_card" name="number_card" placeholder="xxx0xxx" autocomplete="off" required="" inputmode="numeric" maxlength="7">  
-                    <label for="" class="number_erro">teste</label>
+                    <input type="text" class="input-hidden" id="number_card" name="number_card" placeholder="xxx0xxx" autocomplete="off" required="" inputmode="numeric" maxlength="7"> 
+                            {% for category, message in messages %}
+                                {% if category == 'card_error' %}
+                                    <label for="" class="number_erro">{{ message }}</label>
+                                {% endif %}
+                            {% endfor %}
                 </span>
 
                 <span>
                     <label for="password">Senha:</label>
                     <input type="password" class="input-hidden" id="password" name="password" placeholder="Senha de 4 dígitos" autocomplete="off" required="" maxlength="4">
-                    <label for="" class="senha_erro">teste</label>
+                                {% for category, message in messages %}
+                                    {% if category == 'senha_error' %}
+                                        <label for="" class="senha_erro">{{ message }}</label>
+                                    {% endif %}
+                                {% endfor %}
+            {% endwith %}
                 </span>
 
                 <div class="box-btn">
-                     <input type="button" value="Consultar Saldo" class="btn-submit">
+                     <input type="submit" value="Consultar Saldo" class="btn-submit">
                 </div>
 
             </form>
