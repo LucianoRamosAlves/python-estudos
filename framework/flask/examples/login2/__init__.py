@@ -68,8 +68,11 @@ def login():
         pass_ok = validar_pass(password)
 
         if card_ok and pass_ok:
+            flash('Login bem-sucedido!', 'login_success')
             return redirect(url_for('saldo'))
-        
+        else:
+            flash('login falhou!', 'login_error')
+            return redirect(url_for('login'))
     return render_template('login.html')
 
 @app.route('/saldo')

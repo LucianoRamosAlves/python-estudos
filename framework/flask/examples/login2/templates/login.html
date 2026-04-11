@@ -14,9 +14,21 @@
             <div class="box-title">
               <h1 class="title">CARD BLUE<span class="subtitle">login de usuário</span></h1>
             </div>
-            <div class="login_sucess">
-                <p>login bem-sucedido</p>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            <div class="">
+                    {% for category, message in messages %}
+                        {% if category == 'login_success' %}
+                            <p class="login_success">{{ message }}</p>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for category, message in messages %}
+                        {% if category == 'login_error' %}
+                            <p class="login_error">{{ message }}</p>
+                        {% endif %}
+                    {% endfor %}
             </div>
+             {% endwith %}
 
             <form action="{{ url_for('login') }}" method="post" novalidate>
                      
