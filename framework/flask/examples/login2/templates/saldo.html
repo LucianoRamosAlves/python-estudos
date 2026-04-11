@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saldo - FinanceHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">  
+    <link rel="stylesheet" href="../static/css/saldo.css">  
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">Card-Blue</div>
+            <ul class="nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="#contatos">Contatos</a></li>
+                <li><a href="#logout">Sair</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="saldo-container">
+                <h1>Seu Saldo</h1>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <p>Saldo Disponível</p>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="balance">R$ {{ saldo }}</h2>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-box">
+                        <p class="label">Tipo de Conta</p>
+                        <p class="value">Corrente</p>
+                    </div>
+                    <div class="info-box">
+                        <p class="label">Número da Conta</p>
+                        <p class="value">{{ conta }}</p>
+                    </div>
+                </div>
+
+                <a href="/" class="btn-voltar">Voltar</a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
