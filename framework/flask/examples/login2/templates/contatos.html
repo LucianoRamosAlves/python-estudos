@@ -1,0 +1,75 @@
+<!-- filepath: c:\Users\lramo\OneDrive\Documentos\Estudos\Python\framework\flask\examples\login2\templates\contatos.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatos - Card-Blue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/contatos.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">Card-Blue</div>
+            <ul class="nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="#login">Login</a></li>
+                <li><a href="#saldo">Saldo</a></li>
+                <li><a href="#contatos">Contatos</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="contacts-wrapper">
+                <div class="contacts-header">
+                    <h1>Entre em Contato</h1>
+                    <p>Estamos aqui para ajudar você</p>
+                </div>
+
+                <div class="contacts-grid">
+                    <div class="contact-card">
+                        <div class="icon">📞</div>
+                        <h3>Telefone</h3>
+                        <p>(11) 3000-0000</p>
+                        <a href="tel:+551130000000" class="btn-contact">Ligar</a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="icon">📧</div>
+                        <h3>Email</h3>
+                        <p>suporte@cardbluе.com</p>
+                        <a href="mailto:suporte@cardblue.com" class="btn-contact">Enviar Email</a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="icon">📍</div>
+                        <h3>Endereço</h3>
+                        <p>São Paulo, SP</p>
+                        <a href="#" class="btn-contact">Ver Mapa</a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="icon">💬</div>
+                        <h3>Chat</h3>
+                        <p>Disponível 24/7</p>
+                        <a href="#" class="btn-contact">Iniciar Chat</a>
+                    </div>
+                </div>
+
+                <form class="contact-form">
+                    <h2>Envie uma Mensagem</h2>
+                    <input type="text" placeholder="Seu Nome" required>
+                    <input type="email" placeholder="Seu Email" required>
+                    <input type="text" placeholder="Assunto" required>
+                    <textarea placeholder="Sua Mensagem" rows="5" required></textarea>
+                    <button type="submit" class="btn-submit">Enviar Mensagem</button>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
