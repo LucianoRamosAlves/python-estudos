@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -19,6 +20,15 @@
                 <li><a href="{{ url_for('logout') }}">Sair</a></li>
             </ul>
         </nav>
+        <div>
+             {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% for category, message in messages %}
+                        {% if category == 'login_success' %}
+                            <p class="login_success">{{ message }}</p>
+                        {% endif %}
+                    {% endfor %}
+             {% endwith %}
+        </div>
         <main class="main-content">
             <div class="saldo-container">
                 <h1>Seu Saldo</h1>
@@ -48,5 +58,18 @@
         </main>
     </div>
 </body>
+<script>
+    // Remove a mensagem de sucesso após 3 segundos
+    setTimeout(function() {
+        const msg = document.querySelector('.login_success');
+        if (msg) {
+            msg.style.opacity = '0';
+            msg.style.transition = 'opacity 0.5s';
+            setTimeout(() => {
+                msg.remove();
+            }, 500);
+        }
+    }, 3000);
+</script>
 
 </html>

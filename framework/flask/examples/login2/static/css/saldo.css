@@ -229,3 +229,32 @@ h1 {
         padding: 1rem;
     }
 }
+
+.login_success {
+    position: fixed;
+    top: 48px;
+    left: 20px;
+    transform: translateX(0);
+    font-size: 10px;
+    color: #000;
+    font-weight: bold;
+    letter-spacing: 7px;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px;
+    background-color: #bbf7d068;
+    border-left: 4px solid #22c55e;
+    border-radius: 4px;
+    animation: pulse 2s ease-in-out 1 forwards;
+    align-items: center;
+    z-index: 1000;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
