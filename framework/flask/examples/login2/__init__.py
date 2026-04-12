@@ -84,12 +84,13 @@ def erro():
 @app.route('/saldo')
 def saldo():
     if 'user' not in session:
-        flash('Faça login !', 'login_error')
+        flash('Faça login!', 'login_error')
         return redirect(url_for('erro'))
 
+    user_card = session['user']
     saldo = 1000
-    conta = "1234-5"
-    return render_template('saldo.html', saldo=saldo, conta=conta)
+    conta = f"{user_card[:3]}-0-{user_card[4:]}"
+    return render_template('saldo.html', saldo=saldo, conta=conta, user_card=user_card)
 
 
 @app.route('/contatos')
