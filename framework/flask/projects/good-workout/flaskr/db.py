@@ -45,3 +45,7 @@ def init_db_command(): #* defino um comando de linha de comando para inicializar
 def init_app(app): #* defino uma função para registrar as funções de banco de dados na aplicação Flask para que possam ser usadas em outros lugares da aplicação.
     app.teardown_appcontext(close_db) #* registro a função close_db para ser chamada automaticamente quando o contexto da aplicação for encerrado.
     app.cli.add_command(init_db_command) #* registro a função init_db_command como um comando de linha de comando para inicializar o banco de dados usando o comando "flask init-db". comando personalizado para inicializar o banco de dados usando o comando "flask init-db".
+
+#| agora eu posso usar a função get_db para obter a conexão com o banco de dados em outras partes da aplicação, e a função init_db para criar as tabelas do banco de dados quando necessário. a função close_db será chamada automaticamente para fechar a conexão com o banco de dados quando a aplicação for encerrada.
+
+#@ agora eu importo para o __init__.py

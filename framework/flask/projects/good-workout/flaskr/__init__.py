@@ -24,7 +24,16 @@ def create_app(test_config=None): #* crio a fabrica de app, controi o app
     def hello():
         return 'Hello, World!'
     
+    
+    
+    #| daqui para frente estao sendo encrementadas depois
+    
     from . import db #* importo o módulo db para registrar as funções de banco de dados na aplicação.
     db.init_app(app) #* chamo a função init_app do módulo db para registrar as funções de banco de dados na aplicação.
+    
+    from . import auth #* importo o módulo auth para registrar as rotas de autenticação na aplicação.
+    app.register_blueprint(auth.bp) #* registro o blueprint de autenticação na aplicação.
+    
+
     return app
 
