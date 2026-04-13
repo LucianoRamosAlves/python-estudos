@@ -1,1 +1,165 @@
-<h1>oi</h1>
+{% extends 'base.html' %}
+
+{% block title %}Good Workout | Home{% endblock %}
+
+{% block content %}
+<header class="site-header">
+	<div class="page-shell">
+		<nav class="nav-bar" aria-label="Navegação principal">
+			<a class="logo" href="#home">
+				<span class="logo-mark">GW</span>
+				<span>Good Workout</span>
+			</a>
+			<ul class="nav-menu">
+				<li><a href="#home">Home</a></li>
+				{% if session.get('user') or g.user %}
+					<li><a href="{{ url_for('auth.login') }}">Login</a></li>
+					<li><a class="highlight-link" href="#services">Dashboard</a></li>
+				{% else %}
+					<li><a href="{{ url_for('auth.login') }}">Login</a></li>
+					<li><a class="highlight-link" href="{{ url_for('auth.register') }}">Dashboard</a></li>
+				{% endif %}
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<main>
+	<div class="page-shell">
+		<section class="hero" id="home">
+			<div class="hero-copy">
+				<span class="eyebrow">Elite Fitness Experience</span>
+				<h1>Transform Your <span>Body</span></h1>
+				<p>
+					Alcance o seu melhor condicionamento com treinos intensos, acompanhamento profissional e uma atmosfera feita para evolução real.
+					Good Workout combina performance, disciplina e tecnologia em um espaço fitness de alto nível.
+				</p>
+				<div class="hero-actions">
+					{% if session.get('user') or g.user %}
+						<a class="btn btn-primary" href="#services">Join Now</a>
+					{% else %}
+						<a class="btn btn-primary" href="{{ url_for('auth.register') }}">Join Now</a>
+					{% endif %}
+					<a class="btn btn-secondary" href="#about">Explore More</a>
+				</div>
+				<div class="hero-stats" aria-label="Indicadores da academia">
+					<div class="stat-box">
+						<strong>10+</strong>
+						<span>anos de transformação</span>
+					</div>
+					<div class="stat-box">
+						<strong>24/7</strong>
+						<span>energia e suporte</span>
+					</div>
+					<div class="stat-box">
+						<strong>500+</strong>
+						<span>alunos em evolução</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="hero-visual" aria-label="Espaço visual da academia">
+				<div class="image-placeholder">
+					<span class="image-tag">Workout Visuals</span>
+					<div class="image-center">
+						<div>
+							<strong>Placeholder for Gym Image</strong>
+							<p>Imagem principal da academia, atletas e treino de alta performance.</p>
+						</div>
+					</div>
+					<div class="image-grid">
+						<div>Fitness</div>
+						<div>Workout</div>
+						<div>Strength</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="content-section" id="about">
+			<div class="section-heading">
+				<h2>About</h2>
+				<p>
+					Uma academia criada para quem busca resultado com método, constância e estrutura profissional.
+				</p>
+			</div>
+			<div class="about-grid">
+				<article class="info-card">
+					<h3>Performance com propósito</h3>
+					<p>
+						Nosso foco vai além do treino padrão. Construímos jornadas completas com orientação, metas claras e ambiente preparado para evolução física e mental.
+					</p>
+					<ul class="bullet-list">
+						<li>Treinadores experientes em hipertrofia, resistência e definição.</li>
+						<li>Área dedicada para musculação, cardio e treinamento funcional.</li>
+						<li>Acompanhamento pensado para iniciantes e atletas avançados.</li>
+					</ul>
+				</article>
+				<aside class="info-card">
+					<h3>Placeholder de imagem</h3>
+					<p>Espaço reservado para foto do ambiente interno, equipamentos ou sessão de treino em grupo.</p>
+				</aside>
+			</div>
+		</section>
+
+		<section class="content-section" id="services">
+			<div class="section-heading">
+				<h2>Services</h2>
+				<p>
+					Soluções fitness pensadas para diferentes níveis, objetivos e rotinas de treino.
+				</p>
+			</div>
+			<div class="services-grid">
+				<article class="service-card">
+					<div class="service-icon">01</div>
+					<h3>Personal Training</h3>
+					<p>Treinos personalizados com foco em resultado, segurança e evolução mensurável.</p>
+				</article>
+				<article class="service-card">
+					<div class="service-icon">02</div>
+					<h3>Group Classes</h3>
+					<p>Aulas dinâmicas para cardio, força e condicionamento em um ritmo motivador.</p>
+				</article>
+				<article class="service-card">
+					<div class="service-icon">03</div>
+					<h3>Nutrition Support</h3>
+					<p>Orientação complementar para alinhar alimentação, recuperação e performance.</p>
+				</article>
+			</div>
+		</section>
+
+		<section class="content-section" id="contact">
+			<div class="section-heading">
+				<h2>Contact</h2>
+				<p>
+					Entre em contato para agendar uma avaliação, conhecer os planos ou visitar a academia.
+				</p>
+			</div>
+			<div class="contact-grid">
+				<article class="contact-card">
+					<span class="contact-label">Local</span>
+					<h3>Rua Exemplo, 123</h3>
+					<p>Centro, sua cidade. Placeholder para endereço da unidade principal.</p>
+				</article>
+				<article class="contact-card">
+					<span class="contact-label">Contato</span>
+					<h3>(00) 00000-0000</h3>
+					<p>Placeholder para WhatsApp, telefone ou e-mail comercial da academia.</p>
+				</article>
+				<article class="contact-card">
+					<span class="contact-label">Horário</span>
+					<h3>Seg a Sáb</h3>
+					<p>05:00 às 23:00. Ajuste conforme o funcionamento real da sua unidade.</p>
+				</article>
+			</div>
+		</section>
+	</div>
+</main>
+
+<footer class="site-footer">
+	<div class="page-shell">
+		<p>Good Workout Fitness Club</p>
+		<p>Treine forte. Evolua sempre.</p>
+	</div>
+</footer>
+{% endblock %}

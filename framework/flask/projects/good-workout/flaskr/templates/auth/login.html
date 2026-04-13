@@ -1,15 +1,51 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Entrar{% endblock %}</h1>
-{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="nome_usuario">Nome de Usuário</label>
-    <input name="nome_usuario" id="nome_usuario" required>
-    <label for="senha">Senha</label>
-    <input type="password" name="senha" id="senha" required class="senha">
-    <input type="submit" value="Entrar">
-  </form>
+
+
+<section class="login-wrap" aria-label="Área de login">
+	<form class="login-card" method="post" novalidate>
+		<h1 class="login-title">Welcome Back</h1>
+		<p class="login-subtitle">Train hard. Stay consistent.</p>
+
+		{% if mensagem %}
+			<div class="global-msg {{ tipo or 'erro' }}">{{ mensagem }}</div>
+		{% endif %}
+
+		<div class="field">
+			<label for="nome_usuario">Username</label>
+			<input
+				type="text"
+				name="nome_usuario"
+				id="nome_usuario"
+				placeholder="Enter your username"
+				value="{{ request.form.get('nome_usuario', '') }}"
+				class="{% if erro_user %}input-error{% endif %}"
+				required
+			>
+			{% if erro_user %}
+				<small class="error-text">{{ erro_user }}</small>
+			{% endif %}
+		</div>
+
+		<div class="field">
+			<label for="senha">Password</label>
+			<input
+				type="password"
+				name="senha"
+				id="senha"
+				placeholder="Enter your password"
+				class="{% if erro_senha %}input-error{% endif %}"
+				required
+			>
+			{% if erro_senha %}
+				<small class="error-text">{{ erro_senha }}</small>
+			{% endif %}
+		</div>
+
+		<button class="btn-login" type="submit">Login</button>
+	</form>
+</section>
 {% endblock %}

@@ -1,24 +1,63 @@
-<!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-  <h1>Flaskr</h1>
-  <ul>
-    {% if g.user %}
-      <li><span>{{ g.user['nome_usuario'] }}</span></li>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
-    {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a></li>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
-    {% endif %}
-  </ul>
-</nav>
-<section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-  {% block content %}{% endblock %}
-</section>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %}Good Workout{% endblock %}</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+	<header class="site-header">
+		<div class="container">
+			<nav class="navbar" aria-label="Menu principal">
+				<a class="brand" href="{{ url_for('index') }}">
+					<img
+						class="brand-logo"
+						src="{{ url_for('static', filename='img/logo-placeholder.png') }}"
+						alt="Good Workout Logo"
+					>
+					<span>Good Workout</span>
+				</a>
+
+				<ul class="menu">
+					<li><a href="{{ url_for('index') }}">Home</a></li>
+
+					{% if session.user or session.get('user_id') or g.user %}
+						<li><a class="menu-accent" href="{{ url_for('index') }}#services">Dashboard</a></li>
+						<li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+					{% else %}
+						<li><a class="menu-accent" href="{{ url_for('auth.login') }}">Login</a></li>
+					{% endif %}
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<main class="app-main">
+		<div class="container">
+			<div class="header-block">
+				{% block header %}{% endblock %}
+			</div>
+
+			{% for tipo, mensagem in get_flashed_messages(with_categories=true) %}
+				<div class="mensagem {{ tipo }}">{{ mensagem }}</div>
+			{% endfor %}
+
+			<div class="content-shell">
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container footer-wrap">
+			<p>Good Workout Fitness Club</p>
+			<p>Premium Training Experience</p>
+		</div>
+	</footer>
+</body>
+</html>
+
