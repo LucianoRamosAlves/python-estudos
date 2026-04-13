@@ -21,25 +21,29 @@ bp = Blueprint('auth', __name__, url_prefix='/auth') #* crio um blueprint para a
 @bp.route('/register', methods=('GET', 'POST')) # defino uma rota para o registro de usuários, que aceita os métodos GET e POST. quando um usuário acessa esta rota com um método GET, ele verá um formulário de registro. quando ele envia o formulário com um método POST, os dados do formulário são processados para criar uma nova conta de usuário.
 def register():
     if request.method == 'POST': #* verifico se o método da requisição é POST, o que significa que o formulário de registro foi enviado.
-        nome_usuario = request.form['username'] #* obtenho o nome de usuário do formulário.
-        senha_usuario = request.form['password'] #* obtenho a senha do formulário.
+        nome_usuario = request.form['nome_usuario'] #* obtenho o nome de usuário do formulário.
+        password = request.form['senha'] #* obtenho a senha do formulário.
         db = get_db() #* obtenho a conexão com o banco de dados usando a função get_db.
+        cursor = db.cursor() #* crio um cursor para executar comandos SQL.
         error = None #* inicializo uma variável para armazenar mensagens de erro, se houver.
 
         if not nome_usuario: #* verifico se o nome de usuário não foi fornecido.
             error = 'Username is required.' #* se o nome de usuário não for fornecido, defino uma mensagem de erro.
-        elif not senha_usuario: #* verifico se a senha não foi fornecida.
+        elif not password: #* verifico se a senha não foi fornecida.
             error = 'Password is required.' #* se a senha não for fornecida, defino uma mensagem de erro.
-        elif db.execute( #* verifico se o nome de usuário já existe no banco de dados.
+        else:
+            cursor.execute( #* verifico se o nome de usuário já existe no banco de dados.
             'SELECT id FROM usuario WHERE nome_usuario = %s', (nome_usuario,)
-        ).fetchone() is not None:
+        )
+            user = cursor.fetchone() #* tento encontrar um usuário no banco de dados com o nome de usuário fornecido. se um usuário for encontrado, ele será armazenado na variável user. se nenhum usuário for encontrado, user será None.
+        if user is not None:
             error = f"User {nome_usuario} is already registered." #* se o nome de usuário já existir, defino uma mensagem de erro.
 
         if error is None: #* se não houver erros, crio um novo usuário no banco de dados.
             try:
-                db.execute(
+                cursor.execute(
                     'INSERT INTO usuario (nome_usuario, senha_usuario) VALUES (%s, %s)',
-                    (nome_usuario, generate_password_hash(senha_usuario)) #* insiro o nome de usuário e a senha hashada no banco de dados. a função generate_password_hash é usada para criar um hash seguro da senha antes de armazená-la no banco de dados.
+                    (nome_usuario, generate_password_hash(password)) #* insiro o nome de usuário e a senha hashada no banco de dados. a função generate_password_hash é usada para criar um hash seguro da senha antes de armazená-la no banco de dados.
                 )
                 db.commit() #* confirmo as alterações no banco de dados.
             except db.IntegrityError:
@@ -54,18 +58,21 @@ def register():
 @bp.route('/login', methods=('GET', 'POST')) #* defino uma rota para o login de usuários, que aceita os métodos GET e POST. quando um usuário acessa esta rota com um método GET, ele verá um formulário de login. quando ele envia o formulário com um método POST, os dados do formulário são processados para autenticar o usuário.
 def login():
     if request.method == 'POST': #* verifico se o método da requisição é POST, o que significa que o formulário de login foi enviado.
-        nome_usuario = request.form['username'] #* obtenho o nome de usuário do formulário.
-        senha_usuario = request.form['password'] #* obtenho a senha do formulário.
+        nome_usuario = request.form['nome_usuario'] #* obtenho o nome de usuário do formulário.
+        password = request.form['senha'] #* obtenho a senha do formulário.
         db = get_db() #* obtenho a conexão com o banco de dados usando a função get_db.
+        cursor = db.cursor() #* crio um cursor para executar comandos SQL.
         error = None #* inicializo uma variável para armazenar mensagens de erro, se houver.
-        user = db.execute( #* tento encontrar um usuário no banco de dados com o nome de usuário fornecido.
+        cursor.execute( #* tento encontrar um usuário no banco de dados com o nome de usuário fornecido.
             'SELECT * FROM usuario WHERE nome_usuario = %s', (nome_usuario,)
-        ).fetchone()
+        )
+        user = cursor.fetchone() #* tento encontrar um usuário no banco de dados com o nome de usuário fornecido. se um usuário for encontrado, ele será armazenado na variável user. se nenhum usuário for encontrado, user será None.
+
 
         if user is None: #* se nenhum usuário for encontrado, defino uma mensagem de erro.
-            error = 'Incorrect username.'
-        elif not check_password_hash(user['senha_usuario'], senha_usuario): #* se a senha fornecida não corresponder à senha hashada armazenada no banco de dados, defino uma mensagem de erro. a função check_password_hash é usada para verificar se a senha fornecida corresponde ao hash armazenado no banco de dados.
-            error = 'Incorrect password.'
+            error = 'Nome de usuário incorreto.'
+        elif not check_password_hash(user['senha_usuario'], password): #* se a senha fornecida não corresponder à senha hashada armazenada no banco de dados, defino uma mensagem de erro. a função check_password_hash é usada para verificar se a senha fornecida corresponde ao hash armazenado no banco de dados.
+            error = 'Senha incorreta.'
 
         if error is None: #* se não houver erros, autentico o usuário e inicio uma sessão para ele.
             session.clear() #* limpo a sessão atual para garantir que não haja dados antigos.
@@ -83,9 +90,12 @@ def load_logged_in_user():
     if user_id is None: #* se não houver um ID de usuário na sessão, defino g.user como None.
         g.user = None
     else: #* se houver um ID de usuário na sessão, tento encontrar o usuário correspondente no banco de dados e armazená-lo em g.user para que possa ser acessado durante a requisição.
-        g.user = get_db().execute( #* obtenho a conexão com o banco de dados usando a função get_db e tento encontrar o usuário correspondente ao ID armazenado na sessão.
+        db = get_db() #* obtenho a conexão com o banco de dados usando a função get_db.
+        cursor = db.cursor() #* crio um cursor para executar comandos SQL.
+        cursor.execute( #* tento encontrar o usuário correspondente ao ID armazenado na sessão.
             'SELECT * FROM usuario WHERE id = %s', (user_id,)
-        ).fetchone()
+        )
+        g.user = cursor.fetchone() #* armazeno o usuário encontrado em g.user para que possa ser acessado durante a requisição.
         
 @bp.route('/logout') #* defino uma rota para o logout de usuários, que aceita apenas o método GET. quando um usuário acessa esta rota, ele será desconectado da aplicação.
 def logout():

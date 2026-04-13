@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 
 def create_app(test_config=None): #* crio a fabrica de app, controi o app
     
@@ -24,7 +24,10 @@ def create_app(test_config=None): #* crio a fabrica de app, controi o app
     def hello():
         return 'Hello, World!'
     
-    
+    @app.route('/')
+    def index():
+        return render_template('res/index.html') #* defino a rota para a página inicial da aplicação, que renderiza um template HTML localizado em templates/res/index.html.
+        
     
     #| daqui para frente estao sendo encrementadas depois
     
