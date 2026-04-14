@@ -77,7 +77,7 @@ def login():
         if error is None: #* se não houver erros, autentico o usuário e inicio uma sessão para ele.
             session.clear() #* limpo a sessão atual para garantir que não haja dados antigos.
             session['user_id'] = user['id'] #* armazeno o ID do usuário na sessão para indicar que ele está autenticado.
-            return redirect(url_for('index')) #* redireciono o usuário para a página inicial após um login bem-sucedido.
+            return redirect(url_for('home')) #* redireciono o usuário para a página inicial após um login bem-sucedido.
 
         flash(error) #* se houver um erro, uso a função flash para exibir a mensagem de erro para o usuário.
 

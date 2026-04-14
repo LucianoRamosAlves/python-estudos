@@ -27,6 +27,10 @@ def create_app(test_config=None): #* crio a fabrica de app, controi o app
     @app.route('/')
     def index():
         return render_template('res/index.html') #* defino a rota para a página inicial da aplicação, que renderiza um template HTML localizado em templates/res/index.html.
+    
+    @app.route('/home')
+    def home():
+        return render_template('res/home.html') #* defino a rota para a página inicial da aplicação, que renderiza um template HTML localizado em templates/res/home.html.
         
     
     #| daqui para frente estao sendo encrementadas depois

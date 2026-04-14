@@ -1,63 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{% block title %}Good Workout{% endblock %}</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPAcademy - Prin Fitness Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
 </head>
 <body>
-	<header class="site-header">
-		<div class="container">
-			<nav class="navbar" aria-label="Menu principal">
-				<a class="brand" href="{{ url_for('index') }}">
-					<img
-						class="brand-logo"
-						src="{{ url_for('static', filename='img/logo-placeholder.png') }}"
-						alt="Good Workout Logo"
-					>
-					<span>Good Workout</span>
-				</a>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <div class="logo">PP<span>Academy</span></div>
+                <ul class="nav-links">
+                {% if session.get('user_id') %}
+                    <li><a href="{{ url_for('home') }}#home" class="active">Treino</a></li>
+                    <li><a href="{{ url_for('home') }}#progresso">Progresso</a></li>
+                    <li><a href="{{ url_for('home') }}#status">Status</a></li>
+                    <li><a href="{{ url_for('home') }}#posts">Posts</a></li>
+                    <li><a href="{{ url_for('home') }}#contato">Contato</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('home') }}#home" class="active">Home</a></li>
+                    <li><a href="{{ url_for('home') }}#services">Programas</a></li>
+                    <li><a href="{{ url_for('home') }}#products">Planos</a></li>
+                    <li><a href="{{ url_for('home') }}#testimonials">Depoimentos</a></li>
+                    <li><a href="{{ url_for('home') }}#contact">Contato</a></li>
+                {% endif %}
+                </ul>
+                <div class="nav-cta">
+                {% if session.get('user_id') %}
+					<a href="{{ url_for('home') }}" class="btn btn-primary">Perfil</a>
+                    <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Sair</a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-outline">Login</a>
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Começar Agora</a>
+                {% endif %}
+                </div>
+                <button class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
 
-				<ul class="menu">
-					<li><a href="{{ url_for('index') }}">Home</a></li>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu">
+        <button class="mobile-menu-close">✕</button>
+        <ul class="mobile-nav-links">
+        {% if session.get('user_id') %}
+            <li><a href="{{ url_for('home') }}#treino">Treino</a></li>
+            <li><a href="{{ url_for('home') }}#progresso">Progresso</a></li>
+            <li><a href="{{ url_for('home') }}#status">Status</a></li>
+            <li><a href="{{ url_for('home') }}#posts">Posts</a></li>
+            <li><a href="{{ url_for('home') }}#contato">Contato</a></li>
+        {% else %}
+            <li><a href="{{ url_for('home') }}#home">Home</a></li>
+            <li><a href="{{ url_for('home') }}#services">Programas</a></li>
+            <li><a href="{{ url_for('home') }}#products">Planos</a></li>
+            <li><a href="{{ url_for('home') }}#testimonials">Depoimentos</a></li>
+            <li><a href="{{ url_for('home') }}#contact">Contato</a></li>
+        {% endif %}
+        </ul>
+        <div class="mobile-menu-cta">
+        {% if session.get('user_id') %}
+			    <a href="{{ url_for('home') }}" class="btn btn-primary">Perfil</a>
+            <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Sair</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}" class="btn btn-outline">Login</a>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Começar Agora</a>
+        {% endif %}
 
-					{% if session.user or session.get('user_id') or g.user %}
-						<li><a class="menu-accent" href="{{ url_for('index') }}#services">Dashboard</a></li>
-						<li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-					{% else %}
-						<li><a class="menu-accent" href="{{ url_for('auth.login') }}">Login</a></li>
-					{% endif %}
-				</ul>
-			</nav>
-		</div>
-	</header>
+        </div>
+    </div>
 
-	<main class="app-main">
-		<div class="container">
-			<div class="header-block">
-				{% block header %}{% endblock %}
-			</div>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+		{% block content %}{% endblock %}
+    </section>
 
-			{% for tipo, mensagem in get_flashed_messages(with_categories=true) %}
-				<div class="mensagem {{ tipo }}">{{ mensagem }}</div>
-			{% endfor %}
-
-			<div class="content-shell">
-				{% block content %}{% endblock %}
-			</div>
-		</div>
-	</main>
-
-	<footer class="site-footer">
-		<div class="container footer-wrap">
-			<p>Good Workout Fitness Club</p>
-			<p>Premium Training Experience</p>
-		</div>
-	</footer>
+	{% include 'partials/footer.html' %}
+	
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
 </body>
 </html>
-
