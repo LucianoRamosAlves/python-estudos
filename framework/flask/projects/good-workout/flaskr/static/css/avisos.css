@@ -1,0 +1,153 @@
+    /* =========================
+   MAINTENANCE PAGE
+========================= */
+
+.maintenance {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-dark);
+    padding: 120px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glow de fundo estilo seu hero */
+.maintenance::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 70%;
+    height: 140%;
+    background: radial-gradient(ellipse at center, rgba(184, 134, 11, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+/* Card central */
+.maintenance-card {
+    max-width: 640px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 60px 50px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    position: relative;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+/* Linha dourada premium */
+.maintenance-card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 60px;
+    right: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+}
+
+/* Hover leve (opcional, mas bonito) */
+.maintenance-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold-dark);
+    background: var(--bg-card-hover);
+}
+
+/* Ícone */
+.maintenance-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--gold-dark);
+    color: var(--gold-light);
+    font-size: 36px;
+    transition: all 0.3s ease;
+}
+
+/* animação leve */
+.maintenance-icon {
+    animation: pulse 2s infinite;
+}
+
+/* Título */
+.maintenance-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 48px);
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+/* Destaque dourado */
+.maintenance-title .gold {
+    color: var(--gold-light);
+    font-style: italic;
+}
+
+/* Descrição */
+.maintenance-desc {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+/* Botões */
+.maintenance-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 768px) {
+    .maintenance {
+        padding: 100px 20px;
+    }
+
+    .maintenance-card {
+        padding: 40px 24px;
+    }
+
+    .maintenance-actions {
+        flex-direction: column;
+    }
+
+    .maintenance-title {
+        font-size: 32px;
+    }
+
+    .maintenance-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 28px;
+    }
+}
+
+/* =========================
+   ANIMAÇÃO EXTRA (opcional)
+========================= */
+
+@keyframes maintenanceFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.maintenance-card {
+    animation: maintenanceFadeIn 0.8s ease;
+}

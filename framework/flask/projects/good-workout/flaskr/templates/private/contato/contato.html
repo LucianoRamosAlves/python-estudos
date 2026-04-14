@@ -1,0 +1,19 @@
+ {% extends 'private/base.html' %}
+{% block content %}
+
+
+ <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-inner">
+                <h2 class="cta-title">Pronto para <span class="gold">Começar?</span></h2>
+                <p class="cta-desc">Comece seu treino agora e veja os resultados em poucas semanas. Você tem tudo que precisa para alcançar seus objetivos.</p>
+                <div class="cta-actions">
+                    <button class="btn btn-primary">Iniciar Agora</button>
+                    <button class="btn btn-outline"><a href="{{ url_for('avisos') }}#treino">Falar com Treinador</a></button>
+                </div>
+            </div>
+        </div>
+    </section>
+{% include 'partials/footer.html' %}
+{% endblock %}

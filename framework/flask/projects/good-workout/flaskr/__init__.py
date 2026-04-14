@@ -23,17 +23,42 @@ def create_app(test_config=None): #* crio a fabrica de app, controi o app
     @app.route('/hello') #* defino uma rota de teste para verificar se a aplicação está funcionando corretamente.
     def hello():
         return 'Hello, World!'
+
+    #| daqui para frente estao sendo encrementadas depois
     
     @app.route('/')
-    def index():
-        return render_template('res/index.html') #* defino a rota para a página inicial da aplicação, que renderiza um template HTML localizado em templates/res/index.html.
-    
-    @app.route('/home')
     def home():
-        return render_template('res/home.html') #* defino a rota para a página inicial da aplicação, que renderiza um template HTML localizado em templates/res/home.html.
-        
+        return render_template('public/home/home.html') #* defino a rota para a página inicial da aplicação, que renderiza um template HTML localizado em templates/res/index.html.
     
-    #| daqui para frente estao sendo encrementadas depois
+    @app.route('/dashboard')
+    def dashboard():
+        return render_template('private/home/home.html') #* defino a rota para a página inicial da aplicação, que renderiza um template HTML localizado em templates/res/home.html.
+
+    @app.route('/status')   
+    def status():
+        return render_template('private/status/status.html')
+
+    @app.route('/progresso')   
+    def progresso():
+        return render_template('private/progresso/progresso.html')
+
+    @app.route('/posts')   
+    def posts():
+        return render_template('private/posts/posts.html')
+
+    @app.route('/contato')   
+    def contato():
+        return render_template('private/contato/contato.html')
+    
+    @app.route('/treinos')   
+    def treinos():
+        return render_template('private/treinos/treinos.html')
+
+        
+    @app.route('/avisos')   
+    def avisos():
+        return render_template('private/avisos/avisos.html')
+
     
     from . import db #* importo o módulo db para registrar as funções de banco de dados na aplicação.
     db.init_app(app) #* chamo a função init_app do módulo db para registrar as funções de banco de dados na aplicação.

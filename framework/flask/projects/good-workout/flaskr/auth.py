@@ -72,12 +72,12 @@ def login():
         if user is None: #* se nenhum usuário for encontrado, defino uma mensagem de erro.
             error = 'Nome de usuário incorreto.'
         elif not check_password_hash(user['senha_usuario'], password): #* se a senha fornecida não corresponder à senha hashada armazenada no banco de dados, defino uma mensagem de erro. a função check_password_hash é usada para verificar se a senha fornecida corresponde ao hash armazenado no banco de dados.
-            error = 'Senha incorreta.'
+            error_password = 'Senha incorreta.'
 
         if error is None: #* se não houver erros, autentico o usuário e inicio uma sessão para ele.
             session.clear() #* limpo a sessão atual para garantir que não haja dados antigos.
             session['user_id'] = user['id'] #* armazeno o ID do usuário na sessão para indicar que ele está autenticado.
-            return redirect(url_for('home')) #* redireciono o usuário para a página inicial após um login bem-sucedido.
+            return redirect(url_for('dashboard')) #* redireciono o usuário para a página inicial após um login bem-sucedido.
 
         flash(error) #* se houver um erro, uso a função flash para exibir a mensagem de erro para o usuário.
 
@@ -100,7 +100,7 @@ def load_logged_in_user():
 @bp.route('/logout') #* defino uma rota para o logout de usuários, que aceita apenas o método GET. quando um usuário acessa esta rota, ele será desconectado da aplicação.
 def logout():
     session.clear() #* limpo a sessão para desconectar o usuário.
-    return redirect(url_for('index')) #* redireciono o usuário para a página inicial após o logout.
+    return redirect(url_for('home')) #* redireciono o usuário para a página inicial após o logout.
 
 def login_required(view): #* defino um decorador para proteger rotas que exigem autenticação. este decorador verifica se o usuário está autenticado antes de permitir o acesso à rota protegida.
     @functools.wraps(view) #* uso o decorador wraps para preservar as informações da função original, como seu nome e docstring.

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPAcademy - Prin Fitness Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/avisos.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+</head>
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <div class="logo">PP<span>Academy</span></div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('dashboard') }}#home" class="active">Dashboard</a></li>
+                    <li><a href="{{ url_for('progresso') }}#progresso">Progresso</a></li>
+                    <li><a href="{{ url_for('avisos') }}#status">Status</a></li>
+                    <li><a href="{{ url_for('posts') }}#posts">Posts</a></li>
+                    <li><a href="{{ url_for('contato') }}#contato">Contato</a></li>
+                </ul>
+                <div class="nav-cta">
+					<a href="{{ url_for('avisos') }}" class="btn btn-primary">Perfil</a>
+                    <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Sair</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu">
+        <button class="mobile-menu-close">✕</button>
+        <ul class="mobile-nav-links">
+            <li><a href="{{ url_for('dashboard') }}#treino">Treino</a></li>
+            <li><a href="{{ url_for('progresso') }}#progresso">Progresso</a></li>
+            <li><a href="{{ url_for('avisos') }}#status">Status</a></li>
+            <li><a href="{{ url_for('posts') }}#posts">Posts</a></li>
+            <li><a href="{{ url_for('contato') }}#contato">Contato</a></li>
+        </ul>
+        <div class="mobile-menu-cta">
+			    <a href="{{ url_for('avisos') }}" class="btn btn-primary">Perfil</a>
+            <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Sair</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+		{% block content %}{% endblock %}
+    </section>
+	
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+</body>
+</html>

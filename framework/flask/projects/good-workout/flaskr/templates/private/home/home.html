@@ -1,0 +1,48 @@
+{% extends 'private/base.html' %}
+{% block content %}
+
+    <!-- Hero Section -->
+    <section class="hero" id="dashboard">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="dot"></span>
+                        Bem-vindo de volta
+                    </div>
+                    <h1 class="hero-title">Seu Treino de <span class="gold">Hoje</span></h1>
+                    <p class="hero-desc">Continue sua jornada fitness. Você está no caminho certo para alcançar seus objetivos. Sua sessão de hoje o aguarda.</p>
+                    <div class="hero-actions">
+                        <button  class="btn btn-primary"><a href="{{ url_for('treinos') }}">Iniciar Treino</a></button>
+                        <button class="btn btn-outline"><a href="{{ url_for('avisos') }}">Ver Histórico</a></button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="price-card">
+                        <div class="price-header">
+                            <span class="price-label">Seu Plano</span>
+                            <span class="price-live"><span></span>Ativo</span>
+                        </div>
+                        <div class="price-main">
+                            <div class="price-value">Premium<span class="currency">+</span></div>
+                            <span class="price-change">Renovação em 15 dias</span>
+                        </div>
+                        <div class="price-metals">
+                            <div class="metal-item">
+                                <div class="metal-name">Treinos Completados</div>
+                                <div class="metal-price">24</div>
+                                <div class="metal-change">+3 esta semana</div>
+                            </div>
+                            <div class="metal-item">
+                                <div class="metal-name">Streak Atual</div>
+                                <div class="metal-price">8 dias</div>
+                                <div class="metal-change">Mantenha a consistência</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

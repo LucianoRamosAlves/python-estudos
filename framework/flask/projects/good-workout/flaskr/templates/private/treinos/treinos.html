@@ -1,0 +1,75 @@
+  {% extends 'private/base.html' %}
+{% block content %}
+ 
+   
+   <!-- Today's Workout Section -->
+    <section class="products" id="workouts">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">HOJE</span>
+                <h2 class="section-title">Seu Treino de Hoje</h2>
+                <p class="section-desc">Sessão de Peito e Tríceps - Nível Intermediário</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=400&fit=crop" alt="Supino Reto">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Supino Reto</h3>
+                        <p class="product-weight">4 séries x 8-10 reps</p>
+                        <div class="product-footer">
+                            <span class="product-price">5min rest</span>
+                            <button class="product-btn">✓</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1585534863345-77cc0b1c8e86?w=400&h=400&fit=crop" alt="Supino Inclinado">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Supino Inclinado</h3>
+                        <p class="product-weight">3 séries x 10-12 reps</p>
+                        <div class="product-footer">
+                            <span class="product-price">4min rest</span>
+                            <button class="product-btn">✓</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1521995992877-d3213f99ec11?w=400&h=400&fit=crop" alt="Peck Deck">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Peck Deck</h3>
+                        <p class="product-weight">3 séries x 12-15 reps</p>
+                        <div class="product-footer">
+                            <span class="product-price">3min rest</span>
+                            <button class="product-btn">✓</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1520615662474-8c5bf2151f1f?w=400&h=400&fit=crop" alt="Tríceps Corda">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Tríceps na Corda</h3>
+                        <p class="product-weight">3 séries x 12-15 reps</p>
+                        <div class="product-footer">
+                            <span class="product-price">3min rest</span>
+                            <button class="product-btn">✓</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {% endblock %}

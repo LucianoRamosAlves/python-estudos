@@ -18,28 +18,15 @@
             <div class="nav-inner">
                 <div class="logo">PP<span>Academy</span></div>
                 <ul class="nav-links">
-                {% if session.get('user_id') %}
-                    <li><a href="{{ url_for('home') }}#home" class="active">Treino</a></li>
-                    <li><a href="{{ url_for('home') }}#progresso">Progresso</a></li>
-                    <li><a href="{{ url_for('home') }}#status">Status</a></li>
-                    <li><a href="{{ url_for('home') }}#posts">Posts</a></li>
-                    <li><a href="{{ url_for('home') }}#contato">Contato</a></li>
-                {% else %}
                     <li><a href="{{ url_for('home') }}#home" class="active">Home</a></li>
                     <li><a href="{{ url_for('home') }}#services">Programas</a></li>
                     <li><a href="{{ url_for('home') }}#products">Planos</a></li>
                     <li><a href="{{ url_for('home') }}#testimonials">Depoimentos</a></li>
                     <li><a href="{{ url_for('home') }}#contact">Contato</a></li>
-                {% endif %}
                 </ul>
                 <div class="nav-cta">
-                {% if session.get('user_id') %}
-					<a href="{{ url_for('home') }}" class="btn btn-primary">Perfil</a>
-                    <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Sair</a>
-                {% else %}
                     <a href="{{ url_for('auth.login') }}" class="btn btn-outline">Login</a>
                     <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Começar Agora</a>
-                {% endif %}
                 </div>
                 <button class="mobile-menu-btn">
                     <span></span>
@@ -55,35 +42,21 @@
     <div class="mobile-menu">
         <button class="mobile-menu-close">✕</button>
         <ul class="mobile-nav-links">
-        {% if session.get('user_id') %}
-            <li><a href="{{ url_for('home') }}#treino">Treino</a></li>
-            <li><a href="{{ url_for('home') }}#progresso">Progresso</a></li>
-            <li><a href="{{ url_for('home') }}#status">Status</a></li>
-            <li><a href="{{ url_for('home') }}#posts">Posts</a></li>
-            <li><a href="{{ url_for('home') }}#contato">Contato</a></li>
-        {% else %}
             <li><a href="{{ url_for('home') }}#home">Home</a></li>
             <li><a href="{{ url_for('home') }}#services">Programas</a></li>
             <li><a href="{{ url_for('home') }}#products">Planos</a></li>
             <li><a href="{{ url_for('home') }}#testimonials">Depoimentos</a></li>
             <li><a href="{{ url_for('home') }}#contact">Contato</a></li>
-        {% endif %}
         </ul>
         <div class="mobile-menu-cta">
-        {% if session.get('user_id') %}
-			    <a href="{{ url_for('home') }}" class="btn btn-primary">Perfil</a>
-            <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Sair</a>
-        {% else %}
             <a href="{{ url_for('auth.login') }}" class="btn btn-outline">Login</a>
             <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Começar Agora</a>
-        {% endif %}
-
         </div>
     </div>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-		{% block content %}{% endblock %}
+	{% block content %}{% endblock %}
     </section>
 
 	{% include 'partials/footer.html' %}
