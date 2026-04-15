@@ -1,19 +1,17 @@
 {% extends 'public/base.html' %}
 {% block content %}
-
-<body>   <!-- Registration Section -->
+    <!-- Registration Section -->
     <div class="register-container">
         <div class="register-wrapper">
             <div class="register-header">
                 <h1>Criar Conta</h1>
                 <p>Junte-se à nossa comunidade de investidores premium</p>
             </div>
-
-            <form class="register-form">
+            <form method="post" class="register-form">
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Nome Completo</label>
-                        <input type="text" class="form-input" placeholder="Seu nome" required>
+                        <input type="text" class="form-input" placeholder="Seu nome" name='nome_usuario' required>
                     </div>
                 </div>
 
@@ -27,7 +25,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Senha</label>
-                        <input type="password" class="form-input" placeholder="Criar senha" required>
+                        <input type="password" class="form-input" placeholder="Criar senha" name='senha' required>
                     </div>
                 </div>
 
@@ -45,7 +43,6 @@
                         <a href="#">Política de Privacidade</a>
                     </label>
                 </div>
-
                 <button type="submit" class="btn btn-primary register-submit">Criar Conta</button>
             </form>
 
@@ -54,5 +51,4 @@
             </div>
         </div>
     </div>
-</body>
 {% endblock %}
