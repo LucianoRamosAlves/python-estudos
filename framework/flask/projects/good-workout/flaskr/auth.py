@@ -72,7 +72,7 @@ def login():
         if user is None: #* se nenhum usuário for encontrado, defino uma mensagem de erro.
             error = 'Nome de usuário incorreto.'
         elif not check_password_hash(user['senha_usuario'], password): #* se a senha fornecida não corresponder à senha hashada armazenada no banco de dados, defino uma mensagem de erro. a função check_password_hash é usada para verificar se a senha fornecida corresponde ao hash armazenado no banco de dados.
-            error_password = 'Senha incorreta.'
+            error = 'Senha incorreta.'
 
         if error is None: #* se não houver erros, autentico o usuário e inicio uma sessão para ele.
             session.clear() #* limpo a sessão atual para garantir que não haja dados antigos.
