@@ -1,0 +1,41 @@
+
+ <nav class="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <div class="logo">PP<span>Academy</span></div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('private.dashboard') }}" class="active">Dashboard</a></li>
+                    <li><a href="{{ url_for('private.progresso') }}">Progresso</a></li>
+                    <li><a href="{{ url_for('private.avisos') }}">Status</a></li>
+                    <li><a href="{{ url_for('private.posts') }}">Posts</a></li>
+                    <li><a href="{{ url_for('private.contato') }}">Contato</a></li>
+                </ul>
+                <div class="nav-cta">
+					<a href="{{ url_for('private.avisos') }}" class="btn btn-primary">Perfil</a>
+                    <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Sair</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu">
+        <button class="mobile-menu-close">✕</button>
+        <ul class="mobile-nav-links">
+            <li><a href="{{ url_for('private.dashboard') }}">Treino</a></li>
+            <li><a href="{{ url_for('private.progresso') }}">Progresso</a></li>
+            <li><a href="{{ url_for('private.avisos') }}">Status</a></li>
+            <li><a href="{{ url_for('private.posts') }}">Posts</a></li>
+            <li><a href="{{ url_for('private.contato') }}">Contato</a></li>
+        </ul>
+        <div class="mobile-menu-cta">
+			    <a href="{{ url_for('private.avisos') }}" class="btn btn-primary">Perfil</a>
+            <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Sair</a>
+        </div>
+    </div>

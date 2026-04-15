@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template
 
+
 def create_app(test_config=None): #* crio a fabrica de app, controi o app
     
     app = Flask(__name__, instance_relative_config=True) #* __name__ é o nome do módulo atual, e instance_relative_config=True ativa uma pasta separada para coisas sensíveis, como o banco de dados.
@@ -30,41 +31,15 @@ def create_app(test_config=None): #* crio a fabrica de app, controi o app
     def home():
         return render_template('public/home/home.html') #* defino a rota para a página inicial da aplicação, que renderiza um template HTML localizado em templates/res/index.html.
     
-    @app.route('/dashboard')
-    def dashboard():
-        return render_template('private/home/home.html') #* defino a rota para a página inicial da aplicação, que renderiza um template HTML localizado em templates/res/home.html.
-
-    @app.route('/status')   
-    def status():
-        return render_template('private/status/status.html')
-
-    @app.route('/progresso')   
-    def progresso():
-        return render_template('private/progresso/progresso.html')
-
-    @app.route('/posts')   
-    def posts():
-        return render_template('private/posts/posts.html')
-
-    @app.route('/contato')   
-    def contato():
-        return render_template('private/contato/contato.html')
-    
-    @app.route('/treinos')   
-    def treinos():
-        return render_template('private/treinos/treinos.html')
-
-        
-    @app.route('/avisos')   
-    def avisos():
-        return render_template('private/avisos/avisos.html')
-
     
     from . import db #* importo o módulo db para registrar as funções de banco de dados na aplicação.
     db.init_app(app) #* chamo a função init_app do módulo db para registrar as funções de banco de dados na aplicação.
     
     from . import auth #* importo o módulo auth para registrar as rotas de autenticação na aplicação.
     app.register_blueprint(auth.bp) #* registro o blueprint de autenticação na aplicação.
+
+    from . import private
+    app.register_blueprint(private.bp)
     
 
     return app

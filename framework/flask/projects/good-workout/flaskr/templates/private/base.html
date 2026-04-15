@@ -16,46 +16,14 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/contato.css') }}">
 </head>
 <body>
-    <nav class="nav">
-        <div class="container">
-            <div class="nav-inner">
-                <div class="logo">PP<span>Academy</span></div>
-                <ul class="nav-links">
-                    <li><a href="{{ url_for('dashboard') }}#home" class="active">Dashboard</a></li>
-                    <li><a href="{{ url_for('progresso') }}#progresso">Progresso</a></li>
-                    <li><a href="{{ url_for('avisos') }}#status">Status</a></li>
-                    <li><a href="{{ url_for('posts') }}#posts">Posts</a></li>
-                    <li><a href="{{ url_for('contato') }}#contato">Contato</a></li>
-                </ul>
-                <div class="nav-cta">
-					<a href="{{ url_for('avisos') }}" class="btn btn-primary">Perfil</a>
-                    <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Sair</a>
-                </div>
-                <button class="mobile-menu-btn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </div>
-    </nav>
+   {% if g.user %}
+    {% include 'private/menu/menu.html' %}
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay"></div>
-    <div class="mobile-menu">
-        <button class="mobile-menu-close">✕</button>
-        <ul class="mobile-nav-links">
-            <li><a href="{{ url_for('dashboard') }}#treino">Treino</a></li>
-            <li><a href="{{ url_for('progresso') }}#progresso">Progresso</a></li>
-            <li><a href="{{ url_for('avisos') }}#status">Status</a></li>
-            <li><a href="{{ url_for('posts') }}#posts">Posts</a></li>
-            <li><a href="{{ url_for('contato') }}#contato">Contato</a></li>
-        </ul>
-        <div class="mobile-menu-cta">
-			    <a href="{{ url_for('avisos') }}" class="btn btn-primary">Perfil</a>
-            <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Sair</a>
-        </div>
-    </div>
+    {% else %}
+        {% include 'public/menu/menu.html' %}
+
+    {% endif %}
+
 
     <!-- Hero Section -->
     <section class="hero" id="home">

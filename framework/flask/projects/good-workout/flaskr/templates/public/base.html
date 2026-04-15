@@ -13,46 +13,14 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
 </head>
 <body>
-    <nav class="nav">
-        <div class="container">
-            <div class="nav-inner">
-                <div class="logo">PP<span>Academy</span></div>
-                <ul class="nav-links">
-                    <li><a href="{{ url_for('home') }}" class="active">Home</a></li>
-                    <li><a href="{{ url_for('home') }}">Programas</a></li>
-                    <li><a href="{{ url_for('home') }}">Planos</a></li>
-                    <li><a href="{{ url_for('home') }}">Depoimentos</a></li>
-                    <li><a href="{{ url_for('home') }}">Contato</a></li>
-                </ul>
-                <div class="nav-cta">
-                    <a href="{{ url_for('auth.login') }}" class="btn btn-outline">Login</a>
-                    <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Começar Agora</a>
-                </div>
-                <button class="mobile-menu-btn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </div>
-    </nav>
+    {% if g.user %}
+    {% include 'private/menu/menu.html' %}
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay"></div>
-    <div class="mobile-menu">
-        <button class="mobile-menu-close">✕</button>
-        <ul class="mobile-nav-links">
-            <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="{{ url_for('home') }}">Programas</a></li>
-            <li><a href="{{ url_for('home') }}">Planos</a></li>
-            <li><a href="{{ url_for('home') }}">Depoimentos</a></li>
-            <li><a href="{{ url_for('home') }}">Contato</a></li>
-        </ul>
-        <div class="mobile-menu-cta">
-            <a href="{{ url_for('auth.login') }}" class="btn btn-outline">Login</a>
-            <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Começar Agora</a>
-        </div>
-    </div>
+    {% else %}
+        {% include 'public/menu/menu.html' %}
+
+    {% endif %}
+
 
     <!-- Hero Section -->
     <section class="hero" id="home">
