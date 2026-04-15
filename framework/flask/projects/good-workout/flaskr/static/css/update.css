@@ -1,0 +1,62 @@
+/* UPDATE */
+.posts-update {
+    background: var(--bg-dark);
+}
+
+/* FORM */
+.post-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 40px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 14px;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    transition: 0.3s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    border-color: var(--gold-primary);
+    background: var(--bg-card-hover);
+    outline: none;
+}
+
+.form-textarea {
+    min-height: 120px;
+}
+
+/* PREVIEW */
+.image-preview {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+/* BOTÕES */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}

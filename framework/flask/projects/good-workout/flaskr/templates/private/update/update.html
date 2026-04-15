@@ -1,0 +1,62 @@
+{% extends 'private/base.html' %}
+
+{% block content %}
+<section class="posts-update">
+    <div class="container">
+
+        <div class="section-header">
+            <span class="section-label">EDIÇÃO</span>
+            <h2 class="section-title">Editar Post</h2>
+            <p class="section-desc">Atualize as informações do seu post</p>
+        </div>
+
+        <form method="post" class="post-form">
+
+            <!-- TÍTULO -->
+            <div class="form-group">
+                <label class="form-label">Título</label>
+                <input type="text" name="title"
+                       class="form-input"
+                       value="{{ post['title'] }}"
+                       required>
+            </div>
+
+            <!-- DESCRIÇÃO -->
+            <div class="form-group">
+                <label class="form-label">Descrição</label>
+                <textarea name="descricao"
+                          class="form-textarea"
+                          required>{{ post['descricao'] }}</textarea>
+            </div>
+
+            <!-- IMAGEM -->
+            <div class="form-group">
+                <label class="form-label">URL da imagem</label>
+                <input type="text" name="image_url"
+                       class="form-input"
+                       value="{{ post['image_url'] }}">
+            </div>
+
+            <!-- PREVIEW DA IMAGEM -->
+            {% if post['image_url'] %}
+            <div class="image-preview"
+                 style="background-image: url('{{ post['image_url'] }}');">
+            </div>
+            {% endif %}
+
+            <!-- BOTÕES -->
+            <div class="form-actions">
+                <a href="{{ url_for('blog.index') }}" class="btn-outline">
+                    Cancelar
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                    Atualizar Post
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</section>
+{% endblock %}

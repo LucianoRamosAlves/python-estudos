@@ -180,3 +180,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
+let formToSubmit = null;
+
+document.querySelectorAll(".delete-btn").forEach(btn => {
+    btn.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        formToSubmit = this.closest("form");
+
+        document.getElementById("deleteModal").classList.add("active");
+    });
+});
+
+document.getElementById("cancelDelete").onclick = () => {
+    document.getElementById("deleteModal").classList.remove("active");
+};
+
+document.getElementById("confirmDelete").onclick = () => {
+    if (formToSubmit) {
+        formToSubmit.submit();
+    }
+};

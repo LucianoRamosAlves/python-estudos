@@ -2,7 +2,7 @@ create database if not exists bom_treino;
 
 
 drop table if exists checkins;
-drop table if exists fotos;
+drop table if exists pots;
 drop table if exists evolucao;
 drop table if exists treinos;
 drop table if exists  usuario;
@@ -40,11 +40,12 @@ create table evolucao (
     foreign key (checkin_id) references checkins(id) on delete cascade
 );
 
-create table fotos (
+create table posts (
     id int auto_increment primary key,
-    checkin_id int not null,
-    url varchar(255) not null,
-    data_foto date not null,
+    author_id int not null,
+    image_url varchar(255) not null,
+    title Text not null,
+    created_at datetime not null default current_timestamp,
     descricao text,
-    foreign key (checkin_id) references checkins(id) on delete cascade
+    foreign key (author_id) references usuario(id) on delete cascade
 );

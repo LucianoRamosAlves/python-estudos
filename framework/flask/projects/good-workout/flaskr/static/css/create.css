@@ -1,0 +1,45 @@
+/* CRIAR POST */
+.posts-create {
+    background: var(--bg-dark);
+}
+
+.post-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 40px;
+}
+
+.post-form .form-group {
+    margin-bottom: 20px;
+}
+
+.post-form .form-label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.post-form .form-input,
+.post-form .form-textarea {
+    width: 100%;
+    padding: 14px;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    transition: 0.3s;
+}
+
+.post-form .form-input:focus,
+.post-form .form-textarea:focus {
+    border-color: var(--gold-primary);
+    background: var(--bg-card-hover);
+    outline: none;
+}
+
+.form-submit {
+    width: 100%;
+}

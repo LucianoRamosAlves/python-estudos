@@ -1,48 +1,225 @@
-
- {% extends 'private/base.html' %}
+{% extends 'private/base.html' %}
 {% block content %}
+<style>
+    /* POSTS */
+.posts {
+    background: var(--bg-dark);
+}
 
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
 
-    <!-- Posts/Community Section -->
-    <section class="testimonials" id="posts" >
-        <div class="container" id="container" >
-            <div class="section-header">
-                <span class="section-label">COMUNIDADE</span>
-                <h2 class="section-title">Posts Recentes</h2>
-                <p class="section-desc">Inspiração e dicas de seus colegas de treino</p>
-            </div>
+/* RESPONSIVO */
+@media (max-width: 900px) {
+    .posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
-            <div>
-                <div class="service-card">
-                    <div class='foto_card'></div>
-                    <h3 class="service-title">Meu Primeiro Deadlift 200kg!</h3>
-                    <p class="service-desc">Acabei de alcançar minha meta pessoal. 6 meses de consistência e determinação. Obrigado pelos treinos!</p>
-                    <div class='text_card'>
-                        <span>João Santos</span>
-                        <span>há 2 horas</span>
-                    </div>
-                </div>
+@media (max-width: 500px) {
+    .posts-grid {
+        grid-template-columns: 1fr;
+    }
+}
 
-                <div class="service-card">
-                    <div class='foto_card'></div>
-                    <h3 class="service-title">Dica: Aquecimento Inteligente</h3>
-                    <p class="service-desc">Aprender a aquecer corretamente evita lesões e melhora o desempenho. Compartilho minha rotina de warm-up.</p>
-                    <div class='text_card'>
-                        <span>Maria Oliveira</span>
-                        <span>há 5 horas</span>
-                    </div>
-                </div>
+/* CARD */
+.post-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
 
-                <div class="service-card">
-                    <div class='foto_card'></div>
-                    <h3 class="service-title">Antes e Depois - 90 dias</h3>
-                    <p class="service-desc">Transformação completa com o programa Premium. Dieta + Treinos = Resultados. Vocês conseguem!</p>
-                    <div class='text_card'>
-                        <span>Carlos Mendes</span>
-                        <span>há 1 dia</span>
-                    </div>
-                </div>
-            </div>
+.post-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold-primary);
+}
+
+/* IMAGEM */
+.post-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+/* CONTEÚDO */
+.post-content {
+    padding: 20px;
+}
+
+.post-content h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.post-content p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+/* META */
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+/* AÇÕES */
+.post-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* BOTÕES */
+.btn-outline {
+    padding: 8px 14px;
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-light);
+    background: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-outline:hover {
+    background: var(--gold-primary);
+    color: var(--bg-dark);
+}
+
+.btn-danger {
+    padding: 8px 14px;
+    border: none;
+    background: var(--danger);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-danger:hover {
+    opacity: 0.8;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+    z-index: 9999;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeInUp 0.4s ease;
+}
+
+.modal-box h3 {
+    margin-bottom: 10px;
+    color: var(--gold-light);
+}
+
+.modal-box p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+</style>
+<section class="posts" id="posts">
+    <div class="container">
+
+        <div class="section-header">
+            <span class="section-label">COMUNIDADE</span>
+            <h2 class="section-title">Posts Recentes</h2>
+            <p class="section-desc">Inspiração e dicas de seus colegas</p>
+
+            <!-- BOTÃO POSTAR -->
+            <a href="{{ url_for('blog.create') }}" class="btn btn-primary">
+                + Criar Post
+            </a>
         </div>
-    </section>
+
+        <!-- GRID DE POSTS -->
+        <div class="posts-grid">
+
+            {% for post in posts %}
+            <div class="post-card">
+
+                <div class="post-image"
+                     style="background-image: url('{{ post['image_url'] }}');">
+                </div>
+
+                <div class="post-content">
+                    <h3>{{ post['title'] }}</h3>
+                    <p>{{ post['descricao'] }}</p>
+
+                    <div class="post-meta">
+                        <span>{{ post['usuario'] }}</span>
+                        <span>{{ post['created_at'] }}</span>
+                    </div>
+                  
+                    <!-- AÇÕES -->
+                    <div class="post-actions">
+                          {% if g.user and g.user['id'] == post['author_id'] %}
+                        <a href="{{ url_for('blog.update', id=post['id']) }}" class="btn-outline">
+                            Editar
+                        </a>
+
+                        <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
+                           <button class="btn-danger delete-btn">
+                            Deletar
+                        </button>
+                        </form>
+                    {% endif %}
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <div id="deleteModal" class="modal">
+    <div class="modal-box">
+        <h3>Confirmar exclusão</h3>
+        <p>Tem certeza que deseja excluir este post?</p>
+
+        <div class="modal-actions">
+            <button id="cancelDelete" class="btn-outline">Cancelar</button>
+            <button id="confirmDelete" class="btn-danger">Excluir</button>
+        </div>
+    </div>
+</div>
+</section>
+
+
 {% endblock %}

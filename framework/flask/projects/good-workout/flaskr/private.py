@@ -24,7 +24,7 @@ def progresso():
 
 @bp.route('/posts')   
 def posts():
-    return render_template('private/posts/posts.html')
+    return redirect(url_for('blog.index'))
 
 @bp.route('/contato')   
 def contato():

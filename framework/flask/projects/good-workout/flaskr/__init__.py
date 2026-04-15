@@ -39,7 +39,15 @@ def create_app(test_config=None): #* crio a fabrica de app, controi o app
     app.register_blueprint(auth.bp) #* registro o blueprint de autenticação na aplicação.
 
     from . import private
-    app.register_blueprint(private.bp)
+    app.register_blueprint(private.bp, url_prefix='/app')
+
+    from . import blog
+    app.register_blueprint(blog.bp)
+
+    
+    @app.route('/posts')
+    def app_posts():
+        return redirect(url_for('blog.index'))
     
 
     return app
