@@ -202,3 +202,11 @@ document.getElementById("confirmDelete").onclick = () => {
         formToSubmit.submit();
     }
 };
+
+setTimeout(() => {
+    document.querySelectorAll('.flash').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(100%)';
+        setTimeout(() => el.remove(), 500);
+    });
+}, 3000);

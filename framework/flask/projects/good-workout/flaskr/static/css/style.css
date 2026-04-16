@@ -711,3 +711,53 @@ body.menu-open {
         grid-template-columns: 1fr;
     }
 }
+
+/* FLASH MESSAGES */
+.flash-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.flash {
+    padding: 16px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    min-width: 250px;
+    animation: fadeInUp 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* LINHA DOURADA */
+.flash::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: var(--gold-primary);
+}
+
+/* TIPOS */
+.flash.success {
+    border-color: var(--success);
+}
+
+.flash.success::before {
+    background: var(--success);
+}
+
+.flash.danger {
+    border-color: var(--danger);
+}
+
+.flash.danger::before {
+    background: var(--danger);
+}

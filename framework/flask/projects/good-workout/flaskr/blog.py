@@ -26,6 +26,7 @@ def index():
     return render_template('private/posts/posts.html', posts=posts)
     
 @bp.route('/create', methods=('GET', 'POST'))
+
 @login_required
 def create():
     if request.method == 'POST':
@@ -50,8 +51,9 @@ def create():
             )
 
             db.commit()
-            return redirect(url_for('blog.index'))
 
+            flash('Post criado com sucesso!', 'success')
+            return redirect(url_for('blog.index'))
     return render_template('private/create/create.html')
 
 def get_post(id, check_author=True):
@@ -87,7 +89,7 @@ def delete(id):
 
     cursor.execute('DELETE FROM posts WHERE id = %s', (id,))
     db.commit()
-
+    flash('Post deletado com sucesso!', 'danger')
     return redirect(url_for('blog.index'))
 
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
@@ -117,6 +119,8 @@ def update(id):
             )
 
             db.commit()
+
+            flash('Post atualizado com sucesso!', 'success')
             return redirect(url_for('blog.index'))
 
     return render_template('private/update/update.html', post=post)
