@@ -4,6 +4,18 @@
     <div class="login-container">
         <div class="login-wrapper">
             <div class="login-card">
+
+                <!-- 🔥 ADICIONE ISSO -->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="flash-container">
+                            {% for message in messages %}
+                                <p class="flash-message">{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
                 <div class="login-header">
                     <h1 class="login-title">Bem-vindo</h1>
                     <p class="login-subtitle">Acesse sua conta premium de ouro</p>
@@ -12,12 +24,14 @@
                 <form method="post" class="login-form">
                     <div class="form-group">
                         <label for="nome_usuario" class="form-label">Seu nome de usuário</label>
-                        <input id="nome_usuario" name="nome_usuario" type="text" class="form-input" placeholder="seu@email.com" required>
+                        <!-- 🔥 REMOVER required -->
+                        <input id="nome_usuario" name="nome_usuario" type="text" class="form-input" placeholder="seu@email.com">
                     </div>
 
                     <div class="form-group">
                         <label for="senha" class="form-label">Senha</label>
-                        <input id="senha" name="senha" type="password" class="form-input" placeholder="••••••••" required>
+                        <!-- 🔥 REMOVER required -->
+                        <input id="senha" name="senha" type="password" class="form-input" placeholder="••••••••">
                     </div>
 
                     <div class="form-remember">
@@ -52,5 +66,4 @@
         </div>
     </div>
 </main>
-
 {% endblock %}

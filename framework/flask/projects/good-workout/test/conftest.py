@@ -1,31 +1,49 @@
 import os
-import tempfile
-
 import pytest
 from flaskr import create_app
 from flaskr.db import get_db, init_db
-
-with open(os.path.join(os.path.dirname(__file__), 'data.sql'), 'rb') as f:
-    _data_sql = f.read().decode('utf8')
+from werkzeug.security import generate_password_hash  # 🔥 IMPORTANTE
 
 
 @pytest.fixture
 def app():
-    db_fd, db_path = tempfile.mkstemp()
-
     app = create_app({
         'TESTING': True,
-        'DATABASE': db_path,
+        'DB_HOST': 'localhost',
+        'DB_USER': 'testuser',
+        'DB_PASSWORD': '123456',
+        'DB_NAME': 'flaskr_test',
     })
 
     with app.app_context():
         init_db()
-        get_db().executescript(_data_sql)
+
+        db = get_db()
+        cursor = db.cursor()
+
+        # limpa dados antes dos testes
+        cursor.execute("DELETE FROM posts")
+        cursor.execute("DELETE FROM usuario")
+
+        # 🔥 CORREÇÃO PRINCIPAL AQUI (senha com hash)
+        cursor.execute(
+            "INSERT INTO usuario (nome_usuario, senha_usuario) VALUES (%s, %s)",
+            ('test', generate_password_hash('test'))
+        )
+
+        cursor.execute(
+            "INSERT INTO usuario (nome_usuario, senha_usuario) VALUES (%s, %s)",
+            ('other2', generate_password_hash('test'))
+        )
+
+        # 🔥 ADICIONA ISSO
+        cursor.execute(
+            "INSERT INTO posts (title, descricao, image_url, author_id) VALUES (%s, %s, %s, %s)",
+            ('test title', 'test\nbody', '', 1)
+        )
+        db.commit()
 
     yield app
-
-    os.close(db_fd)
-    os.unlink(db_path)
 
 
 @pytest.fixture
@@ -37,14 +55,18 @@ def client(app):
 def runner(app):
     return app.test_cli_runner()
 
-class AuthActions(object):
+
+class AuthActions:
     def __init__(self, client):
         self._client = client
 
     def login(self, nome_usuario='test', senha_usuario='test'):
         return self._client.post(
             '/auth/login',
-            data={'nome_usuario': username, 'senha_usuario': password}
+            data={
+                'nome_usuario': nome_usuario,
+                'senha': senha_usuario
+            }
         )
 
     def logout(self):

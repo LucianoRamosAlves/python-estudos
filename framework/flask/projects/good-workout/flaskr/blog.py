@@ -76,6 +76,11 @@ def get_post(id, check_author=True):
     if check_author and post['author_id'] != g.user['id']:
         abort(403)
 
+    if post is None:
+        abort(404)
+
+
+
     return post
 
 

@@ -1,11 +1,22 @@
 [project]
 name = "flaskr"
 version = "1.0.0"
-description = "The basic site app built in the Flask tutorial."
+description = "App Flask com autenticação e posts"
 dependencies = [
     "flask",
+    "pymysql",     # ✅ você usa MySQL
+    "pytest",      # ✅ testes
+    "coverage"     # ✅ cobertura de testes
 ]
 
 [build-system]
 requires = ["flit_core<4"]
 build-backend = "flit_core.buildapi"
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+addopts = "-v"
+
+[tool.coverage.run]
+branch = true
+source = ["flaskr"]
