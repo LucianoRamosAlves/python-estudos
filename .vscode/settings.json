@@ -1,3 +1,10 @@
 {
-    "inline-bookmarks.view.showVisibleFilesOnly": true
+    "inline-bookmarks.view.showVisibleFilesOnly": true,
+    "python-envs.pythonProjects": [
+        {
+            "path": "file/concepts",
+            "envManager": "ms-python.python:venv",
+            "packageManager": "ms-python.python:pip"
+        }
+    ]
 }
