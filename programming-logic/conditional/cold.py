@@ -7,11 +7,13 @@ while numero != segredo:
     numero = int(input('Digite seu numero: '))
     print('Boa sorte!')
 
-    # Calcula distância do segredo
+    if numero == 0:
+        print('saindo')
+        break
+
     distancia = abs(numero - segredo)
 
-    # Define status corretamente
-    if distancia >= 50
+    if distancia >= 50:
         status = 'frio'
     elif distancia >= 20:
         status = 'morno'
@@ -30,4 +32,8 @@ while numero != segredo:
 
     contagem += 1
 
-print(f'voce acertou, tentativas {contagem}')
+# fora do while
+if numero == segredo:
+    print(f'voce acertou, tentativas {contagem}')
+else:
+    print('voce desistiu.')
