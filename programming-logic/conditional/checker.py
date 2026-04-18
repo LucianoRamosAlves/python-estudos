@@ -1,4 +1,4 @@
-number = float(input('digite um numero : '))
+number = int(input('digite um numero : '))
 text = ''
 tipo = ''
 
