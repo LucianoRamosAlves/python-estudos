@@ -1,3 +1,16 @@
 Responsavél: Jaime
  data: 2026-04-18 23:46:39.644404 saldo: R$: 500
+ situação RUIMResponsavél: Lucas
+ data: 2026-04-18 23:53:20.735490 saldo: R$: 1390.0
+ situação BOMResponsavél: Hugo
+ data: 2026-04-18 23:55:20.146373 saldo: R$: 569.19
+ situação REGULAR
+
+Responsavél: Maria
+ data: 2026-04-18 23:55:52.154668 saldo: R$: 420.13
  situação RUIM
+
+Responsavél: Pedro
+ data: 2026-04-18 23:58:18.294004 saldo: R$: 500
+ situação RUIM
+

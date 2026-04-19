@@ -52,8 +52,8 @@ while opcao != "5":
                     status = 'REGULAR'
                 else:
                     status = 'RUIM'
-                with open("caixa.txt", "w") as saldo_caixa:
-                    saldo_caixa.write(f"Responsavél: {nome}\n data: {data} saldo: R$: {caixa}\n situação {status}")
+                with open("caixa.txt", "a") as saldo_caixa:
+                    saldo_caixa.write(f"Responsavél: {nome}\n data: {data} saldo: R$: {caixa}\n situação {status}\n\n")
                     print('Caixa finalizado')
                     print(f'Responsavél {nome}')
                     break
