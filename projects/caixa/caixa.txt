@@ -1,3 +1,3 @@
-Responsavél: Vini
- data: 2026-04-18 23:38:58.457366 saldo: R$: 1178.0
- situação BOM
+Responsavél: Jaime
+ data: 2026-04-18 23:46:39.644404 saldo: R$: 500
+ situação RUIM
