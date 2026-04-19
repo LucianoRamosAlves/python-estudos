@@ -27,6 +27,9 @@ def entrada(valor):
     return caixa
 
 opcao = ''
+status = ''
+
+
 nome = input('Nome do operador: ').capitalize()
 while opcao != "5":
 
@@ -38,12 +41,15 @@ while opcao != "5":
     [4]. Fechar caixa
     [5]. Fechar Programa
     """)
+    
+    try:
+        opcao = str(input("Digite uma opção (0-5) ou 'fechar' para encerrar: ").lower())
+    except:
+        print('opção invalida')
+        print('tente novamente')
+        continue
 
-    opcao = input("Digite uma opção (0-5) ou 'fechar' para encerrar: ").lower()
-    status = ''
-
-    try: #! esse try esta mal posicionado, ele deveria envolver apenas a parte onde o usuário digita a opção, para evitar que erros de digitação ou conversão de tipo quebrem o programa, mas para esse exemplo simples, vamos deixar assim.
-        if opcao == '4':
+    if opcao == '4':
             opcao_fechar = input('Deseja realmente fechar o caixa? (s/n) ').lower()
             if opcao_fechar == 's':
                 if caixa > 1000:
@@ -53,18 +59,14 @@ while opcao != "5":
                 else:
                     status = 'RUIM'
                 with open("caixa.txt", "a") as saldo_caixa:
-                    saldo_caixa.write(f"Responsavél: {nome}\n data: {data} saldo: R$: {caixa}\n situação {status}\n\n")
+                    saldo_caixa.write(f"Responsavél: {nome}\n data: {data} saldo: R$: {caixa:.2f}\n situação {status}\n\n")
                     print('Caixa finalizado')
                     print(f'Responsavél {nome}')
                     break
             else:
                 print('Caixa ainda aberto!')
                 continue
-    except:
-        print('opção invalida')
-        print('tente novamente')
-
-    else:
+    try:
         if opcao == '0':
             print(f'Saldo atual: R$: {caixa}')
         elif opcao == '1':
@@ -80,8 +82,11 @@ while opcao != "5":
             print('opção invalida')
             print('tente novamente')
             continue
+    except:
+        print('opss: Numero invalido')
+        print('tente novamente')
 else:
     print('Caixa ainda aberto!')
 
-# TODO: FAZER MELHORAR O CODIGO COM TRATAMENTO DE ERROS, VER SE É POSSIVEL USAR O TRY APENAS NA PARTE DE DIGITAÇÃO DA OPÇÃO, E VER SE É POSSIVEL USAR O EXCEPT PARA TRATAR ERROS DE DIGITAÇÃO DE VALORES, COMO LETRAS OU SIMBOLOS, QUE QUEBRAM O PROGRAMA.
+# TODO: FAZER MELHORAR O CODIGO COM TRATAMENTO DE ERROS,
 
