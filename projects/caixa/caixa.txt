@@ -14,3 +14,11 @@ Responsavél: Pedro
  data: 2026-04-18 23:58:18.294004 saldo: R$: 500
  situação RUIM
 
+Responsavél: Lulu
+ data: 2026-04-19 02:58:49.169079 saldo: R$: 953.9300000000001
+ situação REGULAR
+
+Responsavél: Marcos
+ data: 2026-04-19 03:04:14.590465 saldo: R$: 858.0150000000001
+ situação REGULAR
+
