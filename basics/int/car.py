@@ -20,14 +20,24 @@ def validação_quantidades_carros():
 
 def calculos():
     quantidade_vagas = quantidade_carros * 4
+    carros_cheios = quantidade_pessoas // 4
+    pessoas_esperando = quantidade_pessoas % 4
+    pessoas_carro = quantidade_carros * 4
+    pessoas_emPe = quantidade_pessoas - pessoas_carro
+
     if quantidade_pessoas > quantidade_vagas:
-        carros_cheios = quantidade_pessoas // 4
-        pessoas_esperando = quantidade_pessoas % 4
-        pessoas_carro = quantidade_carros * 4
-        pessoas_emPe = quantidade_pessoas - pessoas_carro
         print('Infelizmente não terá vagas para todos')
         print(f' No momento {quantidade_carros} carros levara {pessoas_carro} pessoas e ficara {pessoas_emPe} pessoas ')
         print(f'Serão nescessarios {carros_cheios} carros e {pessoas_esperando} ficaram esperando')
+
+    else:
+        print('Todos pronto para a viagem!')
+        if quantidade_pessoas % 4 == 0:
+            print(f'Serão nescessarios {carros_cheios} carros')
+        else:
+            print(f'Serão nescessarios {carros_cheios + 1} carros')
+
+            
 
 
 try:
