@@ -10,3 +10,10 @@ def divida(valor):
         return print("saldo no caixa insuficiente.")
     return caixa
 
+def troco(valor):
+    global caixa
+    if valor <= caixa:
+        caixa -= valor
+    else:
+        return print("saldo no caixa insuficiente.")
+    return caixa
