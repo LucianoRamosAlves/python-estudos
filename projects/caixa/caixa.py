@@ -3,14 +3,14 @@ data = datetime.now()
 caixa = 500
 
 def divida(valor):
-    global caixa
+    global caixa #! não é recomendado usar global, mas para esse exemplo simples, vamos usar para modificar a variável caixa dentro da função
     if valor <= caixa:
         caixa -= valor
     else:
         return print("saldo no caixa insuficiente.")
     return caixa
 
-def troco(valor):
+def troco(valor): #! essa função é praticamente igual a divida, mas para esse exemplo, vamos deixar assim para ilustrar a ideia de funções diferentes para cada tipo de operação, mesmo que a lógica seja similar.
     global caixa
     if valor <= caixa:
         caixa -= valor
@@ -42,7 +42,7 @@ while opcao != "5":
     opcao = input("Digite uma opção (0-5) ou 'fechar' para encerrar: ").lower()
     status = ''
 
-    try:
+    try: #! esse try esta mal posicionado, ele deveria envolver apenas a parte onde o usuário digita a opção, para evitar que erros de digitação ou conversão de tipo quebrem o programa, mas para esse exemplo simples, vamos deixar assim.
         if opcao == '4':
             opcao_fechar = input('Deseja realmente fechar o caixa? (s/n) ').lower()
             if opcao_fechar == 's':
@@ -82,4 +82,6 @@ while opcao != "5":
             continue
 else:
     print('Caixa ainda aberto!')
+
+# TODO: FAZER MELHORAR O CODIGO COM TRATAMENTO DE ERROS, VER SE É POSSIVEL USAR O TRY APENAS NA PARTE DE DIGITAÇÃO DA OPÇÃO, E VER SE É POSSIVEL USAR O EXCEPT PARA TRATAR ERROS DE DIGITAÇÃO DE VALORES, COMO LETRAS OU SIMBOLOS, QUE QUEBRAM O PROGRAMA.
 
