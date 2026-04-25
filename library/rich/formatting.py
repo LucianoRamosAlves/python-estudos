@@ -10,3 +10,4 @@ rich_print(" meu nome é [b magenta]Ramon[/b magenta] eu tenho [b cyan]30 anos[/
 rich_print(" meu nome é [r]pedro[/r] e eu tenho [s cyan]30 anos[/s cyan]")
 rich_print(" meu nome é [i]pedro[/i] e eu tenho [u red]30 anos[/u red]")
 rich_print(" meu nome é [r]pedro[/r] e eu tenho [blink]30 anos[/blink]")
+
