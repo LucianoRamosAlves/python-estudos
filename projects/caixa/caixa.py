@@ -44,7 +44,7 @@ while opcao != "5":
     
     try:
         opcao = str(input("Digite uma opção (0-5) ou 'fechar' para encerrar: ").lower())
-    except:
+    except ValueError:
         print('opção invalida')
         print('tente novamente')
         continue
@@ -82,7 +82,7 @@ while opcao != "5":
             print('opção invalida')
             print('tente novamente')
             continue
-    except:
+    except ValueError:
         print('opss: Numero invalido')
         print('tente novamente')
 else:
