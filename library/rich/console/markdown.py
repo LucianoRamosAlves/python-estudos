@@ -3,7 +3,7 @@ from rich.markdown import Markdown
 
 nome = "Ramon"
 markdown_text = """
-# Título Principal {nome}
+# Título Principal
 ## Subtítulo
 - Item 1
 - Item 2
