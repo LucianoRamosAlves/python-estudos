@@ -22,4 +22,5 @@ rich_print(Panel(
     style="bold blue",
     expand=True,
     border_style="blue",
+    
 ))
