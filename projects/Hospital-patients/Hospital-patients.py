@@ -12,8 +12,6 @@ def limpar_tela():
 
 console = Console()
 
-# nome  tempo  prioridade  
-pacientes = ['nome', 0, False]
 pacientes_normal = []
 pacientes_prioritarios = []
 pacientes_atendidos = []
@@ -69,7 +67,7 @@ def atender_paciente():
 
 def listar_pacientes():
     limpar_tela()
-    with console.status("[bold blue]atendendo paciente normal...", spinner="arc", spinner_style="bold blue") as status:
+    with console.status("[bold blue]listando pacientes...", spinner="arc", spinner_style="bold blue") as status:
             sleep(1)
     if not pacientes_prioritarios and not pacientes_normal:
         rich_print("[bold red]Não há pacientes na fila![/]")
@@ -87,7 +85,7 @@ def buscar_paciente():
     limpar_tela()
     nome = input("Digite o nome do paciente que deseja buscar: ")
 
-    with console.status("[bold blue]atendendo paciente normal...", spinner="circle", spinner_style="bold blue") as status:
+    with console.status("[bold blue]buscando paciente...", spinner="circle", spinner_style="bold blue") as status:
             sleep(1)
     
     for paciente in pacientes_prioritarios + pacientes_normal:
