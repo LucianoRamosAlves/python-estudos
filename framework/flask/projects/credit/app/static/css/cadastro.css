@@ -1,0 +1,1092 @@
+/* ==========================================
+   CREDIFÁCIL - Cadastro Page Styles
+   Metallic Gray Palette
+   ========================================== */
+
+:root {
+    --gray-900: #0d0d0d;
+    --gray-850: #141414;
+    --gray-800: #1a1a1a;
+    --gray-750: #1f1f1f;
+    --gray-700: #2a2a2a;
+    --gray-650: #333333;
+    --gray-600: #404040;
+    --gray-500: #5c5c5c;
+    --gray-400: #808080;
+    --gray-300: #a0a0a0;
+    --gray-200: #c0c0c0;
+    --gray-100: #d4d4d4;
+    --gray-50:  #e8e8e8;
+    --gray-25:  #f5f5f5;
+
+    --accent:        #b0b0b0;
+    --accent-light:  #d4d4d4;
+    --accent-dark:   #8a8a8a;
+
+    --gradient-main: linear-gradient(135deg, #d4d4d4 0%, #8a8a8a 50%, #5c5c5c 100%);
+    --gradient-card: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    --gradient-btn:  linear-gradient(135deg, #5c5c5c, #404040);
+
+    --fonte1: 'Plus Jakarta Sans', sans-serif;
+    --fonte2: 'Inter', sans-serif;
+
+    --border-color: #2a2a2a;
+    --border-radius: 12px;
+    --border-radius-lg: 20px;
+
+    --shadow-lg:  0 8px 40px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 30px rgba(176, 176, 176, 0.1);
+}
+
+/* ==========================================
+   RESET
+   ========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background: var(--gray-900);
+    color: var(--gray-100);
+    font-family: var(--fonte2);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ==========================================
+   UTILITY
+   ========================================== */
+
+.gradient-text {
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-icon {
+    font-size: 2rem;
+    color: var(--accent);
+}
+
+.logo-destaque {
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================
+   CADASTRO WRAPPER
+   ========================================== */
+
+.cad-wrapper {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    min-height: 100vh;
+}
+
+/* ==========================================
+   LEFT PANEL - VISUAL
+   ========================================== */
+
+.cad-visual {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--gray-850);
+}
+
+.cad-visual-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(42, 42, 42, 0.4) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.cad-visual-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem;
+}
+
+/* Credit Card */
+.cad-visual-card {
+    width: 32rem;
+    height: 19rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #0d0d0d 100%);
+    border: 1px solid var(--gray-600);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    margin-bottom: 4rem;
+    animation: cadCardFloat 6s ease-in-out infinite;
+}
+
+@keyframes cadCardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.cad-chip {
+    position: absolute;
+    top: 2.5rem;
+    left: 2.5rem;
+    display: flex;
+    gap: 0.3rem;
+}
+
+.cad-chip span {
+    display: block;
+    width: 3.2rem;
+    height: 2.4rem;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #b0b0b0, #808080);
+}
+
+.cad-chip span:last-child {
+    width: 1.8rem;
+    height: 2.4rem;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #8a8a8a, #5c5c5c);
+}
+
+.cad-sinal {
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
+    display: flex;
+    gap: 0.4rem;
+}
+
+.cad-sinal span {
+    display: block;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    border: 1px solid var(--gray-500);
+}
+
+.cad-sinal span:nth-child(2) { opacity: 0.6; }
+.cad-sinal span:nth-child(3) { opacity: 0.3; }
+
+.cad-visual-numero {
+    font-family: var(--fonte1);
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--gray-200);
+    margin-bottom: 1.2rem;
+}
+
+.cad-visual-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cad-visual-info span {
+    font-family: var(--fonte2);
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-400);
+}
+
+/* Text */
+.cad-visual-texto {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.cad-visual-texto h2 {
+    font-family: var(--fonte1);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--gray-50);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.cad-visual-texto p {
+    font-size: 1.5rem;
+    color: var(--gray-400);
+    line-height: 1.7;
+    max-width: 34rem;
+}
+
+/* Steps */
+.cad-visual-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 32rem;
+}
+
+.cad-step {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    background: rgba(26, 26, 26, 0.5);
+    transition: all 0.3s;
+}
+
+.cad-step:hover {
+    border-color: var(--gray-600);
+    background: rgba(26, 26, 26, 0.8);
+}
+
+.step-num {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    background: var(--gradient-btn);
+    border: 1px solid var(--gray-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fonte1);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gray-100);
+    flex-shrink: 0;
+}
+
+.step-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.step-texto strong {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--gray-100);
+}
+
+.step-texto span {
+    font-size: 1.2rem;
+    color: var(--gray-400);
+}
+
+/* Floating Elements */
+.cad-visual-floating {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.cvt-float {
+    position: absolute;
+    font-size: 1.6rem;
+    color: var(--gray-500);
+    animation: cvtFloat 6s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+}
+
+@keyframes cvtFloat {
+    0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+    50% { transform: translate(var(--x, -25px), var(--y, -18px)); opacity: 0.8; }
+}
+
+/* ==========================================
+   RIGHT PANEL - FORM
+   ========================================== */
+
+.cad-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 5rem 3rem;
+    overflow-y: auto;
+}
+
+.cad-header {
+    margin-bottom: 2.5rem;
+}
+
+.cad-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--fonte1);
+    font-size: 2.4rem;
+    font-weight: 700;
+    transition: opacity 0.3s;
+}
+
+.cad-logo:hover {
+    opacity: 0.8;
+}
+
+/* Content */
+.cad-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 48rem;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.cad-tag {
+    display: inline-block;
+    font-family: var(--fonte2);
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 1.2rem;
+    padding: 0.6rem 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 100px;
+    backdrop-filter: blur(10px);
+    background: rgba(26, 26, 26, 0.8);
+    align-self: flex-start;
+}
+
+.cad-content h1 {
+    font-family: var(--fonte1);
+    font-size: clamp(2.8rem, 3.5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.8rem;
+}
+
+.cad-sub {
+    font-size: 1.4rem;
+    color: var(--gray-400);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+/* ==========================================
+   FORM
+   ========================================== */
+
+.cad-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+.cad-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.form-group label {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--gray-200);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1.3rem;
+    color: var(--gray-500);
+    pointer-events: none;
+    transition: color 0.3s;
+}
+
+.input-wrapper:focus-within .input-icon {
+    color: var(--accent);
+}
+
+.form-input {
+    width: 100%;
+    padding: 1.15rem 1.3rem 1.15rem 4rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--gray-650);
+    background: var(--gray-850);
+    color: var(--gray-100);
+    font-family: var(--fonte2);
+    font-size: 1.35rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-input::placeholder {
+    color: var(--gray-500);
+}
+
+.form-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(176, 176, 176, 0.08);
+}
+
+/* Toggle password */
+.toggle-senha {
+    position: absolute;
+    right: 1.1rem;
+    background: none;
+    border: none;
+    color: var(--gray-500);
+    cursor: pointer;
+    padding: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+}
+
+.toggle-senha:hover {
+    color: var(--accent);
+}
+
+/* ==========================================
+   CARD SELECTION - RADIO STYLED (BORDA DOURADA)
+   ========================================== */
+
+.cartao-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cartao-radio {
+    cursor: pointer;
+    display: block;
+}
+
+.cartao-radio input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.cartao-radio-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.2rem 1.5rem;
+    border-radius: var(--border-radius);
+    background: var(--gray-850);
+    transition: all 0.3s;
+    overflow: hidden;
+    z-index: 1;
+    border: 2px solid var(--gray-650);
+}
+
+/* Borda gradiente animada - visível apenas no hover e checked */
+.cartao-radio-content::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: calc(var(--border-radius) + 2px);
+    background: linear-gradient(to right, #77530a, #ffd277, #77530a, #77530a, #ffd277, #77530a);
+    background-size: 250%;
+    background-position: left;
+    opacity: 0;
+    transition: opacity 0.5s ease, background-position 1s ease;
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* Mantém o fundo escuro por cima */
+.cartao-radio-content::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: calc(var(--border-radius) - 2px);
+    background: var(--gray-850);
+    z-index: -1;
+    pointer-events: none;
+    transition: background 0.3s ease;
+}
+
+/* Hover - mostra a borda e anima o gradiente */
+.cartao-radio:hover .cartao-radio-content::before {
+    opacity: 1;
+    background-position: right;
+    transition-duration: 1s;
+}
+
+/* Checked - mostra a borda fixa (sem animação contínua) */
+.cartao-radio input:checked + .cartao-radio-content {
+    border-color: transparent;
+    box-shadow: 0 0 20px rgba(255, 210, 119, 0.1);
+}
+
+.cartao-radio input:checked + .cartao-radio-content::before {
+    opacity: 1;
+    background-position: right;
+}
+
+/* Click effect */
+.cartao-radio:active .cartao-radio-content {
+    transform: scale(0.98);
+}
+
+/* Mini card visual */
+.cartao-radio-visual {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.cr-mini-card {
+    width: 8rem;
+    height: 5rem;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.cr-basico {
+    background: linear-gradient(135deg, #404040, #2a2a2a);
+    border: 1px solid #5c5c5c;
+}
+
+.cr-grafite {
+    background: linear-gradient(135deg, #2a2a2a, #0d0d0d);
+    border: 1px solid #404040;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.cr-metalico {
+    background: linear-gradient(135deg, #6a6a6a, #8a8a8a, #6a6a6a);
+    border: 1px solid #b0b0b0;
+    box-shadow: inset 0 0 15px rgba(176, 176, 176, 0.1);
+}
+
+.cr-chip {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.8rem;
+    width: 1.6rem;
+    height: 1.1rem;
+    border-radius: 2px;
+    background: linear-gradient(135deg, #b0b0b0, #808080);
+}
+
+.cr-grafite .cr-chip {
+    background: linear-gradient(135deg, #808080, #5c5c5c);
+}
+
+.cr-metalico .cr-chip {
+    background: linear-gradient(135deg, #d4d4d4, #b0b0b0);
+}
+
+.cr-numero {
+    font-family: var(--fonte1);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--gray-300);
+    margin-bottom: 0.2rem;
+}
+
+.cr-metalico .cr-numero {
+    color: var(--gray-900);
+}
+
+.cr-bandeira {
+    font-family: var(--fonte1);
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.cr-basico .cr-bandeira { color: var(--gray-300); }
+.cr-grafite .cr-bandeira { color: var(--gray-400); }
+.cr-metalico .cr-bandeira { color: var(--gray-900); }
+
+.cr-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.6rem;
+    border-radius: 100px;
+    background: var(--gradient-main);
+    color: var(--gray-900);
+}
+
+/* Text info */
+.cartao-radio-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.cartao-radio-info strong {
+    font-family: var(--fonte1);
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--gray-100);
+}
+
+.cartao-radio-info span {
+    font-size: 1.2rem;
+    color: var(--gray-400);
+}
+
+/* Radio check circle */
+.cartao-radio-check {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 2px solid var(--gray-600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+
+.cartao-radio input:checked + .cartao-radio-content .cartao-radio-check {
+    border-color: var(--accent);
+}
+
+.cartao-radio-check span {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.cartao-radio input:checked + .cartao-radio-content .cartao-radio-check span {
+    background: var(--gradient-main);
+}
+
+/* Password Strength */
+.senha-strength {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: -0.4rem;
+}
+
+.strength-bar {
+    display: flex;
+    gap: 0.4rem;
+    flex: 1;
+    max-width: 12rem;
+}
+
+.strength-item {
+    flex: 1;
+    height: 0.3rem;
+    border-radius: 4px;
+    background: var(--gray-700);
+    transition: background 0.3s;
+}
+
+.strength-item.active-weak {
+    background: #f44336;
+}
+
+.strength-item.active-medium {
+    background: #ff9800;
+}
+
+.strength-item.active-strong {
+    background: #4caf50;
+}
+
+.strength-text {
+    font-size: 1.1rem;
+    color: var(--gray-500);
+}
+
+/* Checkbox */
+.cad-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    cursor: pointer;
+    position: relative;
+}
+
+.cad-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+}
+
+.cad-checkbox-check {
+    width: 1.8rem;
+    height: 1.8rem;
+    min-width: 1.8rem;
+    border-radius: 4px;
+    border: 1px solid var(--gray-600);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    margin-top: 0.1rem;
+}
+
+.cad-checkbox input:checked + .cad-checkbox-check {
+    background: var(--gradient-main);
+    border-color: var(--accent);
+}
+
+.cad-checkbox input:checked + .cad-checkbox-check::after {
+    content: '';
+    width: 0.5rem;
+    height: 0.9rem;
+    border: solid var(--gray-900);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-top: -2px;
+}
+
+.cad-checkbox-label {
+    font-size: 1.25rem;
+    color: var(--gray-400);
+    line-height: 1.5;
+}
+
+.cad-checkbox-label a {
+    color: var(--accent);
+    text-decoration: underline;
+    transition: opacity 0.3s;
+}
+
+.cad-checkbox-label a:hover {
+    opacity: 0.7;
+}
+
+/* Submit Button */
+.btn-cadastro {
+    position: relative;
+    padding: 1.3rem 2.4rem;
+    font-size: 1.5rem;
+    background: var(--gradient-main);
+    color: var(--gray-900);
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    font-family: var(--fonte2);
+    font-weight: 600;
+    width: 100%;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+
+.btn-cadastro:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(176, 176, 176, 0.2);
+}
+
+/* ==========================================
+   ÍCONES ANIMADOS NO BOTÃO
+   ========================================== */
+
+.icon-container {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    color: var(--gray-700);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.default-icon {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Hover animations - ícones rotacionam em sequência */
+.btn-cadastro:hover .icon {
+    animation: none;
+}
+
+.btn-cadastro:hover .user-icon {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.btn-cadastro:hover .doc-icon {
+    animation: iconRotate 2.5s infinite;
+    animation-delay: 0s;
+}
+
+.btn-cadastro:hover .card-icon-cad {
+    animation: iconRotate 2.5s infinite;
+    animation-delay: 0.5s;
+}
+
+.btn-cadastro:hover .lock-icon {
+    animation: iconRotate 2.5s infinite;
+    animation-delay: 1s;
+}
+
+.btn-cadastro:hover .check-icon-cad {
+    animation: iconRotate 2.5s infinite;
+    animation-delay: 1.5s;
+}
+
+/* Active state - show only checkmark */
+.btn-cadastro:active .icon {
+    animation: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-cadastro:active .check-icon-cad {
+    animation: checkmarkAppear 0.6s ease forwards;
+    visibility: visible;
+}
+
+.btn-text {
+    font-weight: 600;
+    font-family: var(--fonte2);
+}
+
+@keyframes iconRotate {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px) scale(0.5);
+    }
+    5% {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+    }
+    15% {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+    }
+    20% {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px) scale(0.5);
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px) scale(0.5);
+    }
+}
+
+@keyframes checkmarkAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) rotate(-45deg);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2) rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* ==========================================
+   DIVIDER
+   ========================================== */
+
+.cad-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.cad-divider::before,
+.cad-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.cad-divider span {
+    font-size: 1.3rem;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* ==========================================
+   SOCIAL BUTTONS
+   ========================================== */
+
+.cad-social {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1rem 1.5rem;
+    border-radius: 100px;
+    border: 1px solid var(--gray-650);
+    background: var(--gray-850);
+    color: var(--gray-200);
+    font-family: var(--fonte2);
+    font-size: 1.3rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-social:hover {
+    border-color: var(--gray-500);
+    background: var(--gray-800);
+}
+
+.btn-google svg {
+    color: #ea4335;
+}
+
+.btn-apple svg {
+    color: var(--gray-100);
+}
+
+/* ==========================================
+   LOGIN LINK
+   ========================================== */
+
+.cad-login {
+    text-align: center;
+    font-size: 1.35rem;
+    color: var(--gray-400);
+    margin-bottom: 1rem;
+}
+
+.cad-login a {
+    color: var(--accent);
+    font-weight: 600;
+    transition: opacity 0.3s;
+}
+
+.cad-login a:hover {
+    opacity: 0.7;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 1100px) {
+    .cad-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .cad-visual {
+        display: none;
+    }
+
+    .cad-panel {
+        padding: 3rem;
+    }
+
+    .cad-content {
+        max-width: 44rem;
+    }
+}
+
+@media (max-width: 600px) {
+    html {
+        font-size: 55%;
+    }
+
+    .cad-panel {
+        padding: 2rem 1.8rem;
+    }
+
+    .cad-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .cad-form-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .cad-social {
+        grid-template-columns: 1fr;
+    }
+
+    .senha-strength {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .strength-bar {
+        max-width: 100%;
+        width: 100%;
+    }
+}
