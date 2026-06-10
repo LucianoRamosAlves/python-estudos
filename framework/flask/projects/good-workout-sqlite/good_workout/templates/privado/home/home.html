@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPAcademy - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+    {% include 'privado/menu/menu.html' %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main class="home-dashboard">
+        <div class="container">
+            <div class="section-header" style="text-align: left; max-width: 100%; margin: 0 0 60px;">
+                <span class="section-label">Dashboard</span>
+                <h2 class="section-title">Bem-vindo, {{ g.user['nome_usuario'] }}</h2>
+                <p class="section-desc">Acompanhe seu progresso e gerencie seus treinos.</p>
+            </div>
+
+            <div class="dash-stats">
+                <div class="dash-stat-card fade-in-up delay-1">
+                    <div class="dash-stat-number">{{ total_treinos }}</div>
+                    <div class="dash-stat-label">Treinos Criados</div>
+                </div>
+                <div class="dash-stat-card fade-in-up delay-2">
+                    <div class="dash-stat-number">{{ total_posts }}</div>
+                    <div class="dash-stat-label">Posts</div>
+                </div>
+                <div class="dash-stat-card fade-in-up delay-3">
+                    <div class="dash-stat-number">{{ msg_nao_lidas }}</div>
+                    <div class="dash-stat-label">Mensagens</div>
+                </div>
+            </div>
+
+            <div class="services-grid" style="margin-bottom: 60px;">
+                <a href="{{ url_for('private.treinos') }}" class="service-card fade-in-up delay-1" style="text-decoration: none;">
+                    <div class="service-icon">💪</div>
+                    <h3 class="service-title">Treinos</h3>
+                    <p class="service-desc">Gerencie seus treinos personalizados.</p>
+                </a>
+                <a href="{{ url_for('private.progresso') }}" class="service-card fade-in-up delay-2" style="text-decoration: none;">
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-title">Progresso</h3>
+                    <p class="service-desc">Acompanhe sua evolução completa.</p>
+                </a>
+                <a href="{{ url_for('private.status') }}" class="service-card fade-in-up delay-3" style="text-decoration: none;">
+                    <div class="service-icon">🏆</div>
+                    <h3 class="service-title">Status</h3>
+                    <p class="service-desc">Veja seu status atual de desempenho.</p>
+                </a>
+                <a href="{{ url_for('blog.index') }}" class="service-card fade-in-up delay-4" style="text-decoration: none;">
+                    <div class="service-icon">📝</div>
+                    <h3 class="service-title">Posts</h3>
+                    <p class="service-desc">Compartilhe sua jornada fitness.</p>
+                </a>
+            </div>
+
+            {% if ultimo_progresso %}
+            <div class="dash-medidas">
+                <h3 class="dash-medidas-title">Últimas Medidas</h3>
+                <p class="dash-medidas-date">Registrado em {{ ultimo_progresso['data_registro'] }}</p>
+                <div class="dash-medidas-grid">
+                    {% if ultimo_progresso['peso'] %}
+                        <div class="dash-medida-item">
+                            <span class="dash-medida-label">Peso</span>
+                            <span class="dash-medida-value">{{ ultimo_progresso['peso'] }} kg</span>
+                        </div>
+                    {% endif %}
+                    {% if ultimo_progresso['peito'] %}
+                        <div class="dash-medida-item">
+                            <span class="dash-medida-label">Peito</span>
+                            <span class="dash-medida-value">{{ ultimo_progresso['peito'] }} cm</span>
+                        </div>
+                    {% endif %}
+                    {% if ultimo_progresso['cintura'] %}
+                        <div class="dash-medida-item">
+                            <span class="dash-medida-label">Cintura</span>
+                            <span class="dash-medida-value">{{ ultimo_progresso['cintura'] }} cm</span>
+                        </div>
+                    {% endif %}
+                    {% if ultimo_progresso['braco_esquerdo'] and ultimo_progresso['braco_direito'] %}
+                        <div class="dash-medida-item">
+                            <span class="dash-medida-label">Braços</span>
+                            <span class="dash-medida-value">{{ ultimo_progresso['braco_esquerdo'] }}/{{ ultimo_progresso['braco_direito'] }} cm</span>
+                        </div>
+                    {% endif %}
+                    {% if ultimo_progresso['quadril'] %}
+                        <div class="dash-medida-item">
+                            <span class="dash-medida-label">Quadril</span>
+                            <span class="dash-medida-value">{{ ultimo_progresso['quadril'] }} cm</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if ultimos_treinos %}
+            <div>
+                <h3 class="dash-treinos-title">Últimos Treinos</h3>
+                <div class="dash-treinos-grid">
+                    {% for t in ultimos_treinos %}
+                        <a href="{{ url_for('private.treino_detalhe', id=t['id']) }}" class="dash-treino-card">
+                            <div class="dash-treino-categoria">{{ t['categoria'] }}</div>
+                            <div class="dash-treino-nome">{{ t['nome_treino'] }}</div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    {% include 'partials/footer.html' %}
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPAcademy - Contato</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contato.css') }}">
+</head>
+<body>
+    {% include 'privado/menu/menu.html' %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-header" style="text-align: left; max-width: 100%; margin: 0 0 60px;">
+                <span class="section-label">Suporte</span>
+                <h2 class="section-title">Fale Conosco</h2>
+                <p class="section-desc">Tem dúvidas ou precisa de ajuda? Envie sua mensagem.</p>
+            </div>
+
+            <div class="contato-grid">
+                <div>
+                    <form method="post" class="contact-form">
+                        <div class="form-group">
+                            <label class="form-label">Assunto</label>
+                            <select class="form-select" name="assunto" required>
+                                <option value="">Selecione um assunto</option>
+                                <option value="Dúvida sobre treinos">Dúvida sobre treinos</option>
+                                <option value="Suporte técnico">Suporte técnico</option>
+                                <option value="Sugestão">Sugestão</option>
+                                <option value="Problema na plataforma">Problema na plataforma</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Mensagem</label>
+                            <textarea class="form-textarea" name="mensagem" placeholder="Descreva sua dúvida ou problema..." style="min-height: 200px;" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary form-submit">Enviar Mensagem</button>
+                    </form>
+                </div>
+
+                <div>
+                    <div class="contato-info-card">
+                        <div class="service-icon" style="margin: 0 auto 24px;">📧</div>
+                        <h3 class="service-title">Informações de Contato</h3>
+                        <ul class="contato-info-lista">
+                            <li>
+                                <strong>Email:</strong>
+                                <span>suporte@ppacademy.com</span>
+                            </li>
+                            <li>
+                                <strong>Horário:</strong>
+                                <span>Seg-Sex, 8h - 18h</span>
+                            </li>
+                            <li>
+                                <strong>Resposta:</strong>
+                                <span>Em até 24h úteis</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {% if mensagens %}
+                        <div class="contato-historico" style="margin-top: 32px;">
+                            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 22px; margin-bottom: 20px;">Minhas Mensagens</h3>
+                            {% for msg in mensagens[:5] %}
+                                <div class="contato-msg-item {{ 'lida' if msg['lida'] else 'nao-lida' }}">
+                                    <div class="contato-msg-header">
+                                        <span class="contato-msg-assunto">{{ msg['assunto'] }}</span>
+                                        <span class="contato-msg-status">{{ 'Respondida' if msg['lida'] else 'Aguardando' }}</span>
+                                    </div>
+                                    <p class="contato-msg-texto">{{ msg['mensagem'][:150] }}{% if msg['mensagem']|length > 150 %}...{% endif %}</p>
+                                    <span class="contato-msg-data">{{ msg['created_at'][:16] }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include 'partials/footer.html' %}
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+</body>
+</html>

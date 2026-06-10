@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPAcademy - {{ treino['nome_treino'] }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/treinos.css') }}">
+</head>
+<body>
+    {% include 'privado/menu/menu.html' %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main style="padding-top: 120px;">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; flex-wrap: wrap; gap: 16px;">
+                <div>
+                    <a href="{{ url_for('private.treinos') }}" style="color: var(--text-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;">← Voltar para Treinos</a>
+                    <h2 class="section-title" style="margin-bottom: 8px; margin-top: 8px;">{{ treino['nome_treino'] }}</h2>
+                    <span class="treino-categoria {{ treino['categoria'] }}">{{ treino['categoria'] }}</span>
+                    {% if treino['descricao'] %}
+                        <p class="section-desc" style="margin-top: 12px;">{{ treino['descricao'] }}</p>
+                    {% endif %}
+                </div>
+                <a href="{{ url_for('private.treino_editar', id=treino['id']) }}" class="btn btn-outline">Editar Treino</a>
+            </div>
+
+            <!-- Exercícios -->
+            <div style="margin-bottom: 60px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 12px;">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 28px;">Exercícios</h3>
+                    <button class="btn btn-primary" onclick="document.getElementById('addExercicioForm').classList.toggle('active')">+ Adicionar Exercício</button>
+                </div>
+
+                <!-- Form add exercício -->
+                <div class="add-exercicio-form" id="addExercicioForm">
+                    <form method="post" action="{{ url_for('private.exercicio_criar', treino_id=treino['id']) }}" class="contact-form" style="padding: 32px; margin-bottom: 32px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label class="form-label">Nome do Exercício</label>
+                                <input type="text" class="form-input" name="nome" placeholder="Ex: Supino reto" required>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label class="form-label">Séries</label>
+                                <input type="number" class="form-input" name="series" value="3" min="1" max="20">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label class="form-label">Repetições</label>
+                                <input type="text" class="form-input" name="repeticoes" value="12" placeholder="Ex: 12 ou 8-12">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label class="form-label">Carga</label>
+                                <input type="text" class="form-input" name="carga" placeholder="Ex: 20kg">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 16px;">
+                            <label class="form-label">Observação</label>
+                            <input type="text" class="form-input" name="observacao" placeholder="Dicas, descanso, etc.">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-top: 12px;">Adicionar</button>
+                    </form>
+                </div>
+
+                {% if exercicios %}
+                    <div class="exercicios-lista">
+                        {% for ex in exercicios %}
+                            <div class="exercicio-item">
+                                <div class="exercicio-ordem">{{ ex['ordem'] }}</div>
+                                <div class="exercicio-info">
+                                    <h4 class="exercicio-nome">{{ ex['nome'] }}</h4>
+                                    <div class="exercicio-detalhes">
+                                        <span class="exercicio-badge">{{ ex['series'] }} séries</span>
+                                        <span class="exercicio-badge">{{ ex['repeticoes'] }} reps</span>
+                                        {% if ex['carga'] %}
+                                            <span class="exercicio-badge">{{ ex['carga'] }}</span>
+                                        {% endif %}
+                                    </div>
+                                    {% if ex['observacao'] %}
+                                        <p class="exercicio-obs">{{ ex['observacao'] }}</p>
+                                    {% endif %}
+                                </div>
+                                <form action="{{ url_for('private.exercicio_excluir', id=ex['id']) }}" method="post">
+                                    <button type="button" class="btn btn-outline delete-btn" style="padding: 8px 12px; font-size: 11px; border-color: var(--danger); color: var(--danger);">✕</button>
+                                </form>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="service-card" style="text-align: center; padding: 60px 40px;">
+                        <div class="service-icon" style="margin: 0 auto 24px;">🏋️</div>
+                        <h3 class="service-title">Nenhum exercício ainda</h3>
+                        <p class="service-desc">Adicione exercícios ao seu treino.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Delete Modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-card">
+            <h3>Remover exercício</h3>
+            <p>Tem certeza que deseja remover este exercício?</p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" id="cancelDelete">Cancelar</button>
+                <button class="btn btn-primary" id="confirmDelete" style="background: var(--danger); border-color: var(--danger);">Remover</button>
+            </div>
+        </div>
+    </div>
+
+    {% include 'partials/footer.html' %}
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+</body>
+</html>

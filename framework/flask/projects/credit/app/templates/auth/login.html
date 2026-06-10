@@ -8,9 +8,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="../../static/css/login.css">
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+
+
+      <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 <body>
 
@@ -20,7 +26,7 @@
         <main class="login-panel">
 
             <div class="login-header">
-                <a href="index.html" class="login-logo">
+                <a href="{{ url_for('home') }}" class="login-logo">
                     <span class="logo-icon">◆</span>
                     Credi<span class="logo-destaque">Fácil</span>
                 </a>
@@ -31,44 +37,78 @@
                 <h1>Entrar na<br><span class="gradient-text">sua conta</span></h1>
                 <p class="login-sub">Acesse seu painel para gerenciar seus cartões e solicitações de crédito.</p>
 
-                                <form class="login-form" id="loginForm" novalidate>
-                    <!-- Mensagem de erro geral (submit) -->
-                    <div class="login-erro-geral" id="erroGeral" style="display: none;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/>
-                            <line x1="15" y1="9" x2="9" y2="15"/>
-                            <line x1="9" y1="9" x2="15" y2="15"/>
-                        </svg>
-                        <span id="erroGeralTexto">Verifique os campos abaixo.</span>
-                    </div>
+                            <form
+                            class="login-form"
+                            id="loginForm"
+                            method="POST"
+                            action="{{ url_for('login') }}"
+                            novalidate
+                        >
+                                            <!-- Mensagem de erro geral (submit) -->
+                                            {% if erros %}
+                                                                                        <div class="login-erro-geral visivel" id="erroGeral">
+                        <svg width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round">
 
-                    <div class="form-group">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="15" y1="9" x2="9" y2="15"/>
+                                <line x1="9" y1="9" x2="15" y2="15"/>
+
+                            </svg>
+
+                            <span id="erroGeralTexto">{{ erros.values() | join(' e ') }}</span>
+
+                        </div>
+                        {% endif %}
+
+                    <div class="form-group {% if erros.get('email') %}erro{% endif %}">
                         <label for="email">E-mail</label>
                         <div class="input-wrapper">
                             <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                                 <polyline points="22,6 12,13 2,6"/>
                             </svg>
-                            <input type="email" id="email" placeholder="seu@email.com" class="form-input" required>
+                            <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="seu@email.com"
+                            class="form-input"
+                            value="{{ request.form.get('email', '') }}"
+                            required>
                         </div>
-                        <div class="input-erro" id="erroEmail">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <line x1="15" y1="9" x2="9" y2="15"/>
-                                <line x1="9" y1="9" x2="15" y2="15"/>
-                            </svg>
-                            <span>E-mail inválido.</span>
-                        </div>
+                        {% if erros.get('email') %}
+                                                        <div class="input-erro visivel" id="erroEmail">
+                                <svg width="12" height="12" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="15" y1="9" x2="9" y2="15"/>
+                                    <line x1="9" y1="9" x2="15" y2="15"/>
+                                </svg>
+
+                                <span>{{ erros.get('email') }}</span>
+                            </div>
+                        {% endif %}
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group {% if erros.get('senha') %}erro{% endif %}">
                         <label for="senha">Senha</label>
                         <div class="input-wrapper">
                             <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                                 <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                             </svg>
-                            <input type="password" id="senha" placeholder="Digite sua senha" class="form-input" required>
+                            <input
+                            type="password"
+                            id="senha"
+                            name="senha"
+                            placeholder="Digite sua senha"
+                            class="form-input"
+                            required>
                             <button type="button" class="toggle-senha" aria-label="Mostrar senha">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -76,23 +116,32 @@
                                 </svg>
                             </button>
                         </div>
-                                                <div class="input-erro" id="erroSenha">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <line x1="15" y1="9" x2="9" y2="15"/>
-                                <line x1="9" y1="9" x2="15" y2="15"/>
-                            </svg>
-                            <span>Senha incorreta.</span>
-                        </div>
+                        {% if erros.get('senha') %}
+                            <div class="input-erro visivel" id="erroSenha">
+                                <svg width="12" height="12" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="15" y1="9" x2="9" y2="15"/>
+                                    <line x1="9" y1="9" x2="15" y2="15"/>
+                                </svg>
+
+                                <span>{{ erros.get('senha') }}</span>
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div class="form-extra">
                         <label class="checkbox-wrapper">
-                            <input type="checkbox" checked>
+                            <input
+                            type="checkbox"
+                            name="lembrar"
+                            checked>
                             <span class="checkbox-check"></span>
                             <span class="checkbox-label">Lembrar-me</span> 
                         </label>
-                        <a href="#" class="forgot-link">Esqueceu a senha?</a>
+                        <a href="#"
+                        class="forgot-link">Esqueceu a senha?</a>
                     </div>
 
                     <button type="submit" class="btn-login">
@@ -128,7 +177,9 @@
 
                 <p class="login-cadastro">
                     Ainda não tem conta?
-                    <a href="cadastro.html">Criar conta gratuita</a>
+                                <a href="{{ url_for('cadastro') }}">
+                    Criar conta gratuita
+                </a>
                 </p>
             </div>
 
@@ -186,121 +237,8 @@
 
     </div>
 
-        <script src="../static/js/login.js"></script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('loginForm');
-            const emailInput = document.getElementById('email');
-            const senhaInput = document.getElementById('senha');
-            const erroEmail = document.getElementById('erroEmail');
-            const erroSenha = document.getElementById('erroSenha');
-            const erroGeral = document.getElementById('erroGeral');
-            const erroGeralTexto = document.getElementById('erroGeralTexto');
-
-            const formGroupEmail = erroEmail.closest('.form-group');
-            const formGroupSenha = erroSenha.closest('.form-group');
-
-            function limparErros() {
-                erroEmail.classList.remove('visivel');
-                erroSenha.classList.remove('visivel');
-                erroGeral.classList.remove('visivel');
-                formGroupEmail.classList.remove('erro');
-                formGroupSenha.classList.remove('erro');
-            }
-
-            function mostrarErroInput(input, erroEl, formGroup, mensagem) {
-                erroEl.querySelector('span').textContent = mensagem;
-                erroEl.classList.add('visivel');
-                formGroup.classList.add('erro');
-            }
-
-            function mostrarErroGeral(mensagem) {
-                erroGeralTexto.textContent = mensagem;
-                erroGeral.classList.add('visivel');
-            }
-
-            function validarEmail(email) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-            }
-
-            // Validação ao sair do input (blur)
-            emailInput.addEventListener('blur', function() {
-                if (this.value.trim() !== '' && !validarEmail(this.value.trim())) {
-                    mostrarErroInput(this, erroEmail, formGroupEmail, 'E-mail inválido.');
-                } else if (this.value.trim() === '') {
-                    erroEmail.classList.remove('visivel');
-                    formGroupEmail.classList.remove('erro');
-                } else {
-                    erroEmail.classList.remove('visivel');
-                    formGroupEmail.classList.remove('erro');
-                }
-            });
-
-            senhaInput.addEventListener('blur', function() {
-                if (this.value.trim() !== '' && this.value.trim().length < 3) {
-                    mostrarErroInput(this, erroSenha, formGroupSenha, 'A senha deve ter pelo menos 3 caracteres.');
-                } else if (this.value.trim() === '') {
-                    erroSenha.classList.remove('visivel');
-                    formGroupSenha.classList.remove('erro');
-                } else {
-                    erroSenha.classList.remove('visivel');
-                    formGroupSenha.classList.remove('erro');
-                }
-            });
-
-            // Limpar erro ao começar a digitar
-            emailInput.addEventListener('input', function() {
-                erroEmail.classList.remove('visivel');
-                formGroupEmail.classList.remove('erro');
-                erroGeral.classList.remove('visivel');
-            });
-
-            senhaInput.addEventListener('input', function() {
-                erroSenha.classList.remove('visivel');
-                formGroupSenha.classList.remove('erro');
-                erroGeral.classList.remove('visivel');
-            });
-
-            // Validação no submit
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                limparErros();
-
-                const email = emailInput.value.trim();
-                const senha = senhaInput.value.trim();
-                let valido = true;
-                let primeiroErro = null;
-
-                if (!email) {
-                    mostrarErroInput(emailInput, erroEmail, formGroupEmail, 'E-mail é obrigatório.');
-                    valido = false;
-                    if (!primeiroErro) primeiroErro = emailInput;
-                } else if (!validarEmail(email)) {
-                    mostrarErroInput(emailInput, erroEmail, formGroupEmail, 'E-mail inválido.');
-                    valido = false;
-                    if (!primeiroErro) primeiroErro = emailInput;
-                }
-
-                if (!senha) {
-                    mostrarErroInput(senhaInput, erroSenha, formGroupSenha, 'Senha é obrigatória.');
-                    valido = false;
-                    if (!primeiroErro) primeiroErro = senhaInput;
-                } else if (senha.length < 3) {
-                    mostrarErroInput(senhaInput, erroSenha, formGroupSenha, 'A senha deve ter pelo menos 3 caracteres.');
-                    valido = false;
-                    if (!primeiroErro) primeiroErro = senhaInput;
-                }
-
-                if (!valido) {
-                    mostrarErroGeral('Verifique os campos destacados abaixo.');
-                    if (primeiroErro) primeiroErro.focus();
-                    return;
-                }
-
-                // Se passou na validação — aqui você faz o submit real ou requisição AJAX
-                console.log('Formulário válido! Email:', email, 'Senha:', senha);
-                // this.submit(); // descomente quando tiver action no form
-            });
-        });
-    </script>
+        <script src="{{ url_for('static',filename='js/login.js') }}"></script>
+        
+        
 </body>
 </html>

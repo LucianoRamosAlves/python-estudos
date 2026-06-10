@@ -1,0 +1,106 @@
+.contato-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .contato-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+.contato-info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 48px 32px;
+    text-align: center;
+}
+
+.contato-info-lista {
+    list-style: none;
+    margin-top: 24px;
+}
+
+.contato-info-lista li {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 14px;
+}
+
+.contato-info-lista li strong {
+    color: var(--text-primary);
+}
+
+.contato-info-lista li span {
+    color: var(--text-secondary);
+}
+
+/* Mensagens historico */
+.contato-historico {
+    margin-top: 48px;
+}
+
+.contato-msg-item {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+}
+
+.contato-msg-item:hover {
+    border-color: var(--gold-dark);
+}
+
+.contato-msg-item.nao-lida {
+    border-left: 3px solid var(--gold-primary);
+}
+
+.contato-msg-item.lida {
+    border-left: 3px solid var(--success);
+    opacity: 0.7;
+}
+
+.contato-msg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.contato-msg-assunto {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--text-primary);
+}
+
+.contato-msg-status {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.contato-msg-item.nao-lida .contato-msg-status {
+    color: var(--gold-primary);
+}
+
+.contato-msg-item.lida .contato-msg-status {
+    color: var(--success);
+}
+
+.contato-msg-texto {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.contato-msg-data {
+    font-size: 11px;
+    color: var(--text-muted);
+}

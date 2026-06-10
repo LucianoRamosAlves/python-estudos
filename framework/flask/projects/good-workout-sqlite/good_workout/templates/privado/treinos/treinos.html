@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPAcademy - Meus Treinos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/treinos.css') }}">
+</head>
+<body>
+    {% include 'privado/menu/menu.html' %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main style="padding-top: 120px;">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 60px; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <span class="section-label">Treinos</span>
+                    <h2 class="section-title" style="margin-bottom: 0;">Meus Treinos</h2>
+                    <p class="section-desc" style="margin-top: 8px;">Gerencie seus treinos personalizados.</p>
+                </div>
+                <a href="{{ url_for('private.treino_criar') }}" class="btn btn-primary">+ Novo Treino</a>
+            </div>
+
+            {% if treinos %}
+                <div class="treinos-grid">
+                    {% for treino in treinos %}
+                        <a href="{{ url_for('private.treino_detalhe', id=treino['id']) }}" class="treino-card" style="text-decoration: none;">
+                            <div class="treino-card-header">
+                                <span class="treino-categoria {{ treino['categoria'] }}">{{ treino['categoria'] }}</span>
+                            </div>
+                            <div class="treino-card-body">
+                                <h3 class="treino-card-title">{{ treino['nome_treino'] }}</h3>
+                                {% if treino['descricao'] %}
+                                    <p class="treino-card-desc">{{ treino['descricao'][:120] }}{% if treino['descricao']|length > 120 %}...{% endif %}</p>
+                                {% endif %}
+                                <div class="treino-card-footer">
+                                    <span class="treino-card-date">Criado em {{ treino['created_at'].strftime('%Y-%m-%d') if treino['created_at'] is not string else treino['created_at'][:10] }}</span>
+                                </div>
+                            </div>
+                            <div class="treino-card-actions">
+                                <a href="{{ url_for('private.treino_editar', id=treino['id']) }}" class="btn btn-outline" style="font-size: 11px; padding: 8px 16px; flex: 1;" onclick="event.stopPropagation()">Editar</a>
+                                <form action="{{ url_for('private.treino_excluir', id=treino['id']) }}" method="post" style="flex: 1;" onclick="event.stopPropagation()">
+                                    <button type="button" class="btn btn-outline delete-btn" style="font-size: 11px; padding: 8px 16px; width: 100%; border-color: var(--danger); color: var(--danger);">Excluir</button>
+                                </form>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="service-card" style="text-align: center; padding: 80px 40px;">
+                    <div class="service-icon" style="margin: 0 auto 24px;">💪</div>
+                    <h3 class="service-title">Nenhum treino ainda</h3>
+                    <p class="service-desc" style="margin-bottom: 24px;">Crie seu primeiro treino personalizado!</p>
+                    <a href="{{ url_for('private.treino_criar') }}" class="btn btn-primary">Criar Primeiro Treino</a>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <!-- Delete Modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-card">
+            <h3>Confirmar exclusão</h3>
+            <p>Tem certeza que deseja excluir este treino?</p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" id="cancelDelete">Cancelar</button>
+                <button class="btn btn-primary" id="confirmDelete" style="background: var(--danger); border-color: var(--danger);">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    {% include 'partials/footer.html' %}
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+</body>
+</html>

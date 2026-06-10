@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPAcademy - Posts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/posts.css') }}">
+</head>
+<body>
+    {% include 'privado/menu/menu.html' %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main style="padding-top: 120px;">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px;">
+                <div>
+                    <span class="section-label">Blog</span>
+                    <h2 class="section-title" style="margin-bottom: 0;">Posts</h2>
+                </div>
+                <a href="{{ url_for('blog.create') }}" class="btn btn-primary">+ Novo Post</a>
+            </div>
+
+            {% if posts %}
+                <div class="posts-grid">
+                    {% for post in posts %}
+                        <div class="post-card">
+                            {% if post['image_url'] %}
+                                <div class="post-image">
+                                    <img src="{{ post['image_url'] }}" alt="{{ post['title'] }}">
+                                </div>
+                            {% endif %}
+                            <div class="post-body">
+                                <h3 class="post-title">{{ post['title'] }}</h3>
+                                <p class="post-meta">Por {{ post['usuario'] }} · {{ post['created_at'].strftime('%Y-%m-%d') if post['created_at'] is not string else post['created_at'][:10] }}</p>
+                                {% if post['descricao'] %}
+                                    <p class="post-desc">{{ post['descricao'][:200] }}{% if post['descricao']|length > 200 %}...{% endif %}</p>
+                                {% endif %}
+                                <div class="post-actions">
+                                    {% if g.user and g.user['id'] == post['author_id'] %}
+                                        <a href="{{ url_for('blog.update', id=post['id']) }}" class="btn btn-outline" style="font-size: 11px; padding: 8px 16px;">Editar</a>
+                                        <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post" style="display:inline;">
+                                            <button type="button" class="btn btn-outline delete-btn" style="font-size: 11px; padding: 8px 16px; border-color: var(--danger); color: var(--danger);">Excluir</button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="service-card" style="text-align: center; padding: 80px 40px;">
+                    <div class="service-icon" style="margin: 0 auto 24px;">📝</div>
+                    <h3 class="service-title">Nenhum post ainda</h3>
+                    <p class="service-desc" style="margin-bottom: 24px;">Seja o primeiro a compartilhar sua jornada fitness!</p>
+                    <a href="{{ url_for('blog.create') }}" class="btn btn-primary">Criar Primeiro Post</a>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <!-- Delete Modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-card">
+            <h3>Confirmar exclusão</h3>
+            <p>Tem certeza que deseja excluir este post?</p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" id="cancelDelete">Cancelar</button>
+                <button class="btn btn-primary" id="confirmDelete" style="background: var(--danger); border-color: var(--danger);">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    {% include 'partials/footer.html' %}
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+</body>
+</html>

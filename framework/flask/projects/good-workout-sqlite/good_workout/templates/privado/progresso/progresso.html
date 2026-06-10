@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPAcademy - Meu Progresso</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progresso.css') }}">
+</head>
+<body>
+    {% include 'privado/menu/menu.html' %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-header" style="text-align: left; max-width: 100%; margin: 0 0 60px;">
+                <span class="section-label">Progresso</span>
+                <h2 class="section-title">Registrar Medidas</h2>
+                <p class="section-desc">Acompanhe sua evolução física registrando medidas regularmente.</p>
+            </div>
+
+            <!-- Formulário -->
+            <div class="progresso-form-wrapper">
+                <form method="post" class="contact-form">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 24px; margin-bottom: 32px;">Novas Medidas</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Peso (kg)</label>
+                            <input type="number" step="0.1" class="form-input" name="peso" placeholder="Ex: 75.5">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Altura (cm)</label>
+                            <input type="number" step="0.1" class="form-input" name="altura" placeholder="Ex: 175">
+                        </div>
+                    </div>
+
+                    <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--gold-light); margin: 24px 0 20px;">Medidas Corporais (cm)</h4>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Braço Esquerdo</label>
+                            <input type="number" step="0.1" class="form-input" name="braco_esquerdo" placeholder="cm">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Braço Direito</label>
+                            <input type="number" step="0.1" class="form-input" name="braco_direito" placeholder="cm">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Peito</label>
+                            <input type="number" step="0.1" class="form-input" name="peito" placeholder="cm">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Cintura</label>
+                            <input type="number" step="0.1" class="form-input" name="cintura" placeholder="cm">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Quadril</label>
+                            <input type="number" step="0.1" class="form-input" name="quadril" placeholder="cm">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Coxa Esquerda</label>
+                            <input type="number" step="0.1" class="form-input" name="coxa_esquerda" placeholder="cm">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Coxa Direita</label>
+                            <input type="number" step="0.1" class="form-input" name="coxa_direita" placeholder="cm">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Observação</label>
+                        <textarea class="form-textarea" name="observacao" placeholder="Como foi o treino? Alguma novidade?" style="min-height: 80px;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary form-submit">Registrar Medidas</button>
+                </form>
+            </div>
+
+            <!-- Histórico -->
+            <div style="margin-top: 80px;">
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 28px; margin-bottom: 32px;">Histórico de Medidas</h3>
+
+                {% if historico %}
+                    <div class="historico-table-wrapper">
+                        <table class="historico-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Peso</th>
+                                    <th>Braço E</th>
+                                    <th>Braço D</th>
+                                    <th>Peito</th>
+                                    <th>Cintura</th>
+                                    <th>Quadril</th>
+                                    <th>Coxa E</th>
+                                    <th>Coxa D</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for reg in historico %}
+                                <tr>
+                                    <td data-label="Data">{{ reg['data_registro'].strftime('%d/%m/%Y') if reg['data_registro'] is not string else reg['data_registro'] }}</td>
+                                    <td data-label="Peso">{{ reg['peso'] or '-' }} kg</td>
+                                    <td data-label="Braço E">{{ reg['braco_esquerdo'] or '-' }}</td>
+                                    <td data-label="Braço D">{{ reg['braco_direito'] or '-' }}</td>
+                                    <td data-label="Peito">{{ reg['peito'] or '-' }}</td>
+                                    <td data-label="Cintura">{{ reg['cintura'] or '-' }}</td>
+                                    <td data-label="Quadril">{{ reg['quadril'] or '-' }}</td>
+                                    <td data-label="Coxa E">{{ reg['coxa_esquerda'] or '-' }}</td>
+                                    <td data-label="Coxa D">{{ reg['coxa_direita'] or '-' }}</td>
+                                    <td>
+                                        <form action="{{ url_for('private.progresso_excluir', id=reg['id']) }}" method="post" style="display:inline;">
+                                            <button type="button" class="btn btn-outline delete-btn" style="padding: 4px 8px; font-size: 10px; border-color: var(--danger); color: var(--danger);">✕</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="service-card" style="text-align: center; padding: 60px 40px;">
+                        <div class="service-icon" style="margin: 0 auto 24px;">📊</div>
+                        <h3 class="service-title">Nenhum registro ainda</h3>
+                        <p class="service-desc">Comece a registrar suas medidas para acompanhar sua evolução.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    {% include 'partials/footer.html' %}
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+</body>
+</html>

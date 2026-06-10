@@ -1,0 +1,68 @@
+.maintenance {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 24px 80px;
+}
+
+.maintenance-card {
+    max-width: 600px;
+    text-align: center;
+    padding: 80px 60px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+.maintenance-card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+}
+
+.maintenance-icon {
+    font-size: 64px;
+    margin-bottom: 32px;
+}
+
+.maintenance-title {
+    font-size: 36px;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.maintenance-title .gold {
+    color: var(--gold-light);
+}
+
+.maintenance-desc {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+.maintenance-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .maintenance-card {
+        padding: 60px 32px;
+    }
+
+    .maintenance-actions {
+        flex-direction: column;
+    }
+
+    .maintenance-actions .btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,17 @@
+[project]
+name = "good-workout-sqlite"
+version = "1.0.0"
+description = "PPAcademy - Plataforma de Treinos Fitness (réplica com SQLite)"
+authors = [{ name = "Dev" }]
+license = { text = "MIT" }
+dependencies = [
+    "flask",
+    "werkzeug",
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["good_workout*"]

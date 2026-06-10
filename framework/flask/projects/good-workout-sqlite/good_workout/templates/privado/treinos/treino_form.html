@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPAcademy - {{ 'Editar' if treino else 'Novo' }} Treino</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    {% include 'privado/menu/menu.html' %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main style="padding-top: 120px;">
+        <div class="container">
+            <div style="max-width: 700px; margin: 0 auto;">
+                <div class="section-header" style="text-align: left; max-width: 100%; margin: 0 0 40px;">
+                    <span class="section-label">Treinos</span>
+                    <h2 class="section-title">{{ 'Editar Treino' if treino else 'Novo Treino' }}</h2>
+                    <p class="section-desc">{{ 'Atualize as informações do seu treino.' if treino else 'Crie um novo treino personalizado.' }}</p>
+                </div>
+
+                <form method="post" class="contact-form">
+                    <div class="form-group">
+                        <label class="form-label">Nome do Treino</label>
+                        <input type="text" class="form-input" name="nome" placeholder="Ex: Treino de Peito" value="{{ treino['nome_treino'] if treino else '' }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Categoria</label>
+                        <select class="form-select" name="categoria">
+                            <option value="geral" {{ 'selected' if treino and treino['categoria'] == 'geral' else '' }}>Geral</option>
+                            <option value="peito" {{ 'selected' if treino and treino['categoria'] == 'peito' else '' }}>Peito</option>
+                            <option value="costas" {{ 'selected' if treino and treino['categoria'] == 'costas' else '' }}>Costas</option>
+                            <option value="pernas" {{ 'selected' if treino and treino['categoria'] == 'pernas' else '' }}>Pernas</option>
+                            <option value="ombros" {{ 'selected' if treino and treino['categoria'] == 'ombros' else '' }}>Ombros</option>
+                            <option value="bracos" {{ 'selected' if treino and treino['categoria'] == 'bracos' else '' }}>Braços</option>
+                            <option value="abdomen" {{ 'selected' if treino and treino['categoria'] == 'abdomen' else '' }}>Abdômen</option>
+                            <option value="cardio" {{ 'selected' if treino and treino['categoria'] == 'cardio' else '' }}>Cardio</option>
+                            <option value="fullbody" {{ 'selected' if treino and treino['categoria'] == 'fullbody' else '' }}>Full Body</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Descrição</label>
+                        <textarea class="form-textarea" name="descricao" placeholder="Descreva o treino, objetivos, dicas..." style="min-height: 150px;">{{ treino['descricao'] if treino else '' }}</textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary form-submit">
+                        {{ 'Salvar Alterações' if treino else 'Criar Treino' }}
+                    </button>
+                    <a href="{{ url_for('private.treinos') }}" class="btn btn-outline" style="width: 100%; margin-top: 12px; text-align: center;">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    {% include 'partials/footer.html' %}
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+</body>
+</html>

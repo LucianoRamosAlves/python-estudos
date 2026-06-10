@@ -1,0 +1,46 @@
+<nav class="nav">
+    <div class="container">
+        <div class="nav-inner">
+            <div class="logo">PP<span>Academy</span></div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('private.dashboard') }}" class="active">Dashboard</a></li>
+                <li><a href="{{ url_for('private.treinos') }}">Treinos</a></li>
+                <li><a href="{{ url_for('private.progresso') }}">Progresso</a></li>
+                <li><a href="{{ url_for('private.status') }}">Status</a></li>
+                <li><a href="{{ url_for('blog.index') }}">Posts</a></li>
+                <li><a href="{{ url_for('private.contato') }}">Contato</a></li>
+            </ul>
+            <div class="nav-cta">
+                <span style="color: var(--gold-light); font-size: 13px; letter-spacing: 0.1em;">
+                    {{ g.user['nome_usuario'] }}
+                </span>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Sair</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div>
+<div class="mobile-menu">
+    <button class="mobile-menu-close">✕</button>
+    <ul class="mobile-nav-links">
+        <li><a href="{{ url_for('private.dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ url_for('private.treinos') }}">Treinos</a></li>
+        <li><a href="{{ url_for('private.progresso') }}">Progresso</a></li>
+        <li><a href="{{ url_for('private.status') }}">Status</a></li>
+        <li><a href="{{ url_for('blog.index') }}">Posts</a></li>
+        <li><a href="{{ url_for('private.contato') }}">Contato</a></li>
+    </ul>
+    <div class="mobile-menu-cta">
+        <span style="color: var(--gold-light); text-align: center; margin-bottom: 8px;">
+            {{ g.user['nome_usuario'] }}
+        </span>
+        <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Sair</a>
+    </div>
+</div>

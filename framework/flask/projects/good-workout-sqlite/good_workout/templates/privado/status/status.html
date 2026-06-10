@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPAcademy - Status</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/status.css') }}">
+</head>
+<body>
+    {% include 'privado/menu/menu.html' %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-header" style="text-align: left; max-width: 100%; margin: 0 0 60px;">
+                <span class="section-label">Status</span>
+                <h2 class="section-title">Meu Status</h2>
+                <p class="section-desc">Visão geral do seu desempenho e evolução.</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="status-stats-grid">
+                <div class="status-stat-card">
+                    <div class="stat-icon">💪</div>
+                    <div class="stat-content">
+                        <div class="stat-number">{{ stats['total_treinos'] }}</div>
+                        <div class="stat-label">Treinos Criados</div>
+                    </div>
+                </div>
+                <div class="status-stat-card">
+                    <div class="stat-icon">🏋️</div>
+                    <div class="stat-content">
+                        <div class="stat-number">{{ stats['total_exercicios'] }}</div>
+                        <div class="stat-label">Exercícios</div>
+                    </div>
+                </div>
+                <div class="status-stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <div class="stat-number">{{ total_progresso }}</div>
+                        <div class="stat-label">Registros de Progresso</div>
+                    </div>
+                </div>
+                <div class="status-stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-content">
+                        <div class="stat-number">{{ total_posts }}</div>
+                        <div class="stat-label">Posts</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Últimas Medidas -->
+            <div style="margin-top: 80px;">
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 28px; margin-bottom: 32px;">Últimas Medidas</h3>
+
+                {% if ultimo %}
+                    <div class="status-medidas-grid">
+                        <div class="medida-card">
+                            <span class="medida-label">Data</span>
+                            <span class="medida-value">{{ ultimo['data_registro'].strftime('%d/%m/%Y') if ultimo['data_registro'] is not string else ultimo['data_registro'] }}</span>
+                        </div>
+                        <div class="medida-card">
+                            <span class="medida-label">Peso</span>
+                            <span class="medida-value">{{ ultimo['peso'] or '-' }} kg</span>
+                            {% if anterior and anterior['peso'] and ultimo['peso'] %}
+                                {% set diff = ultimo['peso'] - anterior['peso'] %}
+                                <span class="medida-diff {{ 'positivo' if diff < 0 else 'negativo' }}">
+                                    {{ '+' if diff > 0 else '' }}{{ '%.1f'|format(diff) }} kg
+                                </span>
+                            {% endif %}
+                        </div>
+                        <div class="medida-card">
+                            <span class="medida-label">Braço E / D</span>
+                            <span class="medida-value">{{ ultimo['braco_esquerdo'] or '-' }} / {{ ultimo['braco_direito'] or '-' }} cm</span>
+                        </div>
+                        <div class="medida-card">
+                            <span class="medida-label">Peito</span>
+                            <span class="medida-value">{{ ultimo['peito'] or '-' }} cm</span>
+                        </div>
+                        <div class="medida-card">
+                            <span class="medida-label">Cintura</span>
+                            <span class="medida-value">{{ ultimo['cintura'] or '-' }} cm</span>
+                        </div>
+                        <div class="medida-card">
+                            <span class="medida-label">Quadril</span>
+                            <span class="medida-value">{{ ultimo['quadril'] or '-' }} cm</span>
+                        </div>
+                        <div class="medida-card">
+                            <span class="medida-label">Coxa E / D</span>
+                            <span class="medida-value">{{ ultimo['coxa_esquerda'] or '-' }} / {{ ultimo['coxa_direita'] or '-' }} cm</span>
+                        </div>
+                        {% if primeiro and primeiro['primeiro'] %}
+                            <div class="medida-card">
+                                <span class="medida-label">Jornada</span>
+                                <span class="medida-value">{{ primeiro['primeiro'].strftime('%d/%m/%Y') if primeiro['primeiro'] is not string else primeiro['primeiro'] }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="service-card" style="text-align: center; padding: 60px 40px;">
+                        <div class="service-icon" style="margin: 0 auto 24px;">📊</div>
+                        <h3 class="service-title">Nenhuma medida registrada</h3>
+                        <p class="service-desc">Registre seu progresso para ver seu status aqui.</p>
+                        <a href="{{ url_for('private.progresso') }}" class="btn btn-primary">Registrar Medidas</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    {% include 'partials/footer.html' %}
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+</body>
+</html>
