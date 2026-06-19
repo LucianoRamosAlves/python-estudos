@@ -101,117 +101,57 @@ while True:
 
     if opcao == "1":
         while True:
+
             rich_print("""
-                [bold][purple] Opções Disponíveis: [/purple][/bold]
-                [bold][purple] 1. [/purple]Eletronicos[/bold]
-                [bold][purple] 2. [/purple]Roupas[/bold]
-                [bold][purple] 3. [/purple]Assesorios[/bold]
-                [bold][purple] 4. [/purple]Peça intimas[/bold]
-                [bold][purple] 5. [/purple]Variados[/bold]
-                [bold][purple] 6. [/purple]Relogios[/bold]
-                [bold][red] 7. [/red]Voltar[/bold]
-                    """)
-            
+            [bold][purple] Opções Disponíveis: [/purple][/bold]
+            [bold][purple] 1. [/purple]Eletronicos[/bold]
+            [bold][purple] 2. [/purple]Roupas[/bold]
+            [bold][purple] 3. [/purple]Assessorios[/bold]
+            [bold][purple] 4. [/purple]Peças Intimas[/bold]
+            [bold][purple] 5. [/purple]Variados[/bold]
+            [bold][purple] 6. [/purple]Relogios[/bold]
+            [bold][red] 7. [/red]Voltar[/bold]
+            """)
+
+            categorias = {
+                "1": "Eletronicos",
+                "2": "Roupas",
+                "3": "Assessorios",
+                "4": "Peças Intimas",
+                "5": "Variados",
+                "6": "Relogios"
+            }
+
             tipo_mercadoria = input("Escolha o tipo da mercadoria: ")
 
-            if tipo_mercadoria == "1":
-                rich_print("[bold][yellow] Confimar Criar codigo para Eletronicos: [S]/[N][/yellow][/bold]")
-                confimar = input().lower()
-
-                if confimar == "s":
-
-                    tipo = pre_fixo_cod("Eletronicos").lower()
-                    mostrar_c()
-
-                elif confimar == "n":
-                    break
-
-                else:
-                    rich_print("[bold][yellow] Opção Inválida! Tente Novamente [S] ou [N].[/yellow][/bold]")
-                    continue 
-
-            elif tipo_mercadoria == "2":
-                rich_print("[bold][yellow] Confimar Criar codigo para Roupas: [S]/[N][/yellow][/bold]")
-                confimar = input().lower()
-
-                if confimar == "s":
-
-                    tipo = pre_fixo_cod("Roupas").lower()
-                    mostrar_c()
-
-                else:
-                    break
-
-            elif tipo_mercadoria == "3":
-                rich_print("[bold][yellow] Confimar Criar codigo para Assesorios: [S]/[N][/yellow][/bold]")
-                confimar = input().lower()
-
-                if confimar == "s":
-
-                    tipo = pre_fixo_cod("Assesorios").lower()
-                    mostrar_c()
-
-                elif confimar == "n":
-                    break
-
-                else:
-                    rich_print("[bold][yellow] Opção Inválida! Tente Novamente [S] ou [N].[/yellow][/bold]")
-                    continue 
-
-            elif tipo_mercadoria == "4":
-                rich_print("[bold][yellow] Confimar Criar codigo para Peça intimas: [S]/[N][/yellow][/bold]")
-                confimar = input().lower()
-
-                if confimar == "s":
-
-                    tipo = pre_fixo_cod("Peça intimas").lower()
-                    mostrar_c()
-
-                elif confimar == "n":
-                    break
-
-                else:
-                    rich_print("[bold][yellow] Opção Inválida! Tente Novamente [S] ou [N].[/yellow][/bold]")
-                    continue 
-
-            elif tipo_mercadoria == "5":
-                rich_print("[bold][yellow] Confimar Criar codigo para Variados: [S]/[N][/yellow][/bold]")
-                confimar = input().lower()
-
-                if confimar == "s":
-
-                    tipo = pre_fixo_cod("Variados").lower()
-                    mostrar_c()
-
-                elif confimar == "n":
-                    break
-
-                else:
-                    rich_print("[bold][yellow] Opção Inválida! Tente Novamente [S] ou [N].[/yellow][/bold]")
-                    continue 
-
-            elif tipo_mercadoria == "6":
-                rich_print("[bold][yellow] Confimar Criar codigo para Relogios: [S]/[N][/yellow][/bold]")
-                confimar = input().lower()
-
-                if confimar == "s":
-
-                    tipo = pre_fixo_cod("Relogios").lower()
-                    mostrar_c()
-
-                elif confimar == "n":
-                    break
-
-                else:
-                    rich_print("[bold][yellow] Opção Inválida! Tente Novamente [S] ou [N].[/yellow][/bold]")
-                    continue 
-
-            elif tipo_mercadoria == "7":
+            if tipo_mercadoria == "7":
                 break
-            else:
-                rich_print("[bold][yellow] Opção Inválida! Tente Novamente [1] A [7].[/yellow][/bold]")
-                continue
 
+            elif tipo_mercadoria in categorias:
+                nome = categorias[tipo_mercadoria]
+
+                rich_print(
+                    f"[bold yellow]Confirmar criar código para {nome}: [S]/[N][/bold yellow]"
+                )
+
+                confirmar = input().lower()
+
+                if confirmar == "s":
+                    tipo = pre_fixo_cod(nome).lower()
+                    mostrar_c()
+
+                elif confirmar == "n":
+                    continue
+
+                else:
+                    rich_print(
+                        "[bold yellow]Opção inválida! Digite S ou N.[/bold yellow]"
+                    )
+
+            else:
+                rich_print(
+                    "[bold yellow]Opção inválida! Tente novamente [1] a [7].[/bold yellow]"
+                )
 
     
     elif opcao == "2":
