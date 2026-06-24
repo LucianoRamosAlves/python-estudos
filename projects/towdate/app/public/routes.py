@@ -1,0 +1,9 @@
+# app/public/routes.py
+
+from flask import Blueprint, render_template
+
+public = Blueprint("public", __name__)
+
+@public.route("/")
+def home():
+    return render_template("public/base.html")
