@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,42 +7,33 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/alerts.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/contact.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/cta.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/footer.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/hero_section.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/services.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/products.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/testimonials.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/pricing_card.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/pricing_section.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/navigation.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/mobile_menu.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/why_gold.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/responsive.css') }}">
 
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/alerts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/contact.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/cta.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/hero_section.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/services.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/products.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/testimonials.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/pricing_card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/pricing_section.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/navigation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/mobile_menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/why_gold.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/responsive.css') }}">
 
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
-    {% include 'public/components/navbar.html' %}
+    {% block content %}
+    {% endblock %}
 
-    {% include 'public/components/hero.html' %}
+<script src="{{ url_for('static', filename='js/public/script.js') }}"></script>
+{% block extra_js %}{% endblock %}
 
-    {% include 'public/components/services.html' %}
-    
-    {% include 'public/components/products.html' %}
 
-    {% include 'public/components/testimonials.html' %}
-  
-    {% include 'public/components/pricing.html' %}
-
-    {% include 'public/components/contact.html' %}
-   
-    {% include 'public/components/footer.html' %}
-    
-<script src="{{ url_for('static', filename='public/js/script.js') }}"></script>
 </body>
+
 </html>

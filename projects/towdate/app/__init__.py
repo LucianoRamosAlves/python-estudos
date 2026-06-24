@@ -10,4 +10,7 @@ def create_app():
     from app.public.routes import public
     app.register_blueprint(public)
 
+    from app.auth.routes import auth
+    app.register_blueprint(auth)
+    
     return app
