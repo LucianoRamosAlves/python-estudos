@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TowDate — Criar Conta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="teste.css">
+
+    <style>
+        /* ── Page shell ────────────────────────────────────── */
+        .reg-page {
+            min-height: 100vh;
+            padding: 100px 0 0;
+        }
+
+        .reg-page::before {
+            content: '';
+            position: fixed;
+            top: 20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(ellipse, rgba(43,108,176,0.12) 0%, transparent 68%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .reg-page > .container { position: relative; z-index: 1; }
+
+        /* ── Page header ───────────────────────────────────── */
+        .reg-page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .reg-page-logo { display: inline-block; margin-bottom: 28px; }
+
+        .reg-page-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(36px, 4vw, 52px);
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+        }
+
+        .reg-page-title .gold { color: var(--gold-light); font-style: italic; }
+
+        .reg-page-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ── Progress steps ────────────────────────────────── */
+        .reg-progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 64px;
+        }
+
+        .reg-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reg-step-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .reg-step.active .reg-step-dot {
+            border-color: var(--gold-primary);
+            background: var(--gold-primary);
+            color: var(--bg-dark);
+        }
+
+        .reg-step.done .reg-step-dot {
+            border-color: var(--success);
+            background: transparent;
+            color: var(--success);
+        }
+
+        .reg-step-label {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .reg-step.active .reg-step-label,
+        .reg-step.done .reg-step-label { color: var(--text-secondary); }
+
+        .reg-step-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+            min-width: 60px;
+            max-width: 120px;
+            margin-bottom: 20px;
+        }
+
+        /* ── Section header ────────────────────────────────── */
+        .reg-section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .reg-section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(28px, 3vw, 38px);
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .reg-section-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* ── Plan cards (selectable) ───────────────────────── */
+        .reg-plans {
+            margin-bottom: 0;
+        }
+
+        .reg-plans-inline {
+            margin-bottom: 28px;
+        }
+
+        .reg-plans-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            align-items: start;
+        }
+
+        .reg-plan-item {
+            position: relative;
+            cursor: pointer;
+            display: block;
+        }
+
+        .reg-plan-item input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .reg-plan-item .pricing-card {
+            cursor: pointer;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+            user-select: none;
+        }
+
+        .reg-plan-item .pricing-card {
+            padding: 22px 18px 18px;
+            gap: 18px;
+            border-radius: 16px;
+        }
+
+        .reg-plan-item .pricing-card:hover { transform: translateY(-3px); }
+
+        /* Selected — blue ring */
+        .reg-plan-item input[type="radio"]:checked ~ .pricing-card {
+            border-color: rgba(99, 179, 237, 0.7);
+            box-shadow: 0 0 0 2px rgba(99, 179, 237, 0.22), 0 16px 40px rgba(5,12,24,0.5);
+            transform: translateY(-4px);
+        }
+
+        /* Selected — premium gold ring */
+        .reg-plan-item input[type="radio"]:checked ~ .pricing-card.pricing-premium {
+            box-shadow:
+                0 0 0 2px rgba(229,193,68,0.38),
+                0 0 20px rgba(229,193,68,0.18),
+                0 20px 56px rgba(5,12,24,0.55);
+        }
+
+        /* Selected — silver ring */
+        .reg-plan-item input[type="radio"]:checked ~ .pricing-card.pricing-silver {
+            box-shadow: 0 0 0 2px rgba(200,210,220,0.4), 0 16px 40px rgba(5,12,24,0.5);
+        }
+
+        /* Checkmark badge */
+        .reg-plan-check {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            transition: all 0.25s ease;
+            z-index: 4;
+        }
+
+        .reg-plan-item input[type="radio"]:checked ~ .pricing-card .reg-plan-check {
+            border-color: var(--gold-primary);
+            background: var(--gold-primary);
+            color: var(--bg-dark);
+        }
+
+        /* ── Divider between sections ──────────────────────── */
+        .reg-divider-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            margin-bottom: 80px;
+        }
+
+        /* ── Form card ─────────────────────────────────────── */
+        .reg-form-wrap { max-width: 680px; margin: 0 auto; }
+
+        .reg-form-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px 32px;
+            position: relative;
+        }
+
+        .reg-form-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99,179,237,0.45), transparent);
+            border-radius: 999px;
+        }
+
+        /* field group label */
+        .reg-field-label {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .reg-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .reg-plan-item .pricing-tier {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+        }
+
+        .reg-plan-item .price-amount {
+            font-size: clamp(26px, 3vw, 34px);
+        }
+
+        .reg-plan-item .price-period {
+            font-size: 11px;
+        }
+
+        .reg-plan-item .pricing-desc {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .reg-plan-item .pricing-features {
+            gap: 8px;
+        }
+
+        .reg-plan-item .pricing-features li {
+            font-size: 11px;
+            line-height: 1.45;
+            padding-left: 18px;
+        }
+
+        .reg-plan-item .pricing-features li::before {
+            font-size: 10px;
+        }
+
+        .reg-plan-item .pricing-btn {
+            min-height: 42px;
+            padding: 0.72em 1.1em;
+            font-size: 0.76rem;
+        }
+
+        .reg-plan-item .pricing-premium .pricing-popular-badge {
+            width: 132px;
+            height: 132px;
+            top: -12px;
+            left: -12px;
+        }
+
+        .reg-plan-item .pricing-premium .pricing-popular-badge::before {
+            top: 30px;
+            left: -44px;
+            width: 208px;
+            height: 32px;
+            font-size: 9px;
+        }
+
+        .reg-plan-item .pricing-premium .pricing-header {
+            gap: 8px;
+        }
+
+        .reg-plan-item .pricing-silver .pricing-tier,
+        .reg-plan-item .pricing-premium .pricing-tier,
+        .reg-plan-item .pricing-desc {
+            padding-left: 0;
+        }
+
+        .reg-form .form-group { margin-bottom: 0; }
+        .reg-form .form-group:last-of-type { margin-bottom: 0; }
+
+        .reg-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* inputs with icon */
+        .reg-input-wrap { position: relative; }
+
+        .reg-input-wrap .form-input {
+            border-radius: 10px;
+            padding-left: 48px;
+        }
+
+        .reg-input-wrap .form-input:focus {
+            border-color: rgba(99,179,237,0.52);
+            box-shadow: 0 0 0 3px rgba(99,179,237,0.08);
+        }
+
+        .reg-input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: color 0.3s ease;
+        }
+
+        .reg-input-wrap:focus-within .reg-input-icon { color: var(--gold-light); }
+
+        .reg-pw-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            padding: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .reg-pw-toggle:hover { color: var(--text-secondary); }
+
+        /* password strength */
+        .pw-strength {
+            margin-top: 8px;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .pw-strength-bar {
+            flex: 1;
+            height: 3px;
+            border-radius: 999px;
+            background: var(--border-color);
+            transition: background 0.3s ease;
+        }
+
+        .pw-strength-bar.active-weak   { background: var(--danger); }
+        .pw-strength-bar.active-fair   { background: #D4A033; }
+        .pw-strength-bar.active-strong { background: var(--success); }
+
+        .pw-strength-text {
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            min-width: 44px;
+            text-align: right;
+        }
+
+        /* partner invite box */
+        .reg-partner-box {
+            background: rgba(43,108,176,0.06);
+            border: 1px solid rgba(99,179,237,0.14);
+            border-radius: 12px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .reg-partner-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(99,179,237,0.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-light);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .reg-partner-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .reg-partner-text strong {
+            display: block;
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        /* terms checkbox */
+        .reg-terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            user-select: none;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .reg-terms input[type="checkbox"] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-dark);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            margin-top: 2px;
+        }
+
+        .reg-terms input[type="checkbox"]:checked {
+            background: var(--gold-primary);
+            border-color: var(--gold-primary);
+        }
+
+        .reg-terms input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 2px; left: 5px;
+            width: 4px; height: 7px;
+            border: 1.5px solid #fff;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+        }
+
+        .reg-terms a { color: var(--gold-light); transition: color 0.2s ease; }
+        .reg-terms a:hover { color: var(--text-primary); }
+
+        /* submit */
+        .reg-submit { width: 100%; }
+
+        /* divider */
+        .reg-form-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 28px 0 16px;
+        }
+
+        .reg-form-divider::before,
+        .reg-form-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .reg-form-divider span {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* oauth */
+        .reg-oauth {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .reg-oauth .btn-outline {
+            gap: 10px;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+        }
+
+        /* footer text */
+        .reg-footer-text {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .reg-footer-text a { color: var(--gold-light); font-weight: 500; transition: color 0.3s ease; }
+        .reg-footer-text a:hover { color: var(--text-primary); }
+
+        /* bottom bar */
+        .reg-bar {
+            text-align: center;
+            padding: 24px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 80px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .reg-bar a { color: var(--text-muted); transition: color 0.2s ease; }
+        .reg-bar a:hover { color: var(--text-secondary); }
+
+        /* ── Responsive ─────────────────────────────────────── */
+        @media (max-width: 992px) {
+            .reg-plans-grid {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .reg-form-card { padding: 32px 20px; }
+            .reg-row        { grid-template-columns: 1fr; }
+            .reg-oauth      { grid-template-columns: 1fr; }
+            .reg-step-line  { min-width: 28px; }
+
+            .reg-plan-item .pricing-card {
+                padding: 20px 16px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav scrolled" id="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="index.html" class="logo">Tow <span>Date</span></a>
+                <div class="nav-cta">
+                    <a href="login.html" class="btn btn-outline">Ja tenho conta</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html#services">Recursos</a></li>
+            <li><a href="index.html#pricing">Planos</a></li>
+            <li><a href="login.html">Entrar</a></li>
+        </ul>
+        <div class="mobile-menu-cta">
+            <a href="login.html" class="btn btn-outline">Ja tenho conta</a>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div class="reg-page">
+        <div class="container">
+
+            <!-- Page header -->
+            <div class="reg-page-header">
+                <a href="index.html" class="reg-page-logo logo">Tow <span>Date</span></a>
+                <h1 class="reg-page-title">Comece a historia de <span class="gold">voces</span></h1>
+                <p class="reg-page-desc">Escolha seu plano, crie sua conta e comece a registrar cada momento especial do relacionamento.</p>
+            </div>
+
+            <!-- Progress steps -->
+            <div class="reg-progress">
+                <div class="reg-step active">
+                    <div class="reg-step-dot">1</div>
+                    <span class="reg-step-label">Plano</span>
+                </div>
+                <div class="reg-step-line"></div>
+                <div class="reg-step active">
+                    <div class="reg-step-dot">2</div>
+                    <span class="reg-step-label">Seus dados</span>
+                </div>
+                <div class="reg-step-line"></div>
+                <div class="reg-step">
+                    <div class="reg-step-dot">3</div>
+                    <span class="reg-step-label">Parceiro/a</span>
+                </div>
+            </div>
+
+            <div class="reg-form-wrap">
+                <div class="reg-form-card">
+                    <form class="reg-form" id="registerForm" novalidate>
+
+            <!-- ── Planos ─────────────────────────────────────── -->
+            <div class="reg-plans">
+                <div class="reg-section-header">
+                    <div class="section-label">Passo 1</div>
+                    <h2 class="reg-section-title">Escolha o plano ideal para voces</h2>
+                    <p class="reg-section-desc">Comece gratuitamente e evolua conforme a historia de voces cresce. Voce pode mudar de plano a qualquer momento.</p>
+                </div>
+
+                <div class="reg-plans-grid">
+
+                    <!-- Free -->
+                    <label class="reg-plan-item">
+                        <input type="radio" name="plan" value="free">
+                        <div class="pricing-card">
+                            <div class="reg-plan-check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <div class="pricing-header">
+                                <div class="pricing-tier">Free</div>
+                                <div class="pricing-price">
+                                    <span class="price-amount">R$ 0</span>
+                                    <span class="price-period">para sempre</span>
+                                </div>
+                                <p class="pricing-desc">O essencial para comecar a historia de voces.</p>
+                            </div>
+                            <ul class="pricing-features">
+                                <li class="feat-yes">Contador de relacionamento</li>
+                                <li class="feat-yes">Linha do tempo basica</li>
+                                <li class="feat-yes">Ate 50 fotos</li>
+                                <li class="feat-yes">1 casal por conta</li>
+                                <li class="feat-no">Mapa de memorias</li>
+                                <li class="feat-no">Metas do casal</li>
+                                <li class="feat-no">Retrospectiva anual</li>
+                                <li class="feat-no">Assistente com IA</li>
+                            </ul>
+                            <span class="btn btn-outline pricing-btn" style="pointer-events:none">Plano Gratuito</span>
+                        </div>
+                    </label>
+
+                    <!-- Basic -->
+                    <label class="reg-plan-item">
+                        <input type="radio" name="plan" value="basic">
+                        <div class="pricing-card pricing-silver">
+                            <div class="reg-plan-check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <div class="pricing-header">
+                                <div class="pricing-tier">Basic</div>
+                                <div class="pricing-price">
+                                    <span class="price-amount">R$&nbsp;19<span class="price-cents">,90</span></span>
+                                    <span class="price-period">por mes</span>
+                                </div>
+                                <p class="pricing-desc">Para casais que querem registrar cada detalhe.</p>
+                            </div>
+                            <ul class="pricing-features">
+                                <li class="feat-yes">Tudo do plano Free</li>
+                                <li class="feat-yes">Linha do tempo completa</li>
+                                <li class="feat-yes">Ate 1.000 fotos e videos</li>
+                                <li class="feat-yes">Mapa de memorias</li>
+                                <li class="feat-yes">Calendario romantico</li>
+                                <li class="feat-yes">Metas do casal</li>
+                                <li class="feat-no">Retrospectiva anual</li>
+                                <li class="feat-no">Assistente com IA</li>
+                            </ul>
+                            <span class="btn pricing-btn pricing-silver-btn" style="pointer-events:none">Plano Basic</span>
+                        </div>
+                    </label>
+
+                    <!-- Premium -->
+                    <label class="reg-plan-item">
+                        <input type="radio" name="plan" value="premium" checked>
+                        <div class="pricing-card pricing-premium">
+                            <div class="pricing-popular-badge">Mais completo</div>
+                            <div class="reg-plan-check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <div class="pricing-header">
+                                <div class="pricing-tier"></div>
+                                <div class="pricing-price">
+                                    <span class="price-amount">R$&nbsp;39<span class="price-cents">,90</span></span>
+                                    <span class="price-period">por mes</span>
+                                </div>
+                                <p class="pricing-desc">A experiencia completa com tecnologia de ponta.</p>
+                            </div>
+                            <ul class="pricing-features">
+                                <li class="feat-yes">Tudo do plano Basic</li>
+                                <li class="feat-yes">Fotos e videos ilimitados</li>
+                                <li class="feat-yes">Retrospectiva anual premium</li>
+                                <li class="feat-yes">Capsulas do tempo</li>
+                                <li class="feat-yes">Conquistas e badges exclusivos</li>
+                                <li class="feat-yes">Suporte prioritario</li>
+                                <li class="feat-ai">Assistente com IA <span class="badge-beta">Beta</span></li>
+                            </ul>
+                            <span class="btn pricing-btn pricing-premium-btn" style="pointer-events:none">Plano Premium</span>
+                        </div>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="reg-section-header">
+                    <div class="section-label">Passo 2</div>
+                    <h2 class="reg-section-title">Crie sua conta</h2>
+                    <p class="reg-section-desc">Preencha seus dados para comecar. Leva menos de 1 minuto.</p>
+                </div>
+
+                        <p class="reg-field-label">Dados pessoais</p>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="regFirstName">Nome</label>
+                                <div class="reg-input-wrap">
+                                    <span class="reg-input-icon">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </span>
+                                    <input type="text" id="regFirstName" class="form-input" placeholder="Ana" autocomplete="given-name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="regLastName">Sobrenome</label>
+                                <div class="reg-input-wrap">
+                                    <span class="reg-input-icon">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </span>
+                                    <input type="text" id="regLastName" class="form-input" placeholder="Silva" autocomplete="family-name" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="regEmail">Email</label>
+                            <div class="reg-input-wrap">
+                                <span class="reg-input-icon">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </span>
+                                <input type="email" id="regEmail" class="form-input" placeholder="ana@email.com" autocomplete="email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="regRelDate">Inicio do relacionamento</label>
+                            <div class="reg-input-wrap">
+                                <span class="reg-input-icon">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="16" y1="2" x2="16" y2="6"/>
+                                        <line x1="8" y1="2" x2="8" y2="6"/>
+                                        <line x1="3" y1="10" x2="21" y2="10"/>
+                                    </svg>
+                                </span>
+                                <input type="date" id="regRelDate" class="form-input">
+                            </div>
+                        </div>
+
+                        <p class="reg-field-label" style="margin-top:8px">Seguranca</p>
+
+                        <div class="form-group">
+                            <label class="form-label" for="regPassword">Senha</label>
+                            <div class="reg-input-wrap">
+                                <span class="reg-input-icon">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                        <path d="M7 11V7a5 5 0 0110 0v4"/>
+                                    </svg>
+                                </span>
+                                <input type="password" id="regPassword" class="form-input" placeholder="Minimo 8 caracteres" autocomplete="new-password" required>
+                                <button type="button" class="reg-pw-toggle" id="pwToggle1" aria-label="Mostrar senha">
+                                    <svg id="eyeIcon1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="pw-strength" id="pwStrength" style="display:none">
+                                <div class="pw-strength-bar" id="bar1"></div>
+                                <div class="pw-strength-bar" id="bar2"></div>
+                                <div class="pw-strength-bar" id="bar3"></div>
+                                <div class="pw-strength-bar" id="bar4"></div>
+                                <span class="pw-strength-text" id="strengthLabel"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="regPasswordConfirm">Confirmar senha</label>
+                            <div class="reg-input-wrap">
+                                <span class="reg-input-icon">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                        <path d="M7 11V7a5 5 0 0110 0v4"/>
+                                    </svg>
+                                </span>
+                                <input type="password" id="regPasswordConfirm" class="form-input" placeholder="Repita a senha" autocomplete="new-password" required>
+                                <button type="button" class="reg-pw-toggle" id="pwToggle2" aria-label="Mostrar senha">
+                                    <svg id="eyeIcon2" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Partner hint -->
+                        <div class="reg-partner-box">
+                            <div class="reg-partner-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                                </svg>
+                            </div>
+                            <div class="reg-partner-text">
+                                <strong>Passo 3 — Convide seu parceiro/a</strong>
+                                Apos criar a conta voce podera convidar seu parceiro/a por email para conectar as contas e compartilhar todas as memorias.
+                            </div>
+                        </div>
+
+                        <!-- Terms -->
+                        <label class="reg-terms">
+                            <input type="checkbox" id="regTerms" required>
+                            Li e concordo com os <a href="#">Termos de Uso</a> e a <a href="#">Politica de Privacidade</a> da TowDate.
+                        </label>
+
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-primary reg-submit" id="regSubmitBtn">
+                            Criar conta Premium e continuar
+                        </button>
+
+                    </form>
+
+                    <div class="reg-form-divider"><span>ou registre-se com</span></div>
+
+                    <div class="reg-oauth">
+                        <a href="#" class="btn btn-outline">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex-shrink:0">
+                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                            </svg>
+                            Google
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0">
+                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                            </svg>
+                            Apple
+                        </a>
+                    </div>
+
+                    <p class="reg-footer-text">
+                        Ja tem uma conta? <a href="login.html">Entrar agora</a>
+                    </p>
+                </div>
+            </div>
+
+        </div><!-- /.container -->
+
+        <footer class="reg-bar">
+            &copy; 2026 TowDate &nbsp;·&nbsp;
+            <a href="#">Privacidade</a> &nbsp;·&nbsp;
+            <a href="#">Termos</a> &nbsp;·&nbsp;
+            <a href="index.html">Voltar ao site</a>
+        </footer>
+    </div>
+
+    <script>
+        // Nav scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) document.getElementById('navbar').classList.add('scrolled');
+        });
+
+        // Mobile menu
+        const mobileMenuBtn     = document.getElementById('mobileMenuBtn');
+        const mobileMenu        = document.getElementById('mobileMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileMenuClose   = document.getElementById('mobileMenuClose');
+
+        function openMenu()  { mobileMenu.classList.add('open'); mobileMenuOverlay.classList.add('open'); mobileMenuBtn.classList.add('active'); document.body.classList.add('menu-open'); }
+        function closeMenu() { mobileMenu.classList.remove('open'); mobileMenuOverlay.classList.remove('open'); mobileMenuBtn.classList.remove('active'); document.body.classList.remove('menu-open'); }
+
+        mobileMenuBtn.addEventListener('click', openMenu);
+        mobileMenuClose.addEventListener('click', closeMenu);
+        mobileMenuOverlay.addEventListener('click', closeMenu);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+        // Update submit button when plan changes
+        const planLabels = { free: 'Criar conta gratuita', basic: 'Criar conta Basic', premium: 'Criar conta Premium e continuar' };
+        document.querySelectorAll('input[name="plan"]').forEach(r => {
+            r.addEventListener('change', () => {
+                document.getElementById('regSubmitBtn').textContent = planLabels[r.value] || 'Criar conta e continuar';
+            });
+        });
+
+        // Scroll to form on mobile after plan selection
+        document.querySelectorAll('.reg-plan-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth < 992) {
+                    setTimeout(() => document.querySelector('.reg-form-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+                }
+            });
+        });
+
+        // Password toggles
+        function makePwToggle(toggleId, inputId, iconId) {
+            const toggle = document.getElementById(toggleId);
+            const input  = document.getElementById(inputId);
+            const icon   = document.getElementById(iconId);
+            const eyeOpen   = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+            const eyeClosed = `<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+            toggle.addEventListener('click', () => {
+                const hidden = input.type === 'password';
+                input.type = hidden ? 'text' : 'password';
+                icon.innerHTML = hidden ? eyeClosed : eyeOpen;
+            });
+        }
+
+        makePwToggle('pwToggle1', 'regPassword', 'eyeIcon1');
+        makePwToggle('pwToggle2', 'regPasswordConfirm', 'eyeIcon2');
+
+        // Password strength
+        const pwInput     = document.getElementById('regPassword');
+        const pwStrength  = document.getElementById('pwStrength');
+        const bars        = ['bar1','bar2','bar3','bar4'].map(id => document.getElementById(id));
+        const strengthLbl = document.getElementById('strengthLabel');
+
+        pwInput.addEventListener('input', () => {
+            const v = pwInput.value;
+            if (!v) { pwStrength.style.display = 'none'; return; }
+            pwStrength.style.display = 'flex';
+            let s = 0;
+            if (v.length >= 8) s++;
+            if (v.length >= 12) s++;
+            if (/[A-Z]/.test(v) && /[a-z]/.test(v)) s++;
+            if (/[0-9]/.test(v) && /[^A-Za-z0-9]/.test(v)) s++;
+            const cls = ['','active-weak','active-fair','active-strong','active-strong'];
+            const lbl = ['','Fraca','Regular','Boa','Forte'];
+            bars.forEach((b, i) => { b.className = 'pw-strength-bar'; if (i < s) b.classList.add(cls[s]); });
+            strengthLbl.textContent = lbl[s] || '';
+        });
+
+        // Form submit
+        document.getElementById('registerForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const pw  = document.getElementById('regPassword').value;
+            const pw2 = document.getElementById('regPasswordConfirm').value;
+            const confirmEl = document.getElementById('regPasswordConfirm');
+            if (pw !== pw2) { confirmEl.style.borderColor = 'var(--danger)'; confirmEl.focus(); return; }
+            confirmEl.style.borderColor = '';
+            const btn = document.getElementById('regSubmitBtn');
+            const orig = btn.textContent;
+            btn.textContent = 'Criando conta...';
+            btn.disabled = true;
+            setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 1800);
+        });
+    </script>
+</body>
+</html>

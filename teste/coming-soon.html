@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TowDate — Em breve</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="teste.css">
+
+    <style>
+        .soon-page {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .soon-page::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(99, 179, 237, 0.12) 0%, transparent 28%),
+                radial-gradient(circle at 80% 30%, rgba(43, 108, 176, 0.10) 0%, transparent 30%),
+                radial-gradient(circle at 50% 80%, rgba(99, 179, 237, 0.06) 0%, transparent 26%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .soon-main {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 24px 80px;
+        }
+
+        .soon-card {
+            width: 100%;
+            max-width: 1040px;
+            background:
+                radial-gradient(circle at 12% 10%, rgba(99, 179, 237, 0.10), transparent 36%),
+                radial-gradient(circle at 85% 18%, rgba(43, 108, 176, 0.10), transparent 34%),
+                var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            padding: 42px;
+            box-shadow: 0 28px 90px rgba(3, 8, 15, 0.65);
+            position: relative;
+        }
+
+        .soon-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(120deg, rgba(99, 179, 237, 0.05), rgba(99, 179, 237, 0.75), rgba(43, 108, 176, 0.15), rgba(99, 179, 237, 0.75), rgba(99, 179, 237, 0.05));
+            background-size: 300% 300%;
+            animation: borderShift 7s linear infinite;
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .soon-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .soon-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border: 1px solid rgba(99, 179, 237, 0.18);
+            border-radius: 999px;
+            background: rgba(7, 16, 30, 0.72);
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 26px;
+        }
+
+        .soon-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold-light);
+            box-shadow: 0 0 0 0 rgba(99, 179, 237, 0.55);
+            animation: pulseRing 2s infinite;
+        }
+
+        .soon-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(44px, 5vw, 74px);
+            line-height: 0.95;
+            color: var(--text-primary);
+            margin-bottom: 18px;
+            max-width: 10ch;
+        }
+
+        .soon-title .gold {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        .soon-desc {
+            max-width: 620px;
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+
+        .soon-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 34px;
+        }
+
+        .soon-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .soon-meta-card {
+            background: rgba(7, 16, 30, 0.72);
+            border: 1px solid rgba(99, 179, 237, 0.14);
+            border-radius: 18px;
+            padding: 18px 16px;
+        }
+
+        .soon-meta-label {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .soon-meta-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 30px;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .soon-meta-value .gold {
+            color: var(--gold-light);
+        }
+
+        .soon-visual {
+            position: relative;
+            min-height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .soon-orb {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(99, 179, 237, 0.95) 0%, rgba(43, 108, 176, 0.55) 26%, rgba(7, 16, 30, 0.05) 68%, transparent 70%);
+            filter: blur(1px);
+            box-shadow: 0 0 0 1px rgba(99, 179, 237, 0.18), 0 0 60px rgba(99, 179, 237, 0.14);
+            animation: floatOrb 6s ease-in-out infinite;
+            position: relative;
+        }
+
+        .soon-orb::before,
+        .soon-orb::after {
+            content: '';
+            position: absolute;
+            inset: -24px;
+            border-radius: 50%;
+            border: 1px solid rgba(99, 179, 237, 0.18);
+            animation: ringPulse 4s ease-in-out infinite;
+        }
+
+        .soon-orb::after {
+            inset: -54px;
+            animation-delay: 1s;
+            opacity: 0.65;
+        }
+
+        .soon-orb-card {
+            position: absolute;
+            width: 100%;
+            max-width: 320px;
+            background: rgba(7, 16, 30, 0.92);
+            border: 1px solid rgba(99, 179, 237, 0.16);
+            border-radius: 20px;
+            padding: 22px;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 20px 50px rgba(3, 8, 15, 0.45);
+        }
+
+        .soon-orb-card.top {
+            top: 0;
+            right: 0;
+            transform: translate(16px, -10px);
+            animation: driftRight 7s ease-in-out infinite;
+        }
+
+        .soon-orb-card.bottom {
+            left: 0;
+            bottom: 0;
+            transform: translate(-18px, 18px);
+            animation: driftLeft 8s ease-in-out infinite;
+        }
+
+        .soon-orb-card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .soon-orb-card-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .soon-timeline {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        .soon-pill {
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(99, 179, 237, 0.16);
+            background: rgba(7, 16, 30, 0.76);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .soon-pill.active {
+            color: var(--bg-dark);
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+            border-color: transparent;
+            box-shadow: 0 10px 22px rgba(99, 179, 237, 0.16);
+        }
+
+        .soon-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .soon-feature {
+            background: rgba(7, 16, 30, 0.72);
+            border: 1px solid rgba(99, 179, 237, 0.14);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .soon-feature-icon {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            border-radius: 50%;
+            background: rgba(99, 179, 237, 0.12);
+            border: 1px solid rgba(99, 179, 237, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-light);
+        }
+
+        .soon-feature strong {
+            display: block;
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .soon-feature span {
+            display: block;
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .soon-bar {
+            margin-top: 32px;
+            background: rgba(7, 16, 30, 0.76);
+            border: 1px solid rgba(99, 179, 237, 0.14);
+            border-radius: 18px;
+            padding: 16px;
+        }
+
+        .soon-bar-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .soon-bar-track {
+            width: 100%;
+            height: 8px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: rgba(8, 24, 44, 0.9);
+        }
+
+        .soon-bar-fill {
+            display: block;
+            width: 76%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
+            box-shadow: 0 0 18px rgba(99, 179, 237, 0.35);
+            animation: fillPulse 3.2s ease-in-out infinite;
+        }
+
+        .soon-footer {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .soon-footer a { color: var(--text-secondary); }
+        .soon-footer a:hover { color: var(--gold-light); }
+
+        @keyframes borderShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @keyframes pulseRing {
+            0% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0.5); }
+            70% { box-shadow: 0 0 0 12px rgba(99, 179, 237, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0); }
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-16px) scale(1.03); }
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { transform: scale(0.94); opacity: 0.55; }
+            50% { transform: scale(1.02); opacity: 0.9; }
+        }
+
+        @keyframes driftRight {
+            0%, 100% { transform: translate(16px, -10px); }
+            50% { transform: translate(10px, -18px); }
+        }
+
+        @keyframes driftLeft {
+            0%, 100% { transform: translate(-18px, 18px); }
+            50% { transform: translate(-10px, 26px); }
+        }
+
+        @keyframes fillPulse {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.18); }
+        }
+
+        @media (max-width: 992px) {
+            .soon-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .soon-visual {
+                min-height: 360px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .soon-main {
+                padding-top: 96px;
+            }
+
+            .soon-card {
+                padding: 24px;
+                border-radius: 22px;
+            }
+
+            .soon-meta,
+            .soon-features {
+                grid-template-columns: 1fr;
+            }
+
+            .soon-actions {
+                flex-direction: column;
+            }
+
+            .btn { width: 100%; }
+
+            .soon-orb-card.top,
+            .soon-orb-card.bottom {
+                position: static;
+                transform: none;
+                animation: none;
+                max-width: 100%;
+            }
+
+            .soon-visual {
+                display: grid;
+                gap: 14px;
+                min-height: auto;
+            }
+
+            .soon-orb {
+                margin: 0 auto 12px;
+                width: 190px;
+                height: 190px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="soon-page">
+        <nav class="nav scrolled" id="navbar">
+            <div class="container">
+                <div class="nav-inner">
+                    <a href="index.html" class="logo">Tow <span>Date</span></a>
+                    <div class="nav-cta">
+                        <a href="index.html" class="btn btn-outline">Voltar ao site</a>
+                        <a href="login.html" class="btn btn-primary">Entrar</a>
+                    </div>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Menu">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+        <div class="mobile-menu" id="mobileMenu">
+            <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close Menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <ul class="mobile-nav-links">
+                <li><a href="index.html#services">Recursos</a></li>
+                <li><a href="index.html#pricing">Planos</a></li>
+                <li><a href="login.html">Entrar</a></li>
+            </ul>
+            <div class="mobile-menu-cta">
+                <a href="index.html" class="btn btn-outline">Voltar ao site</a>
+                <a href="login.html" class="btn btn-primary">Entrar</a>
+            </div>
+        </div>
+
+        <main class="soon-main">
+            <section class="soon-card">
+                <div class="soon-grid">
+                    <div>
+                        <div class="soon-kicker">
+                            <span class="soon-dot"></span>
+                            Funcionalidade em desenvolvimento
+                        </div>
+                        <h1 class="soon-title">Estamos <span class="gold">trabalhando</span> nisso</h1>
+                        <p class="soon-desc">
+                            Algumas funcionalidades ainda nao estao disponiveis, mas ja estamos construindo tudo com o mesmo cuidado visual e premium do projeto. Em breve voce vai poder acessar esta area com uma experiencia completa.
+                        </p>
+
+                        <div class="soon-actions">
+                            <a href="index.html" class="btn btn-outline">Voltar ao inicio</a>
+                        </div>
+
+                        <div class="soon-meta">
+                            <div class="soon-meta-card">
+                                <div class="soon-meta-label">Status</div>
+                                <div class="soon-meta-value"><span class="gold">Em breve</span></div>
+                            </div>
+                            <div class="soon-meta-card">
+                                <div class="soon-meta-label">Fase atual</div>
+                                <div class="soon-meta-value">Desenvolvimento</div>
+                            </div>
+                        </div>
+
+                        <div class="soon-bar">
+                            <div class="soon-bar-head">
+                                <span>Construindo a próxima entrega</span>
+                                <strong>Atualizacao ativa</strong>
+                            </div>
+                            <div class="soon-bar-track">
+                                <span class="soon-bar-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="soon-visual">
+                        <div class="soon-orb"></div>
+
+                        <div class="soon-orb-card top">
+                            <div class="soon-orb-card-title">Design em movimento</div>
+                            <div class="soon-orb-card-text">Interfaces sendo refinadas para manter a linguagem premium, animada e coerente com o restante da plataforma.</div>
+                        </div>
+
+                        <div class="soon-orb-card bottom">
+                            <div class="soon-orb-card-title">O que vem por ai</div>
+                            <div class="soon-orb-card-text">Novas rotinas, automacoes, recursos inteligentes e telas exclusivas para cada fase do casal.</div>
+                            <div class="soon-timeline">
+                                <span class="soon-pill active">UI</span>
+                                <span class="soon-pill">Funcionalidade</span>
+                                <span class="soon-pill">Integração</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="soon-features" style="margin-top: 26px;">
+                    <div class="soon-feature">
+                        <div class="soon-feature-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 2l3 7h7l-5.5 4.2L18 21l-6-4-6 4 1.5-7.8L2 9h7z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>Animações premium</strong>
+                            <span>Camadas de brilho, transicoes suaves e movimento sutil para manter a experiencia viva.</span>
+                        </div>
+                    </div>
+                    <div class="soon-feature">
+                        <div class="soon-feature-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M20 7l-8 8-4-4"/>
+                                <path d="M4 7h16v10H4z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>Em desenvolvimento</strong>
+                            <span>O recurso vai entrar no ar assim que a versão estiver pronta para uso confiável.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="soon-footer">
+                    Quer acompanhar as novidades? <a href="login.html">Entre na conta</a> e continue de onde parou.
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+        function openMenu() {
+            mobileMenu.classList.add('open');
+            mobileMenuOverlay.classList.add('open');
+            mobileMenuBtn.classList.add('active');
+            document.body.classList.add('menu-open');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.remove('open');
+            mobileMenuOverlay.classList.remove('open');
+            mobileMenuBtn.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        }
+
+        mobileMenuBtn.addEventListener('click', openMenu);
+        mobileMenuClose.addEventListener('click', closeMenu);
+        mobileMenuOverlay.addEventListener('click', closeMenu);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
+        });
+    </script>
+</body>
+</html>
