@@ -1,0 +1,130 @@
+/* Navigation */
+.nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	padding: 20px 0;
+	transition: all 0.4s ease;
+}
+
+.nav.scrolled {
+	background: rgba(3, 8, 15, 0.92);
+	backdrop-filter: blur(20px);
+	padding: 14px 0;
+	border-bottom: 1px solid var(--border-color);
+}
+
+.nav-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.logo {
+	font-family: 'Cormorant Garamond', serif;
+	font-size: 28px;
+	font-weight: 600;
+	color: var(--gold-light);
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+}
+
+.logo span {
+	color: var(--text-primary);
+	font-weight: 400;
+}
+
+.nav-links {
+	display: flex;
+	align-items: center;
+	gap: 40px;
+	list-style: none;
+}
+
+.nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	padding: 20px 0;
+	transition: all 0.4s ease;
+}
+
+.nav.scrolled {
+	background: rgba(3, 8, 15, 0.92);
+	backdrop-filter: blur(20px);
+	padding: 14px 0;
+	border-bottom: 1px solid var(--border-color);
+}
+
+.nav-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.logo {
+	font-family: 'Cormorant Garamond', serif;
+	font-size: 28px;
+	font-weight: 600;
+	color: var(--gold-light);
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+}
+
+.logo span {
+	color: var(--text-primary);
+	font-weight: 400;
+}
+
+.nav-links {
+	display: flex;
+	align-items: center;
+	gap: 40px;
+	list-style: none;
+}
+
+.nav-links a {
+	font-size: 13px;
+	font-weight: 400;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--text-secondary);
+	position: relative;
+	padding: 6px 0;
+	transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+	transform: scaleX(0);
+	transform-origin: center;
+	transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+	opacity: 0;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+	color: var(--text-primary);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+	transform: scaleX(1);
+	opacity: 1;
+}
+
+.nav-cta {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}

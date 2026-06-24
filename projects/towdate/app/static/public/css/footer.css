@@ -1,0 +1,147 @@
+/* Footer */
+.footer {
+	background: var(--bg-dark);
+	padding: 80px 0 40px;
+	border-top: 1px solid var(--border-color);
+}
+
+.footer-grid {
+	display: grid;
+	grid-template-columns: 2fr 1fr 1fr 1fr;
+	gap: 60px;
+	margin-bottom: 60px;
+}
+
+.footer-brand .logo {
+	margin-bottom: 20px;
+}
+
+.footer-brand p {
+	font-size: 14px;
+	color: var(--text-secondary);
+	line-height: 1.8;
+	max-width: 360px;
+}
+
+.footer-title {
+	font-family: 'Cormorant Garamond', serif;
+	font-size: 18px;
+	color: var(--text-primary);
+	margin-bottom: 24px;
+}
+
+.footer-links {
+	list-style: none;
+}
+
+.footer-links li {
+	margin-bottom: 12px;
+}
+
+.footer-links a {
+	font-size: 14px;
+	color: var(--text-secondary);
+	transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+	color: var(--gold-light);
+	padding-left: 8px;
+}
+
+.footer-bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-top: 40px;
+	border-top: 1px solid var(--border-color);
+}
+
+.footer-copy {
+	font-size: 13px;
+	color: var(--text-muted);
+}
+
+.footer-socials {
+	display: flex;
+	gap: 16px;
+}
+
+.social-link {
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid var(--border-color);
+	color: var(--text-secondary);
+	font-size: 16px;
+	transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+	border-radius: 50%;
+}
+
+.social-link:hover {
+	transform: translateY(-3px);
+}
+
+/* X / Twitter — preto */
+.social-x:hover {
+	color: #ffffff;
+	background: #000000;
+	border-color: #000000;
+}
+
+/* Facebook — azul oficial */
+.social-facebook:hover {
+	color: #ffffff;
+	background: #1877F2;
+	border-color: #1877F2;
+}
+
+/* Instagram — gradiente roxo-laranja */
+.social-instagram:hover {
+	color: #ffffff;
+	background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+	border-color: #d6249f;
+}
+
+/* LinkedIn — azul oficial */
+.social-linkedin:hover {
+	color: #ffffff;
+	background: #0A66C2;
+	border-color: #0A66C2;
+}
+
+
+/* Animations */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.fade-in-up {
+	animation: fadeInUp 0.8s ease forwards;
+}
+
+.delay-1 {
+	animation-delay: 0.1s;
+}
+
+.delay-2 {
+	animation-delay: 0.2s;
+}
+
+.delay-3 {
+	animation-delay: 0.3s;
+}
+
+.delay-4 {
+	animation-delay: 0.4s;
+}

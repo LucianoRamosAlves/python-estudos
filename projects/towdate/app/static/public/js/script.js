@@ -187,14 +187,6 @@ document.querySelector('.testimonials-wrapper').addEventListener('mouseleave', (
    }, 6000);
 });
 
-// Form submission
-const contactForm = document.getElementById('contactForm');
-contactForm.addEventListener('submit', (e) => {
-   e.preventDefault();
-   alert('Thank you for your inquiry! Our team will contact you within 24 hours.');
-   contactForm.reset();
-});
-
 // Simulate live price updates (for demo purposes)
 function updatePrices() {
    const priceElement = document.querySelector('.price-value');
@@ -210,3 +202,4 @@ function updatePrices() {
 
 // Update prices every 30 seconds (demo)
 setInterval(updatePrices, 30000);
+

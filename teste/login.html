@@ -281,6 +281,19 @@
             color: var(--text-primary);
         }
 
+        .login-demo {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .login-demo .btn {
+            min-height: 42px;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+        }
+
         /* ── Minimal footer bar ─────────────────────────────── */
         .login-bar {
             text-align: center;
@@ -315,6 +328,7 @@
     </style>
 </head>
 <body>
+
 
     <!-- Navigation -->
     <nav class="nav scrolled" id="navbar">
@@ -372,7 +386,7 @@
                 </div>
 
                 <!-- Form -->
-                <form class="login-form" id="loginForm" novalidate>
+                <form class="login-form" id="loginForm" data-notify-form="login-demo" data-success-message="Login demonstrado com sucesso." novalidate>
 
                     <!-- Email -->
                     <div class="form-group">
@@ -438,6 +452,8 @@
 
                 </form>
 
+                
+
                 <!-- Divider -->
                 <div class="login-divider">
                     <span>ou continue com</span>
@@ -464,6 +480,13 @@
                     </a>
                 </div>
 
+                <div class="login-demo" aria-label="Demonstração de notificações">
+                    <button type="button" class="btn btn-outline" data-demo-toast="success" data-demo-message="Login validado. Este toast mostra o estilo de sucesso.">Toast sucesso</button>
+                    <button type="button" class="btn btn-outline" data-demo-toast="error" data-demo-message="Nao foi possivel entrar. Este toast mostra o estilo de erro.">Toast erro</button>
+                    <button type="button" class="btn btn-outline" data-demo-toast="warning" data-demo-message="Confira seus dados. Este toast mostra o alerta.">Toast alerta</button>
+                    <button type="button" class="btn btn-outline" data-demo-confirm data-confirm-title="Visualizar modal de confirmacao?" data-confirm-message="Use este exemplo apenas para conferir o estilo e a animacao do modal." data-confirm-success="Confirmacao concluida com sucesso." data-confirm-cancel="Confirmacao cancelada." data-confirm-cancel-type="info">Modal confirmar</button>
+                </div>
+
                 <!-- Footer text -->
                 <p class="login-footer-text">
                     Ainda nao tem conta?
@@ -484,54 +507,7 @@
         </footer>
     </div>
 
-    <script>
-        // Nav scroll (reused logic)
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 10) {
-                navbar.classList.add('scrolled');
-            }
-        });
-
-        // Mobile menu
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu    = document.getElementById('mobileMenu');
-        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-        const mobileMenuClose   = document.getElementById('mobileMenuClose');
-
-        function openMenu()  { mobileMenu.classList.add('open'); mobileMenuOverlay.classList.add('open'); mobileMenuBtn.classList.add('active'); document.body.classList.add('menu-open'); }
-        function closeMenu() { mobileMenu.classList.remove('open'); mobileMenuOverlay.classList.remove('open'); mobileMenuBtn.classList.remove('active'); document.body.classList.remove('menu-open'); }
-
-        mobileMenuBtn.addEventListener('click', openMenu);
-        mobileMenuClose.addEventListener('click', closeMenu);
-        mobileMenuOverlay.addEventListener('click', closeMenu);
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-
-        // Password toggle
-        const pwToggle = document.getElementById('pwToggle');
-        const pwInput  = document.getElementById('loginPassword');
-        const eyeIcon  = document.getElementById('eyeIcon');
-
-        const eyeOpen   = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
-        const eyeClosed = `<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>`;
-
-        pwToggle.addEventListener('click', () => {
-            const isHidden = pwInput.type === 'password';
-            pwInput.type = isHidden ? 'text' : 'password';
-            eyeIcon.innerHTML = isHidden ? eyeClosed : eyeOpen;
-        });
-
-        // Form submit (demo)
-        document.getElementById('loginForm').addEventListener('submit', e => {
-            e.preventDefault();
-            const btn = e.target.querySelector('[type="submit"]');
-            btn.textContent = 'Entrando...';
-            btn.disabled = true;
-            setTimeout(() => {
-                btn.textContent = 'Entrar na conta';
-                btn.disabled = false;
-            }, 1800);
-        });
-    </script>
 </body>
+<script src="notifications.js"></script>
+
 </html>

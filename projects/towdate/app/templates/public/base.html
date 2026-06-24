@@ -7,7 +7,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="teste.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/alerts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/contact.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/cta.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/hero_section.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/services.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/products.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/testimonials.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/pricing_card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/pricing_section.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/navigation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/mobile_menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/why_gold.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/responsive.css') }}">
+
+    
 
 </head>
 <body>
@@ -27,6 +43,6 @@
    
     {% include 'public/components/footer.html' %}
     
-<script src="script.js"></script>
+<script src="{{ url_for('static', filename='public/js/script.js') }}"></script>
 </body>
 </html>

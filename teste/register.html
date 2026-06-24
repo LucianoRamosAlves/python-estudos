@@ -546,6 +546,19 @@
         .reg-footer-text a { color: var(--gold-light); font-weight: 500; transition: color 0.3s ease; }
         .reg-footer-text a:hover { color: var(--text-primary); }
 
+        .reg-demo {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .reg-demo .btn {
+            min-height: 42px;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+        }
+
         /* bottom bar */
         .reg-bar {
             text-align: center;
@@ -573,6 +586,7 @@
             .reg-row        { grid-template-columns: 1fr; }
             .reg-oauth      { grid-template-columns: 1fr; }
             .reg-step-line  { min-width: 28px; }
+            .reg-demo       { grid-template-columns: 1fr; }
 
             .reg-plan-item .pricing-card {
                 padding: 20px 16px 16px;
@@ -645,7 +659,7 @@
 
             <div class="reg-form-wrap">
                 <div class="reg-form-card">
-                    <form class="reg-form" id="registerForm" novalidate>
+                    <form class="reg-form" id="registerForm" data-notify-form="register-demo" data-success-message="Conta demonstrada com sucesso." data-error-message="As senhas nao coincidem." novalidate>
 
             <!-- ── Planos ─────────────────────────────────────── -->
             <div class="reg-plans">
@@ -909,6 +923,13 @@
                         </a>
                     </div>
 
+                    <div class="reg-demo" aria-label="Demonstração de notificações">
+                        <button type="button" class="btn btn-outline" data-demo-toast="success" data-demo-message="Conta preparada. Este toast mostra o estado de sucesso.">Toast sucesso</button>
+                        <button type="button" class="btn btn-outline" data-demo-toast="warning" data-demo-message="Alguns campos ainda exigem atencao.">Toast alerta</button>
+                        <button type="button" class="btn btn-outline" data-demo-toast="info" data-demo-message="Voce pode usar estes exemplos para validar animacao e contraste visual.">Toast info</button>
+                        <button type="button" class="btn btn-outline" data-demo-confirm data-confirm-title="Confirmar demonstracao?" data-confirm-message="Este modal existe apenas para voce validar o visual e a transicao." data-confirm-success="Modal confirmado com sucesso." data-confirm-cancel="Modal fechado sem confirmar." data-confirm-cancel-type="info">Modal confirmar</button>
+                    </div>
+
                     <p class="reg-footer-text">
                         Ja tem uma conta? <a href="login.html">Entrar agora</a>
                     </p>
@@ -925,6 +946,7 @@
         </footer>
     </div>
 
+    <script src="notifications.js"></script>
     <script>
         // Nav scroll
         window.addEventListener('scroll', () => {
@@ -998,21 +1020,6 @@
             const lbl = ['','Fraca','Regular','Boa','Forte'];
             bars.forEach((b, i) => { b.className = 'pw-strength-bar'; if (i < s) b.classList.add(cls[s]); });
             strengthLbl.textContent = lbl[s] || '';
-        });
-
-        // Form submit
-        document.getElementById('registerForm').addEventListener('submit', e => {
-            e.preventDefault();
-            const pw  = document.getElementById('regPassword').value;
-            const pw2 = document.getElementById('regPasswordConfirm').value;
-            const confirmEl = document.getElementById('regPasswordConfirm');
-            if (pw !== pw2) { confirmEl.style.borderColor = 'var(--danger)'; confirmEl.focus(); return; }
-            confirmEl.style.borderColor = '';
-            const btn = document.getElementById('regSubmitBtn');
-            const orig = btn.textContent;
-            btn.textContent = 'Criando conta...';
-            btn.disabled = true;
-            setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 1800);
         });
     </script>
 </body>
