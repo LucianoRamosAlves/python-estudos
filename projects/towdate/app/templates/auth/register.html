@@ -68,7 +68,9 @@
 
             <div class="reg-form-wrap">
                 <div class="reg-form-card">
-                    <form class="reg-form" id="registerForm" data-notify-form="register-demo" data-success-message="Conta demonstrada com sucesso." data-error-message="As senhas nao coincidem." novalidate>
+                    <form method="POST" class="reg-form" id="registerForm" data-notify-form="register-demo" data-success-message="Conta demonstrada com sucesso." data-error-message="As senhas nao coincidem." novalidate>
+                    {{ form.hidden_tag() }}
+                    {% set selected_plan = request.form.get('plan', 'premium') %}
 
             <!-- ── Planos ─────────────────────────────────────── -->
             <div class="reg-plans">
@@ -82,7 +84,7 @@
 
                     <!-- Free -->
                     <label class="reg-plan-item">
-                        <input type="radio" name="plan" value="free">
+                        <input type="radio" name="plan" value="free"{% if selected_plan == 'free' %} checked{% endif %}>
                         <div class="pricing-card">
                             <div class="reg-plan-check">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -113,7 +115,7 @@
 
                     <!-- Basic -->
                     <label class="reg-plan-item">
-                        <input type="radio" name="plan" value="basic">
+                        <input type="radio" name="plan" value="basic"{% if selected_plan == 'basic' %} checked{% endif %}>
                         <div class="pricing-card pricing-silver">
                             <div class="reg-plan-check">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -144,7 +146,7 @@
 
                     <!-- Premium -->
                     <label class="reg-plan-item">
-                        <input type="radio" name="plan" value="premium" checked>
+                        <input type="radio" name="plan" value="premium"{% if selected_plan == 'premium' %} checked{% endif %}>
                         <div class="pricing-card pricing-premium">
                             <div class="pricing-popular-badge">Mais completo</div>
                             <div class="reg-plan-check">
@@ -194,8 +196,15 @@
                                             <circle cx="12" cy="7" r="4"/>
                                         </svg>
                                     </span>
-                                    <input type="text" id="regFirstName" class="form-input" placeholder="Ana" autocomplete="given-name" required>
+                                    <input name="nome" type="text" id="regFirstName" class="form-input{% if form.nome.errors %} is-invalid{% endif %}" placeholder="Ana" autocomplete="given-name" value="{{ form.nome.data or '' }}" required>
                                 </div>
+                                {% if form.nome.errors %}
+                                    <div class="field-error" role="alert">
+                                        {% for error in form.nome.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="regLastName">Sobrenome</label>
@@ -206,8 +215,15 @@
                                             <circle cx="12" cy="7" r="4"/>
                                         </svg>
                                     </span>
-                                    <input type="text" id="regLastName" class="form-input" placeholder="Silva" autocomplete="family-name" required>
+                                    <input name="sobrenome" type="text" id="regLastName" class="form-input{% if form.sobrenome.errors %} is-invalid{% endif %}" placeholder="Silva" autocomplete="family-name" value="{{ form.sobrenome.data or '' }}" required>
                                 </div>
+                                {% if form.sobrenome.errors %}
+                                    <div class="field-error" role="alert">
+                                        {% for error in form.sobrenome.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
 
@@ -220,8 +236,15 @@
                                         <polyline points="22,6 12,13 2,6"/>
                                     </svg>
                                 </span>
-                                <input type="email" id="regEmail" class="form-input" placeholder="ana@email.com" autocomplete="email" required>
+                                <input name="email" type="email" id="regEmail" class="form-input{% if form.email.errors %} is-invalid{% endif %}" placeholder="ana@email.com" autocomplete="email" value="{{ form.email.data or '' }}" required>
                             </div>
+                            {% if form.email.errors %}
+                                <div class="field-error" role="alert">
+                                    {% for error in form.email.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
 
                         <div class="form-group">
@@ -235,8 +258,15 @@
                                         <line x1="3" y1="10" x2="21" y2="10"/>
                                     </svg>
                                 </span>
-                                <input type="date" id="regRelDate" class="form-input">
+                                <input name="data_relacionamento" type="date" id="regRelDate" class="form-input{% if form.data_relacionamento.errors %} is-invalid{% endif %}" value="{{ form.data_relacionamento.data or '' }}">
                             </div>
+                            {% if form.data_relacionamento.errors %}
+                                <div class="field-error" role="alert">
+                                    {% for error in form.data_relacionamento.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
 
                         <p class="reg-field-label" style="margin-top:8px">Seguranca</p>
@@ -250,7 +280,7 @@
                                         <path d="M7 11V7a5 5 0 0110 0v4"/>
                                     </svg>
                                 </span>
-                                <input type="password" id="regPassword" class="form-input" placeholder="Minimo 8 caracteres" autocomplete="new-password" required>
+                                <input name="senha" type="password" id="regPassword" class="form-input{% if form.senha.errors %} is-invalid{% endif %}" placeholder="Minimo 8 caracteres" autocomplete="new-password" value="{{ form.senha.data or '' }}" required>
                                 <button type="button" class="reg-pw-toggle" id="pwToggle1" aria-label="Mostrar senha">
                                     <svg id="eyeIcon1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -265,6 +295,13 @@
                                 <div class="pw-strength-bar" id="bar4"></div>
                                 <span class="pw-strength-text" id="strengthLabel"></span>
                             </div>
+                            {% if form.senha.errors %}
+                                <div class="field-error" role="alert">
+                                    {% for error in form.senha.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
 
                         <div class="form-group">
@@ -276,7 +313,7 @@
                                         <path d="M7 11V7a5 5 0 0110 0v4"/>
                                     </svg>
                                 </span>
-                                <input type="password" id="regPasswordConfirm" class="form-input" placeholder="Repita a senha" autocomplete="new-password" required>
+                                <input name="confirmar_senha" type="password" id="regPasswordConfirm" class="form-input{% if form.confirmar_senha.errors %} is-invalid{% endif %}" placeholder="Repita a senha" autocomplete="new-password" value="{{ form.confirmar_senha.data or '' }}" required>
                                 <button type="button" class="reg-pw-toggle" id="pwToggle2" aria-label="Mostrar senha">
                                     <svg id="eyeIcon2" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -284,6 +321,13 @@
                                     </svg>
                                 </button>
                             </div>
+                            {% if form.confirmar_senha.errors %}
+                                <div class="field-error" role="alert">
+                                    {% for error in form.confirmar_senha.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
 
                         <!-- Partner hint -->
@@ -301,9 +345,16 @@
 
                         <!-- Terms -->
                         <label class="reg-terms">
-                            <input type="checkbox" id="regTerms" required>
+                            <input name="termos" type="checkbox" id="regTerms"{% if form.termos.data %} checked{% endif %} required>
                             Li e concordo com os <a href="#">Termos de Uso</a> e a <a href="#">Politica de Privacidade</a> da TowDate.
                         </label>
+                        {% if form.termos.errors %}
+                            <div class="field-error" role="alert">
+                                {% for error in form.termos.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
 
                         <!-- Submit -->
                         <button type="submit" class="btn btn-primary reg-submit" id="regSubmitBtn">
@@ -332,13 +383,6 @@
                         </a>
                     </div>
 
-                    <div class="reg-demo" aria-label="Demonstração de notificações">
-                        <button type="button" class="btn btn-outline" data-demo-toast="success" data-demo-message="Conta preparada. Este toast mostra o estado de sucesso.">Toast sucesso</button>
-                        <button type="button" class="btn btn-outline" data-demo-toast="warning" data-demo-message="Alguns campos ainda exigem atencao.">Toast alerta</button>
-                        <button type="button" class="btn btn-outline" data-demo-toast="info" data-demo-message="Voce pode usar estes exemplos para validar animacao e contraste visual.">Toast info</button>
-                        <button type="button" class="btn btn-outline" data-demo-confirm data-confirm-title="Confirmar demonstracao?" data-confirm-message="Este modal existe apenas para voce validar o visual e a transicao." data-confirm-success="Modal confirmado com sucesso." data-confirm-cancel="Modal fechado sem confirmar." data-confirm-cancel-type="info">Modal confirmar</button>
-                    </div>
-
                     <p class="reg-footer-text">
                         Ja tem uma conta? <a href="{{ url_for('auth.login') }}">Entrar agora</a>
                     </p>
@@ -355,7 +399,7 @@
         </footer>
     </div>
 
-    <script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/auth/register.js') }}"></script>
 
 {% endblock %}
 

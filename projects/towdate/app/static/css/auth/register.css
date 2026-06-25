@@ -325,6 +325,27 @@
         .reg-form .form-group { margin-bottom: 0; }
         .reg-form .form-group:last-of-type { margin-bottom: 0; }
 
+        .reg-form .form-input.is-invalid {
+            border-color: rgba(210, 122, 122, 0.85);
+            box-shadow: 0 0 0 3px rgba(210, 122, 122, 0.08);
+        }
+
+        .reg-form .form-input.is-invalid:focus {
+            border-color: rgba(210, 122, 122, 0.95);
+            box-shadow: 0 0 0 3px rgba(210, 122, 122, 0.12);
+        }
+
+        .field-error {
+            margin-top: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+            color: var(--danger);
+        }
+
+        .field-error span {
+            display: block;
+        }
+
         .reg-row {
             display: grid;
             grid-template-columns: 1fr 1fr;

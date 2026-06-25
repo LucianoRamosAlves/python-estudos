@@ -18,7 +18,7 @@
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
         // Update submit button when plan changes
-        const planLabels = { free: 'Criar conta gratuita', basic: 'Criar conta Basic', premium: 'Criar conta Premium e continuar' };
+        const planLabels = { free: 'Criar conta gratuita', basic: 'Criar conta Basic', premium: 'Criar conta Premium' };
         document.querySelectorAll('input[name="plan"]').forEach(r => {
             r.addEventListener('change', () => {
                 document.getElementById('regSubmitBtn').textContent = planLabels[r.value] || 'Criar conta e continuar';

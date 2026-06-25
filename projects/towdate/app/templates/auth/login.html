@@ -62,7 +62,8 @@
                 </div>
 
                 <!-- Form -->
-                <form class="login-form" id="loginForm" data-notify-form="login-demo" data-success-message="Login demonstrado com sucesso." novalidate>
+                <form method="POST" class="login-form" id="loginForm" data-notify-form="login-demo" data-success-message="Login demonstrado com sucesso." novalidate>
+                {{ form.hidden_tag() }}
 
                     <!-- Email -->
                     <div class="form-group">
@@ -77,13 +78,23 @@
                             <input
                                 type="email"
                                 id="loginEmail"
-                                class="form-input"
+                                name="email"
+                                class="form-input{% if form.email.errors %} is-invalid{% endif %}"
                                 placeholder="seu@email.com"
                                 autocomplete="email"
+                                value="{{ form.email.data or '' }}"
                                 required
                             >
                         </div>
+                        {% if form.email.errors %}
+                            <div class="field-error" role="alert">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
+
 
                     <!-- Password -->
                     <div class="form-group">
@@ -98,9 +109,11 @@
                             <input
                                 type="password"
                                 id="loginPassword"
-                                class="form-input"
+                                name="senha"
+                                class="form-input{% if form.senha.errors %} is-invalid{% endif %}"
                                 placeholder="••••••••"
                                 autocomplete="current-password"
+                                value="{{ form.senha.data or '' }}"
                                 required
                             >
                             <button type="button" class="login-pw-toggle" id="pwToggle" aria-label="Mostrar senha">
@@ -110,12 +123,19 @@
                                 </svg>
                             </button>
                         </div>
+                        {% if form.senha.errors %}
+                            <div class="field-error" role="alert">
+                                {% for error in form.senha.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <!-- Extras row -->
                     <div class="login-extras">
                         <label class="login-remember">
-                            <input type="checkbox" id="rememberMe">
+                            <input name="remember" type="checkbox" id="rememberMe"{% if form.remember.data %} checked{% endif %}>
                             Lembrar de mim
                         </label>
                         <a href="#" class="login-forgot">Esqueci minha senha</a>
@@ -123,7 +143,7 @@
 
                     <!-- Submit -->
                     <button type="submit" class="btn btn-primary login-submit">
-                        Entrar na conta
+                        Entrar
                     </button>
 
                 </form>
@@ -156,13 +176,6 @@
                     </a>
                 </div>
 
-                <div class="login-demo" aria-label="Demonstração de notificações">
-                    <button type="button" class="btn btn-outline" data-demo-toast="success" data-demo-message="Login validado. Este toast mostra o estilo de sucesso.">Toast sucesso</button>
-                    <button type="button" class="btn btn-outline" data-demo-toast="error" data-demo-message="Nao foi possivel entrar. Este toast mostra o estilo de erro.">Toast erro</button>
-                    <button type="button" class="btn btn-outline" data-demo-toast="warning" data-demo-message="Confira seus dados. Este toast mostra o alerta.">Toast alerta</button>
-                    <button type="button" class="btn btn-outline" data-demo-confirm data-confirm-title="Visualizar modal de confirmacao?" data-confirm-message="Use este exemplo apenas para conferir o estilo e a animacao do modal." data-confirm-success="Confirmacao concluida com sucesso." data-confirm-cancel="Confirmacao cancelada." data-confirm-cancel-type="info">Modal confirmar</button>
-                </div>
-
                 <!-- Footer text -->
                 <p class="login-footer-text">
                     Ainda nao tem conta?
@@ -184,6 +197,3 @@
     </div>
 
 {% endblock %} 
-{% block extra_js %}
-    <script src="{{ url_for('static', filename='public/js/notifications.js') }}"></script>
-{% endblock %}

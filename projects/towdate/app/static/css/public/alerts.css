@@ -13,9 +13,8 @@
 
 .todate-toast {
 	position: relative;
-	display: grid;
-	grid-template-columns: auto 1fr auto;
-	align-items: start;
+	display: flex;
+	align-items: flex-start;
 	gap: 12px;
 	padding: 14px 14px 14px 12px;
 	border-radius: 16px;
@@ -48,6 +47,7 @@
 }
 
 .todate-toast-body {
+	flex: 1;
 	min-width: 0;
 }
 
@@ -81,7 +81,9 @@
 	justify-content: center;
 	border-radius: 8px;
 	transition: background 0.2s ease, color 0.2s ease;
-	margin-top: -2px;
+	margin-top: 0;
+	margin-left: auto;
+	flex-shrink: 0;
 }
 
 .todate-toast-close:hover {

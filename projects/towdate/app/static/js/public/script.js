@@ -2,13 +2,15 @@
 
 // Navigation scroll effect
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-   if (window.scrollY > 50) {
-      navbar.classList.add('scrolled');
-   } else {
-      navbar.classList.remove('scrolled');
-   }
-});
+if (navbar) {
+   window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+         navbar.classList.add('scrolled');
+      } else {
+         navbar.classList.remove('scrolled');
+      }
+   });
+}
 
 // Mobile Menu
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -18,6 +20,7 @@ const mobileMenuClose = document.getElementById('mobileMenuClose');
 const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
 
 function openMobileMenu() {
+   if (!mobileMenu || !mobileMenuOverlay || !mobileMenuBtn) return;
    mobileMenu.classList.add('open');
    mobileMenuOverlay.classList.add('open');
    mobileMenuBtn.classList.add('active');
@@ -25,15 +28,18 @@ function openMobileMenu() {
 }
 
 function closeMobileMenu() {
+   if (!mobileMenu || !mobileMenuOverlay || !mobileMenuBtn) return;
    mobileMenu.classList.remove('open');
    mobileMenuOverlay.classList.remove('open');
    mobileMenuBtn.classList.remove('active');
    document.body.classList.remove('menu-open');
 }
 
-mobileMenuBtn.addEventListener('click', openMobileMenu);
-mobileMenuClose.addEventListener('click', closeMobileMenu);
-mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+if (mobileMenuBtn && mobileMenuClose && mobileMenuOverlay) {
+   mobileMenuBtn.addEventListener('click', openMobileMenu);
+   mobileMenuClose.addEventListener('click', closeMobileMenu);
+   mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+}
 
 // Close mobile menu when clicking a link
 mobileNavLinks.forEach(link => {
@@ -141,6 +147,8 @@ function goToTestimonial(index) {
    if (index >= totalTestimonials) index = 0;
 
    currentTestimonial = index;
+   if (!testimonialsTrack) return;
+
    testimonialsTrack.style.transform = `translateX(-${currentTestimonial * 100}%)`;
 
    testimonialDots.forEach((dot, i) => {
@@ -148,35 +156,40 @@ function goToTestimonial(index) {
    });
 }
 
-testimonialDots.forEach((dot, index) => {
-   dot.addEventListener('click', () => {
-      goToTestimonial(index);
+if (testimonialsTrack && testimonialPrev && testimonialNext && totalTestimonials > 0) {
+   testimonialDots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+         goToTestimonial(index);
+      });
    });
-});
 
-testimonialPrev.addEventListener('click', () => {
-   goToTestimonial(currentTestimonial - 1);
-});
+   testimonialPrev.addEventListener('click', () => {
+      goToTestimonial(currentTestimonial - 1);
+   });
 
-testimonialNext.addEventListener('click', () => {
-   goToTestimonial(currentTestimonial + 1);
-});
+   testimonialNext.addEventListener('click', () => {
+      goToTestimonial(currentTestimonial + 1);
+   });
 
-// Auto-advance testimonials every 6 seconds
-let testimonialAutoPlay = setInterval(() => {
-   goToTestimonial(currentTestimonial + 1);
-}, 6000);
-
-// Pause auto-play on hover
-document.querySelector('.testimonials-wrapper').addEventListener('mouseenter', () => {
-   clearInterval(testimonialAutoPlay);
-});
-
-document.querySelector('.testimonials-wrapper').addEventListener('mouseleave', () => {
-   testimonialAutoPlay = setInterval(() => {
+   // Auto-advance testimonials every 6 seconds
+   let testimonialAutoPlay = setInterval(() => {
       goToTestimonial(currentTestimonial + 1);
    }, 6000);
-});
+
+   // Pause auto-play on hover
+   const testimonialsWrapper = document.querySelector('.testimonials-wrapper');
+   if (testimonialsWrapper) {
+      testimonialsWrapper.addEventListener('mouseenter', () => {
+         clearInterval(testimonialAutoPlay);
+      });
+
+      testimonialsWrapper.addEventListener('mouseleave', () => {
+         testimonialAutoPlay = setInterval(() => {
+            goToTestimonial(currentTestimonial + 1);
+         }, 6000);
+      });
+   }
+}
 
 // Simulate live price updates (for demo purposes)
 function updatePrices() {
