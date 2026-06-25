@@ -13,7 +13,7 @@ def login():
         flash(f"Login bem-sucedido! {form.email.data}", "success")
         return redirect(url_for("private.home"))
 
-    else:
+    if form.is_submitted() and not form.validate():
         flash("Erro no login!", "error")
 
     return render_template("auth/login.html", form=form)
@@ -27,7 +27,7 @@ def register():
     if form.validate_on_submit():
         return redirect(url_for("private.home"))
   
-    else:
+    if form.is_submitted() and not form.validate():
         flash("Erro no registro!", "error")
 
     return render_template("auth/register.html", form=form)

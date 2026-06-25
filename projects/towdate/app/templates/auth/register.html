@@ -248,7 +248,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label" for="regRelDate">Inicio do relacionamento</label>
+                            <label class="form-label" for="regBirthDate">Data de Nascimento</label>
                             <div class="reg-input-wrap">
                                 <span class="reg-input-icon">
                                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -258,11 +258,11 @@
                                         <line x1="3" y1="10" x2="21" y2="10"/>
                                     </svg>
                                 </span>
-                                <input name="data_relacionamento" type="date" id="regRelDate" class="form-input{% if form.data_relacionamento.errors %} is-invalid{% endif %}" value="{{ form.data_relacionamento.data or '' }}">
+                                <input name="data_nascimento" type="date" id="regBirthDate" class="form-input{% if form.data_nascimento.errors %} is-invalid{% endif %}" value="{{ form.data_nascimento.data or '' }}">
                             </div>
-                            {% if form.data_relacionamento.errors %}
+                            {% if form.data_nascimento.errors %}
                                 <div class="field-error" role="alert">
-                                    {% for error in form.data_relacionamento.errors %}
+                                    {% for error in form.data_nascimento.errors %}
                                         <span>{{ error }}</span>
                                     {% endfor %}
                                 </div>

@@ -9,8 +9,8 @@ class RegisterForm(FlaskForm):
     sobrenome = StringField("Sobrenome", validators=[DataRequired()])
     email = EmailField("Email", validators=[DataRequired(), Email()])
 
-    data_relacionamento = DateField(
-        "Início do relacionamento",
+    data_nascimento = DateField(
+        "Data de Nascimento",
         validators=[DataRequired()],
         format="%Y-%m-%d"
     )
