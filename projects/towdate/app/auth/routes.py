@@ -1,7 +1,8 @@
 
 from flask import Blueprint, render_template, url_for, redirect, flash
-
 from .forms import  RegisterForm, LoginForm
+from app.extensions import db, bcrypt
+from app.models.user import User
 
 auth = Blueprint("auth", __name__)
 
@@ -25,6 +26,18 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
+        # Aqui você pode adicionar a lógica para criar um novo usuário no banco de dados
+        senha_hash = bcrypt.generate_password_hash(form.senha.data).decode("utf-8")
+        user = User(
+            first_name=form.nome.data,
+            last_name=form.sobrenome.data,
+            email=form.email.data,
+            birth_date=form.data_nascimento.data,
+            password_hash=senha_hash
+        )
+        db.session.add(user) 
+        db.session.commit()
+        flash(f"Registro bem-sucedido! {form.nome.data} {form.sobrenome.data}", "success")
         return redirect(url_for("private.home"))
   
     if form.is_submitted() and not form.validate():

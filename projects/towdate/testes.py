@@ -7,8 +7,9 @@ from datetime import date
 
 app = create_app()
 
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.drop_all()
+    db.create_all()
 
 # with app.app_context():
     # user1 = User(
@@ -54,7 +55,7 @@ app = create_app()
 #         print(f"ID: {user.id}, User1 ID: {user.user1_id}, User2 ID: {user.user2_id}, Relationship Date: {user.relationship_date}, Relationship Status: {user.relationship_status}, Couple Photo: {user.couple_photo}")
 
 
-with app.app_context():
-    meus_users = Couples.query.all()
-    for user in meus_users:
-        print(f"bem vindo o casal {user.user1.first_name} {user.user1.last_name} e {user.user2.first_name} {user.user2.last_name}, User1 ID: {user.user1_id}, User2 ID: {user.user2_id}, Relationship Date: {user.relationship_date}, Relationship Status: {user.relationship_status}, Couple Photo: {user.couple_photo}")
+# with app.app_context():
+#     meus_users = Couples.query.all()
+#     for user in meus_users:
+#         print(f"bem vindo o casal {user.user1.first_name} {user.user1.last_name} e {user.user2.first_name} {user.user2.last_name}, User1 ID: {user.user1_id}, User2 ID: {user.user2_id}, Relationship Date: {user.relationship_date}, Relationship Status: {user.relationship_status}, Couple Photo: {user.couple_photo}")

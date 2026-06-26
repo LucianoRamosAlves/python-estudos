@@ -1,8 +1,8 @@
+
 from flask import Flask
 
 from app.config import Config
-from app.extensions import db, migrate, login_manager
-
+from app.extensions import db, migrate, login_manager, bcrypt
 
 def create_app():
 
@@ -12,8 +12,9 @@ def create_app():
         static_folder="static"
     )
 
-    app.config.from_object(Config)
 
+    app.config.from_object(Config)
+    bcrypt.init_app(app)  # Inicializa o Bcrypt com a instância do aplicativo
     db.init_app(app)
     migrate.init_app(app, db)
     # login_manager.init_app(app)
