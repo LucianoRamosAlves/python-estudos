@@ -1,0 +1,11 @@
+
+
+
+cores = [
+    {"fundo": "#60A5FA", "icone": "#1D4ED8"},  # Azul
+    {"fundo": "#FCA5A5", "icone": "#B91C1C"},  # Vermelho
+    {"fundo": "#86EFAC", "icone": "#166534"},  # Verde
+    {"fundo": "#FDE68A", "icone": "#B45309"},  # Dourado
+    {"fundo": "#C4B5FD", "icone": "#6D28D9"},  # Roxo
+    {"fundo": "#FDBA74", "icone": "#C2410C"},  # Laranja
+]

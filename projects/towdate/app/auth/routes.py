@@ -1,11 +1,25 @@
 
 from flask import Blueprint, render_template, url_for, redirect, flash
+
+from app.models.user import User
 from .forms import  RegisterForm, LoginForm
 from app.extensions import db, bcrypt
 from app.models.user import User
-from flask_login import login_user
+from flask_login import login_user, logout_user
+import random
 
 auth = Blueprint("auth", __name__)
+cores = [
+    {"fundo": "#DBEAFE", "icone": "#2563EB"},  # Azul
+    {"fundo": "#DCFCE7", "icone": "#16A34A"},  # Verde
+    {"fundo": "#FCE7F3", "icone": "#DB2777"},  # Rosa
+    {"fundo": "#FEF3C7", "icone": "#D97706"},  # Dourado
+    {"fundo": "#EDE9FE", "icone": "#7C3AED"},  # Roxo
+    {"fundo": "#FFE4E6", "icone": "#E11D48"},  # Vermelho
+]
+
+cor = random.choice(cores)
+
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
@@ -41,15 +55,23 @@ def register():
     if form.validate_on_submit():
         # Aqui você pode adicionar a lógica para criar um novo usuário no banco de dados
         senha_hash = bcrypt.generate_password_hash(form.senha.data).decode("utf-8")
+        cor = random.choice(cores)
         user = User(
             first_name=form.nome.data,
             last_name=form.sobrenome.data,
             email=form.email.data,
             birth_date=form.data_nascimento.data,
-            password_hash=senha_hash
+            password_hash=senha_hash,
+            cor_fundo=cor["fundo"],
+            cor_icone=cor["icone"]
         )
         db.session.add(user) 
         db.session.commit()
+
+        logout_user()      # Encerra qualquer sessão anterior
+        login_user(user)
+
+
         flash(f"Registro bem-sucedido! {form.nome.data} {form.sobrenome.data}", "success")
         return redirect(url_for("private.home"))
   

@@ -45,6 +45,18 @@ class User(db.Model, UserMixin):
         default="avatars/default.png"
     )
 
+    cor_fundo = db.Column(
+        db.String(7),
+        nullable=True,
+        default="#3b82f6"
+    )
+
+    cor_icone = db.Column(
+        db.String(7),
+        nullable=True,
+        default="#3b82f6"
+    )
+
     created_at = db.Column(
         db.DateTime,
         nullable=False,

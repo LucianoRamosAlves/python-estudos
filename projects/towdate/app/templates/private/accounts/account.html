@@ -6,17 +6,17 @@
 
     <div class="account-card profile-card">
 
-        <div class="avatar-wrapper">
-            <img src="{{ url_for('static', filename='img/default-avatar.png') }}" alt="Foto do perfil">
-        </div>
+    <div class="avatar-wrapper">
+        {% include 'private/components/avatar_padrao.html' %}
+    </div>
 
-        <h2>Luciano Ramos</h2>
+        <h2>{{ current_user.name }}</h2>
 
-        <p class="profile-username">@lucianoramos</p>
+        <p class="profile-username">{{ current_user.username }}</p>
 
-        <p class="profile-email">luciano@email.com</p>
+        <p class="profile-email">{{ current_user.email }}</p>
 
-        <p class="profile-member-since">Membro desde Janeiro de 2024</p>
+        <p class="profile-member-since">Membro desde {{ current_user.created_at.strftime('%B de %Y') }}</p>
 
         <div class="profile-actions">
 
@@ -59,34 +59,19 @@
                             </svg>
                         </span>
 
-                        <input id="accName" type="text" class="form-input" value="Luciano Ramos">
+                        
+
+                        <input id="accName" type="text" class="form-input" value="{{ current_user.first_name }} {{ current_user.last_name }}">
                     </div>
 
                 </div>
 
-                <div class="form-group">
-
-                    <label class="form-label" for="accUsername">
-                        Nome de usuário
-                    </label>
-
-                    <div class="reg-input-wrap">
-                        <span class="reg-input-icon">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5">
-                                <circle cx="12" cy="8" r="4" />
-                                <path d="M4 20c1.6-3.2 4.4-4.8 8-4.8s6.4 1.6 8 4.8" />
-                            </svg>
-                        </span>
-
-                        <input id="accUsername" type="text" class="form-input" value="lucianoramos">
-                    </div>
-
-                </div>
 
             </div>
 
             <div class="form-group">
+
+                
 
                 <label class="form-label" for="accEmail">
                     E-mail
@@ -101,7 +86,7 @@
                         </svg>
                     </span>
 
-                    <input id="accEmail" type="email" class="form-input" value="luciano@email.com">
+                    <input id="accEmail" type="email" class="form-input" value="{{ current_user.email }}">
 
                 </div>
 

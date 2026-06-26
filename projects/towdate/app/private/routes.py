@@ -5,6 +5,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 
 private = Blueprint("private", __name__)
 
+
 @private.route("/home")
 @login_required
 def home():
