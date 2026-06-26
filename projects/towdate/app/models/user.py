@@ -1,8 +1,13 @@
-from app.extensions import db
+from app.extensions import db, login_manager
+from flask_login import UserMixin
 from datetime import datetime
 
+@login_manager.user_loader
+def load_user(id_user):
+    return User.query.get(int(id_user))
 
-class User(db.Model):
+
+class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)

@@ -17,7 +17,7 @@ def create_app():
     bcrypt.init_app(app)  # Inicializa o Bcrypt com a instância do aplicativo
     db.init_app(app)
     migrate.init_app(app, db)
-    # login_manager.init_app(app)
+    login_manager.init_app(app)
 
     from app.public.routes import public
     app.register_blueprint(public)

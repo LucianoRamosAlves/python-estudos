@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, PasswordField, DateField, BooleanField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
+from app.models.user import User
 
 
 # registro
@@ -25,6 +26,11 @@ class RegisterForm(FlaskForm):
             EqualTo("senha", message="As senhas devem ser iguais.")
         ]
     )
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('Email já cadastrado. Cadastre-se com outro e-mail ou faça o login para continuar ')
 
 
 # login

@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, url_for, redirect, flash
 from .forms import  RegisterForm, LoginForm
 from app.extensions import db, bcrypt
 from app.models.user import User
+from flask_login import login_user
 
 auth = Blueprint("auth", __name__)
 
@@ -11,11 +12,23 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        flash(f"Login bem-sucedido! {form.email.data}", "success")
-        return redirect(url_for("private.home"))
+        user = User.query.filter_by(email=form.email.data).first()
 
-    if form.is_submitted() and not form.validate():
-        flash("Erro no login!", "error")
+        if not user:
+            form.email.errors.append("E-mail não Cadastrado. Por favor Cadastre-se")
+            flash("Falha no Login.", "error")
+
+        elif user and not bcrypt.check_password_hash(user.password_hash, form.senha.data):
+            form.senha.errors.append("Senha Inválida")
+            flash("Falha no Login.", "error")
+
+        elif user and bcrypt.check_password_hash(user.password_hash, form.senha.data):
+            login_user(user, remember=form.remember.data)
+            flash("Seja Bem Vindo(a)", "success")
+            return redirect(url_for("private.home"))
+
+        # if form.is_submitted() and not form.validate():
+        #     flash("Erro no login!", "error")
 
     return render_template("auth/login.html", form=form)
 
