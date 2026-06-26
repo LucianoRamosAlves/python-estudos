@@ -1,0 +1,96 @@
+/* ===========================
+   NOTIFICATIONS
+=========================== */
+
+.notification-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    padding:22px 0;
+    border-bottom:1px solid var(--border-color);
+}
+
+.notification-item:last-child{
+    border-bottom:none;
+}
+
+.notification-info{
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    flex:1;
+}
+
+.notification-info h4{
+    color:var(--text-primary);
+    font-size:16px;
+    margin-bottom:6px;
+}
+
+.notification-info p{
+    color:var(--text-secondary);
+    font-size:14px;
+    line-height:1.6;
+}
+
+.notification-item input[type="checkbox"]{
+    width:20px;
+    height:20px;
+    accent-color:var(--gold-primary);
+    cursor:pointer;
+}
+
+/* Toggle Switch */
+
+.notification-switch{
+    position:relative;
+    display:inline-block;
+    width:58px;
+    height:32px;
+    flex-shrink:0;
+}
+
+.notification-switch input{
+    opacity:0;
+    width:0;
+    height:0;
+}
+
+.notification-slider{
+    position:absolute;
+    inset:0;
+    cursor:pointer;
+    border-radius:999px;
+    background:var(--bg-dark);
+    border:1px solid var(--border-color);
+    transition:.3s ease;
+}
+
+.notification-slider::before{
+    content:"";
+    position:absolute;
+    width:24px;
+    height:24px;
+    left:3px;
+    top:3px;
+    border-radius:50%;
+    background:var(--text-secondary);
+    transition:.3s ease;
+    box-shadow:0 4px 12px rgba(0,0,0,.35);
+}
+
+.notification-switch input:checked + .notification-slider{
+    background:rgba(212,175,55,.18);
+    border-color:var(--gold-primary);
+    box-shadow:0 0 18px rgba(212,175,55,.18);
+}
+
+.notification-switch input:checked + .notification-slider::before{
+    transform:translateX(26px);
+    background:var(--gold-primary);
+}
+
+.notification-switch:hover .notification-slider{
+    border-color:var(--gold-hover);
+}

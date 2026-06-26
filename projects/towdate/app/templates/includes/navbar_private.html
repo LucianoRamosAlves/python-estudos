@@ -1,0 +1,49 @@
+
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="logo">Tow <span>Date</span></a>
+                <ul class="nav-links">
+                    <li><a href="#services">Start</a></li>
+                    <li><a href="#why-gold">Dashboard</a></li>
+                    <li><a href="#products">cod love</a></li>
+                    <li><a href="#testimonials">ferramentas</a></li>
+                    <li><a href="#contact">suporte</a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="{{ url_for('private.account') }}" class="btn btn-outline">Perfil</a>
+                    <a href="{{ url_for('public.home') }}" class="btn btn-primary">Sair</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <ul class="mobile-nav-links">
+                    <li><a href="#services">Start</a></li>
+                    <li><a href="#why-gold">Dashboard</a></li>
+                    <li><a href="#products">cod love</a></li>
+                    <li><a href="#testimonials">ferramentas</a></li>
+                    <li><a href="#contact">suporte</a></li>
+        </ul>
+        <div class="mobile-menu-cta">
+            <a href="{{ url_for('private.account') }}" class="btn btn-outline">Perfil</a>
+            <a href="{{ url_for('public.home') }}" class="btn btn-primary">Sair</a>
+        </div>
+    </div>

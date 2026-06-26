@@ -1,0 +1,90 @@
+{% extends 'private/accounts/settings_base.html' %}
+
+{% block settings_content %}
+
+<div class="account-card">
+
+    <h2>Segurança da Conta</h2>
+
+    <p class="account-desc">
+        Gerencie sua senha e proteja sua conta contra acessos não autorizados.
+    </p>
+
+    <form>
+
+        <div class="form-group">
+
+            <label class="reg-field-label">
+                Senha atual
+            </label>
+
+            <input type="password" class="form-input" placeholder="Digite sua senha atual">
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="reg-field-label">
+                Nova senha
+            </label>
+
+            <input type="password" class="form-input" placeholder="Digite a nova senha">
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="reg-field-label">
+                Confirmar nova senha
+            </label>
+
+            <input type="password" class="form-input" placeholder="Confirme a nova senha">
+
+        </div>
+
+        <div class="form-actions">
+
+            <button class="btn btn-primary">
+
+                Alterar Senha
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<div class="account-card">
+
+    <h2>Sessões Ativas</h2>
+
+    <p class="account-desc">
+
+        Em breve será possível visualizar todos os dispositivos conectados
+        à sua conta e encerrar sessões remotamente.
+
+    </p>
+
+</div>
+
+<div class="account-card account-danger">
+
+    <h2>Zona de Perigo</h2>
+
+    <p class="account-desc">
+
+        Alterações nesta área podem afetar permanentemente sua conta.
+
+    </p>
+
+    <button class="btn btn-outline">
+
+        Encerrar todas as sessões
+
+    </button>
+
+</div>
+
+{% endblock %}

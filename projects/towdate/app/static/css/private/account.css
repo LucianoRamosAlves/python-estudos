@@ -1,0 +1,291 @@
+/* ===========================
+   ACCOUNT PAGE
+=========================== */
+
+.account-page{
+    padding:100px 0 80px;
+}
+
+.account-page::before{
+    content:'';
+    position:fixed;
+    top:16%;
+    right:-12%;
+    width:560px;
+    height:560px;
+    background:radial-gradient(ellipse, rgba(43,108,176,0.12) 0%, transparent 68%);
+    pointer-events:none;
+    z-index:0;
+}
+
+.account-page .container{
+    position:relative;
+    z-index:1;
+}
+
+.account-layout{
+    display:grid;
+    grid-template-columns:260px 1fr;
+    gap:32px;
+    align-items:start;
+}
+
+/* ===========================
+   SIDEBAR
+=========================== */
+
+.account-sidebar{
+    background:var(--bg-card);
+    border:1px solid var(--border-color);
+    border-radius:24px;
+    padding:28px;
+    position:sticky;
+    top:110px;
+    overflow:hidden;
+}
+
+.account-sidebar::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(99,179,237,.45), transparent);
+}
+
+.account-sidebar h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:32px;
+    font-weight:500;
+    color:var(--text-primary);
+    margin-bottom:28px;
+}
+
+.account-sidebar a{
+    display:flex;
+    align-items:center;
+    padding:14px 18px;
+    margin-bottom:10px;
+    border-radius:12px;
+    border:1px solid transparent;
+    color:var(--text-secondary);
+    transition:background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
+}
+
+.account-sidebar a:hover{
+    background:rgba(99,179,237,.08);
+    border-color:rgba(99,179,237,.2);
+    color:var(--text-primary);
+    transform:translateX(3px);
+}
+
+.account-sidebar a.active{
+    background:rgba(99,179,237,.12);
+    border-color:rgba(99,179,237,.32);
+    color:var(--gold-light);
+    box-shadow:0 10px 24px rgba(5,12,24,.35);
+}
+
+/* ===========================
+   CONTENT
+=========================== */
+
+.account-content{
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+}
+
+/* ===========================
+   CARD
+=========================== */
+
+.account-card{
+    background:var(--bg-card);
+    border:1px solid var(--border-color);
+    border-radius:24px;
+    padding:40px 32px;
+    position:relative;
+    overflow:hidden;
+}
+
+.account-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:10%;
+    right:10%;
+    height:1px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(99,179,237,.45),
+        transparent
+    );
+}
+
+.account-card h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:34px;
+    font-weight:500;
+    margin-bottom:28px;
+}
+
+/* ===========================
+   PROFILE
+=========================== */
+
+.profile-card{
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.avatar-wrapper{
+    width:170px;
+    height:170px;
+    margin:auto;
+    margin-bottom:18px;
+    border-radius:50%;
+    overflow:hidden;
+    border:4px solid var(--gold-primary);
+    box-shadow:0 0 0 6px rgba(99,179,237,.08), 0 16px 38px rgba(5,12,24,.6);
+}
+
+.avatar-wrapper img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.profile-card h2{
+    margin-bottom:4px;
+}
+
+.profile-card p{
+    color:var(--text-secondary);
+    margin-top:4px;
+}
+
+.profile-username{
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--gold-light);
+}
+
+.profile-email{
+    font-size:14px;
+}
+
+.profile-member-since{
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px solid var(--border-color);
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--text-muted);
+}
+
+.profile-actions{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin-top:24px;
+    width:100%;
+    max-width:420px;
+}
+
+/* ===========================
+   FORM
+=========================== */
+
+.account-card .form-input{
+    width:100%;
+}
+
+.account-card .reg-field-label{
+    margin-bottom:20px;
+}
+
+.account-card .reg-row{
+    margin-bottom:0;
+}
+
+.form-actions{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:34px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width:992px){
+
+.account-layout{
+    grid-template-columns:1fr;
+}
+
+.account-sidebar{
+    position:relative;
+    top:0;
+}
+
+.profile-actions{
+    flex-direction:column;
+}
+
+.profile-actions .btn,
+.form-actions .btn{
+    width:100%;
+}
+
+.profile-actions{
+    max-width:100%;
+}
+
+}
+
+@media (max-width:768px){
+
+.account-card{
+    padding:32px 20px;
+}
+
+.avatar-wrapper{
+    width:148px;
+    height:148px;
+}
+
+}
+
+
+/* safety page */
+
+.account-desc{
+    color:var(--text-secondary);
+    line-height:1.7;
+    margin-bottom:32px;
+}
+
+.account-danger{
+    border-color:rgba(210,122,122,.25);
+}
+
+.account-danger::before{
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(210,122,122,.45),
+        transparent
+    );
+}
+
+.account-danger h2{
+    color:#f0a2a2;
+}

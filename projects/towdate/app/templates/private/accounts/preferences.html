@@ -1,0 +1,201 @@
+{% extends 'private/accounts/settings_base.html' %}
+
+{% block settings_content %}
+
+<div class="account-card">
+
+    <h2>Preferências</h2>
+
+    <p class="account-desc">
+        Personalize sua experiência dentro do ToDate.
+    </p>
+
+    <form class="reg-form">
+
+        <!-- Tema -->
+
+<div class="theme-selector">
+
+    <label class="theme-card">
+
+        <input type="radio" name="theme" checked>
+
+        <div class="theme-content">
+
+            <div class="theme-icon">
+                🌙
+            </div>
+
+            <h4>Modo Escuro</h4>
+
+            <p>Visual premium recomendado.</p>
+
+        </div>
+
+    </label>
+
+    <label class="theme-card">
+
+        <input type="radio" name="theme">
+
+        <div class="theme-content">
+
+            <div class="theme-icon">
+                ☀️
+            </div>
+
+            <h4>Modo Claro</h4>
+
+            <p>Interface clara e elegante.</p>
+
+        </div>
+
+    </label>
+
+</div>
+
+        <!-- Sons -->
+
+        <div class="notification-item">
+
+            <div class="notification-info">
+
+                <span class="reg-input-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <polygon points="11 5 6 9H2v6h4l5 4V5"/>
+                        <path d="M19.07 4.93a10 10 0 010 14.14"/>
+                    </svg>
+                </span>
+
+                <div>
+
+                    <h4>Efeitos Sonoros</h4>
+
+                    <p>
+                        Reproduzir sons em ações importantes.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <label class="notification-switch">
+                <input type="checkbox">
+                <span class="notification-slider"></span>
+            </label>
+
+        </div>
+
+        <!-- Animações -->
+
+        <div class="notification-item">
+
+            <div class="notification-info">
+
+                <span class="reg-input-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 12h16"/>
+                        <path d="M12 4l8 8-8 8"/>
+                    </svg>
+                </span>
+
+                <div>
+
+                    <h4>Animações</h4>
+
+                    <p>
+                        Ativar animações e efeitos visuais da interface.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <label class="notification-switch">
+                <input type="checkbox" checked>
+                <span class="notification-slider"></span>
+            </label>
+
+        </div>
+
+        <!-- Lembretes -->
+
+        <div class="notification-item">
+
+            <div class="notification-info">
+
+                <span class="reg-input-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M12 7v5l3 2"/>
+                    </svg>
+                </span>
+
+                <div>
+
+                    <h4>Lembretes Inteligentes</h4>
+
+                    <p>
+                        Permitir que o ToDate envie sugestões de datas especiais.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <label class="notification-switch">
+                <input type="checkbox" checked>
+                <span class="notification-slider"></span>
+            </label>
+
+        </div>
+
+        <!-- Idioma -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Idioma
+            </label>
+
+            <div class="reg-input-wrap">
+
+                <span class="reg-input-icon">
+
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M2 12h20"/>
+                        <path d="M12 2a15 15 0 010 20"/>
+                    </svg>
+
+                </span>
+
+                <select class="form-input">
+                    <option>Português (Brasil)</option>
+                    <option>English</option>
+                    <option>Español</option>
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <button class="btn btn-primary">
+
+                Salvar Preferências
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
