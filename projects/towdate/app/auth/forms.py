@@ -3,6 +3,7 @@ from wtforms import StringField, EmailField, PasswordField, DateField, BooleanFi
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
 from app.models.user import User
 from flask_login import current_user
+from flask import flash
 
 
 # registro
@@ -56,6 +57,6 @@ class EditProfileForm(FlaskForm):
         if email.data != current_user.email:
             user = User.query.filter_by(email=email.data).first()
             if user:
+                flash('Erro ao atualizar dados.', 'error')
                 raise ValidationError('Email já cadastrado. Cadastre-se com outro e-mail ou mantenha o e-mail atual.')
 
-    

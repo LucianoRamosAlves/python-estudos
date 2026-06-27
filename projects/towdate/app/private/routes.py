@@ -1,5 +1,7 @@
 # app/public/routes.py
 
+import email
+
 from flask import Blueprint, flash, render_template, url_for, redirect, request
 from flask_login import current_user, login_user, logout_user, login_required
 
@@ -26,6 +28,15 @@ def account():
     form = EditProfileForm()
 
     if form.validate_on_submit():
+        if (
+        form.nome.data == current_user.first_name
+        and form.sobrenome.data == current_user.last_name
+        and form.email.data == current_user.email
+        and form.data_nascimento.data == current_user.date_of_birth
+        ):
+            flash("Nenhuma alteração foi realizada.", "warning")
+            return redirect(url_for("private.account"))
+
         current_user.first_name = form.nome.data
         current_user.last_name = form.sobrenome.data
         current_user.email = form.email.data
