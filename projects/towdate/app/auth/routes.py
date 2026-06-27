@@ -6,6 +6,7 @@ from .forms import  RegisterForm, LoginForm
 from app.extensions import db, bcrypt
 from app.models.user import User
 from flask_login import login_user, logout_user
+from flask import session
 import random
 
 auth = Blueprint("auth", __name__)
@@ -38,6 +39,7 @@ def login():
 
         elif user and bcrypt.check_password_hash(user.password_hash, form.senha.data):
             login_user(user, remember=form.remember.data)
+            session["session_version"] = user.session_version
             flash("Seja Bem Vindo(a)", "success")
             return redirect(url_for("private.home"))
 

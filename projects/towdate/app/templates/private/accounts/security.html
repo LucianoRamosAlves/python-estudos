@@ -112,18 +112,26 @@
     <h2>Zona de Perigo</h2>
 
     <p class="account-desc">
-
         Alterações nesta área podem afetar permanentemente sua conta.
-
     </p>
 
-    <button class="btn btn-outline">
+    <form method="POST" action="{{ url_for('private.logout_sessions') }}">
+         {{ logout_sessions_form.hidden_tag() }}
+        <button class="btn btn-danger-outline" type="submit">
+            Encerrar todas as sessões
+        </button>
+    </form>
 
-        Encerrar todas as sessões
-
-    </button>
+    <!-- <form method="POST">
+       {# { delete_account_form.hidden_tag() }} #}
+        <button class="btn btn-danger-outline" type="submit">
+            Excluir conta
+        </button>
+    </form> -->
 
 </div>
+
+
 
 {% endblock %}
 

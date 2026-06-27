@@ -1,4 +1,5 @@
-
+from flask import session, redirect, url_for, flash
+from flask_login import current_user, logout_user
 from flask import Flask
 
 from app.config import Config
@@ -27,5 +28,13 @@ def create_app():
 
     from app.auth.routes import auth
     app.register_blueprint(auth)
+
+    @app.before_request
+    def check_session_version():
+        if current_user.is_authenticated:
+            if session.get("session_version") != current_user.session_version:
+                logout_user()
+                flash("Sua sessão expirou. Por favor, faça login novamente.", "warning")
+                return redirect(url_for("auth.login"))
 
     return app

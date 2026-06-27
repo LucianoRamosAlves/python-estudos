@@ -3,10 +3,10 @@
 import email
 
 from app.extensions import db, bcrypt
-from flask import Blueprint, flash, render_template, url_for, redirect, request
+from flask import Blueprint, flash, render_template, session, url_for, redirect, request
 from flask_login import current_user, login_user, logout_user, login_required
 
-from app.auth.forms import ChangePasswordForm, EditProfileForm, EditPhotoForm
+from app.auth.forms import ChangePasswordForm, EditProfileForm, EditPhotoForm, LogoutSessionsForm
 from app.extensions import db
 from app.services.upload_services import remover_foto_perfil, salvar_foto_perfil
 
@@ -24,6 +24,21 @@ def home():
 def sair():
     logout_user()
     return redirect(url_for("public.home"))
+
+@private.route("/account/logout-sessions", methods=["POST"])
+@login_required
+def logout_sessions():
+    form = LogoutSessionsForm()
+
+    if form.validate_on_submit():
+        current_user.session_version += 1
+        db.session.commit()
+
+        session["session_version"] = current_user.session_version
+
+        flash("Todas as sessões foram encerradas com sucesso.", "success")
+
+    return redirect(url_for("private.account_security"))
 
 
 @private.route("/account", methods=["GET", "POST"])
@@ -117,6 +132,7 @@ def account():
 @login_required
 def account_security():
     form = ChangePasswordForm()
+    logout_sessions_form = LogoutSessionsForm()
 
     if form.validate_on_submit():
         check_password = bcrypt.check_password_hash(
@@ -139,7 +155,7 @@ def account_security():
 
         flash("Senha alterada com sucesso!", "success")
         return redirect(url_for("private.account_security"))
-    return render_template("private/accounts/security.html", active_page="security", form=form)
+    return render_template("private/accounts/security.html", active_page="security", form=form, logout_sessions_form=logout_sessions_form)
 
 
 @private.route("/account/notifications")

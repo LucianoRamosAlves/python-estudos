@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
 
+
     first_name = db.Column(
         db.String(50),
         nullable=False
@@ -75,6 +76,8 @@ class User(db.Model, UserMixin):
         nullable=False,
         default=True
     )
+
+    session_version = db.Column(db.Integer, default=1, nullable=False)
 
 
     def __repr__(self):
