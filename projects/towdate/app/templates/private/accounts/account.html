@@ -146,7 +146,7 @@
 
         <div class="form-actions">
 
-            <button type="submit" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" id="btnSalvar">
 
                 Salvar Alterações
 
@@ -158,4 +158,8 @@
 
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script defer src="{{ url_for('static', filename='js/private/account.js') }}"></script>
 {% endblock %}
