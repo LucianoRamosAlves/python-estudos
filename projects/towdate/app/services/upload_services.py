@@ -3,6 +3,7 @@ import uuid
 from flask import current_app
 from werkzeug.utils import secure_filename
 from PIL import Image
+from flask_login import current_user
 
 def arquivo_permitido(nome_arquivo):
     extensao_permitida = {"png", "jpg", "jpeg"}
@@ -38,6 +39,9 @@ def salvar_foto_perfil(arquivo):
     imagem.thumbnail((400, 400))
 
     imagem.save(caminho_completo, optimize=True, quality=85)
+
+    if current_user.avatar and current_user.avatar != "avatars/default.png":
+        remover_foto_perfil(current_user.avatar)
 
     return novo_nome
 

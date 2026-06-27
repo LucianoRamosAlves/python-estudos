@@ -73,3 +73,15 @@ class EditPhotoForm(FlaskForm):
         ]
     )
 
+#mudar senha
+class ChangePasswordForm(FlaskForm):
+    senha_atual = PasswordField("Senha Atual", validators=[DataRequired()])
+    nova_senha = PasswordField("Nova Senha", validators=[DataRequired(), Length(min=6, max=20, message="A senha deve ter entre 6 e 20 caracteres.")])
+    confirmar_nova_senha = PasswordField(
+        "Confirmar Nova Senha",
+        validators=[
+            DataRequired(),
+            EqualTo("nova_senha", message="As senhas devem ser iguais.")
+        ]
+    )
+

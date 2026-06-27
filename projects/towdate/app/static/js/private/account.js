@@ -83,3 +83,22 @@ if (btnRemoverFoto) {
     });
 
 }
+
+// trocar senha
+const changePasswordForm = document.getElementById("changePasswordForm");
+const btnChangePassword = document.getElementById("btnChangePassword");
+
+if (changePasswordForm && btnChangePassword) {
+    btnChangePassword.addEventListener("click", () => {
+        ToDate.showConfirm({
+            title: "Alterar senha",
+            message: "Tem certeza que deseja alterar sua senha?",
+            confirmText: "Alterar",
+            cancelText: "Cancelar"
+        }).then((confirmed) => {
+            if (confirmed) {
+                changePasswordForm.submit();
+            }
+        });
+    });
+}

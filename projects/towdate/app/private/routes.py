@@ -2,10 +2,11 @@
 
 import email
 
+from app.extensions import db, bcrypt
 from flask import Blueprint, flash, render_template, url_for, redirect, request
 from flask_login import current_user, login_user, logout_user, login_required
 
-from app.auth.forms import EditProfileForm, EditPhotoForm
+from app.auth.forms import ChangePasswordForm, EditProfileForm, EditPhotoForm
 from app.extensions import db
 from app.services.upload_services import remover_foto_perfil, salvar_foto_perfil
 
@@ -73,9 +74,7 @@ def account():
 
             return redirect(url_for("private.account"))
 
-        elif form_type == "photo":
-
-            if form_type == "profile":
+        elif form_type == "profile":
 
                 if form.validate_on_submit():
                     if (
@@ -98,7 +97,7 @@ def account():
                     return redirect(url_for("private.account"))
 
                 flash("Erro ao atualizar o perfil.", "error")
-                return redirect(url_for("private.account"))
+                
 
     elif request.method == "GET":
         form.nome.data = current_user.first_name
@@ -114,10 +113,33 @@ def account():
     )
 
 
-@private.route("/account/security")
+@private.route("/account/security", methods=["GET", "POST"])
 @login_required
 def account_security():
-    return render_template("private/accounts/security.html", active_page="security")
+    form = ChangePasswordForm()
+
+    if form.validate_on_submit():
+        check_password = bcrypt.check_password_hash(
+            current_user.password_hash, form.senha_atual.data
+        )
+        if not check_password:
+            flash("Senha atual incorreta.", "error")
+            form.senha_atual.errors.append("Senha atual incorreta.")
+            return render_template("private/accounts/security.html", active_page="security", form=form)
+
+        if form.nova_senha.data != form.confirmar_nova_senha.data:
+            flash("As senhas não coincidem.", "error")
+            form.confirmar_nova_senha.errors.append("As senhas não coincidem.")
+            return render_template("private/accounts/security.html", active_page="security", form=form)
+
+        current_user.password_hash = bcrypt.generate_password_hash(
+            form.nova_senha.data
+        ).decode("utf-8")
+        db.session.commit()
+
+        flash("Senha alterada com sucesso!", "success")
+        return redirect(url_for("private.account_security"))
+    return render_template("private/accounts/security.html", active_page="security", form=form)
 
 
 @private.route("/account/notifications")

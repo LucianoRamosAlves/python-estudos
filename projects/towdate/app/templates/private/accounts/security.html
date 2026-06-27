@@ -10,17 +10,29 @@
         Gerencie sua senha e proteja sua conta contra acessos não autorizados.
     </p>
 
-    <form>
-
+      <form id="changePasswordForm" class="reg-form" method="POST" action="">
+        {{ form.hidden_tag() }}
         <div class="form-group">
 
             <label class="reg-field-label">
                 Senha atual
             </label>
 
-            <input type="password" class="form-input" placeholder="Digite sua senha atual">
+                {% if form.senha_atual.errors %}
+                {{ form.senha_atual(class="form-input is-invalid", id="accName") }}
+                {% else %}
+                {{ form.senha_atual(class="form-input", placeholder="Digite a senha atual", id="accName") }}
+                {% endif %}
 
         </div>
+
+                        {% if form.senha_atual.errors %}
+            <div class="field-error" role="alert">
+                {% for error in form.senha_atual.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
 
         <div class="form-group">
 
@@ -28,9 +40,22 @@
                 Nova senha
             </label>
 
-            <input type="password" class="form-input" placeholder="Digite a nova senha">
+
+                {% if form.nova_senha.errors %}
+                {{ form.nova_senha(class="form-input is-invalid", id="accName") }}
+                {% else %}
+                {{ form.nova_senha(class="form-input", placeholder="Digite a nova senha", id="accName") }}
+                {% endif %}
 
         </div>
+
+                        {% if form.nova_senha.errors %}
+            <div class="field-error" role="alert">
+                {% for error in form.nova_senha.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
 
         <div class="form-group">
 
@@ -38,13 +63,26 @@
                 Confirmar nova senha
             </label>
 
-            <input type="password" class="form-input" placeholder="Confirme a nova senha">
+
+                {% if form.confirmar_nova_senha.errors %}
+                {{ form.confirmar_nova_senha(class="form-input is-invalid", id="accName") }}
+                {% else %}
+                {{ form.confirmar_nova_senha(class="form-input", placeholder="Confirme a nova senha", id="accName") }}
+                {% endif %}
 
         </div>
 
+                {% if form.confirmar_nova_senha.errors %}
+            <div class="field-error" role="alert">
+                {% for error in form.confirmar_nova_senha.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
         <div class="form-actions">
 
-            <button class="btn btn-primary">
+            <button type="button" class="btn btn-primary" id="btnChangePassword">
 
                 Alterar Senha
 
@@ -87,4 +125,8 @@
 
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script defer src="{{ url_for('static', filename='js/private/account.js') }}"></script>
 {% endblock %}
