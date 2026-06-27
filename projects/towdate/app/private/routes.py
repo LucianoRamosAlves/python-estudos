@@ -5,7 +5,7 @@ import email
 from flask import Blueprint, flash, render_template, url_for, redirect, request
 from flask_login import current_user, login_user, logout_user, login_required
 
-from app.auth.forms import EditProfileForm
+from app.auth.forms import EditProfileForm, EditPhotoForm
 from app.extensions import db
 
 private = Blueprint("private", __name__)
@@ -16,36 +16,56 @@ private = Blueprint("private", __name__)
 def home():
     return render_template("private/home/home.html")
 
+
 @private.route("/sair")
 @login_required
 def sair():
     logout_user()
     return redirect(url_for("public.home"))
 
+
 @private.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
     form = EditProfileForm()
+    photo_form = EditPhotoForm()
 
-    if form.validate_on_submit():
-        if (
-        form.nome.data == current_user.first_name
-        and form.sobrenome.data == current_user.last_name
-        and form.email.data == current_user.email
-        and form.data_nascimento.data == current_user.date_of_birth
-        ):
-            flash("Nenhuma alteração foi realizada.", "warning")
+    if request.method == "POST":
+        form_type = request.form.get("form_type")
+
+        if form_type == "photo":
+
+            if photo_form.validate_on_submit():
+                # Salvar foto
+                ...
+            else:
+                flash("Erro ao atualizar a foto de perfil.", "error")
+            
+
+        if form_type == "profile":
+
+            if form.validate_on_submit():
+                if (
+                    form.nome.data == current_user.first_name
+                    and form.sobrenome.data == current_user.last_name
+                    and form.email.data == current_user.email
+                    and form.data_nascimento.data == current_user.date_of_birth
+                ):
+                    flash("Nenhuma alteração foi realizada.", "warning")
+                    return redirect(url_for("private.account"))
+
+                current_user.first_name = form.nome.data
+                current_user.last_name = form.sobrenome.data
+                current_user.email = form.email.data
+                current_user.date_of_birth = form.data_nascimento.data
+
+                db.session.commit()
+
+                flash("Perfil atualizado com sucesso!", "success")
+                return redirect(url_for("private.account"))
+
+            flash("Erro ao atualizar o perfil.", "error")
             return redirect(url_for("private.account"))
-
-        current_user.first_name = form.nome.data
-        current_user.last_name = form.sobrenome.data
-        current_user.email = form.email.data
-        current_user.date_of_birth = form.data_nascimento.data
-
-        db.session.commit()
-
-        flash("Perfil atualizado com sucesso!", "success")
-        return redirect(url_for("private.account"))
 
     elif request.method == "GET":
         form.nome.data = current_user.first_name
@@ -56,26 +76,28 @@ def account():
     return render_template(
         "private/accounts/account.html",
         active_page="account",
-        form=form
+        form=form,
+        photo_form=photo_form,
     )
+
 
 @private.route("/account/security")
 @login_required
 def account_security():
-    return render_template(
-        "private/accounts/security.html",
-        active_page="security")
+    return render_template("private/accounts/security.html", active_page="security")
+
 
 @private.route("/account/notifications")
 @login_required
 def account_notifications():
     return render_template(
-        "private/accounts/notifications.html",
-        active_page="notifications")
+        "private/accounts/notifications.html", active_page="notifications"
+    )
+
 
 @private.route("/account/preferences")
 @login_required
 def account_preferences():
     return render_template(
-        "private/accounts/preferences.html",
-        active_page="preferences")
+        "private/accounts/preferences.html", active_page="preferences"
+    )

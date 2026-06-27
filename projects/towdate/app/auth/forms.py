@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, EmailField, PasswordField, DateField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
 from app.models.user import User
@@ -46,7 +47,7 @@ class EditProfileForm(FlaskForm):
     nome = StringField("Nome", validators=[DataRequired()])
     sobrenome = StringField("Sobrenome", validators=[DataRequired()])
     email = EmailField("Email", validators=[DataRequired(), Email()])
-
+  
     data_nascimento = DateField(
         "Data de Nascimento",
         validators=[DataRequired()],
@@ -59,4 +60,16 @@ class EditProfileForm(FlaskForm):
             if user:
                 flash('Erro ao atualizar dados.', 'error')
                 raise ValidationError('Email já cadastrado. Cadastre-se com outro e-mail ou mantenha o e-mail atual.')
+
+
+class EditPhotoForm(FlaskForm):
+    foto_perfil = FileField(
+        "Foto de Perfil",
+        validators=[
+            FileAllowed(
+                ["jpg", "jpeg", "png"],
+                "Apenas arquivos JPG, JPEG e PNG são permitidos."
+            )
+        ]
+    )
 

@@ -20,13 +20,29 @@
 
     <div class="profile-actions">
 
-        <button type="button" class="btn btn-primary">
-            Alterar Foto
-        </button>
+        <form id="photoForm" class="reg-form photo-form" method="POST" action="" enctype="multipart/form-data">
+            {{ photo_form.hidden_tag() }}
+            <input type="hidden" name="form_type" value="photo">
+            {{ photo_form.foto_perfil(id="fotoPerfil", class="sr-only", style="display:none;", accept=".jpg,.jpeg,.png")
+            }}
 
-        <button type="button" class="btn btn-outline">
-            Remover Foto
-        </button>
+            <button type="button" class="btn btn-outline" id="btnAlterarFoto">
+                Alterar Foto
+            </button>
+
+            <button name="form_type" value="photo" type="button" class="btn btn-outline">
+                Remover Foto
+            </button>
+
+            {% if photo_form.foto_perfil.errors %}
+            <div class="field-error" role="alert">
+                {% for error in photo_form.foto_perfil.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        </form>
 
     </div>
 
@@ -38,8 +54,9 @@
 
     <h2>Informações Pessoais</h2>
 
-    <form class="reg-form" method="POST" action="">
+    <form id="profileForm" class="reg-form" method="POST" action="">
         {{ form.hidden_tag() }}
+        <input type="hidden" name="form_type" value="profile">
 
         <p class="reg-field-label">Dados pessoais</p>
 
