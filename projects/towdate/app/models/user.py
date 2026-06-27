@@ -34,7 +34,7 @@ class User(db.Model, UserMixin):
         nullable=False
     )
 
-    birth_date = db.Column(
+    date_of_birth = db.Column(
         db.Date,
         nullable=True
     )

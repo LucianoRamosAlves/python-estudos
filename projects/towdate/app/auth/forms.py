@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, PasswordField, DateField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
 from app.models.user import User
+from flask_login import current_user
 
 
 # registro
@@ -38,3 +39,23 @@ class LoginForm(FlaskForm):
     email = EmailField("Email", validators=[DataRequired(), Email()])
     senha = PasswordField("Senha", validators=[DataRequired(), Length(min=6, max=20, message="A senha deve ter entre 6 e 20 caracteres.")])
     remember = BooleanField("Lembrar-me")
+
+#editar perfil
+class EditProfileForm(FlaskForm):
+    nome = StringField("Nome", validators=[DataRequired()])
+    sobrenome = StringField("Sobrenome", validators=[DataRequired()])
+    email = EmailField("Email", validators=[DataRequired(), Email()])
+
+    data_nascimento = DateField(
+        "Data de Nascimento",
+        validators=[DataRequired()],
+        format="%Y-%m-%d"
+    )
+
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            user = User.query.filter_by(email=email.data).first()
+            if user:
+                raise ValidationError('Email já cadastrado. Cadastre-se com outro e-mail ou mantenha o e-mail atual.')
+
+    

@@ -60,7 +60,7 @@ def register():
             first_name=form.nome.data,
             last_name=form.sobrenome.data,
             email=form.email.data,
-            birth_date=form.data_nascimento.data,
+            date_of_birth=form.data_nascimento.data,
             password_hash=senha_hash,
             cor_fundo=cor["fundo"],
             cor_icone=cor["icone"]
