@@ -12,4 +12,10 @@ class Config:
         "sqlite:///towdate.db"
     )
 
+    UPLOAD_FOLDER = "app/static/uploads/profile_pictures"
+    MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # 5 MB
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
+    

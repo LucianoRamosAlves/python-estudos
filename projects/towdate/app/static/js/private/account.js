@@ -55,3 +55,31 @@ if (photoForm && fotoInput) {
     });
 
 }
+
+// remover foto
+const btnRemoverFoto = document.getElementById("btnRemoverFoto");
+const formType = document.getElementById("formType");
+
+if (btnRemoverFoto) {
+
+    btnRemoverFoto.addEventListener("click", () => {
+
+        ToDate.showConfirm({
+            title: "Remover foto de perfil",
+            message: "Tem certeza que deseja remover sua foto de perfil?",
+            confirmText: "Remover",
+            cancelText: "Cancelar"
+        }).then((confirmed) => {
+
+            if (confirmed) {
+
+                formType.value = "remove_photo";
+
+                photoForm.submit();
+            }
+
+        });
+
+    });
+
+}

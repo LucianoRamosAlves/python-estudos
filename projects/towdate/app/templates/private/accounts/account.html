@@ -7,7 +7,11 @@
 <div class="account-card profile-card">
 
     <div class="avatar-wrapper">
-        {% include 'private/components/avatar_padrao.html' %}
+        {% if current_user.avatar %}
+            <img src="{{ url_for('static', filename='uploads/profile_pictures/' ~ current_user.avatar) }}" alt="Foto de perfil" class="avatar">
+        {% else %}
+            {% include 'private/components/avatar_padrao.html' %}
+        {% endif %}
     </div>
 
     <h2>{{ current_user.name }}</h2>
@@ -20,19 +24,26 @@
 
     <div class="profile-actions">
 
-        <form id="photoForm" class="reg-form photo-form" method="POST" action="" enctype="multipart/form-data">
-            {{ photo_form.hidden_tag() }}
-            <input type="hidden" name="form_type" value="photo">
-            {{ photo_form.foto_perfil(id="fotoPerfil", class="sr-only", style="display:none;", accept=".jpg,.jpeg,.png")
-            }}
+<form id="photoForm" class="reg-form photo-form" method="POST" enctype="multipart/form-data">
+    {{ photo_form.hidden_tag() }}
 
-            <button type="button" class="btn btn-outline" id="btnAlterarFoto">
-                Alterar Foto
-            </button>
+    <input type="hidden" name="form_type" id="formType" value="photo">
 
-            <button name="form_type" value="photo" type="button" class="btn btn-outline">
-                Remover Foto
-            </button>
+    {{ photo_form.foto_perfil(
+        id="fotoPerfil",
+        class="sr-only",
+        style="display:none;",
+        accept=".jpg,.jpeg,.png"
+    ) }}
+
+    <button type="button" class="btn btn-outline" id="btnAlterarFoto">
+        Alterar Foto
+    </button>
+
+    <button type="button" class="btn btn-outline" id="btnRemoverFoto">
+        Remover Foto
+    </button>
+
 
             {% if photo_form.foto_perfil.errors %}
             <div class="field-error" role="alert">
