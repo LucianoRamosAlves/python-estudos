@@ -65,7 +65,8 @@ def register():
             date_of_birth=form.data_nascimento.data,
             password_hash=senha_hash,
             cor_fundo=cor["fundo"],
-            cor_icone=cor["icone"]
+            cor_icone=cor["icone"],
+            avatar="avatars/default.svg"
         )
         db.session.add(user) 
         db.session.commit()

@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (submitButton) {
+        const selected = document.querySelector('input[name="plan"]:checked');
+        if (selected) {
+            submitButton.textContent = planLabels[selected.value] || 'Criar conta e continuar';
+        }
+
         document.querySelectorAll('input[name="plan"]').forEach((radio) => {
             radio.addEventListener('change', () => {
                 submitButton.textContent = planLabels[radio.value] || 'Criar conta e continuar';

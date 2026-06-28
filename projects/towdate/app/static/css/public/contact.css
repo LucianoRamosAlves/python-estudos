@@ -1,24 +1,24 @@
 /* Contact Section */
 .contact {
-	background: var(--bg-card);
+	background: linear-gradient(180deg, rgba(8, 12, 20, 0.5), rgba(8, 12, 20, 0.2));
 }
 
 .contact-grid {
 	display: grid;
 	grid-template-columns: 1fr 1.2fr;
-	gap: 80px;
+	gap: 46px;
 }
 
 .contact-info h3 {
-	font-size: 32px;
+	font-size: 36px;
 	color: var(--text-primary);
-	margin-bottom: 24px;
+	margin-bottom: 18px;
 }
 
 .contact-info p {
 	font-size: 16px;
 	color: var(--text-secondary);
-	margin-bottom: 40px;
+	margin-bottom: 30px;
 	line-height: 1.8;
 }
 
@@ -30,23 +30,27 @@
 	display: flex;
 	align-items: flex-start;
 	gap: 16px;
-	padding: 20px 0;
-	border-bottom: 1px solid var(--border-color);
+	padding: 16px;
+	border: 1px solid var(--line);
+	border-radius: 14px;
+	background: rgba(13, 19, 31, 0.66);
+	margin-bottom: 10px;
 }
 
 .contact-details li:last-child {
-	border-bottom: none;
+	margin-bottom: 0;
 }
 
 .contact-icon {
-	width: 40px;
-	height: 40px;
+	width: 42px;
+	height: 42px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: var(--bg-dark);
-	border: 1px solid var(--border-color);
-	color: var(--gold-light);
+	background: rgba(177, 114, 138, 0.1);
+	border: 1px solid rgba(177, 114, 138, 0.38);
+	border-radius: 10px;
+	color: var(--accent-rose-soft);
 	font-size: 16px;
 	flex-shrink: 0;
 }
@@ -60,64 +64,69 @@
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
 	color: var(--text-muted);
-	margin-bottom: 4px;
+	margin-bottom: 3px;
 }
 
 .contact-value {
-	font-size: 16px;
+	font-size: 15px;
 	color: var(--text-primary);
+	line-height: 1.65;
 }
 
 /* Contact Form */
 .contact-form {
-	background: var(--bg-dark);
-	border: 1px solid var(--border-color);
-	padding: 48px;
+	background: rgba(13, 19, 31, 0.76);
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+	padding: 34px;
+	box-shadow: var(--shadow-soft);
 }
 
 .form-row {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 24px;
-	margin-bottom: 24px;
+	gap: 16px;
+	margin-bottom: 16px;
 }
 
 .form-group {
-	margin-bottom: 24px;
+	margin-bottom: 16px;
 }
 
 .form-group:last-of-type {
-	margin-bottom: 32px;
+	margin-bottom: 24px;
 }
 
 .form-label {
 	display: block;
-	font-size: 11px;
+	font-size: 10px;
 	text-transform: uppercase;
-	letter-spacing: 0.1em;
+	letter-spacing: 0.12em;
 	color: var(--text-muted);
-	margin-bottom: 10px;
+	margin-bottom: 8px;
 }
 
 .form-input,
 .form-select,
 .form-textarea {
 	width: 100%;
-	padding: 16px 20px;
-	background: var(--bg-card);
-	border: 1px solid var(--border-color);
+	padding: 14px 16px;
+	background: rgba(8, 12, 20, 0.68);
+	border: 1px solid var(--line);
+	border-radius: 12px;
 	color: var(--text-primary);
-	font-family: 'Libre Franklin', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 15px;
-	transition: all 0.3s ease;
+	transition: border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
 }
 
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
 	outline: none;
-	border-color: var(--gold-primary);
-	background: var(--bg-card-hover);
+	border-color: rgba(130, 102, 181, 0.58);
+	background: rgba(9, 14, 23, 0.9);
+	box-shadow: 0 0 0 3px rgba(130, 102, 181, 0.14);
 }
 
 .form-input::placeholder,
@@ -128,13 +137,13 @@
 .form-select {
 	appearance: none;
 	cursor: pointer;
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23A69F94' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238e97ab' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: right 16px center;
 }
 
 .form-textarea {
-	min-height: 140px;
+	min-height: 132px;
 	resize: vertical;
 }
 

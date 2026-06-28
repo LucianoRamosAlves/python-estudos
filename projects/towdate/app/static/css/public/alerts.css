@@ -18,11 +18,11 @@
 	gap: 12px;
 	padding: 14px 14px 14px 12px;
 	border-radius: 16px;
-	background: rgba(7, 16, 30, 0.96);
-	border: 1px solid rgba(99, 179, 237, 0.14);
+	background: rgba(14, 20, 39, 0.96);
+	border: 1px solid rgba(174, 154, 221, 0.2);
 	box-shadow:
 		0 12px 30px rgba(3, 8, 15, 0.5),
-		0 0 0 1px rgba(99, 179, 237, 0.04);
+		0 0 0 1px rgba(174, 154, 221, 0.06);
 	overflow: hidden;
 	pointer-events: auto;
 	backdrop-filter: blur(6px);
@@ -42,8 +42,8 @@
 	justify-content: center;
 	margin-top: 1px;
 	flex-shrink: 0;
-	border: 1px solid rgba(138, 174, 212, 0.22);
-	background: rgba(7, 16, 30, 0.85);
+	border: 1px solid rgba(174, 154, 221, 0.24);
+	background: rgba(14, 20, 39, 0.86);
 }
 
 .todate-toast-body {
@@ -87,7 +87,7 @@
 }
 
 .todate-toast-close:hover {
-	background: rgba(138, 174, 212, 0.08);
+	background: rgba(174, 154, 221, 0.14);
 	color: var(--text-primary);
 }
 
@@ -118,17 +118,17 @@
 }
 
 .todate-toast-error {
-	border-color: rgba(210, 122, 122, 0.36);
+	border-color: rgba(201, 141, 166, 0.4);
 }
 
 .todate-toast-error .todate-toast-icon {
-	color: #f09a9a;
-	border-color: rgba(210, 122, 122, 0.45);
-	background: rgba(58, 24, 24, 0.46);
+	color: #d8a6b8;
+	border-color: rgba(201, 141, 166, 0.48);
+	background: rgba(61, 31, 49, 0.46);
 }
 
 .todate-toast-error .todate-toast-progress {
-	background: linear-gradient(90deg, #D27A7A, #ef9c9c);
+	background: linear-gradient(90deg, #8d5f93, #c995a7);
 }
 
 .todate-toast-warning {
@@ -146,13 +146,13 @@
 }
 
 .todate-toast-info {
-	border-color: rgba(99, 179, 237, 0.35);
+	border-color: rgba(174, 154, 221, 0.36);
 }
 
 .todate-toast-info .todate-toast-icon {
 	color: var(--gold-light);
-	border-color: rgba(99, 179, 237, 0.5);
-	background: rgba(19, 42, 71, 0.46);
+	border-color: rgba(174, 154, 221, 0.46);
+	background: rgba(35, 31, 68, 0.46);
 }
 
 .todate-toast-info .todate-toast-progress {
@@ -177,19 +177,19 @@
 }
 
 .todate-confirm-modal {
-	--confirm-accent: #63b3ed;
-	--confirm-accent-soft: rgba(99, 179, 237, 0.24);
-	--confirm-accent-deep: #2f7fb9;
-	--confirm-icon-bg: rgba(28, 56, 86, 0.7);
-	--confirm-icon-color: #8cc9f0;
-	--confirm-badge-bg: rgba(99, 179, 237, 0.16);
-	--confirm-badge-color: #9cd1f2;
-	--confirm-main-text: #f5fbff;
-	--confirm-main-shadow: rgba(47, 127, 185, 0.42);
+	--confirm-accent: #7a62c4;
+	--confirm-accent-soft: rgba(122, 98, 196, 0.24);
+	--confirm-accent-deep: #5e49a3;
+	--confirm-icon-bg: rgba(39, 34, 72, 0.72);
+	--confirm-icon-color: #c8b6ef;
+	--confirm-badge-bg: rgba(122, 98, 196, 0.18);
+	--confirm-badge-color: #d5c8f3;
+	--confirm-main-text: #f7f3ff;
+	--confirm-main-shadow: rgba(94, 73, 163, 0.42);
 	width: min(460px, 100%);
 	background:
 		radial-gradient(120% 120% at 100% 0%, var(--confirm-accent-soft), transparent 55%),
-		rgba(7, 16, 30, 0.98);
+		rgba(14, 20, 39, 0.98);
 	border: 1px solid color-mix(in srgb, var(--confirm-accent) 26%, transparent);
 	border-radius: 18px;
 	padding: 22px;
@@ -206,15 +206,15 @@
  */
 .todate-confirm-modal.todate-modal-info,
 .todate-confirm-modal.todate-confirm-info {
-	--confirm-accent: #63b3ed;
-	--confirm-accent-soft: rgba(99, 179, 237, 0.22);
-	--confirm-accent-deep: #2f7fb9;
-	--confirm-icon-bg: rgba(25, 49, 77, 0.68);
-	--confirm-icon-color: #8dcdf4;
-	--confirm-badge-bg: rgba(99, 179, 237, 0.16);
-	--confirm-badge-color: #a0d7f8;
-	--confirm-main-text: #f2f9ff;
-	--confirm-main-shadow: rgba(47, 127, 185, 0.38);
+	--confirm-accent: #7a62c4;
+	--confirm-accent-soft: rgba(122, 98, 196, 0.22);
+	--confirm-accent-deep: #5e49a3;
+	--confirm-icon-bg: rgba(39, 34, 72, 0.68);
+	--confirm-icon-color: #c8b6ef;
+	--confirm-badge-bg: rgba(122, 98, 196, 0.16);
+	--confirm-badge-color: #d7c9f5;
+	--confirm-main-text: #f6f1ff;
+	--confirm-main-shadow: rgba(94, 73, 163, 0.38);
 }
 
 .todate-confirm-modal.todate-modal-success,
@@ -245,15 +245,15 @@
 
 .todate-confirm-modal.todate-modal-danger,
 .todate-confirm-modal.todate-confirm-danger {
-	--confirm-accent: #d27a7a;
-	--confirm-accent-soft: rgba(210, 122, 122, 0.24);
-	--confirm-accent-deep: #a14d4d;
-	--confirm-icon-bg: rgba(66, 28, 28, 0.68);
-	--confirm-icon-color: #f6b2b2;
-	--confirm-badge-bg: rgba(210, 122, 122, 0.18);
-	--confirm-badge-color: #f7c1c1;
-	--confirm-main-text: #fff5f5;
-	--confirm-main-shadow: rgba(161, 77, 77, 0.36);
+	--confirm-accent: #b1728a;
+	--confirm-accent-soft: rgba(177, 114, 138, 0.24);
+	--confirm-accent-deep: #8d5f93;
+	--confirm-icon-bg: rgba(63, 34, 52, 0.68);
+	--confirm-icon-color: #e3b9c7;
+	--confirm-badge-bg: rgba(177, 114, 138, 0.18);
+	--confirm-badge-color: #efcad6;
+	--confirm-main-text: #fff6fa;
+	--confirm-main-shadow: rgba(141, 95, 147, 0.36);
 }
 
 .todate-confirm-head {

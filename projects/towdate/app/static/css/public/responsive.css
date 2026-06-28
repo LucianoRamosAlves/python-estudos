@@ -25,11 +25,11 @@
 	}
 
 	.nav {
-		padding: 14px 0;
+		padding: 12px 0;
 	}
 
 	.nav.scrolled {
-		padding: 12px 0;
+		padding: 10px 0;
 	}
 
 
@@ -44,14 +44,14 @@
 
 	.mobile-menu {
 		max-width: 360px;
-		padding: 92px 30px 28px;
+		padding: 86px 26px 24px;
 	}
 
 	.hero-grid,
 	.why-grid,
 	.contact-grid {
 		grid-template-columns: 1fr;
-		gap: 60px;
+		gap: 48px;
 	}
 
 	.hero-stats {
@@ -64,7 +64,7 @@
 
 	.pricing-grid {
 		grid-template-columns: 1fr;
-		max-width: 480px;
+		max-width: 520px;
 		margin: 0 auto;
 	}
 }
@@ -84,11 +84,11 @@
 	}
 
 	section {
-		padding: 80px 0;
+		padding: 82px 0;
 	}
 
 	.section-header {
-		margin-bottom: 56px;
+		margin-bottom: 52px;
 	}
 
 	.section-desc,
@@ -117,7 +117,7 @@
 	}
 
 	.hero {
-		padding: 100px 0 60px;
+		padding: 94px 0 58px;
 	}
 
 	.hero-badge {
@@ -126,7 +126,7 @@
 
 	.hero-stats {
 		grid-template-columns: 1fr;
-		gap: 20px;
+		gap: 12px;
 	}
 
 	.stat-item {
@@ -145,12 +145,12 @@
 	}
 
 	.contact-form {
-		padding: 32px 20px;
+		padding: 26px 18px;
 	}
 
 	.footer-grid {
 		grid-template-columns: 1fr;
-		gap: 40px;
+		gap: 34px;
 	}
 
 	.footer-bottom {
@@ -175,11 +175,12 @@
 	.products-tabs {
 		flex-wrap: wrap;
 		justify-content: stretch;
+		max-width: 100%;
 	}
 
 	.tab-btn {
 		flex: 1 1 calc(50% - 8px);
-		padding: 12px 20px;
+		padding: 11px 14px;
 	}
 
 	.testimonial-nav {
@@ -187,7 +188,11 @@
 	}
 
 	.testimonial-item {
-		padding: 0 20px;
+		padding: 0 12px;
+	}
+
+	.testimonials-wrapper {
+		padding: 28px 18px 24px;
 	}
 }
 
@@ -209,17 +214,20 @@
 	}
 
 	.nav {
-		padding: 12px 0;
+		padding: 10px 0;
 	}
 
 	.logo {
-		font-size: 24px;
-		letter-spacing: 0.1em;
+		font-size: 26px;
+	}
+
+	.logo-mark {
+		height: 40px;
 	}
 
 	.mobile-menu {
 		max-width: 100%;
-		padding: 84px 22px 24px;
+		padding: 78px 18px 20px;
 	}
 
 	.mobile-nav-links a {
@@ -239,7 +247,7 @@
 	}
 
 	.contact-form {
-		padding: 24px 16px;
+		padding: 22px 14px;
 	}
 
 	.todate-toast-container {
@@ -274,17 +282,12 @@
 		width: 100%;
 	}
 
-    	.pricing-card {
+		.pricing-card {
 		padding: 28px 22px;
 	}
 
 	.pricing-premium {
-		padding: 44px 22px 28px;
-	}
-
-	.pricing-premium .pricing-tier,
-	.pricing-premium .pricing-desc {
-		padding-left: 2px;
+			padding: 28px 22px;
 	}
 
     /* Mobile - 2 column layout */
@@ -319,7 +322,11 @@
 	}
 
 	.logo {
-		font-size: 22px;
+		font-size: 30px;
+	}
+
+	.logo-mark {
+		height: 36px;
 	}
 
 	.section-title,
@@ -361,7 +368,7 @@
 	}
 
 	.product-price {
-		font-size: 22px;
+		font-size: 12px;
 	}
 
 	.product-btn {

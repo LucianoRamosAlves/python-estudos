@@ -7,20 +7,25 @@
 .testimonials::before {
 	content: '"';
 	position: absolute;
-	top: 80px;
-	left: 10%;
-	font-family: 'Cormorant Garamond', serif;
-	font-size: 400px;
-	color: var(--gold-dark);
-	opacity: 0.05;
+	top: 28px;
+	left: 12%;
+	font-family: 'Playfair Display', serif;
+	font-size: 220px;
+	color: rgba(130, 102, 181, 0.2);
+	opacity: 0.24;
 	line-height: 1;
 	pointer-events: none;
 }
 
 .testimonials-wrapper {
 	position: relative;
-	max-width: 900px;
+	max-width: 960px;
 	margin: 0 auto;
+	padding: 44px 30px 34px;
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+	background: rgba(12, 18, 28, 0.72);
+	backdrop-filter: blur(8px);
 }
 
 .testimonials-slider {
@@ -35,16 +40,16 @@
 
 .testimonial-item {
 	min-width: 100%;
-	padding: 0 60px;
+	padding: 0 46px;
 }
 
 .testimonial-text {
-	font-family: 'Cormorant Garamond', serif;
-	font-size: clamp(24px, 3vw, 36px);
-	font-style: italic;
+	font-family: 'Playfair Display', serif;
+	font-size: clamp(24px, 3vw, 34px);
+	font-style: normal;
 	color: var(--text-primary);
-	line-height: 1.6;
-	margin-bottom: 40px;
+	line-height: 1.52;
+	margin-bottom: 34px;
 }
 
 .testimonial-author {
@@ -56,16 +61,16 @@
 
 .author-name {
 	font-size: 16px;
-	font-weight: 500;
+	font-weight: 600;
 	color: var(--text-primary);
-	letter-spacing: 0.05em;
+	letter-spacing: 0.02em;
 }
 
 .author-title {
-	font-size: 13px;
+	font-size: 12px;
 	color: var(--text-muted);
 	text-transform: uppercase;
-	letter-spacing: 0.1em;
+	letter-spacing: 0.09em;
 }
 
 /* Testimonial Navigation Arrows */
@@ -81,10 +86,11 @@
 }
 
 .testimonial-arrow {
-	width: 56px;
-	height: 56px;
-	background: transparent;
-	border: 1px solid var(--border-color);
+	width: 48px;
+	height: 48px;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid var(--line);
+	border-radius: 12px;
 	color: var(--text-muted);
 	cursor: pointer;
 	display: flex;
@@ -92,14 +98,14 @@
 	justify-content: center;
 	pointer-events: auto;
 	transition: all 0.3s ease;
-	opacity: 0.5;
+	opacity: 0.9;
 }
 
 .testimonial-arrow:hover {
 	opacity: 1;
-	border-color: var(--gold-primary);
-	color: var(--gold-light);
-	background: rgba(43, 108, 176, 0.16);
+	border-color: var(--line-strong);
+	color: var(--text-primary);
+	background: rgba(130, 102, 181, 0.16);
 }
 
 .testimonial-arrow svg {
@@ -108,11 +114,11 @@
 }
 
 .testimonial-arrow.prev {
-	margin-left: -80px;
+	margin-left: -64px;
 }
 
 .testimonial-arrow.next {
-	margin-right: -80px;
+	margin-right: -64px;
 }
 
 .testimonial-dots {
@@ -125,23 +131,24 @@
 .dot {
 	width: 8px;
 	height: 8px;
-	background: var(--border-color);
+	background: rgba(255, 255, 255, 0.24);
+	border-radius: 999px;
 	cursor: pointer;
 	transition: all 0.3s ease;
 }
 
 .dot:hover {
-	background: var(--text-muted);
+	background: rgba(255, 255, 255, 0.42);
 }
 
 .dot.active {
-	background: var(--gold-primary);
+	background: var(--accent-rose-soft);
 	width: 32px;
 }
 
 /* Trust Section */
 .trust {
-	background: var(--bg-card);
+	background: rgba(10, 14, 22, 0.44);
 	padding: 80px 0;
 }
 
@@ -154,17 +161,19 @@
 
 .trust-item {
 	text-align: center;
-	opacity: 0.5;
-	transition: opacity 0.3s ease;
+	opacity: 0.7;
+	transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .trust-item:hover {
 	opacity: 1;
+	transform: translateY(-2px);
 }
 
 .trust-logo {
-	font-family: 'Cormorant Garamond', serif;
-	font-size: 18px;
+	font-family: 'Inter', sans-serif;
+	font-size: 13px;
+	font-weight: 600;
 	color: var(--text-secondary);
 	letter-spacing: 0.1em;
 	text-transform: uppercase;

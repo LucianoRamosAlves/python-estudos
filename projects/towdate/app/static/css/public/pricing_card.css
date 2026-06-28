@@ -4,16 +4,13 @@
 }
 
 .price-card {
-	background:
-		radial-gradient(circle at 15% 15%, rgba(99, 179, 237, 0.24), transparent 45%),
-		radial-gradient(circle at 90% 10%, rgba(43, 108, 176, 0.28), transparent 40%),
-		linear-gradient(160deg, #081427 0%, #050d1b 100%);
-	border: 1px solid rgba(99, 179, 237, 0.28);
-	border-radius: 24px;
+	background: linear-gradient(160deg, rgba(18, 24, 44, 0.94) 0%, rgba(13, 18, 34, 0.9) 100%);
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
 	padding: 34px;
 	position: relative;
 	overflow: hidden;
-	box-shadow: 0 20px 60px rgba(5, 12, 24, 0.65);
+	box-shadow: var(--shadow-strong);
 	transition: transform 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
 	animation: cardReveal 0.8s ease forwards;
 }
@@ -21,9 +18,8 @@
 .price-card::before {
 	content: '';
 	position: absolute;
-	inset: -90px;
-	background: conic-gradient(from 120deg, transparent 0deg, rgba(99, 179, 237, 0.25) 75deg, transparent 160deg, rgba(58, 128, 193, 0.22) 250deg, transparent 360deg);
-	animation: orbitGlow 12s linear infinite;
+	inset: 0;
+	background: radial-gradient(circle at 82% 14%, rgba(177, 114, 138, 0.18), transparent 34%);
 	pointer-events: none;
 }
 
@@ -34,13 +30,13 @@
 	right: 0;
 	top: 0;
 	height: 1px;
-	background: linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.8), transparent);
+	background: linear-gradient(90deg, transparent, rgba(174, 154, 221, 0.66), transparent);
 }
 
 .price-card:hover {
-	transform: translateY(-8px);
-	border-color: rgba(99, 179, 237, 0.55);
-	box-shadow: 0 24px 70px rgba(12, 37, 72, 0.65);
+	transform: translateY(-6px);
+	border-color: var(--line-strong);
+	box-shadow: 0 28px 76px rgba(2, 7, 14, 0.62);
 }
 
 .price-top {
@@ -57,10 +53,10 @@
 	font-size: 11px;
 	text-transform: uppercase;
 	letter-spacing: 0.16em;
-	color: #9ec1e5;
+	color: var(--text-secondary);
 	padding: 8px 12px;
-	border: 1px solid rgba(99, 179, 237, 0.28);
-	background: rgba(8, 20, 39, 0.65);
+	border: 1px solid var(--line);
+	background: rgba(255, 255, 255, 0.03);
 	border-radius: 999px;
 }
 
@@ -69,11 +65,11 @@
 	align-items: center;
 	gap: 8px;
 	font-size: 11px;
-	color: #84f0c8;
+	color: var(--accent-rose-soft);
 	text-transform: uppercase;
 	letter-spacing: 0.12em;
 	padding: 8px 12px;
-	background: rgba(21, 67, 57, 0.32);
+	background: rgba(177, 114, 138, 0.12);
 	border-radius: 999px;
 }
 
@@ -81,9 +77,9 @@
 	content: '';
 	width: 6px;
 	height: 6px;
-	background: #84f0c8;
+	background: var(--accent-rose);
 	border-radius: 50%;
-	box-shadow: 0 0 0 0 rgba(132, 240, 200, 0.7);
+	box-shadow: 0 0 0 0 rgba(177, 114, 138, 0.5);
 	animation: pulseRing 2s infinite;
 }
 
@@ -96,8 +92,8 @@
 	grid-template-columns: 1fr auto 1fr auto 1fr;
 	align-items: center;
 	padding: 18px;
-	background: rgba(7, 18, 34, 0.72);
-	border: 1px solid rgba(99, 179, 237, 0.18);
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid var(--line);
 	border-radius: 18px;
 	backdrop-filter: blur(8px);
 	position: relative;
@@ -106,10 +102,10 @@
 
 .clock-value {
 	text-align: center;
-	font-family: 'Cormorant Garamond', serif;
+	font-family: 'Playfair Display', serif;
 	font-size: clamp(32px, 4vw, 44px);
 	font-weight: 600;
-	color: #f1f7ff;
+	color: var(--text-primary);
 	line-height: 1;
 	transition: transform 0.35s ease, color 0.35s ease;
 }
@@ -117,23 +113,23 @@
 .clock-value span {
 	display: block;
 	margin-top: 8px;
-	font-family: 'Libre Franklin', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 11px;
 	font-weight: 500;
 	letter-spacing: 0.13em;
 	text-transform: uppercase;
-	color: #8aaed4;
+	color: var(--text-muted);
 }
 
 .clock-divider {
 	width: 1px;
 	height: 56px;
-	background: linear-gradient(180deg, transparent, rgba(99, 179, 237, 0.38), transparent);
+	background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.24), transparent);
 }
 
 .price-card:hover .clock-value {
 	transform: translateY(-2px);
-	color: #63b3ed;
+	color: var(--accent-purple-soft);
 }
 
 .price-change {
@@ -144,8 +140,8 @@
 .love-progress {
 	margin-bottom: 20px;
 	padding: 14px 16px;
-	background: rgba(7, 18, 34, 0.62);
-	border: 1px solid rgba(99, 179, 237, 0.16);
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid var(--line);
 	border-radius: 14px;
 }
 
@@ -156,19 +152,19 @@
 	gap: 14px;
 	margin-bottom: 12px;
 	font-size: 12px;
-	color: #8aaed4;
+	color: var(--text-secondary);
 }
 
 .progress-head strong {
 	font-size: 13px;
-	color: #9ff0d0;
+	color: var(--accent-rose-soft);
 	font-weight: 600;
 }
 
 .progress-track {
 	height: 8px;
 	border-radius: 999px;
-	background: rgba(8, 24, 44, 0.9);
+	background: rgba(255, 255, 255, 0.08);
 	overflow: hidden;
 }
 
@@ -176,9 +172,9 @@
 	display: block;
 	height: 100%;
 	width: 74%;
-	background: linear-gradient(90deg, #2b6cb0 0%, #63b3ed 100%);
+	background: linear-gradient(90deg, #7a62c4 0%, #b1728a 72%, #c8a85f 100%);
 	border-radius: inherit;
-	box-shadow: 0 0 20px rgba(99, 179, 237, 0.45);
+	box-shadow: 0 0 16px rgba(106, 61, 109, 0.34);
 	transform-origin: left;
 	animation: progressIn 1.2s ease;
 }
@@ -191,8 +187,8 @@
 
 .metal-item {
 	padding: 16px;
-	background: rgba(5, 14, 27, 0.86);
-	border: 1px solid rgba(99, 179, 237, 0.14);
+	background: rgba(255, 255, 255, 0.018);
+	border: 1px solid var(--line);
 	border-radius: 12px;
 	transition: transform 0.35s ease, border-color 0.35s ease, background 0.35s ease;
 	position: relative;
@@ -201,8 +197,8 @@
 
 .metal-item:hover {
 	transform: translateY(-3px);
-	border-color: rgba(99, 179, 237, 0.55);
-	background: rgba(8, 20, 39, 0.95);
+	border-color: var(--line-strong);
+	background: rgba(255, 255, 255, 0.04);
 }
 
 .metal-item::before {
@@ -212,7 +208,7 @@
 	top: 0;
 	bottom: 0;
 	width: 3px;
-	background: linear-gradient(180deg, #2b6cb0, #63b3ed);
+	background: linear-gradient(180deg, #7a62c4, #b1728a);
 	opacity: 0;
 	transition: opacity 0.35s ease;
 }
@@ -225,27 +221,27 @@
 	font-size: 11px;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
-	color: #6f93bb;
+	color: var(--text-muted);
 	margin-bottom: 6px;
 }
 
 .metal-price {
-	font-family: 'Libre Franklin', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 18px;
 	font-weight: 600;
-	color: #edf2f7;
+	color: var(--text-primary);
 }
 
 .metal-change {
 	font-size: 11px;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
-	color: #84f0c8;
+	color: var(--accent-rose-soft);
 	margin-top: 4px;
 }
 
 .metal-change.down {
-	color: #9bb4d0;
+	color: var(--text-secondary);
 }
 
 @keyframes cardReveal {
@@ -257,16 +253,6 @@
 	to {
 		opacity: 1;
 		transform: translateY(0) scale(1);
-	}
-}
-
-@keyframes orbitGlow {
-	from {
-		transform: rotate(0deg);
-	}
-
-	to {
-		transform: rotate(360deg);
 	}
 }
 
@@ -284,11 +270,11 @@
 
 @keyframes pulseRing {
 	0% {
-		box-shadow: 0 0 0 0 rgba(132, 240, 200, 0.7);
+		box-shadow: 0 0 0 0 rgba(177, 114, 138, 0.55);
 	}
 
 	70% {
-		box-shadow: 0 0 0 9px rgba(132, 240, 200, 0);
+		box-shadow: 0 0 0 9px rgba(177, 114, 138, 0);
 	}
 
 	100% {
