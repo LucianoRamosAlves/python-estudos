@@ -62,6 +62,139 @@ body {
 }
 
 
+/* Shared TowDate identity background effect */
+.identity-rain-bg {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: -1;
+	opacity: 0.5;
+	filter: saturate(1.1) contrast(1.08);
+	background-image:
+		radial-gradient(3px 120px at 0px 240px, rgba(174, 154, 221, 0.42), rgba(0, 0, 0, 0)),
+		radial-gradient(3px 120px at 320px 240px, rgba(174, 154, 221, 0.42), rgba(0, 0, 0, 0)),
+		radial-gradient(1.5px 1.5px at 160px 120px, rgba(212, 162, 180, 0.95) 100%, rgba(0, 0, 0, 0) 150%),
+		radial-gradient(3px 120px at 0px 285px, rgba(177, 114, 138, 0.38), rgba(0, 0, 0, 0)),
+		radial-gradient(3px 120px at 320px 285px, rgba(177, 114, 138, 0.38), rgba(0, 0, 0, 0)),
+		radial-gradient(1.5px 1.5px at 160px 142px, rgba(200, 168, 95, 0.74) 100%, rgba(0, 0, 0, 0) 150%),
+		radial-gradient(3px 120px at 0px 182px, rgba(122, 98, 196, 0.42), rgba(0, 0, 0, 0)),
+		radial-gradient(3px 120px at 320px 182px, rgba(122, 98, 196, 0.42), rgba(0, 0, 0, 0)),
+		radial-gradient(1.5px 1.5px at 160px 91px, rgba(174, 154, 221, 0.96) 100%, rgba(0, 0, 0, 0) 150%),
+		radial-gradient(3px 120px at 0px 332px, rgba(106, 61, 109, 0.36), rgba(0, 0, 0, 0)),
+		radial-gradient(3px 120px at 320px 332px, rgba(106, 61, 109, 0.36), rgba(0, 0, 0, 0)),
+		radial-gradient(1.5px 1.5px at 160px 166px, rgba(174, 154, 221, 0.84) 100%, rgba(0, 0, 0, 0) 150%);
+	background-size:
+		320px 240px,
+		320px 240px,
+		320px 240px,
+		320px 285px,
+		320px 285px,
+		320px 285px,
+		320px 182px,
+		320px 182px,
+		320px 182px,
+		320px 332px,
+		320px 332px,
+		320px 332px;
+	animation: identityRainMotion 104s linear infinite;
+}
+
+.identity-rain-bg::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	opacity: 0.62;
+	background:
+		radial-gradient(circle at 14% 14%, rgba(122, 98, 196, 0.35), transparent 44%),
+		radial-gradient(circle at 84% 18%, rgba(177, 114, 138, 0.28), transparent 46%),
+		radial-gradient(circle at 48% 102%, rgba(106, 61, 109, 0.3), transparent 48%),
+		radial-gradient(circle at 50% 50%, rgba(7, 10, 18, 0) 56%, rgba(6, 8, 14, 0.6) 100%);
+	animation: identityPulse 10s ease-in-out infinite, identityDrift 22s ease-in-out infinite;
+}
+
+.identity-rain-bg::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 2px, rgba(8, 10, 18, 0.62) 2px);
+	background-size: 8px 8px;
+	backdrop-filter: blur(0.72em) brightness(1.14);
+	opacity: 0.5;
+	animation: identityGrainShift 16s linear infinite;
+}
+
+@keyframes identityRainMotion {
+	0% {
+		background-position:
+			0px 240px,
+			3px 240px,
+			161px 360px,
+			26px 30px,
+			29px 30px,
+			187px 172px,
+			52px 20px,
+			55px 20px,
+			213px 111px,
+			78px 264px,
+			81px 264px,
+			239px 430px;
+	}
+
+	100% {
+		background-position:
+			0px 6840px,
+			3px 6840px,
+			161px 6960px,
+			26px 13830px,
+			29px 13830px,
+			187px 13972px,
+			52px 5532px,
+			55px 5532px,
+			213px 5623px,
+			78px 17094px,
+			81px 17094px,
+			239px 17260px;
+	}
+}
+
+@keyframes identityPulse {
+	0%,
+	100% {
+		opacity: 0.44;
+	}
+	50% {
+		opacity: 0.74;
+	}
+}
+
+@keyframes identityDrift {
+	0%,
+	100% {
+		transform: scale(1) translate3d(0, 0, 0);
+	}
+	50% {
+		transform: scale(1.03) translate3d(0, -1.2%, 0);
+	}
+}
+
+@keyframes identityGrainShift {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 8px 14px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.identity-rain-bg,
+	.identity-rain-bg::before,
+	.identity-rain-bg::after {
+		animation: none;
+	}
+}
+
+
 /* Noise texture overlay */
 body::before {
 	content: '';
