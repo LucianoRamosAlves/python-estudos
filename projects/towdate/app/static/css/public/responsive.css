@@ -253,6 +253,15 @@
 		padding: 18px;
 	}
 
+	.todate-confirm-head {
+		margin-bottom: 12px;
+	}
+
+	.todate-confirm-icon-wrap {
+		width: 38px;
+		height: 38px;
+	}
+
 	.todate-confirm-title {
 		font-size: 26px;
 	}

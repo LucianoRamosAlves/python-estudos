@@ -289,3 +289,16 @@
 .account-danger h2{
     color:#f0a2a2;
 }
+
+.account-danger form + form {
+    margin-top: 14px;
+}
+
+.account-delete-password {
+    display: none;
+    margin: 10px 0 14px;
+}
+
+.account-delete-password.is-visible {
+    display: block;
+}

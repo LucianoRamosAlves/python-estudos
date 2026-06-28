@@ -10,7 +10,7 @@
         Gerencie sua senha e proteja sua conta contra acessos não autorizados.
     </p>
 
-      <form id="changePasswordForm" class="reg-form" method="POST" action="">
+    <form id="changePasswordForm" class="reg-form" method="POST" action="">
         {{ form.hidden_tag() }}
         <div class="form-group">
 
@@ -18,21 +18,32 @@
                 Senha atual
             </label>
 
+            <div class="reg-input-wrap">
                 {% if form.senha_atual.errors %}
-                {{ form.senha_atual(class="form-input is-invalid", id="accName") }}
+                {{ form.senha_atual(class="form-input is-invalid", id="currentPassword",
+                autocomplete="current-password") }}
                 {% else %}
-                {{ form.senha_atual(class="form-input", placeholder="Digite a senha atual", id="accName") }}
+                {{ form.senha_atual(class="form-input", placeholder="Digite a senha atual", id="currentPassword",
+                autocomplete="current-password") }}
                 {% endif %}
+                <button type="button" class="reg-pw-toggle" id="currentPasswordToggle" aria-label="Mostrar senha atual">
+                    <svg id="currentPasswordEyeIcon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                </button>
+            </div>
 
         </div>
 
-                        {% if form.senha_atual.errors %}
-            <div class="field-error" role="alert">
-                {% for error in form.senha_atual.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-            {% endif %}
+        {% if form.senha_atual.errors %}
+        <div class="field-error" role="alert">
+            {% for error in form.senha_atual.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
 
         <div class="form-group">
 
@@ -41,21 +52,31 @@
             </label>
 
 
+            <div class="reg-input-wrap">
                 {% if form.nova_senha.errors %}
-                {{ form.nova_senha(class="form-input is-invalid", id="accName") }}
+                {{ form.nova_senha(class="form-input is-invalid", id="newPassword", autocomplete="new-password") }}
                 {% else %}
-                {{ form.nova_senha(class="form-input", placeholder="Digite a nova senha", id="accName") }}
+                {{ form.nova_senha(class="form-input", placeholder="Digite a nova senha", id="newPassword",
+                autocomplete="new-password") }}
                 {% endif %}
+                <button type="button" class="reg-pw-toggle" id="newPasswordToggle" aria-label="Mostrar nova senha">
+                    <svg id="newPasswordEyeIcon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                </button>
+            </div>
 
         </div>
 
-                        {% if form.nova_senha.errors %}
-            <div class="field-error" role="alert">
-                {% for error in form.nova_senha.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-            {% endif %}
+        {% if form.nova_senha.errors %}
+        <div class="field-error" role="alert">
+            {% for error in form.nova_senha.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
 
         <div class="form-group">
 
@@ -64,21 +85,33 @@
             </label>
 
 
+            <div class="reg-input-wrap">
                 {% if form.confirmar_nova_senha.errors %}
-                {{ form.confirmar_nova_senha(class="form-input is-invalid", id="accName") }}
+                {{ form.confirmar_nova_senha(class="form-input is-invalid", id="confirmPassword",
+                autocomplete="new-password") }}
                 {% else %}
-                {{ form.confirmar_nova_senha(class="form-input", placeholder="Confirme a nova senha", id="accName") }}
+                {{ form.confirmar_nova_senha(class="form-input", placeholder="Confirme a nova senha",
+                id="confirmPassword", autocomplete="new-password") }}
                 {% endif %}
+                <button type="button" class="reg-pw-toggle" id="confirmPasswordToggle"
+                    aria-label="Mostrar confirmação da nova senha">
+                    <svg id="confirmPasswordEyeIcon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                </button>
+            </div>
 
         </div>
 
-                {% if form.confirmar_nova_senha.errors %}
-            <div class="field-error" role="alert">
-                {% for error in form.confirmar_nova_senha.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-            {% endif %}
+        {% if form.confirmar_nova_senha.errors %}
+        <div class="field-error" role="alert">
+            {% for error in form.confirmar_nova_senha.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
 
         <div class="form-actions">
 
@@ -115,19 +148,47 @@
         Alterações nesta área podem afetar permanentemente sua conta.
     </p>
 
-    <form method="POST" action="{{ url_for('private.logout_sessions') }}">
-         {{ logout_sessions_form.hidden_tag() }}
-        <button class="btn btn-danger-outline" type="submit">
+    <form method="POST" action="{{ url_for('private.logout_sessions') }}" id="logoutSessionsForm">
+        {{ logout_sessions_form.hidden_tag() }}
+        <button class="btn btn-danger-outline" type="button" id="btnLogoutSessions">
             Encerrar todas as sessões
         </button>
     </form>
 
-    <!-- <form method="POST">
-       {# { delete_account_form.hidden_tag() }} #}
-        <button class="btn btn-danger-outline" type="submit">
+    <form method="POST" action="{{ url_for('private.delete_account') }}" id="deleteAccountForm">
+        {{ delete_account_form.hidden_tag() }}
+
+        <div class="form-group account-delete-password" id="deletePasswordWrap">
+            <label class="reg-field-label" for="deleteAccountPassword">
+                Confirme sua senha para excluir a conta
+            </label>
+
+            <div class="reg-input-wrap">
+                {{ delete_account_form.senha(class="form-input", id="deleteAccountPassword", placeholder="Digite sua senha", autocomplete="current-password") }}
+                <button type="button" class="reg-pw-toggle" id="deletePasswordToggle"
+                    aria-label="Mostrar senha da exclusão">
+                    <svg id="deletePasswordEyeIcon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                </button>
+            </div>
+
+            {% if delete_account_form.senha.errors %}
+            <div class="field-error" role="alert">
+                {% for error in delete_account_form.senha.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+
+        <button class="btn btn-danger-outline" type="button" id="btnDeleteAccount">
             Excluir conta
         </button>
-    </form> -->
+    </form>
 
 </div>
 

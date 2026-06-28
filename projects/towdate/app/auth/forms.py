@@ -89,6 +89,11 @@ class ChangePasswordForm(FlaskForm):
 class LogoutSessionsForm(FlaskForm):
     submit = SubmitField("Encerrar todas as sessões")
 
-# # Excluir conta
-# class DeleteAccountForm(FlaskForm):
-#     submit = SubmitField("Excluir conta")
+# Excluir conta
+class DeleteAccountForm(FlaskForm):
+    senha = PasswordField(
+        "Confirme sua senha",
+        validators=[DataRequired()]
+    )
+
+    submit = SubmitField("Excluir conta")

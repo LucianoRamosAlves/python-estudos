@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TowDate - Plataforma Premium para Historia de Casais</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/alerts.css') }}">
@@ -28,34 +31,28 @@
     {% endblock %}
 
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div data-todate-flashes hidden>
-                {% for category, message in messages %}
-                    <div class="todate-toast todate-toast-{{ category }}">
-                        <div class="todate-toast-body">
-                            <div class="todate-toast-title">{{ category|title }}</div>
-                            <div class="todate-toast-message">{{ message | e }}</div>
-                        </div>
-
-                        <button
-                            class="todate-toast-close"
-                            type="button"
-                            aria-label="Fechar notificação"
-                        >
-                            ✕
-                        </button>
-
-                        <span class="todate-toast-progress"></span>
-                    </div>
-                {% endfor %}
+    {% if messages %}
+    <div data-todate-flashes hidden>
+        {% for category, message in messages %}
+        <div class="todate-toast todate-toast-{{ category }}">
+            <div class="todate-toast-body">
+                <div class="todate-toast-title">{{ category|title }}</div>
+                <div class="todate-toast-message">{{ message | e }}</div>
             </div>
-        {% endif %}
+
+            <button class="todate-toast-close" type="button" aria-label="Fechar notificação">
+                ✕
+            </button>
+
+            <span class="todate-toast-progress"></span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     {% endwith %}
 
     <!-- Scripts -->
     <script defer src="{{ url_for('static', filename='js/auth/notifications.js') }}"></script>
-    <script defer src="{{ url_for('static', filename='js/auth/register
-    .js') }}"></script>
     <script defer src="{{ url_for('static', filename='js/public/script.js') }}"></script>
     {% block extra_js %}{% endblock %}
 
