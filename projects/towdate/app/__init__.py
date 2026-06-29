@@ -34,7 +34,10 @@ def create_app():
         if current_user.is_authenticated:
             if session.get("session_version") != current_user.session_version:
                 logout_user()
-                flash("Sua sessão expirou. Por favor, faça login novamente.", "warning")
+                session.clear()
+                flash(
+                    "Sua sessão expirou. Por favor, faça login novamente.",
+                    "warning"
+                )
                 return redirect(url_for("auth.login"))
-
     return app

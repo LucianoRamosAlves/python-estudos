@@ -15,7 +15,14 @@ class Config:
     UPLOAD_FOLDER = "app/static/uploads/profile_pictures"
     MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # 5 MB
 
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    # Segurança dos cookies
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SECURE = False     # Somente em produção com HTTPS
+    SESSION_COOKIE_SAMESITE = "Lax"
 
-    
+    REMEMBER_COOKIE_HTTPONLY = True
+    REMEMBER_COOKIE_SECURE = False     # Somente em produção com HTTPS
+    REMEMBER_COOKIE_SAMESITE = "Lax"
