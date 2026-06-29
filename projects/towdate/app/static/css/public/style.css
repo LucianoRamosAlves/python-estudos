@@ -332,3 +332,8 @@ section {
 	color: #f7f1ff;
 	box-shadow: 0 0 0 3px rgba(122, 98, 196, 0.16);
 }
+
+.photo-actions.is-invalid .btn {
+    border-color: var(--danger);
+    color: var(--danger);
+}

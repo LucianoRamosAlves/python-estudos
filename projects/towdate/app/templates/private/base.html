@@ -4,7 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TowDate - Plataforma Premium para Historia de Casais</title>
+    <meta
+name="description"
+content="TowDate - Plataforma premium para casais registrarem momentos, memórias e experiências.">
+<meta name="theme-color" content="#B68C2F">
+    <title>
+        {% block title %}
+        TowDate
+        {% endblock %}
+    </title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -17,18 +25,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/mobile_menu.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/contact.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/register.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/login.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/responsive.css') }}">
 
     {% block extra_css %}{% endblock %}
+    
 </head>
 
 <body>
 
     {% include 'includes/navbar_private.html' %}
 
+
+    <main>
     {% block content %}
     {% endblock %}
+    </main>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

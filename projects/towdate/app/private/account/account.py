@@ -41,11 +41,11 @@ def account():
                     db.session.commit()
                     flash("Foto de perfil atualizada com sucesso!", "success")
                     return redirect(url_for("private.account"))
+                
                 else:
                     flash("Erro ao atualizar a foto de perfil.", "error")
             else:
                 flash("Erro ao atualizar a foto de perfil.", "error")
-            return redirect(url_for("private.account"))
 
         elif form_type == "remove_photo":
             form_type = request.form.get("form_type")

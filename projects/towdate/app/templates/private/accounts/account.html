@@ -29,16 +29,11 @@
 
     <input type="hidden" name="form_type" id="formType" value="photo">
 
-    {{ photo_form.foto_perfil(
-        id="fotoPerfil",
-        class="sr-only",
-        style="display:none;",
-        accept=".jpg,.jpeg,.png"
-    ) }}
-
+ <div class="photo-actions {% if photo_form.foto_perfil.errors %}is-invalid{% endif %}">
     <button type="button" class="btn btn-outline" id="btnAlterarFoto">
         Alterar Foto
     </button>
+</div>
 
     <button type="button" class="btn btn-outline" id="btnRemoverFoto">
         Remover Foto
@@ -88,8 +83,20 @@
                         </svg>
                     </span>
 
-                    {{ form.nome(class="form-input", id="accName") }}
-                </div>
+                {% if form.nome.errors %}
+                {{ form.nome(class="form-input is-invalid", id="accName") }}
+                {% else %}
+                {{ form.nome(class="form-input", id="accName") }}
+                {% endif %}
+
+            </div>
+            {% if form.nome.errors %}
+            <div class="field-error" role="alert">
+                {% for error in form.nome.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
 
             </div>
 
@@ -109,8 +116,20 @@
                         </svg>
                     </span>
 
-                    {{ form.sobrenome(class="form-input", id="accLastName") }}
-                </div>
+                {% if form.sobrenome.errors %}
+                {{ form.sobrenome(class="form-input is-invalid", id="accLastName") }}
+                {% else %}
+                {{ form.sobrenome(class="form-input", id="accLastName") }}
+                {% endif %}
+
+            </div>
+            {% if form.sobrenome.errors %}
+            <div class="field-error" role="alert">
+                {% for error in form.sobrenome.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
 
             </div>
 
@@ -167,8 +186,20 @@
                         <line x1="3" y1="10" x2="21" y2="10" />
                     </svg>
                 </span>
+                {% if form.data_nascimento.errors %}
+                {{ form.data_nascimento(class="form-input is-invalid", id="accBirthDate") }}
+                {% else %}
                 {{ form.data_nascimento(class="form-input", id="accBirthDate") }}
+                {% endif %}
+
             </div>
+            {% if form.data_nascimento.errors %}
+            <div class="field-error" role="alert">
+                {% for error in form.data_nascimento.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
 
         </div>
 
