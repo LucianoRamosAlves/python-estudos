@@ -52,7 +52,7 @@ def register():
             password_hash=senha_hash,
             cor_fundo=cor["fundo"],
             cor_icone=cor["icone"],
-            avatar="avatars/default.svg"
+            avatar=None
         )
         
         db.session.add(user) 

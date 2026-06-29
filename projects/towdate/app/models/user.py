@@ -45,7 +45,7 @@ class User(db.Model, UserMixin):
     avatar = db.Column(
         db.String(255),
         nullable=True,
-        default="avatars/default.svg"
+        default=None
     )
 
     cor_fundo = db.Column(
