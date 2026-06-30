@@ -2,13 +2,10 @@
 <nav class="nav" id="navbar">
     <div class="container">
         <div class="nav-inner">
-            <a href="#" class="logo">Tow <span>Date</span></a>
+            <a href="{{ url_for('private.home') }}" class="logo">Tow <span>Date</span></a>
             <ul class="nav-links">
                 <li><a href="{{ url_for('private.home') }}">Home</a></li>
                 <li><a href="{{ url_for('private.memorias') }}">Memórias</a></li>
-                <li><a href="#products">cod love</a></li>
-                <li><a href="#testimonials">ferramentas</a></li>
-                <li><a href="#contact">suporte</a></li>
             </ul>
             <div class="nav-cta">
                 <a href="{{ url_for('private.account') }}" class="btn btn-outline">Perfil</a>
@@ -37,9 +34,6 @@
     <ul class="mobile-nav-links">
         <li><a href="{{ url_for('private.home') }}">Home</a></li>
         <li><a href="{{ url_for('private.memorias') }}">Memórias</a></li>
-        <li><a href="#products">cod love</a></li>
-        <li><a href="#testimonials">ferramentas</a></li>
-        <li><a href="#contact">suporte</a></li>
     </ul>
     <div class="mobile-menu-cta">
         <a href="{{ url_for('private.account') }}" class="btn btn-outline">Perfil</a>

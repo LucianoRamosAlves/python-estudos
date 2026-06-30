@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initializeRevealAnimations(reduceMotion);
-    initializeCollectionCards(reduceMotion);
+    initializeCollectionCards();
     initializeMemoryCards();
 });
 
@@ -46,37 +46,14 @@ function initializeRevealAnimations(reduceMotion) {
     elements.forEach((element) => observer.observe(element));
 }
 
-function initializeCollectionCards(reduceMotion) {
+function initializeCollectionCards() {
     const cards = document.querySelectorAll('.memories-collection-card');
-    const canTilt = window.matchMedia('(hover: hover) and (pointer: fine)');
 
     cards.forEach((card) => {
         const title = card.querySelector('.memories-collection-card__title')?.textContent.trim() || '';
 
         makeCardAccessible(card, `Coleção ${title}`, () => {
             openCollection(card.dataset.collection, card);
-        });
-
-        card.addEventListener('pointermove', (event) => {
-            if (reduceMotion || !canTilt.matches) {
-                return;
-            }
-
-            const bounds = card.getBoundingClientRect();
-            const x = (event.clientX - bounds.left) / bounds.width;
-            const y = (event.clientY - bounds.top) / bounds.height;
-
-            card.style.setProperty('--pointer-x', `${x * 100}%`);
-            card.style.setProperty('--pointer-y', `${y * 100}%`);
-            card.style.setProperty('--tilt-x', `${(0.5 - y) * 5}deg`);
-            card.style.setProperty('--tilt-y', `${(x - 0.5) * 7}deg`);
-        });
-
-        card.addEventListener('pointerleave', () => {
-            card.style.setProperty('--tilt-x', '0deg');
-            card.style.setProperty('--tilt-y', '0deg');
-            card.style.setProperty('--pointer-x', '50%');
-            card.style.setProperty('--pointer-y', '50%');
         });
     });
 }
@@ -134,8 +111,6 @@ function openCollection(collection, card) {
             }
         })
     );
-
-    console.log(`Coleção selecionada: ${collection}`);
 }
 
 function openMemory(title, card) {
@@ -144,6 +119,4 @@ function openMemory(title, card) {
             detail: { title, card }
         })
     );
-
-    console.log(`Memória selecionada: ${title}`);
 }

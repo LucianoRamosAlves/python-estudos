@@ -242,23 +242,4 @@ if (testimonialsTrack && testimonialPrev && testimonialNext && totalTestimonials
    }
 }
 
-// Simulate live price updates (for demo purposes)
-function updatePrices() {
-   const priceElement = document.querySelector('.price-value');
-   const changeElement = document.querySelector('.price-change');
-
-   // Random price fluctuation for demo
-   const basePrice = 4285.50;
-   const fluctuation = (Math.random() - 0.5) * 10;
-   const newPrice = (basePrice + fluctuation).toFixed(2);
-
-   // This is just for visual effect - in production, connect to real API
-}
-
-const hasPriceWidget = document.querySelector('.price-value') || document.querySelector('.price-change');
-
-// Update prices every 30 seconds (demo)
-if (hasPriceWidget) {
-   setInterval(updatePrices, 30000);
-}
 
