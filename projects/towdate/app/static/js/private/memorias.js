@@ -1,256 +1,149 @@
 /* ==========================
-   TowDate - Memories Page JS
+   TowDate — Memories
+   Premium interactions
 ========================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initializeIntersectionObserver();
-    initializeCollectionCards();
-    initializeMemoryGridCards();
-    initializeNetflixEffects();
-    initializeRippleEffects();
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const page = document.querySelector('.memories-page');
+
+    if (!reduceMotion) {
+        page?.classList.add('is-motion-ready');
+    }
+
+    initializeRevealAnimations(reduceMotion);
+    initializeCollectionCards(reduceMotion);
+    initializeMemoryCards();
 });
 
-/**
- * Initialize Intersection Observer for scroll animations
- */
-function initializeIntersectionObserver() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // Observe stat cards
-    document.querySelectorAll('.memories-stat-card').forEach((card) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(card);
-    });
-
-    // Observe grid cards
-    document.querySelectorAll('.memories-grid-card').forEach((card) => {
-        observer.observe(card);
-    });
-}
-
-/**
- * Netflix-style effects for collection cards
- */
-function initializeNetflixEffects() {
-    const collectionCards = document.querySelectorAll('.memories-collection-card');
-
-    collectionCards.forEach((card) => {
-        card.addEventListener('mouseenter', function() {
-            applyNetflixEffect(this);
-        });
-
-        card.addEventListener('mouseleave', function() {
-            removeNetflixEffect(this);
-        });
-
-        // Mouse move for tilt effect
-        card.addEventListener('mousemove', function(e) {
-            if (window.innerWidth > 768) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-
-                this.style.setProperty('--rotateX', rotateX + 'deg');
-                this.style.setProperty('--rotateY', rotateY + 'deg');
-                
-                this.style.transform = `
-                    perspective(1000px) 
-                    rotateX(var(--rotateX, 0deg)) 
-                    rotateY(var(--rotateY, 0deg))
-                    scale(1.06)
-                    translateY(-8px)
-                `;
-            }
-        });
-    });
-}
-
-/**
- * Apply Netflix hover effect
- */
-function applyNetflixEffect(card) {
-    const icon = card.querySelector('.memories-collection-card__icon');
-    const title = card.querySelector('.memories-collection-card__title');
-    const info = card.querySelector('.memories-collection-card__info');
-
-    if (icon) {
-        icon.style.animation = 'none';
-        setTimeout(() => {
-            icon.style.animation = 'bounceIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-        }, 10);
-    }
-}
-
-/**
- * Remove Netflix effect
- */
-function removeNetflixEffect(card) {
-    if (window.innerWidth > 768) {
-        card.style.transform = 'scale(1.06) translateY(-8px)';
-    } else {
-        card.style.transform = '';
-    }
-}
-
-/**
- * Initialize collection card interactions
- */
-function initializeCollectionCards() {
-    const collectionCards = document.querySelectorAll('.memories-collection-card');
-
-    collectionCards.forEach((card) => {
-        card.addEventListener('click', (e) => {
-            e.preventDefault();
-            const collection = card.getAttribute('data-collection');
-            handleCollectionClick(collection, card);
-        });
-
-        card.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                const collection = card.getAttribute('data-collection');
-                handleCollectionClick(collection, card);
-            }
-        });
-
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-label', `Coleção ${card.querySelector('.memories-collection-card__title')?.textContent || ''}`);
-    });
-}
-
-/**
- * Handle collection card click
- */
-function handleCollectionClick(collection, card) {
-    card.style.animation = 'none';
-    setTimeout(() => {
-        card.style.animation = '';
-    }, 10);
-    
-    console.log(`Coleção aberta: ${collection}`);
-}
-
-/**
- * Initialize memory grid card interactions
- */
-function initializeMemoryGridCards() {
-    const memoryCards = document.querySelectorAll('.memories-grid-card');
-
-    memoryCards.forEach((card) => {
-        card.addEventListener('click', (e) => {
-            e.preventDefault();
-            handleMemoryCardClick(card);
-        });
-
-        card.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleMemoryCardClick(card);
-            }
-        });
-
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-label', `Memória: ${card.querySelector('.memories-grid-card__title')?.textContent || ''}`);
-    });
-}
-
-/**
- * Handle memory card click
- */
-function handleMemoryCardClick(card) {
-    const title = card.querySelector('.memories-grid-card__title').textContent;
-    console.log(`Memória aberta: ${title}`);
-}
-
-/**
- * Initialize ripple effect on cards
- */
-function initializeRippleEffects() {
-    const interactiveCards = document.querySelectorAll(
-        '.memories-collection-card, .memories-grid-card, .memories-stat-card'
+function initializeRevealAnimations(reduceMotion) {
+    const elements = document.querySelectorAll(
+        '.memories-stat-card, .memories-featured__card, .memories-grid-card'
     );
 
-    interactiveCards.forEach((card) => {
-        card.addEventListener('click', function(e) {
-            createRipple(e, this);
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+        elements.forEach((element) => element.classList.add('is-visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            });
+        },
+        {
+            threshold: 0.12,
+            rootMargin: '0px 0px -36px'
+        }
+    );
+
+    elements.forEach((element) => observer.observe(element));
+}
+
+function initializeCollectionCards(reduceMotion) {
+    const cards = document.querySelectorAll('.memories-collection-card');
+    const canTilt = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+    cards.forEach((card) => {
+        const title = card.querySelector('.memories-collection-card__title')?.textContent.trim() || '';
+
+        makeCardAccessible(card, `Coleção ${title}`, () => {
+            openCollection(card.dataset.collection, card);
+        });
+
+        card.addEventListener('pointermove', (event) => {
+            if (reduceMotion || !canTilt.matches) {
+                return;
+            }
+
+            const bounds = card.getBoundingClientRect();
+            const x = (event.clientX - bounds.left) / bounds.width;
+            const y = (event.clientY - bounds.top) / bounds.height;
+
+            card.style.setProperty('--pointer-x', `${x * 100}%`);
+            card.style.setProperty('--pointer-y', `${y * 100}%`);
+            card.style.setProperty('--tilt-x', `${(0.5 - y) * 5}deg`);
+            card.style.setProperty('--tilt-y', `${(x - 0.5) * 7}deg`);
+        });
+
+        card.addEventListener('pointerleave', () => {
+            card.style.setProperty('--tilt-x', '0deg');
+            card.style.setProperty('--tilt-y', '0deg');
+            card.style.setProperty('--pointer-x', '50%');
+            card.style.setProperty('--pointer-y', '50%');
         });
     });
 }
 
-/**
- * Create ripple effect on click
- */
-function createRipple(e, card) {
-    const ripple = document.createElement('span');
-    const rect = card.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const x = e.clientX - rect.left - size / 2;
-    const y = e.clientY - rect.top - size / 2;
+function initializeMemoryCards() {
+    document.querySelectorAll('.memories-grid-card').forEach((card) => {
+        const title = card.querySelector('.memories-grid-card__title')?.textContent.trim() || '';
 
-    ripple.style.width = ripple.style.height = size + 'px';
-    ripple.style.left = x + 'px';
-    ripple.style.top = y + 'px';
-    ripple.classList.add('ripple');
-
-    card.appendChild(ripple);
-    
-    ripple.style.position = 'absolute';
-    ripple.style.background = 'rgba(200, 168, 95, 0.5)';
-    ripple.style.borderRadius = '50%';
-    ripple.style.pointerEvents = 'none';
-    ripple.style.animation = 'rippleEffect 0.6s ease-out';
-
-    ripple.addEventListener('animationend', () => {
-        ripple.remove();
+        makeCardAccessible(card, `Memória: ${title}`, () => {
+            openMemory(title, card);
+        });
     });
 }
 
-/**
- * Add CSS animations
- */
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes bounceIn {
-        0% { transform: scale(0.8); opacity: 0; }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); opacity: 1; }
-    }
+function makeCardAccessible(card, label, activate) {
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', label);
 
-    @keyframes rippleEffect {
-        to {
-            transform: scale(4);
-            opacity: 0;
+    card.addEventListener('click', (event) => {
+        createRipple(card, event);
+        activate();
+    });
+
+    card.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') {
+            return;
         }
-    }
 
-    .memories-collection-card:hover {
-        z-index: 10;
-    }
-`;
-document.head.appendChild(style);
+        event.preventDefault();
+        createRipple(card);
+        activate();
+    });
+}
 
-console.log('Página de memórias iniciada com sucesso ✨');
+function createRipple(card, event = null) {
+    const bounds = card.getBoundingClientRect();
+    const x = event?.clientX ? event.clientX - bounds.left : bounds.width / 2;
+    const y = event?.clientY ? event.clientY - bounds.top : bounds.height / 2;
+    const ripple = document.createElement('span');
 
+    ripple.className = 'memories-ripple';
+    ripple.style.setProperty('--ripple-x', `${x}px`);
+    ripple.style.setProperty('--ripple-y', `${y}px`);
+    card.appendChild(ripple);
+    ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+}
 
+function openCollection(collection, card) {
+    document.dispatchEvent(
+        new CustomEvent('towdate:collection-open', {
+            detail: {
+                collection,
+                count: Number(card.dataset.count || 0)
+            }
+        })
+    );
+
+    console.log(`Coleção selecionada: ${collection}`);
+}
+
+function openMemory(title, card) {
+    document.dispatchEvent(
+        new CustomEvent('towdate:memory-open', {
+            detail: { title, card }
+        })
+    );
+
+    console.log(`Memória selecionada: ${title}`);
+}
