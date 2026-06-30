@@ -1,0 +1,1762 @@
+/* ==========================
+   TowDate - Memories Page
+========================== */
+
+.memories-page {
+    padding: 30px 0 30px;
+}
+
+.memories-page::before {
+    content: '';
+    position: fixed;
+    top: 10%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(122, 98, 196, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.memories-page .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================
+   Hero Section
+======================== */
+
+.memories-hero {
+    text-align: center;
+    margin-bottom: 1.25rem;
+}
+
+.memories-hero__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+    letter-spacing: -1px;
+}
+
+.memories-hero__subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+/* ========================
+   Stats Section
+======================== */
+
+.memories-stats {
+    margin-bottom: 1.75rem;
+}
+
+.memories-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.65rem;
+}
+
+.memories-stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.memories-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.3), transparent);
+}
+
+.memories-stat-card:hover {
+    border-color: rgba(200, 168, 95, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(5, 12, 24, 0.35);
+}
+
+.memories-stat-card__icon {
+    font-size: 1.75rem;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-light);
+}
+
+.memories-stat-card__icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--gold-light);
+    fill: var(--gold-light);
+}
+
+.memories-stat-card__value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 0.1rem;
+}
+
+.memories-stat-card__label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ========================
+   Featured Memory
+======================== */
+
+.memories-featured {
+    margin-bottom: 1.75rem;
+}
+
+.memories-featured__card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    overflow: hidden;
+    padding: 1.25rem;
+    position: relative;
+}
+
+.memories-featured__card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.3), transparent);
+}
+
+.memories-featured__image {
+    height: 280px;
+    border-radius: 14px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 16px 40px rgba(5, 12, 24, 0.5);
+}
+
+.memories-featured__content {
+    position: relative;
+    z-index: 1;
+}
+
+.memories-featured__label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+}
+
+.memories-featured__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+}
+
+.memories-featured__date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.6rem;
+}
+
+.memories-featured__description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+}
+
+.memories-featured__meta {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+.memories-featured__category {
+    font-size: 0.8rem;
+    color: var(--gold-light);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .memories-featured__card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .memories-featured__image {
+        height: 240px;
+    }
+
+    .memories-featured__title {
+        font-size: 1.4rem;
+    }
+}
+
+/* ========================
+   Section Headers
+======================== */
+
+.memories-section-header {
+    margin-bottom: 1.25rem;
+}
+
+.memories-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* ========================
+   Collections Section - NETFLIX STYLE
+======================== */
+
+.memories-collections {
+    margin-bottom: 1.75rem;
+}
+
+.memories-collections__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.memories-collection-card {
+    position: relative;
+    height: 280px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: fadeInUp 0.6s ease-out both;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    box-shadow: 0 2px 8px rgba(5, 12, 24, 0.2);
+    transform-origin: center;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.memories-collection-card:nth-child(1) { animation-delay: 0.05s; }
+.memories-collection-card:nth-child(2) { animation-delay: 0.1s; }
+.memories-collection-card:nth-child(3) { animation-delay: 0.15s; }
+.memories-collection-card:nth-child(4) { animation-delay: 0.2s; }
+.memories-collection-card:nth-child(5) { animation-delay: 0.25s; }
+.memories-collection-card:nth-child(6) { animation-delay: 0.3s; }
+
+.memories-collection-card:hover {
+    transform: scale(1.06) translateY(-8px);
+    box-shadow: 0 20px 40px rgba(122, 98, 196, 0.3);
+}
+
+.memories-collection-card--featured {
+    border-color: rgba(200, 168, 95, 0.6);
+    box-shadow: 0 8px 24px rgba(200, 168, 95, 0.2);
+}
+
+.memories-collection-card--featured::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(200, 168, 95, 0.08) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Image - 90% of card */
+.memories-collection-card__image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    transition: transform 0.4s ease;
+}
+
+.memories-collection-card:hover .memories-collection-card__image {
+    transform: scale(1.1);
+}
+
+/* Overlay - Gradient from transparent to dark */
+.memories-collection-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6, 9, 23, 0) 0%, rgba(6, 9, 23, 0.95) 100%);
+    z-index: 2;
+    transition: background 0.3s ease;
+}
+
+.memories-collection-card:hover .memories-collection-card__overlay {
+    background: linear-gradient(180deg, rgba(122, 98, 196, 0.1) 0%, rgba(6, 9, 23, 0.98) 100%);
+}
+
+/* Badge (Mais utilizada) */
+.memories-collection-card__badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    display: none;
+}
+
+.memories-collection-card--featured .memories-collection-card__badge {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: linear-gradient(135deg, rgba(200, 168, 95, 0.95) 0%, rgba(226, 199, 143, 0.9) 100%);
+    color: rgba(6, 9, 23, 0.95);
+    padding: 0.4rem 0.75rem;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(200, 168, 95, 0.3);
+}
+
+.memories-collection-card__badge svg {
+    width: 12px;
+    height: 12px;
+}
+
+/* Content - Positioned at bottom */
+.memories-collection-card__content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1.2rem 1rem 1rem;
+    z-index: 3;
+    text-align: center;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.memories-collection-card:hover .memories-collection-card__content {
+    padding-bottom: 1.25rem;
+}
+
+/* Main Icon */
+.memories-collection-card__icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 0.6rem;
+    transition: all 0.4s ease;
+    stroke: var(--gold-light);
+    color: var(--gold-light);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.memories-collection-card:hover .memories-collection-card__icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Title */
+.memories-collection-card__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 0.35rem 0;
+    line-height: 1.1;
+    transition: all 0.3s ease;
+}
+
+.memories-collection-card:hover .memories-collection-card__title {
+    font-size: 1.25rem;
+}
+
+/* Info Row */
+.memories-collection-card__info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    flex-wrap: wrap;
+    opacity: 0.95;
+    transition: all 0.3s ease;
+}
+
+.memories-collection-card:hover .memories-collection-card__info {
+    opacity: 1;
+}
+
+.memories-collection-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 0.3rem 0.55rem;
+    border-radius: 6px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+}
+
+.memories-collection-card:hover .memories-collection-card__meta {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.memories-collection-card__meta-icon {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+}
+
+/* ========================
+   Latest Memories Grid
+======================== */
+
+.memories-latest {
+    margin-bottom: 0.5rem;
+}
+
+.memories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.memories-grid-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease-out both;
+    cursor: pointer;
+    position: relative;
+}
+
+.memories-grid-card:nth-child(1) { animation-delay: 0.05s; }
+.memories-grid-card:nth-child(2) { animation-delay: 0.1s; }
+.memories-grid-card:nth-child(3) { animation-delay: 0.15s; }
+.memories-grid-card:nth-child(4) { animation-delay: 0.2s; }
+.memories-grid-card:nth-child(5) { animation-delay: 0.25s; }
+.memories-grid-card:nth-child(6) { animation-delay: 0.3s; }
+.memories-grid-card:nth-child(7) { animation-delay: 0.35s; }
+.memories-grid-card:nth-child(8) { animation-delay: 0.4s; }
+
+.memories-grid-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.3), transparent);
+    z-index: 10;
+}
+
+.memories-grid-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(200, 168, 95, 0.4);
+    box-shadow: 0 12px 32px rgba(5, 12, 24, 0.3);
+}
+
+.memories-grid-card__image {
+    position: relative;
+    height: 140px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.memories-grid-card__image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6, 9, 23, 0) 0%, rgba(6, 9, 23, 0.2) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.memories-grid-card:hover .memories-grid-card__image::after {
+    opacity: 1;
+}
+
+.memories-grid-card__content {
+    padding: 0.9rem;
+}
+
+.memories-grid-card__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+}
+
+.memories-grid-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+}
+
+.memories-grid-card__category {
+    font-size: 0.75rem;
+    color: var(--gold-light);
+    font-weight: 500;
+}
+
+.memories-grid-card__date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* ========================
+   Responsive Design
+======================== */
+
+@media (max-width: 768px) {
+    .memories-page {
+        padding: 20px 0 20px;
+    }
+
+    .memories-hero {
+        margin-bottom: 1rem;
+    }
+
+    .memories-hero__title {
+        font-size: 2.2rem;
+        margin-bottom: 0.1rem;
+    }
+
+    .memories-stats {
+        margin-bottom: 1.5rem;
+    }
+
+    .memories-stats__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .memories-stat-card {
+        padding: 0.85rem;
+        border-radius: 12px;
+    }
+
+    .memories-featured {
+        margin-bottom: 1.5rem;
+    }
+
+    .memories-featured__card {
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .memories-featured__image {
+        height: 220px;
+    }
+
+    .memories-featured__title {
+        font-size: 1.3rem;
+    }
+
+    .memories-section-header {
+        margin-bottom: 1rem;
+    }
+
+    .memories-section-title {
+        font-size: 1.3rem;
+    }
+
+    .memories-collections__grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 0.85rem;
+    }
+
+    .memories-collection-card {
+        height: 240px;
+    }
+
+    .memories-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.85rem;
+    }
+
+    .memories-grid-card__image {
+        height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .memories-page {
+        padding: 15px 0 15px;
+    }
+
+    .memories-hero {
+        margin-bottom: 0.75rem;
+    }
+
+    .memories-hero__title {
+        font-size: 1.8rem;
+    }
+
+    .memories-stats__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.4rem;
+    }
+
+    .memories-stat-card {
+        padding: 0.75rem;
+        border-radius: 10px;
+    }
+
+    .memories-featured__card {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+        padding: 0.85rem;
+    }
+
+    .memories-featured__image {
+        height: 180px;
+    }
+
+    .memories-featured__title {
+        font-size: 1.2rem;
+    }
+
+    .memories-section-title {
+        font-size: 1.15rem;
+    }
+
+    .memories-collections__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .memories-collection-card {
+        height: 200px;
+    }
+
+    .memories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .memories-grid-card__image {
+        height: 100px;
+    }
+}
+
+.memories-stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.memories-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.3), transparent);
+}
+
+.memories-stat-card:hover {
+    border-color: rgba(200, 168, 95, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(5, 12, 24, 0.35);
+}
+
+.memories-stat-card__icon {
+    font-size: 1.75rem;
+    min-width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-light);
+}
+
+.memories-stat-card__icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--gold-light);
+    fill: var(--gold-light);
+}
+
+.memories-stat-card__value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 0.15rem;
+}
+
+.memories-stat-card__label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ========================
+   Featured Memory
+======================== */
+
+.memories-featured {
+    margin-bottom: 2.5rem;
+}
+
+.memories-featured__card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.memories-featured__card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.3), transparent);
+}
+
+.memories-featured__image {
+    height: 320px;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 16px 40px rgba(5, 12, 24, 0.5);
+}
+
+.memories-featured__content {
+    position: relative;
+    z-index: 1;
+}
+
+.memories-featured__label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.memories-featured__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+}
+
+.memories-featured__date {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.memories-featured__description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.memories-featured__meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.memories-featured__category {
+    font-size: 0.85rem;
+    color: var(--gold-light);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .memories-featured__card {
+        grid-template-columns: 1fr;
+        padding: 1.25rem;
+    }
+
+    .memories-featured__image {
+        height: 280px;
+    }
+
+    .memories-featured__title {
+        font-size: 1.6rem;
+    }
+}
+
+/* ========================
+   Section Headers
+======================== */
+
+.memories-section-header {
+    margin-bottom: 1.5rem;
+}
+
+.memories-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* ========================
+   Collections Section - ALBUM DESIGN
+======================== */
+
+.memories-collections {
+    margin-bottom: 2.5rem;
+}
+
+.memories-collections__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+}
+
+.memories-collection-card {
+    position: relative;
+    height: 300px;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.6s ease-out both;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    box-shadow: 0 4px 12px rgba(5, 12, 24, 0.25);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.memories-collection-card:nth-child(1) { animation-delay: 0.05s; }
+.memories-collection-card:nth-child(2) { animation-delay: 0.1s; }
+.memories-collection-card:nth-child(3) { animation-delay: 0.15s; }
+.memories-collection-card:nth-child(4) { animation-delay: 0.2s; }
+.memories-collection-card:nth-child(5) { animation-delay: 0.25s; }
+.memories-collection-card:nth-child(6) { animation-delay: 0.3s; }
+
+.memories-collection-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(200, 168, 95, 0.5);
+    box-shadow: 0 20px 40px rgba(122, 98, 196, 0.25);
+}
+
+.memories-collection-card--featured {
+    border-color: rgba(200, 168, 95, 0.6);
+    box-shadow: 0 8px 24px rgba(200, 168, 95, 0.2);
+    position: relative;
+}
+
+.memories-collection-card--featured::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(200, 168, 95, 0.1) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Image */
+.memories-collection-card__image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    transition: transform 0.4s ease;
+}
+
+.memories-collection-card:hover .memories-collection-card__image {
+    transform: scale(1.08);
+}
+
+/* Overlay */
+.memories-collection-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6, 9, 23, 0.2) 0%, rgba(6, 9, 23, 0.75) 100%);
+    z-index: 2;
+    transition: background 0.3s ease;
+}
+
+.memories-collection-card:hover .memories-collection-card__overlay {
+    background: linear-gradient(180deg, rgba(122, 98, 196, 0.3) 0%, rgba(6, 9, 23, 0.85) 100%);
+}
+
+/* Badge (Mais utilizada) */
+.memories-collection-card__badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+    display: none;
+}
+
+.memories-collection-card--featured .memories-collection-card__badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: linear-gradient(135deg, rgba(200, 168, 95, 0.95) 0%, rgba(226, 199, 143, 0.9) 100%);
+    color: rgba(6, 9, 23, 0.95);
+    padding: 0.5rem 0.875rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(200, 168, 95, 0.3);
+}
+
+.memories-collection-card__badge svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Content */
+.memories-collection-card__content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1.5rem 1.25rem;
+    z-index: 3;
+    text-align: center;
+    color: white;
+}
+
+/* Main Icon */
+.memories-collection-card__icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.75rem;
+    transition: all 0.3s ease;
+    stroke: var(--gold-light);
+    color: var(--gold-light);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.memories-collection-card:hover .memories-collection-card__icon {
+    transform: scale(1.15);
+}
+
+/* Title */
+.memories-collection-card__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+/* Info Row */
+.memories-collection-card__info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.memories-collection-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    opacity: 0.95;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.35rem 0.65rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.memories-collection-card__meta-icon {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+}
+
+/* ========================
+   Latest Memories Grid
+======================== */
+
+.memories-latest {
+    margin-bottom: 1rem;
+}
+
+.memories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+}
+
+.memories-grid-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease-out both;
+    cursor: pointer;
+    position: relative;
+}
+
+.memories-grid-card:nth-child(1) { animation-delay: 0.05s; }
+.memories-grid-card:nth-child(2) { animation-delay: 0.1s; }
+.memories-grid-card:nth-child(3) { animation-delay: 0.15s; }
+.memories-grid-card:nth-child(4) { animation-delay: 0.2s; }
+.memories-grid-card:nth-child(5) { animation-delay: 0.25s; }
+.memories-grid-card:nth-child(6) { animation-delay: 0.3s; }
+.memories-grid-card:nth-child(7) { animation-delay: 0.35s; }
+.memories-grid-card:nth-child(8) { animation-delay: 0.4s; }
+
+.memories-grid-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.3), transparent);
+    z-index: 10;
+}
+
+.memories-grid-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(200, 168, 95, 0.4);
+    box-shadow: 0 12px 32px rgba(5, 12, 24, 0.3);
+}
+
+.memories-grid-card__image {
+    position: relative;
+    height: 160px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.memories-grid-card__image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6, 9, 23, 0) 0%, rgba(6, 9, 23, 0.2) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.memories-grid-card:hover .memories-grid-card__image::after {
+    opacity: 1;
+}
+
+.memories-grid-card__content {
+    padding: 1rem;
+}
+
+.memories-grid-card__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.6rem;
+    line-height: 1.2;
+}
+
+.memories-grid-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.memories-grid-card__category {
+    font-size: 0.8rem;
+    color: var(--gold-light);
+    font-weight: 500;
+}
+
+.memories-grid-card__date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ========================
+   Responsive Design
+======================== */
+
+@media (max-width: 768px) {
+    .memories-page {
+        padding: 30px 0 30px;
+    }
+
+    .memories-hero {
+        margin-bottom: 1.5rem;
+    }
+
+    .memories-hero__title {
+        font-size: 2.5rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .memories-hero__subtitle {
+        font-size: 0.95rem;
+    }
+
+    .memories-stats {
+        margin-bottom: 2rem;
+    }
+
+    .memories-stats__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.6rem;
+    }
+
+    .memories-stat-card {
+        padding: 1rem;
+        border-radius: 14px;
+    }
+
+    .memories-featured {
+        margin-bottom: 2rem;
+    }
+
+    .memories-featured__card {
+        gap: 1.25rem;
+        padding: 1.25rem;
+    }
+
+    .memories-featured__image {
+        height: 250px;
+    }
+
+    .memories-featured__title {
+        font-size: 1.5rem;
+    }
+
+    .memories-section-header {
+        margin-bottom: 1.25rem;
+    }
+
+    .memories-section-title {
+        font-size: 1.5rem;
+    }
+
+    .memories-collections__grid {
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        gap: 1rem;
+    }
+
+    .memories-collection-card {
+        height: 260px;
+    }
+
+    .memories-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+    }
+
+    .memories-grid-card__image {
+        height: 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    .memories-page {
+        padding: 20px 0 20px;
+    }
+
+    .memories-hero {
+        margin-bottom: 1.25rem;
+    }
+
+    .memories-hero__title {
+        font-size: 2rem;
+    }
+
+    .memories-stats__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .memories-stat-card {
+        padding: 0.9rem;
+        border-radius: 12px;
+    }
+
+    .memories-stat-card__icon {
+        font-size: 1.4rem;
+    }
+
+    .memories-stat-card__value {
+        font-size: 1.1rem;
+    }
+
+    .memories-featured__card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .memories-featured__image {
+        height: 200px;
+    }
+
+    .memories-featured__title {
+        font-size: 1.3rem;
+    }
+
+    .memories-section-title {
+        font-size: 1.3rem;
+    }
+
+    .memories-collections__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .memories-collection-card {
+        height: 240px;
+    }
+
+    .memories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .memories-grid-card__image {
+        height: 120px;
+    }
+}
+
+.memories-stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.memories-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.3), transparent);
+}
+
+.memories-stat-card:hover {
+    border-color: rgba(200, 168, 95, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(5, 12, 24, 0.35);
+}
+
+.memories-stat-card__icon {
+    font-size: 2rem;
+    min-width: 50px;
+}
+
+.memories-stat-card__value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.memories-stat-card__label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ========================
+   Featured Memory
+======================== */
+
+.memories-featured {
+    margin-bottom: 4rem;
+}
+
+.memories-featured__card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    overflow: hidden;
+    padding: 2rem;
+    position: relative;
+}
+
+.memories-featured__card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.3), transparent);
+}
+
+.memories-featured__image {
+    height: 400px;
+    border-radius: 18px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 16px 40px rgba(5, 12, 24, 0.5);
+}
+
+.memories-featured__content {
+    position: relative;
+    z-index: 1;
+}
+
+.memories-featured__label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.memories-featured__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.memories-featured__date {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.memories-featured__description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.memories-featured__meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.memories-featured__category {
+    font-size: 0.9rem;
+    color: var(--gold-light);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .memories-featured__card {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+
+    .memories-featured__image {
+        height: 300px;
+    }
+
+    .memories-featured__title {
+        font-size: 1.8rem;
+    }
+}
+
+/* ========================
+   Section Headers
+======================== */
+
+.memories-section-header {
+    margin-bottom: 2.5rem;
+}
+
+.memories-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+/* ========================
+   Collections Section
+======================== */
+
+.memories-collections {
+    margin-bottom: 4rem;
+}
+
+.memories-collections__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.memories-collection-card {
+    position: relative;
+    height: 280px;
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    animation: fadeInUp 0.6s ease-out both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.memories-collection-card:nth-child(1) { animation-delay: 0.1s; }
+.memories-collection-card:nth-child(2) { animation-delay: 0.15s; }
+.memories-collection-card:nth-child(3) { animation-delay: 0.2s; }
+.memories-collection-card:nth-child(4) { animation-delay: 0.25s; }
+.memories-collection-card:nth-child(5) { animation-delay: 0.3s; }
+.memories-collection-card:nth-child(6) { animation-delay: 0.35s; }
+
+.memories-collection-card:hover {
+    transform: translateY(-6px);
+}
+
+.memories-collection-card__image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+.memories-collection-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6, 9, 23, 0.3) 0%, rgba(6, 9, 23, 0.7) 100%);
+    z-index: 2;
+    transition: background 0.3s ease;
+}
+
+.memories-collection-card:hover .memories-collection-card__overlay {
+    background: linear-gradient(180deg, rgba(122, 98, 196, 0.4) 0%, rgba(6, 9, 23, 0.8) 100%);
+}
+
+.memories-collection-card__content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    z-index: 3;
+    text-align: center;
+    color: white;
+}
+
+.memories-collection-card__icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.memories-collection-card:hover .memories-collection-card__icon {
+    transform: scale(1.1);
+}
+
+.memories-collection-card__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.memories-collection-card__count {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* ========================
+   Latest Memories Grid
+======================== */
+
+.memories-latest {
+    margin-bottom: 2rem;
+}
+
+.memories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.memories-grid-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease-out both;
+    cursor: pointer;
+    position: relative;
+}
+
+.memories-grid-card:nth-child(1) { animation-delay: 0.1s; }
+.memories-grid-card:nth-child(2) { animation-delay: 0.15s; }
+.memories-grid-card:nth-child(3) { animation-delay: 0.2s; }
+.memories-grid-card:nth-child(4) { animation-delay: 0.25s; }
+.memories-grid-card:nth-child(5) { animation-delay: 0.3s; }
+.memories-grid-card:nth-child(6) { animation-delay: 0.35s; }
+.memories-grid-card:nth-child(7) { animation-delay: 0.4s; }
+.memories-grid-card:nth-child(8) { animation-delay: 0.45s; }
+
+.memories-grid-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.3), transparent);
+    z-index: 10;
+}
+
+.memories-grid-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(200, 168, 95, 0.4);
+    box-shadow: 0 16px 40px rgba(5, 12, 24, 0.35);
+}
+
+.memories-grid-card__image {
+    position: relative;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.memories-grid-card__image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6, 9, 23, 0) 0%, rgba(6, 9, 23, 0.3) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.memories-grid-card:hover .memories-grid-card__image::after {
+    opacity: 1;
+}
+
+.memories-grid-card__content {
+    padding: 1.25rem;
+}
+
+.memories-grid-card__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+
+.memories-grid-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.memories-grid-card__category {
+    font-size: 0.95rem;
+}
+
+.memories-grid-card__date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ========================
+   Responsive Design
+======================== */
+
+@media (max-width: 768px) {
+    .memories-page {
+        padding: 60px 0 40px;
+    }
+
+    .memories-hero__title {
+        font-size: 2.5rem;
+    }
+
+    .memories-stats__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .memories-stat-card {
+        padding: 1rem;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .memories-collections__grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+
+    .memories-collection-card {
+        height: 240px;
+    }
+
+    .memories-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+
+    .memories-grid-card__image {
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .memories-hero__title {
+        font-size: 2rem;
+    }
+
+    .memories-stats__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .memories-stat-card {
+        padding: 0.75rem;
+        gap: 0.5rem;
+    }
+
+    .memories-stat-card__icon {
+        font-size: 1.5rem;
+    }
+
+    .memories-stat-card__value {
+        font-size: 1.2rem;
+    }
+
+    .memories-section-title {
+        font-size: 1.5rem;
+    }
+
+    .memories-collections__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .memories-collection-card {
+        height: 200px;
+    }
+
+    .memories-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

@@ -12,4 +12,5 @@ from app.private.account import (
     preferences,
     relationship,
     partner,
+    memorias,
 )
