@@ -1,0 +1,99 @@
+{% extends 'private/accounts/settings_base.html' %}
+
+{% block settings_content %}
+<div class="account-card relationship-card partner-page">
+    <div class="relationship-header">
+        <div>
+            <p class="section-label">Parceiro</p>
+            <h2>Gerencie a conexão</h2>
+        </div>
+        <span class="relationship-pill status-pill">
+            {% if partner_status == 'connected' %}
+            <span class="status-dot active"></span>
+            <span>Conectado</span>
+            {% elif partner_status == 'pending' %}
+            <span class="status-dot pending"></span>
+            <span>Aguardando convite</span>
+            {% else %}
+            <span class="status-dot"></span>
+            <span>Não conectado</span>
+            {% endif %}
+        </span>
+    </div>
+
+    <div class="relationship-grid">
+        <div class="relationship-panel">
+            <div class="relationship-panel-title">Parceiro</div>
+            <p class="relationship-panel-text">Veja rapidamente quem está conectado à sua conta.</p>
+            <div class="partner-summary">
+                <div class="partner-avatar-box">
+                    {% if partner_avatar %}
+                    <img src="{{ url_for('static', filename='uploads/profile_pictures/' ~ partner_avatar) }}"
+                        alt="Foto do parceiro">
+                    {% else %}
+                    <div class="partner-avatar-placeholder">{{ partner_name[0] if partner_name else 'P' }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <h3>{{ partner_name or 'Nenhum parceiro conectado' }}</h3>
+                    <p>
+                        {% if partner_status == 'connected' %}
+                        Luciano ❤️ {{ partner_name }}
+                        {% elif partner_status == 'pending' %}
+                        Luciano
+                        <br>
+                        Aguardando conexão
+                        {% else %}
+                        Luciano
+                        <br>
+                        Nenhum parceiro conectado
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="relationship-panel">
+            <div class="relationship-panel-title">Convite</div>
+            <p class="relationship-panel-text">Envie ou use um código para iniciar a conexão.</p>
+            <div class="form-group">
+                <label class="form-label" for="inviteCode">Código de convite</label>
+                <input class="form-input" type="text" id="inviteCode" value="{{ invite_code }}" readonly>
+            </div>
+            <div class="relationship-actions">
+                <button type="button" class="btn btn-outline">Copiar código</button>
+                <button type="button" class="btn btn-outline">Compartilhar convite</button>
+            </div>
+            <div class="form-group" style="margin-top: 0.8rem;">
+                <label class="form-label" for="partnerCode">Digite o código</label>
+                <input class="form-input" type="text" id="partnerCode" placeholder="Ex.: ABCD-1234">
+            </div>
+            <button type="button" class="btn btn-primary">Conectar parceiro</button>
+        </div>
+    </div>
+
+    {% if pending_request %}
+    <div class="relationship-panel">
+        <div class="relationship-panel-title">Solicitação pendente</div>
+        <p class="relationship-panel-text">Aguardando resposta do parceiro.</p>
+        <div class="relationship-actions">
+            <button type="button" class="btn btn-outline">Cancelar convite</button>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if partner_status == 'connected' %}
+    <div class="relationship-panel">
+        <div class="relationship-panel-title">Informações da conexão</div>
+        <p class="relationship-panel-text">Conectados desde</p>
+        <h3>{{ connected_since }}</h3>
+    </div>
+    {% endif %}
+
+    <div class="account-card relationship-danger">
+        <h3>Desconectar parceiro</h3>
+        <p>Essa ação removerá o vínculo entre as duas contas.</p>
+        <button type="button" class="btn btn-danger">Desconectar parceiro</button>
+    </div>
+</div>
+{% endblock %}

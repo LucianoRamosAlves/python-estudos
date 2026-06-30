@@ -1,0 +1,180 @@
+.partner-page .relationship-panel {
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px;
+    padding: 1.15rem 1.2rem;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.14);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.partner-page .relationship-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(19, 179, 127, 0.9), rgba(17, 163, 200, 0.85));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.95;
+    z-index: -1;
+}
+
+.partner-page .relationship-panel::after {
+    content: "";
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: -18px;
+    height: 24px;
+    background: linear-gradient(135deg, rgba(19, 179, 127, 0.45), rgba(17, 163, 200, 0.35));
+    filter: blur(18px);
+    border-radius: 999px;
+    opacity: 0.55;
+    z-index: -2;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.partner-page .relationship-panel:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 46px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255,255,255,0.16);
+}
+
+.partner-page .relationship-panel:hover::after {
+    opacity: 0.8;
+    transform: scale(1.03);
+}
+
+.partner-page .relationship-panel-title,
+.partner-page .partner-summary h3 {
+    color: #f7fcff;
+    text-shadow: 0 0 14px rgba(99, 179, 237, 0.22);
+    letter-spacing: 0.01em;
+}
+
+.partner-page .relationship-panel-text,
+.partner-page .partner-summary p {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.06);
+}
+
+.partner-page .btn {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.partner-page .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(19, 179, 127, 0.24);
+    border-color: rgba(99, 179, 237, 0.45);
+}
+
+.partner-page .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent);
+    transform: translateX(-120%);
+    transition: transform 0.45s ease;
+}
+
+.partner-page .btn:hover::before {
+    transform: translateX(120%);
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--text-secondary);
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #8c8c8c;
+    box-shadow: 0 0 0 0 rgba(140, 140, 140, 0.4);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.status-dot.active {
+    background: #2ed76e;
+    box-shadow: 0 0 0 0 rgba(46, 215, 110, 0.45);
+    animation: pulse-dot 1.8s infinite;
+}
+
+.status-dot.pending {
+    background: #f5c542;
+    box-shadow: 0 0 0 0 rgba(245, 197, 66, 0.4);
+    animation: pulse-dot 1.8s infinite;
+}
+
+@keyframes pulse-dot {
+    0% {
+        box-shadow: 0 0 0 0 rgba(46, 215, 110, 0.45);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(46, 215, 110, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(46, 215, 110, 0);
+    }
+}
+
+.partner-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.partner-avatar-box {
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+    border: 1px solid rgba(255,255,255,0.12);
+    flex-shrink: 0;
+}
+
+.partner-avatar-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.partner-avatar-placeholder {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.partner-summary h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+}
+
+.partner-summary p {
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+    .partner-summary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

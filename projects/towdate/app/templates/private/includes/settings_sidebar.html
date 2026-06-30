@@ -2,23 +2,30 @@
 
     <h3>Configurações</h3>
 
-<a href="{{ url_for('private.account') }}"
-   class="{{ 'active' if active_page == 'account' else '' }}">
-    Minha Conta
-</a>
+    <a href="{{ url_for('private.account') }}" class="{{ 'active' if active_page == 'account' else '' }}">
+        Minha Conta
+    </a>
 
-<a href="{{ url_for('private.account_security') }}"
-   class="{{ 'active' if active_page == 'security' else '' }}">
-    Segurança
-</a>
+    <a href="{{ url_for('private.account_relationship') }}"
+        class="{{ 'active' if active_page == 'relationship' else '' }}">
+        Relacionamento
+    </a>
+
+    <a href="{{ url_for('private.account_partner') }}" class="{{ 'active' if active_page == 'partner' else '' }}">
+        Parceiro
+    </a>
+
+    <a href="{{ url_for('private.account_security') }}" class="{{ 'active' if active_page == 'security' else '' }}">
+        Segurança
+    </a>
 
     <a href="{{ url_for('private.account_notifications') }}"
-       class="{{ 'active' if active_page == 'notifications' else '' }}">
+        class="{{ 'active' if active_page == 'notifications' else '' }}">
         Notificações
     </a>
 
     <a href="{{ url_for('private.account_preferences') }}"
-       class="{{ 'active' if active_page == 'preferences' else '' }}">
+        class="{{ 'active' if active_page == 'preferences' else '' }}">
         Preferências
     </a>
 

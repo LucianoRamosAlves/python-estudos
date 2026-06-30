@@ -142,28 +142,48 @@ window.addEventListener('scroll', highlightNavOnScroll);
 // Product tabs
 const tabBtns = document.querySelectorAll('.tab-btn');
 const tabContents = document.querySelectorAll('.products-tab-content');
+let currentProductTab = 0;
+let productAutoPlay;
 
-tabBtns.forEach(btn => {
+function showProductTab(index) {
+   if (!tabBtns.length || !tabContents.length) return;
+
+   const safeIndex = (index + tabBtns.length) % tabBtns.length;
+   currentProductTab = safeIndex;
+
+   tabBtns.forEach((btn, btnIndex) => {
+      btn.classList.toggle('active', btnIndex === safeIndex);
+   });
+
+   tabContents.forEach((content, contentIndex) => {
+      content.classList.toggle('active', contentIndex === safeIndex);
+   });
+}
+
+function startProductAutoPlay() {
+   if (!tabBtns.length || !tabContents.length) return;
+
+   clearInterval(productAutoPlay);
+   productAutoPlay = setInterval(() => {
+      showProductTab(currentProductTab + 1);
+   }, 6000);
+}
+
+tabBtns.forEach((btn, index) => {
    btn.addEventListener('click', () => {
-      const tabId = btn.getAttribute('data-tab');
-
-      // Remove active from all buttons
-      tabBtns.forEach(b => b.classList.remove('active'));
-      // Add active to clicked button
-      btn.classList.add('active');
-
-      // Hide all tab contents
-      tabContents.forEach(content => {
-         content.classList.remove('active');
-      });
-
-      // Show selected tab content
-      const activeContent = document.getElementById('tab-' + tabId);
-      if (activeContent) {
-         activeContent.classList.add('active');
-      }
+      showProductTab(index);
+      startProductAutoPlay();
    });
 });
+
+const productsSection = document.querySelector('.products');
+if (productsSection) {
+   productsSection.addEventListener('mouseenter', () => clearInterval(productAutoPlay));
+   productsSection.addEventListener('mouseleave', () => startProductAutoPlay());
+}
+
+showProductTab(0);
+startProductAutoPlay();
 
 // Testimonial Slider
 const testimonialsTrack = document.getElementById('testimonialsTrack');

@@ -1,6 +1,4 @@
-
 from flask import Blueprint
-
 
 private = Blueprint("private", __name__)
 
@@ -12,8 +10,6 @@ from app.private.account import (
     delete_account,
     notifications,
     preferences,
+    relationship,
+    partner,
 )
-
-
-
-

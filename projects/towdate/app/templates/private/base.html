@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta
-name="description"
-content="TowDate - Plataforma premium para casais registrarem momentos, memórias e experiências.">
-<meta name="theme-color" content="#B68C2F">
+    <meta name="description"
+        content="TowDate - Plataforma premium para casais registrarem momentos, memórias e experiências.">
+    <meta name="theme-color" content="#B68C2F">
     <title>
         {% block title %}
         TowDate
@@ -26,9 +25,10 @@ content="TowDate - Plataforma premium para casais registrarem momentos, memória
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/contact.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/register.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/private/fab_nova_memoria.css') }}">
 
     {% block extra_css %}{% endblock %}
-    
+
 </head>
 
 <body>
@@ -37,8 +37,8 @@ content="TowDate - Plataforma premium para casais registrarem momentos, memória
 
 
     <main>
-    {% block content %}
-    {% endblock %}
+        {% block content %}
+        {% endblock %}
     </main>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -62,9 +62,12 @@ content="TowDate - Plataforma premium para casais registrarem momentos, memória
     {% endif %}
     {% endwith %}
 
+    {% include 'private/components/fab_nova_memoria.html' %}
+
     <!-- Scripts -->
     <script defer src="{{ url_for('static', filename='js/auth/notifications.js') }}"></script>
     <script defer src="{{ url_for('static', filename='js/public/script.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/private/fab_nova_memoria.js') }}"></script>
     {% block extra_js %}{% endblock %}
 
 </body>

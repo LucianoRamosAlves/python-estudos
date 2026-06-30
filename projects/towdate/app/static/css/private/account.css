@@ -199,6 +199,27 @@
     max-width:420px;
 }
 
+.profile-card .profile-actions form,
+.profile-card .profile-actions .photo-form,
+.profile-card .profile-actions .photo-actions{
+    width:100%;
+}
+
+.profile-card .profile-actions .btn{
+    width:100%;
+    min-height:46px;
+}
+
+.profile-card .profile-actions .photo-actions-secondary{
+    margin-top: 0.35rem;
+}
+
+.profile-card .profile-actions form{
+    display:flex;
+    flex-direction:column;
+    gap:0.6rem;
+}
+
 /* ===========================
    FORM
 =========================== */

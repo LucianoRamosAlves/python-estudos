@@ -1,0 +1,25 @@
+{% if show_memory_fab %}
+<button class="memory-fab" type="button" aria-label="Nova Memória" data-memory-fab-trigger>
+    <span class="memory-fab__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+    </span>
+    <span class="memory-fab__label">Nova Memória</span>
+</button>
+
+<div class="memory-fab-modal" data-memory-fab-modal hidden>
+    <div class="memory-fab-modal__backdrop" data-memory-fab-close></div>
+    <div class="memory-fab-modal__panel" role="dialog" aria-modal="true" aria-labelledby="memoryFabTitle">
+        <button class="memory-fab-modal__close" type="button" aria-label="Fechar" data-memory-fab-close>
+            ×
+        </button>
+        <p class="memory-fab-modal__eyebrow">Próximo passo</p>
+        <h3 id="memoryFabTitle">Nova Memória</h3>
+        <p>A estrutura para criar uma nova memória ficará preparada aqui.</p>
+        <div class="memory-fab-modal__actions">
+            <button class="btn btn-outline" type="button" data-memory-fab-close>Fechar</button>
+        </div>
+    </div>
+</div>
+{% endif %}

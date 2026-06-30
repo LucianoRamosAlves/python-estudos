@@ -1,22 +1,29 @@
 const byId = (id) => document.getElementById(id);
 
 function bindConfirmSubmission({ button, form, type, title, message, confirmText, cancelText }) {
-    if (!button || !form || typeof ToDate === "undefined") {
+    if (!button || !form) {
         return;
     }
 
     button.addEventListener("click", () => {
-        ToDate.showConfirm({
-            type,
-            title,
-            message,
-            confirmText,
-            cancelText,
-        }).then((confirmed) => {
-            if (confirmed) {
-                form.submit();
-            }
-        });
+        const submitForm = () => form.submit();
+
+        if (typeof ToDate !== "undefined" && ToDate.showConfirm) {
+            ToDate.showConfirm({
+                type,
+                title,
+                message,
+                confirmText,
+                cancelText,
+            }).then((confirmed) => {
+                if (confirmed) {
+                    submitForm();
+                }
+            });
+            return;
+        }
+
+        submitForm();
     });
 }
 
@@ -64,43 +71,94 @@ if (photoForm && photoInput) {
     }
 
     photoInput.addEventListener("change", () => {
-        if (!photoInput.files.length || typeof ToDate === "undefined") {
+        if (!photoInput.files.length) {
             return;
         }
 
-        ToDate.showConfirm({
-            type: "warning",
-            title: "Alterar foto de perfil",
-            message: "Tem certeza que deseja alterar sua foto de perfil?",
-            confirmText: "Alterar",
-            cancelText: "Cancelar",
-        }).then((confirmed) => {
-            if (confirmed) {
-                photoForm.submit();
-            } else {
-                photoInput.value = "";
-            }
-        });
+        const submitPhoto = () => photoForm.submit();
+
+        if (typeof ToDate !== "undefined" && ToDate.showConfirm) {
+            ToDate.showConfirm({
+                type: "warning",
+                title: "Alterar foto de perfil",
+                message: "Tem certeza que deseja alterar sua foto de perfil?",
+                confirmText: "Alterar",
+                cancelText: "Cancelar",
+            }).then((confirmed) => {
+                if (confirmed) {
+                    submitPhoto();
+                } else {
+                    photoInput.value = "";
+                }
+            });
+            return;
+        }
+
+        submitPhoto();
+    });
+}
+
+const relationshipPhotoForm = byId("relationshipPhotoForm");
+const relationshipPhotoInput = byId("couplePhoto");
+const relationshipChangePhotoButton = byId("btnAlterarFotoRelacionamento");
+
+if (relationshipPhotoForm && relationshipPhotoInput && relationshipChangePhotoButton) {
+    relationshipChangePhotoButton.addEventListener("click", () => {
+        relationshipPhotoInput.click();
+    });
+
+    relationshipPhotoInput.addEventListener("change", () => {
+        if (!relationshipPhotoInput.files.length) {
+            return;
+        }
+
+        if (typeof ToDate !== "undefined" && ToDate.showConfirm) {
+            ToDate.showConfirm({
+                type: "warning",
+                title: "Alterar foto do relacionamento",
+                message: "Tem certeza que deseja alterar a foto do relacionamento?",
+                confirmText: "Alterar",
+                cancelText: "Cancelar",
+            }).then((confirmed) => {
+                if (confirmed) {
+                    relationshipPhotoForm.submit();
+                } else {
+                    relationshipPhotoInput.value = "";
+                }
+            });
+            return;
+        }
+
+        relationshipPhotoForm.submit();
     });
 }
 
 const removePhotoButton = byId("btnRemoverFoto");
 const photoFormTypeInput = byId("formType");
 
-if (removePhotoButton && photoForm && photoFormTypeInput && typeof ToDate !== "undefined") {
+if (removePhotoButton && photoForm && photoFormTypeInput) {
     removePhotoButton.addEventListener("click", () => {
-        ToDate.showConfirm({
-            type: "warning",
-            title: "Remover foto de perfil",
-            message: "Tem certeza que deseja remover sua foto de perfil?",
-            confirmText: "Remover",
-            cancelText: "Cancelar",
-        }).then((confirmed) => {
-            if (confirmed) {
-                photoFormTypeInput.value = "remove_photo";
-                photoForm.submit();
-            }
-        });
+        const submitRemoval = () => {
+            photoFormTypeInput.value = "remove_photo";
+            photoForm.submit();
+        };
+
+        if (typeof ToDate !== "undefined" && ToDate.showConfirm) {
+            ToDate.showConfirm({
+                type: "warning",
+                title: "Remover foto de perfil",
+                message: "Tem certeza que deseja remover sua foto de perfil?",
+                confirmText: "Remover",
+                cancelText: "Cancelar",
+            }).then((confirmed) => {
+                if (confirmed) {
+                    submitRemoval();
+                }
+            });
+            return;
+        }
+
+        submitRemoval();
     });
 }
 
@@ -129,6 +187,62 @@ bindConfirmSubmission({
     confirmText: "Encerrar",
     cancelText: "Cancelar",
 });
+
+const endRelationshipForm = byId("endRelationshipForm");
+const endRelationshipButton = byId("btnEndRelationship");
+const endRelationshipPasswordInput = byId("endRelationshipPassword");
+const endRelationshipPasswordWrap = byId("endRelationshipPasswordWrap");
+
+if (endRelationshipForm && endRelationshipButton && endRelationshipPasswordInput) {
+    let endRelationshipArmed = false;
+
+    endRelationshipButton.addEventListener("click", () => {
+        const confirmAction = () => {
+            if (typeof ToDate !== "undefined" && ToDate.showConfirm) {
+                return ToDate.showConfirm({
+                    type: "danger",
+                    title: "Encerrar relacionamento",
+                    message: "Tem certeza que deseja encerrar o relacionamento? Esta ação é irreversível.",
+                    confirmText: "Continuar",
+                    cancelText: "Cancelar",
+                });
+            }
+
+            return Promise.resolve(window.confirm("Tem certeza que deseja encerrar o relacionamento? Esta ação é irreversível."));
+        };
+
+        if (!endRelationshipArmed) {
+            confirmAction().then((confirmed) => {
+                if (!confirmed) {
+                    return;
+                }
+
+                endRelationshipArmed = true;
+                if (endRelationshipPasswordWrap) {
+                    endRelationshipPasswordWrap.style.display = "block";
+                }
+                endRelationshipButton.textContent = "Confirmar encerramento";
+                endRelationshipPasswordInput.focus();
+            });
+
+            return;
+        }
+
+        if (!endRelationshipPasswordInput.value.trim()) {
+            endRelationshipPasswordInput.focus();
+            endRelationshipPasswordInput.setCustomValidity("Informe sua senha para encerrar o relacionamento.");
+            endRelationshipPasswordInput.reportValidity();
+            return;
+        }
+
+        endRelationshipPasswordInput.setCustomValidity("");
+        endRelationshipForm.submit();
+    });
+
+    endRelationshipPasswordInput.addEventListener("input", () => {
+        endRelationshipPasswordInput.setCustomValidity("");
+    });
+}
 
 const deleteAccountForm = byId("deleteAccountForm");
 const deleteAccountButton = byId("btnDeleteAccount");

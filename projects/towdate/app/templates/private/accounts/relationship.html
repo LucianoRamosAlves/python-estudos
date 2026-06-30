@@ -1,0 +1,98 @@
+{% extends 'private/accounts/settings_base.html' %}
+
+{% block settings_content %}
+<div class="account-card relationship-card">
+    <div class="relationship-header">
+        <div>
+            <p class="section-label">Relacionamento</p>
+            <h2>Perfil do casal</h2>
+        </div>
+        <span class="relationship-pill">{{ relationship_status or '💖 Namorando' }}</span>
+    </div>
+
+    <form id="relationshipPhotoForm" method="POST" enctype="multipart/form-data" class="relationship-form">
+        <div class="relationship-grid">
+            <div class="relationship-panel">
+                <div class="relationship-panel-title">Status do relacionamento</div>
+                <p class="relationship-panel-text">Escolha como vocês se identificam.</p>
+                <div class="form-group">
+                    <label class="form-label" for="relationshipStatus">Status</label>
+                    <select class="form-input" id="relationshipStatus" name="relationship_status">
+                        <option value="💖 Namorando" {% if relationship_status=='💖 Namorando' %}selected{% endif %}>💖
+                            Namorando</option>
+                        <option value="💍 Casados" {% if relationship_status=='💍 Casados' %}selected{% endif %}>💍
+                            Casados</option>
+                        <option value="💖 Noivos" {% if relationship_status=='💖 Noivos' %}selected{% endif %}>💖 Noivos
+                        </option>
+                        <option value="❤️ União estável" {% if relationship_status=='❤️ União estável' %}selected{%
+                            endif %}>❤️ União estável</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="relationship-panel">
+                <div class="relationship-panel-title">Foto do casal</div>
+                <p class="relationship-panel-text">Envie uma foto para representar o relacionamento.</p>
+                <div class="relationship-photo-box">
+                    {% if couple_photo %}
+                    <img src="{{ url_for('static', filename='uploads/couples/' ~ couple_photo) }}" alt="Foto do casal">
+                    {% else %}
+                    <div class="relationship-photo-placeholder">Sem foto cadastrada</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="form_type" value="photo">
+                    <input class="form-input" type="file" id="couplePhoto" name="couple_photo"
+                        accept="image/png,image/jpeg,image/jpg" style="display:none;">
+                    <button type="button" class="btn btn-outline" id="btnAlterarFotoRelacionamento">
+                        Alterar Foto
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="relationship-grid secondary-grid">
+            <div class="relationship-panel">
+                <div class="relationship-panel-title">Data de início</div>
+                <div class="form-group">
+                    <label class="form-label" for="relationshipDate">Data de relacionamento</label>
+                    <input class="form-input" type="date" id="relationshipDate" name="relationship_date"
+                        value="{{ relationship_date }}">
+                </div>
+            </div>
+
+            <div class="relationship-panel">
+                <div class="relationship-panel-title">Frase do casal</div>
+                <div class="form-group">
+                    <label class="form-label" for="relationshipPhrase">Frase</label>
+                    <textarea class="form-input" id="relationshipPhrase" name="relationship_phrase" rows="3"
+                        placeholder="Escreva uma frase bonita para o casal">{{ relationship_phrase }}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="relationship-actions">
+            <button type="submit" class="btn btn-primary">Salvar informações</button>
+        </div>
+    </form>
+
+    <div class="account-card relationship-danger">
+        <h3>Encerrar relacionamento</h3>
+        <p>Essa ação encerrará o vínculo atual e removerá o perfil do relacionamento da sua conta.</p>
+
+        <form id="endRelationshipForm" class="relationship-form" method="POST">
+            <input type="hidden" name="form_type" value="end_relationship">
+            <div id="endRelationshipPasswordWrap" class="form-group" style="display:none;">
+                <label class="form-label" for="endRelationshipPassword">Confirme sua senha</label>
+                <input class="form-input" type="password" id="endRelationshipPassword" name="password"
+                    placeholder="Digite sua senha atual">
+            </div>
+            <button type="button" class="btn btn-danger" id="btnEndRelationship">Encerrar relacionamento</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script defer src="{{ url_for('static', filename='js/private/account.js') }}"></script>
+{% endblock %}
