@@ -13,4 +13,5 @@ from app.private.account import (
     relationship,
     partner,
     memorias,
+    colecao,
 )

@@ -1,0 +1,161 @@
+{% extends "private/base.html" %}
+
+{% block title %}{{ collection.title }} — Memórias{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/memorias.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="collection-detail-page">
+    <div class="collection-detail-shell container">
+        <header class="collection-detail-header">
+            <a href="{{ url_for('private.memorias') }}" class="collection-detail-back"
+                aria-label="Voltar para Memórias">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+                Voltar
+            </a>
+
+            <div class="collection-detail-title-group">
+                <div class="collection-detail-token">{{ collection.icon }}</div>
+                <div>
+                    <h1 class="collection-detail-title">{{ collection.title }}</h1>
+                    <p class="collection-detail-subtitle">{{ collection.memory_count }} memórias • {{
+                        collection.photo_count }} fotos</p>
+                </div>
+            </div>
+
+            <p class="collection-detail-description">{{ collection.description }}</p>
+        </header>
+
+        <section class="collection-detail-actions">
+            <div class="collection-detail-search-wrapper">
+                <div class="collection-detail-search">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="7" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                    <input type="search" placeholder="Buscar nesta coleção" aria-label="Buscar nesta coleção">
+                </div>
+            </div>
+
+            <div class="collection-detail-controls">
+                <div class="collection-detail-select">
+                    <label for="filterDate">Filtrar por data</label>
+                    <select id="filterDate">
+                        <option>Todo período</option>
+                        <option>Últimos 7 dias</option>
+                        <option>Últimos 30 dias</option>
+                        <option>Este mês</option>
+                    </select>
+                </div>
+
+                <div class="collection-detail-select">
+                    <label for="sortCollection">Ordenar por</label>
+                    <select id="sortCollection">
+                        <option>Mais recentes</option>
+                        <option>Mais antigas</option>
+                        <option>Melhor avaliadas</option>
+                    </select>
+                </div>
+
+                <button type="button" class="btn btn-outline collection-detail-pill">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 6h16M4 12h10M4 18h7" />
+                    </svg>
+                    Filtros
+                </button>
+            </div>
+        </section>
+
+        <section class="collection-detail-grid">
+            <aside class="collection-detail-panel">
+                <div class="collection-detail-panel-card">
+                    <div class="collection-detail-panel-image"
+                        style="background-image: url('{{ collection.background_image }}');"></div>
+                    <div class="collection-detail-panel-copy">
+                        <span class="collection-detail-panel-label">Visão geral da coleção</span>
+                        <h2>{{ collection.featured.title }}</h2>
+                        <p>{{ collection.featured.details }}</p>
+
+                        <div class="collection-detail-panel-summary">
+                            <div class="collection-detail-panel-summary-item">
+                                <span>Média geral</span>
+                                <strong>{{ collection.summary.average_rating }}</strong>
+                            </div>
+                            <div class="collection-detail-panel-summary-item">
+                                <span>Total de memórias</span>
+                                <strong>{{ collection.summary.total_memories }}</strong>
+                            </div>
+                        </div>
+
+                        <span class="collection-detail-panel-meta">{{ collection.featured.date }}</span>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="collection-detail-memories">
+                <div class="collection-detail-section-header">
+                    <div>
+                        <span class="collection-detail-section-kicker">Memórias</span>
+                        <h2 class="collection-detail-section-title">Últimas entradas</h2>
+                    </div>
+                </div>
+
+                <div class="collection-detail-cards-grid">
+                    {% for memory in collection.memories %}
+                    <article class="collection-detail-card">
+                        <div class="collection-detail-card-image" style="background-image: url('{{ memory.image }}');">
+                        </div>
+                        <div class="collection-detail-card-body">
+                            <div class="collection-detail-card-top">
+                                <div>
+                                    <h3>{{ memory.title }}</h3>
+                                    <p class="collection-detail-card-subtitle">{{ memory.subtitle }}</p>
+                                </div>
+                                <span>{{ memory.date }}</span>
+                            </div>
+
+                            <div class="collection-detail-card-meta">
+                                <div class="collection-detail-card-rating" aria-label="Avaliação por estrelas">
+                                    {% for i in range(1, 6) %}
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"
+                                        aria-hidden="true"
+                                        class="collection-detail-star {% if memory.rating >= i %}collection-detail-star--filled{% endif %}">
+                                        <path
+                                            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                    </svg>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="collection-detail-card-tags">
+                                {% for tag in memory.tags %}
+                                <span>{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+
+                            <p class="collection-detail-card-description">{{ memory.description }}</p>
+
+                            <div class="collection-detail-card-actions">
+                                <button type="button" class="btn btn-outline collection-detail-card-btn">Editar</button>
+                                <button type="button" class="btn btn-empty collection-detail-card-btn">Excluir</button>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script defer src="{{ url_for('static', filename='js/private/memorias.js') }}"></script>
+{% endblock %}

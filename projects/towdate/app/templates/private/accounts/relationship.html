@@ -35,7 +35,8 @@
                 <p class="relationship-panel-text">Envie uma foto para representar o relacionamento.</p>
                 <div class="relationship-photo-box">
                     {% if couple_photo %}
-                    <img src="{{ url_for('static', filename='uploads/couples/' ~ couple_photo) }}" alt="Foto do casal">
+                    <img loading="lazy" src="{{ url_for('static', filename='uploads/couples/' ~ couple_photo) }}"
+                        alt="Foto do casal">
                     {% else %}
                     <div class="relationship-photo-placeholder">Sem foto cadastrada</div>
                     {% endif %}

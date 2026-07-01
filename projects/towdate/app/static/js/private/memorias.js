@@ -103,14 +103,7 @@ function createRipple(card, event = null) {
 }
 
 function openCollection(collection, card) {
-    document.dispatchEvent(
-        new CustomEvent('towdate:collection-open', {
-            detail: {
-                collection,
-                count: Number(card.dataset.count || 0)
-            }
-        })
-    );
+    window.location.href = `/memorias/colecao/${collection}`;
 }
 
 function openMemory(title, card) {

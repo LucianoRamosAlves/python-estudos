@@ -39,17 +39,11 @@ def create_app():
 
     @app.context_processor
     def inject_memory_fab_visibility():
-        path = request.path.lower()
         show_memory_fab = False
 
-        if request.endpoint == "private.home":
-            show_memory_fab = True
-        elif (
-            path.startswith("/memories")
-            or path.startswith("/collections")
-            or path.startswith("/collection")
-        ):
-            show_memory_fab = True
+        if current_user.is_authenticated:
+            endpoint = request.endpoint or ""
+            show_memory_fab = not endpoint.startswith("private.account")
 
         return {"show_memory_fab": show_memory_fab}
 
