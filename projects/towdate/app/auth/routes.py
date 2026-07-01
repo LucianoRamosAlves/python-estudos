@@ -1,10 +1,9 @@
 
-from flask import Blueprint, render_template, url_for, redirect, flash
+from flask import Blueprint, render_template, url_for, redirect, flash, session
 from .forms import  RegisterForm, LoginForm
 from app.extensions import db, bcrypt
 from app.models.user import User
 from flask_login import login_user, logout_user
-from flask import session
 from app.services.avatar_colors import cores
 import random
 
@@ -65,7 +64,7 @@ def register():
         flash(f"Registro bem-sucedido! {user.full_name}", "success")
         return redirect(url_for("private.home"))
   
-    if form.is_submitted() and not form.validate():
+    elif form.is_submitted():
         flash("Erro no registro!", "error")
 
     return render_template("auth/register.html", form=form)

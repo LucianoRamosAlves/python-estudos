@@ -1,8 +1,6 @@
-from datetime import date
-import re
+
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from flask_login import current_user
 from wtforms import (
     StringField,
     EmailField,
@@ -11,11 +9,14 @@ from wtforms import (
     BooleanField,
     SubmitField,
 )
-from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
-
-from app.models.user import User
-
-
+from app.auth.validators import (
+    validar_nome,
+    validar_sobrenome,
+    validar_email,
+    validar_data_nascimento,
+)
+from wtforms.validators import DataRequired, Email, EqualTo, Length
+ 
 # registro
 class RegisterForm(FlaskForm):
 
@@ -54,39 +55,16 @@ class RegisterForm(FlaskForm):
     )
 
     def validate_nome(self, field):
-        field.data = " ".join(field.data.split())
-
-        if not re.fullmatch(r"[A-Za-zÀ-ÿ\s'-]+", field.data):
-            raise ValidationError("O nome deve conter apenas letras.")
+        validar_nome(field)
 
     def validate_sobrenome(self, field):
-        field.data = " ".join(field.data.split())
+        validar_sobrenome(field)
 
-        if not re.fullmatch(r"[A-Za-zÀ-ÿ\s'-]+", field.data):
-            raise ValidationError("O sobrenome deve conter apenas letras.")
-
-    def validate_email(self, email):
-        email.data = email.data.strip().lower()
-
-        user = User.query.filter_by(email=email.data).first()
-        if user and user.id != getattr(current_user, "id", None):
-            raise ValidationError("Este e-mail já cadastrado.")
+    def validate_email(self, field):
+        validar_email(field)
 
     def validate_data_nascimento(self, field):
-        hoje = date.today()
-
-        # Não permite datas futuras
-        if field.data > hoje:
-            raise ValidationError("A data de nascimento não pode ser futura.")
-
-        # Idade mínima (exemplo: 18 anos)
-        idade = hoje.year - field.data.year
-        if (hoje.month, hoje.day) < (field.data.month, field.data.day):
-            idade -= 1
-
-        if idade < 18:
-            raise ValidationError("É necessário ter pelo menos 18 anos.")
-
+        validar_data_nascimento(field)
 
 # login
 class LoginForm(FlaskForm):
@@ -94,8 +72,8 @@ class LoginForm(FlaskForm):
     senha = PasswordField("Senha", validators=[DataRequired()])
     remember = BooleanField("Lembrar-me")
 
-    def validate_email(self, email):
-        email.data = email.data.strip().lower()  # Converte o email para minúsculas
+    def validate_email(self, field):
+        field.data = field.data.strip().lower()
 
 
 # editar perfil
@@ -113,38 +91,16 @@ class EditProfileForm(FlaskForm):
     )
 
     def validate_nome(self, field):
-        field.data = " ".join(field.data.split())
-
-        if not re.fullmatch(r"[A-Za-zÀ-ÿ\s'-]+", field.data):
-            raise ValidationError("O nome deve conter apenas letras.")
+        validar_nome(field)
 
     def validate_sobrenome(self, field):
-        field.data = " ".join(field.data.split())
+        validar_sobrenome(field)
 
-        if not re.fullmatch(r"[A-Za-zÀ-ÿ\s'-]+", field.data):
-            raise ValidationError("O sobrenome deve conter apenas letras.")
-
-    def validate_email(self, email):
-        email.data = email.data.strip().lower()
-
-        user = User.query.filter_by(email=email.data).first()
-        if user and user.id != getattr(current_user, "id", None):
-            raise ValidationError("Este e-mail já cadastrado.")
+    def validate_email(self, field):
+        validar_email(field)
 
     def validate_data_nascimento(self, field):
-        hoje = date.today()
-
-        # Não permite datas futuras
-        if field.data > hoje:
-            raise ValidationError("A data de nascimento não pode ser futura.")
-
-        # Idade mínima (exemplo: 18 anos)
-        idade = hoje.year - field.data.year
-        if (hoje.month, hoje.day) < (field.data.month, field.data.day):
-            idade -= 1
-
-        if idade < 18:
-            raise ValidationError("É necessário ter pelo menos 18 anos.")
+        validar_data_nascimento(field)
 
 
 class EditPhotoForm(FlaskForm):
