@@ -282,12 +282,8 @@
 		width: 100%;
 	}
 
-		.pricing-card {
+	.pricing-card {
 		padding: 28px 22px;
-	}
-
-	.pricing-premium {
-			padding: 28px 22px;
 	}
 
     /* Mobile - 2 column layout */
@@ -322,7 +318,7 @@
 	}
 
 	.logo {
-		font-size: 30px;
+		font-size: 24px;
 	}
 
 	.logo-mark {

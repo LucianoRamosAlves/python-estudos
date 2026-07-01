@@ -1,6 +1,6 @@
 # app/public/routes.py
 
-from flask import Blueprint, render_template, url_for
+from flask import Blueprint, render_template
 
 public = Blueprint("public", __name__)
 

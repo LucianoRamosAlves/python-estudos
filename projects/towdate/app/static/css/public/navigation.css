@@ -6,7 +6,10 @@
 	right: 0;
 	z-index: 1000;
 	padding: 18px 0;
-	transition: all 0.4s ease;
+	transition:
+    background .4s ease,
+    padding .4s ease,
+    box-shadow .4s ease;
 }
 
 .nav.scrolled {
@@ -21,27 +24,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-}
-
-.logo {
-	display: inline-flex;
-	align-items: center;
-	font-family: 'Playfair Display', serif;
-	font-size: 30px;
-	font-weight: 700;
-	letter-spacing: 0.01em;
-	color: var(--text-primary);
-}
-
-.logo span {
-	color: var(--accent-rose-soft);
-}
-
-.logo-mark {
-	height: 46px;
-	width: auto;
-	display: block;
-	filter: drop-shadow(0 2px 10px rgba(106, 61, 109, 0.28));
 }
 
 .nav-links {
@@ -97,4 +79,7 @@
 	min-height: 42px;
 	padding: 0.65em 1.1em;
 	font-size: 0.82rem;
+}
+.logo {
+    font-size: 30px;
 }

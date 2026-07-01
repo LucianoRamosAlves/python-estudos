@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
       content="Plataforma premium para casais registrarem momentos, memórias e experiências.">
+    <meta name="theme-color" content="#0B0F19">
     <title>{% block title %}TowDate{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +28,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/navigation.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/mobile_menu.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/why_gold.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/forms.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/modal.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/responsive.css') }}">
 
     {% block extra_css %}{% endblock %}
@@ -48,7 +51,7 @@
             </div>
 
             <button class="todate-toast-close" type="button" aria-label="Fechar notificação">
-                ✕
+            x
             </button>
 
             <span class="todate-toast-progress"></span>

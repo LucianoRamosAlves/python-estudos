@@ -1,5 +1,5 @@
-/* Shared form styles extracted from contact.css to be used across public and private pages */
 
+/* Shared form styles extracted from contact.css to be used across public and private pages */
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;

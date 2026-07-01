@@ -128,6 +128,9 @@
 
 
 /* Animations */
+
+/* eu apaguei e não houve problema..se quiser, pode apagar também o delay-1, delay-2, delay-3 e delay-4 
+
 @keyframes fadeInUp {
 	from {
 		opacity: 0;
@@ -158,4 +161,4 @@
 
 .delay-4 {
 	animation-delay: 0.4s;
-}
+} */
