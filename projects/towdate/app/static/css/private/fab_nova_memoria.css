@@ -506,7 +506,7 @@
 .memory-new__star {
     border: none;
     background: transparent;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.45);
     width: 32px;
     height: 32px;
     display: inline-flex;
@@ -523,10 +523,33 @@
     fill: currentColor;
 }
 
-.memory-new__star:hover,
-.memory-new__star--active {
-    color: #e2c78f;
+.memory-new__star:hover {
+    color: var(--accent-gold);
     transform: translateY(-1px);
+}
+
+.memory-new__star--active {
+    transform: translateY(-1px);
+}
+
+.memory-new__rating[data-rating="1"] .memory-new__star--active {
+    color: #d86d76;
+}
+
+.memory-new__rating[data-rating="2"] .memory-new__star--active {
+    color: #d18a5f;
+}
+
+.memory-new__rating[data-rating="3"] .memory-new__star--active {
+    color: var(--accent-gold);
+}
+
+.memory-new__rating[data-rating="4"] .memory-new__star--active {
+    color: var(--accent-gold-soft);
+}
+
+.memory-new__rating[data-rating="5"] .memory-new__star--active {
+    color: #fff1a7;
 }
 
 .memory-new__star svg {
@@ -733,5 +756,107 @@
     .memory-new__save {
         width: 100%;
         min-width: auto;
+    }
+}
+
+/* Private app custom identity background variation */
+body.private-app .identity-rain-bg {
+    opacity: 0.46;
+    filter: saturate(1.1) contrast(1.06) hue-rotate(-10deg);
+    background-image:
+        radial-gradient(3px 120px at 0px 240px, rgba(226, 199, 143, 0.44), rgba(0, 0, 0, 0)),
+        radial-gradient(3px 120px at 320px 240px, rgba(157, 139, 224, 0.4), rgba(0, 0, 0, 0)),
+        radial-gradient(1.5px 1.5px at 160px 120px, rgba(229, 0, 0, 0.8) 100%, rgba(0, 0, 0, 0) 150%),
+        radial-gradient(3px 120px at 0px 285px, rgba(174, 154, 221, 0.38), rgba(0, 0, 0, 0)),
+        radial-gradient(3px 120px at 320px 285px, rgba(200, 168, 95, 0.36), rgba(0, 0, 0, 0)),
+        radial-gradient(1.5px 1.5px at 160px 142px, rgba(174, 154, 221, 0.96) 100%, rgba(0, 0, 0, 0) 150%),
+        radial-gradient(3px 120px at 0px 182px, rgba(122, 98, 196, 0.42), rgba(0, 0, 0, 0)),
+        radial-gradient(3px 120px at 320px 182px, rgba(122, 98, 196, 0.42), rgba(0, 0, 0, 0)),
+        radial-gradient(1.5px 1.5px at 160px 91px, rgba(174, 154, 221, 0.96) 100%, rgba(0, 0, 0, 0) 150%),
+        radial-gradient(3px 120px at 0px 332px, rgba(106, 61, 109, 0.36), rgba(0, 0, 0, 0)),
+        radial-gradient(3px 120px at 320px 332px, rgba(106, 61, 109, 0.36), rgba(0, 0, 0, 0)),
+        radial-gradient(1.5px 1.5px at 160px 166px, rgba(200, 168, 95, 0.84) 100%, rgba(0, 0, 0, 0) 150%);
+    animation: privateIdentityRainMotion 92s linear infinite;
+}
+
+body.private-app .identity-rain-bg::before {
+    animation: privateIdentityPulse 12s ease-in-out infinite, privateIdentityDrift 24s ease-in-out infinite;
+    background:
+        radial-gradient(circle at 18% 14%, rgba(226, 199, 143, 0.34), transparent 44%),
+        radial-gradient(circle at 86% 20%, rgba(157, 139, 224, 0.28), transparent 46%),
+        radial-gradient(circle at 46% 102%, rgba(122, 98, 196, 0.24), transparent 48%),
+        radial-gradient(circle at 50% 50%, rgba(4, 7, 14, 0) 56%, rgba(6, 8, 14, 0.55) 100%);
+}
+
+body.private-app .identity-rain-bg::after {
+    background-size: 10px 10px;
+    opacity: 0.42;
+    animation: privateIdentityGrainShift 14s linear infinite;
+}
+
+body.private-account-page .ambient-canvas,
+body.private-account-page .identity-rain-bg {
+    display: none !important;
+}
+
+@keyframes privateIdentityRainMotion {
+    0% {
+        background-position:
+            0px 240px,
+            3px 240px,
+            161px 360px,
+            26px 30px,
+            29px 30px,
+            187px 172px,
+            52px 20px,
+            55px 20px,
+            213px 111px,
+            78px 264px,
+            81px 264px,
+            239px 430px;
+    }
+    100% {
+        background-position:
+            0px 6240px,
+            3px 6240px,
+            161px 6380px,
+            26px 13230px,
+            29px 13230px,
+            187px 13372px,
+            52px 4532px,
+            55px 4532px,
+            213px 4623px,
+            78px 14294px,
+            81px 14294px,
+            239px 14460px;
+    }
+}
+
+@keyframes privateIdentityPulse {
+    0%,
+    100% {
+        opacity: 0.38;
+    }
+    50% {
+        opacity: 0.72;
+    }
+}
+
+@keyframes privateIdentityDrift {
+    0%,
+    100% {
+        transform: scale(1) translate3d(0, 0, 0);
+    }
+    50% {
+        transform: scale(1.04) translate3d(0, -1.8%, 0);
+    }
+}
+
+@keyframes privateIdentityGrainShift {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 10px 16px;
     }
 }

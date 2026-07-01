@@ -1256,6 +1256,143 @@
     backdrop-filter: blur(18px);
 }
 
+/* Cinematic hero banner (collection) */
+.collection-hero{
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+    margin-bottom: 1rem;
+    box-shadow: 0 40px 90px rgba(2,5,18,0.55);
+}
+
+.collection-hero-overlay{
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6,8,12,0.72) 0%, rgba(6,8,12,0.76) 60%, rgba(6,4,8,0.86) 100%);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.collection-hero-inner{
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: grid;
+    align-items: end;
+    grid-template-columns: 1fr auto;
+    padding: 3.2rem 2rem;
+    gap: 1rem;
+}
+
+.collection-hero-center{
+    text-align: center;
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 0.6rem;
+    justify-items: center;
+}
+
+.collection-hero-token{
+    width: 72px;
+    height: 72px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    background: rgba(0,0,0,0.28);
+    border: 1px solid rgba(212,175,55,0.18);
+    font-size: 1.6rem;
+    color: var(--text-primary);
+}
+
+.collection-hero-title{
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    text-shadow: 0 6px 24px rgba(0,0,0,0.56);
+}
+
+.collection-hero-desc{
+    margin: 0;
+    color: rgba(255,255,255,0.82);
+    max-width: 60ch;
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+.collection-hero-rule{
+    width: 72px;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(200,168,95,0.28), rgba(212,175,55,0.96), rgba(200,168,95,0.28));
+    border-radius: 999px;
+    margin-top: 10px;
+}
+
+/* Mini stat card (glassmorphism) */
+.collection-hero-stat{
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 1.2rem;
+}
+
+.mini-stat{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 14px;
+    border: 1px solid rgba(212,175,55,0.10);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: transform 260ms cubic-bezier(.2,.9,.3,1), box-shadow 260ms ease;
+}
+
+.mini-stat-icon{
+    font-size: 1.45rem;
+    color: #D4AF37;
+    filter: drop-shadow(0 4px 12px rgba(212,175,55,0.12));
+}
+
+.mini-stat-number{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: #fff;
+    font-weight: 700;
+}
+
+.mini-stat-label{
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.78);
+    text-transform: none;
+}
+
+.mini-stat:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 28px 64px rgba(2,5,18,0.6), 0 0 18px rgba(212,175,55,0.06);
+    border-color: rgba(212,175,55,0.22);
+}
+
+/* hide small title-group in header when hero present to avoid duplication */
+.collection-hero + .collection-detail-header .collection-detail-title-group{
+    display: none;
+}
+
+@media (min-width: 992px){
+    .collection-hero-inner{ grid-template-columns: 1fr; }
+    .collection-hero-stat{ margin-top: 1.6rem; }
+}
+
 .collection-detail-back {
     display: inline-flex;
     align-items: center;
@@ -1294,7 +1431,7 @@
 
 .collection-detail-title {
     margin: 0;
-    color: #fff;
+    color: var(--text-primary);
     font-family: "Cormorant Garamond", serif;
     font-size: clamp(2.4rem, 3.8vw, 3.4rem);
     font-weight: 700;
@@ -1304,7 +1441,7 @@
 
 .collection-detail-subtitle {
     margin: 0.45rem 0 0;
-    color: rgba(243, 228, 195, 0.88);
+    color: var(--accent-rose-soft);
     font-size: 0.92rem;
     font-weight: 500;
     letter-spacing: 0.01em;
@@ -1319,9 +1456,8 @@
 }
 
 .collection-detail-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 1rem;
     padding: 1.25rem 1.5rem;
@@ -1333,8 +1469,8 @@
 }
 
 .collection-detail-search-wrapper {
-    flex: 1 1 420px;
     min-width: 0;
+    width: 100%;
 }
 
 .collection-detail-search {
@@ -1725,18 +1861,48 @@
     border-radius: 14px;
     min-width: 0;
     width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .collection-detail-card-btn.btn-empty {
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(245, 232, 209, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(229, 0, 0, 0.08);
+    color: #e8b0b0;
+    border: 1px solid #cc0000;
+    padding-right: 3.2rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.collection-detail-card-btn.btn-empty::after {
+    content: "✕";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 3rem;
+    background: rgba(204, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1rem;
+    transition: width 0.3s ease, background-color 0.3s ease;
 }
 
 .collection-detail-card-btn.btn-empty:hover,
 .collection-detail-card-btn.btn-empty:focus-visible {
-    border-color: rgba(226, 199, 143, 0.28);
+    background: rgba(204, 0, 0, 0.12);
+    border-color: #cc0000;
     color: #fff;
+}
+
+.collection-detail-card-btn.btn-empty:hover::after,
+.collection-detail-card-btn.btn-empty:focus-visible::after {
+    width: 100%;
+    background: rgba(204, 0, 0, 1);
 }
 
 .collection-detail-card-btn.btn-outline {
@@ -1778,6 +1944,7 @@
     .collection-detail-search-wrapper,
     .collection-detail-controls {
         width: 100%;
+        min-width: 0;
     }
 
     .collection-detail-controls {
@@ -1788,6 +1955,7 @@
 
     .collection-detail-controls > * {
         width: 100%;
+        min-width: 0;
     }
 
     .collection-detail-card-top {

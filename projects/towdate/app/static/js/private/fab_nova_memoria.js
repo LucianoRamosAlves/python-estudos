@@ -17,6 +17,7 @@
     const tagInput = modal.querySelector(".memory-new__tag-input");
     const tagList = modal.querySelector(".memory-new__tag-list");
     const starButtons = modal.querySelectorAll(".memory-new__star");
+    const ratingShell = modal.querySelector(".memory-new__rating");
     const collectionButtons = modal.querySelectorAll(".memory-new__collection-card");
     const errorList = modal.querySelector(".memory-new__error-list");
     const toast = modal.querySelector(".memory-new__toast");
@@ -139,6 +140,7 @@
 
     function updateRating(value) {
         rating = value;
+        ratingShell?.setAttribute("data-rating", value);
         starButtons.forEach(button => {
             const starValue = Number(button.dataset.star);
             button.classList.toggle("memory-new__star--active", starValue <= value);

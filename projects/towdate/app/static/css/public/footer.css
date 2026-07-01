@@ -58,7 +58,7 @@
 }
 
 .footer-links a:hover {
-	color: var(--text-primary);
+	color: var(--accent-rose-soft);
 	transform: translateX(3px);
 }
 

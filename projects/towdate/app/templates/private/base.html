@@ -22,16 +22,17 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/alerts.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/navigation.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/mobile_menu.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/contact.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/register.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/public/responsive.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/private/fab_nova_memoria.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public/forms.css') }}">
 
     {% block extra_css %}{% endblock %}
 
 </head>
 
-<body>
+<body class="{% block body_class %}private-app{% endblock %}">
+
+    <div class="identity-rain-bg" aria-hidden="true"></div>
 
     {% include 'includes/navbar_private.html' %}
 
@@ -66,6 +67,7 @@
 
     <!-- Scripts -->
     <script defer src="{{ url_for('static', filename='js/auth/notifications.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/public/ambient_background.js') }}"></script>
     <script defer src="{{ url_for('static', filename='js/public/script.js') }}"></script>
     <script defer src="{{ url_for('static', filename='js/private/fab_nova_memoria.js') }}"></script>
     {% block extra_js %}{% endblock %}
