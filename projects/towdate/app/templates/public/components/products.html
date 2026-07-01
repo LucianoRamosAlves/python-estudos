@@ -9,217 +9,238 @@
         </div>
         <div class="products-tabs">
             <button class="tab-btn active" data-tab="coins">Memorias</button>
-            <button class="tab-btn" data-tab="bars">Planejamento</button>
-            <button class="tab-btn" data-tab="silver">Conquistas</button>
-            <button class="tab-btn" data-tab="platinum">IA & Diario</button>
+            <button class="tab-btn" data-tab="bars">Álbum do Casal</button>
+            <button class="tab-btn" data-tab="silver">Lugares Visitados</button>
+            <button class="tab-btn" data-tab="platinum">IA</button>
         </div>
 
-        <!-- Gold Coins Tab -->
+        <!-- Memories Tab -->
         <div class="products-tab-content active" id="tab-coins">
+
             <div class="product-card">
                 <div class="product-image">
-                    <img src="images/tm-gold-01.jpg" alt="American Gold Eagle Coin">
+                    <img src="{{ url_for('static', filename='img/public/cronologia.png') }}" alt="Linha do Tempo">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Linha do Tempo do Casal</h3>
-                    <div class="product-weight">Eventos · Datas especiais</div>
+                    <h3 class="product-name">Linha do Tempo</h3>
+                    <div class="product-weight">Reviva cada capítulo da história de vocês.</div>
                     <div class="product-footer">
-                        <span class="product-price">Essencial</span>
+                        <span class="product-price">Cronologia</span>
                     </div>
                 </div>
             </div>
+
             <div class="product-card">
                 <div class="product-image">
-                    <img src="images/tm-gold-02.jpg" alt="Canadian Maple Leaf Coin">
+                    <img src="{{ url_for('static', filename='img/public/momentos.png') }}" alt="Momentos Especiais">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Album de Fotos e Videos</h3>
-                    <div class="product-weight">Galerias · Organizacao premium</div>
+                    <h3 class="product-name">Momentos Especiais</h3>
+                    <div class="product-weight">Guarde aniversários, encontros e datas inesquecíveis.</div>
                     <div class="product-footer">
-                        <span class="product-price">Popular</span>
+                        <span class="product-price">Marcos</span>
                     </div>
                 </div>
             </div>
+
             <div class="product-card">
                 <div class="product-image">
-                    <img src="images/tm-gold-03.jpg" alt="South African Krugerrand">
+                    <img src="{{ url_for('static', filename='img/public/favoritos.png') }}" alt="Recordações">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Lugares Visitados</h3>
-                    <div class="product-weight">Viagens · Historial completo</div>
+                    <h3 class="product-name">Recordações</h3>
+                    <div class="product-weight">Organize lembranças que merecem ser revividas.</div>
                     <div class="product-footer">
-                        <span class="product-price">Em destaque</span>
+                        <span class="product-price">Favoritos</span>
                     </div>
                 </div>
             </div>
+
             <div class="product-card">
                 <div class="product-image">
-                    <img src="images/tm-gold-04.jpg" alt="Austrian Philharmonic">
+                    <img src="{{ url_for('static', filename='img/public/legado.png') }}" alt="Memórias Eternas">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Mapa de Memorias</h3>
-                    <div class="product-weight">Geolocalizacao · Momentos unicos</div>
+                    <h3 class="product-name">Memórias Eternas</h3>
+                    <div class="product-weight">Construa um legado de momentos para toda a vida.</div>
                     <div class="product-footer">
-                        <span class="product-price">Exclusivo</span>
+                        <span class="product-price">Legado</span>
                     </div>
                 </div>
             </div>
+
         </div>
 
-        <!-- Gold Bars Tab -->
+        <!-- Albums Tab -->
         <div class="products-tab-content" id="tab-bars">
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/tm-gold-04.jpg" alt="PAMP Suisse Gold Bar">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Metas do Casal</h3>
-                    <div class="product-weight">Objetivos · Acompanhamento</div>
-                    <div class="product-footer">
-                        <span class="product-price">Planner</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/tm-gold-03.jpg" alt="Credit Suisse Gold Bar">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Calendario Romantico</h3>
-                    <div class="product-weight">Datas · Lembretes inteligentes</div>
-                    <div class="product-footer">
-                        <span class="product-price">Organizacao</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/tm-gold-02.jpg" alt="Perth Mint Gold Bar">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Lista de Desejos</h3>
-                    <div class="product-weight">Sonhos · Planos em dupla</div>
-                    <div class="product-footer">
-                        <span class="product-price">Inspiracao</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/tm-gold-01.jpg" alt="Valcambi Gold Bar">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Planos Compartilhados</h3>
-                    <div class="product-weight">Projetos · Proximos passos</div>
-                    <div class="product-footer">
-                        <span class="product-price">Avancado</span>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Silver Tab -->
-        <div class="products-tab-content" id="tab-silver">
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/tm-silver-01.jpg" alt="American Silver Eagle">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Conquistas do Relacionamento</h3>
-                    <div class="product-weight">Badges · Marcos especiais</div>
-                    <div class="product-footer">
-                        <span class="product-price">Motivador</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/tm-silver-02.jpg" alt="Canadian Silver Maple">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Retrospectiva Anual</h3>
-                    <div class="product-weight">Resumo visual · Momentos do ano</div>
-                    <div class="product-footer">
-                        <span class="product-price">Premium</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/tm-silver-03.jpg" alt="Silver Bar">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Momentos Favoritos</h3>
-                    <div class="product-weight">Selecao · Colecoes tematicas</div>
-                    <div class="product-footer">
-                        <span class="product-price">Curadoria</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/tm-silver-04.jpg" alt="Silver Britannia">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Capsulas do Tempo</h3>
-                    <div class="product-weight">Memorias futuras · Surpresa</div>
-                    <div class="product-footer">
-                        <span class="product-price">Especial</span>
-                    </div>
-                </div>
-            </div>
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='img/public/albuns.png') }}" alt="Álbuns Personalizados">
         </div>
-
-        <!-- Platinum Tab -->
-        <div class="products-tab-content" id="tab-platinum">
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/tm-silver-02.jpg" alt="American Platinum Eagle">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Assistente com IA</h3>
-                    <div class="product-weight">Sugestoes · Surpresas personalizadas</div>
-                    <div class="product-footer">
-                        <span class="product-price">Smart</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/tm-silver-03.jpg" alt="Canadian Platinum Maple">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Diario Compartilhado</h3>
-                    <div class="product-weight">Escrita em dupla · Privado</div>
-                    <div class="product-footer">
-                        <span class="product-price">Intimo</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/tm-silver-04.jpg" alt="Platinum Bar">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Mensagens Inteligentes</h3>
-                    <div class="product-weight">Texto com IA · Tom romantico</div>
-                    <div class="product-footer">
-                        <span class="product-price">Criativo</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/tm-silver-01.jpg" alt="Australian Platinum Koala">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Rituais do Casal</h3>
-                    <div class="product-weight">Habitos · Conexao diaria</div>
-                    <div class="product-footer">
-                        <span class="product-price">Signature</span>
-                    </div>
-                </div>
+        <div class="product-info">
+            <h3 class="product-name">Álbuns Personalizados</h3>
+            <div class="product-weight">Organize fotos e vídeos em coleções exclusivas.</div>
+            <div class="product-footer">
+                <span class="product-price">Coleções</span>
             </div>
         </div>
     </div>
+
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='img/public/momentos.png') }}" alt="Momentos Favoritos">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">Momentos Favoritos</h3>
+            <div class="product-weight">Destaque as lembranças que mais marcaram vocês.</div>
+            <div class="product-footer">
+                <span class="product-price">Favoritos</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='img/public/organizacao.png') }}" alt="Organização Inteligente">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">Organização Inteligente</h3>
+            <div class="product-weight">Encontre qualquer memória por data, evento ou categoria.</div>
+            <div class="product-footer">
+                <span class="product-price">Organização</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='img/public/alta_qualidade.png') }}" alt="Recordações em Alta Qualidade">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">Recordações em Alta Qualidade</h3>
+            <div class="product-weight">Preserve fotos e vídeos com segurança e qualidade.</div>
+            <div class="product-footer">
+                <span class="product-price">Premium</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+        <!-- lugares visitados -->
+<div class="products-tab-content" id="tab-silver">
+
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='images/tm-silver-01.jpg') }}" alt="Lugares Visitados">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">Lugares Visitados</h3>
+            <div class="product-weight">Registre cada destino da história de vocês.</div>
+            <div class="product-footer">
+                <span class="product-price">Explorar</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='img/public/mapa.png') }}" alt="Mapa do Casal">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">Mapa do Casal</h3>
+            <div class="product-weight">Visualize todos os lugares marcados em um mapa interativo.</div>
+            <div class="product-footer">
+                <span class="product-price">Mapa</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='img/public/avaliacao.png') }}" alt="Avaliações">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">Avaliações</h3>
+            <div class="product-weight">Dê notas, escreva comentários e relembre cada experiência.</div>
+            <div class="product-footer">
+                <span class="product-price">Reviews</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='img/public/reviuw.png') }}" alt="Coleção de Experiências">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">Coleção de Experiências</h3>
+            <div class="product-weight">Crie uma biblioteca com restaurantes, viagens e passeios.</div>
+            <div class="product-footer">
+                <span class="product-price">Coleção</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+        <!-- Pia -->
+        <div class="products-tab-content" id="tab-platinum">
+
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='img/public/assistente.png') }}" alt="Assistente Inteligente">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">Assistente Inteligente</h3>
+            <div class="product-weight">Uma IA que acompanha a história do casal e oferece sugestões personalizadas.</div>
+            <div class="product-footer">
+                <span class="product-price">IA Premium</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='img/public/ideias.png') }}" alt="Ideias de Encontros">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">Ideias de Encontros</h3>
+            <div class="product-weight">Receba recomendações de dates, viagens e experiências para viver juntos.</div>
+            <div class="product-footer">
+                <span class="product-price">Recomendações</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='img/public/retrospectiva.png') }}" alt="Retrospectiva Inteligente">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">Retrospectiva Inteligente</h3>
+            <div class="product-weight">Reviva automaticamente os melhores momentos do relacionamento com resumos criados pela IA.</div>
+            <div class="product-footer">
+                <span class="product-price">Automático</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='img/public/chat.png') }}" alt="Chat do Casal">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">Chat da História</h3>
+            <div class="product-weight">Converse com uma IA que conhece as memórias, fotos e momentos registrados pelo casal.</div>
+            <div class="product-footer">
+                <span class="product-price">Exclusivo</span>
+            </div>
+        </div>
+    </div>
+
+</div>
 </section>

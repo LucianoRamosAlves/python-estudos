@@ -4,11 +4,7 @@
         <div class="nav-inner">
             <a href="{{ url_for('public.home') }}" class="logo" aria-label="TowDate Home">Tow <span>Date</span></a>
             <ul class="nav-links">
-                <li><a href="#services">Recursos</a></li>
-                <li><a href="#why-gold">Por que TowDate</a></li>
-                <li><a href="#products">Experiencias</a></li>
-                <li><a href="#testimonials">Depoimentos</a></li>
-                <li><a href="#contact">Contato</a></li>
+                 {% include 'public/components/nav_links.html' %}
             </ul>
             <div class="nav-cta">
                 <a href="{{ url_for('auth.login') }}" class="btn btn-outline">Login</a>
@@ -35,11 +31,7 @@
         </svg>
     </button>
     <ul class="mobile-nav-links">
-        <li><a href="#services">Recursos</a></li>
-        <li><a href="#why-gold">Por que TowDate</a></li>
-        <li><a href="#products">Experiencias</a></li>
-        <li><a href="#testimonials">Depoimentos</a></li>
-        <li><a href="#contact">Contato</a></li>
+        {% include 'public/components/nav_links.html' %}
     </ul>
     <div class="mobile-menu-cta">
         <a href="{{ url_for('auth.login') }}" class="btn btn-outline">Login</a>
