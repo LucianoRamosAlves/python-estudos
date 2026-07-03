@@ -1,94 +1,95 @@
 {% extends 'private/accounts/settings_base.html' %}
 
 {% block settings_content %}
-<div class="account-card relationship-card">
+<form class="account-card relationship-card">
     <div class="relationship-header">
         <div>
             <p class="section-label">Relacionamento</p>
             <h2>Perfil do casal</h2>
         </div>
-        <span class="relationship-pill">{{ relationship_status or '💖 Namorando' }}</span>
+        <span class="relationship-pill">{{ relationship.relationship_status }}</span>
+    </div>
+    <form id="relationshipPhotoForm" method="POST" enctype="multipart/form-data" class="relationship-form"></form>
+    {{ form.hidden_tag() }}
+    <div class="relationship-panel">
+        <div class="relationship-panel-title">Foto do casal</div>
+        <p class="relationship-panel-text">Envie uma foto para representar o relacionamento.</p>
+        <div class="relationship-photo-box">
+            {% if relationship and relationship.couple_photo %}
+            <img loading="lazy" src="{{ url_for('static', filename='uploads/couples/' ~ relationship.couple_photo) }}"
+                alt="Foto do casal">
+            {% else %}
+            <div class="relationship-photo-placeholder">
+                Sem foto cadastrada
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+
+            <input type="hidden" name="form_type" value="photo">
+
+            {{ form.couple_photo(
+            id="couplePhoto",
+            class="form-input",
+            accept="image/png,image/jpeg,image/jpg",
+            style="display:none;"
+            ) }}
+
+            <button type="button" class="btn btn-outline" id="btnAlterarFotoRelacionamento">
+                Alterar Foto
+            </button>
+
+        </div>
+    </div>
+</form>
+
+<form id="relationshipPhotoForm" method="POST" class="relationship-form">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        <label class="form-label" for="relationshipStatus">
+            {{ form.relationship_status.label.text }}
+        </label>
+
+        {{ form.relationship_status(
+        id="relationshipStatus",
+        class="form-input"
+        ) }}
+    </div>
     </div>
 
-    <form id="relationshipPhotoForm" method="POST" enctype="multipart/form-data" class="relationship-form">
-        {{ form.hidden_tag() }}
+    <div class="relationship-grid secondary-grid">
         <div class="form-group">
-            <label class="form-label" for="relationshipStatus">
-                {{ form.relationship_status.label.text }}
+            <label class="form-label" for="relationshipDate">
+                {{ form.relationship_start_date.label.text }}
             </label>
 
-            {{ form.relationship_status(
-            id="relationshipStatus",
+            {{ form.relationship_start_date(
+            id="relationshipDate",
             class="form-input"
             ) }}
         </div>
 
         <div class="relationship-panel">
-            <div class="relationship-panel-title">Foto do casal</div>
-            <p class="relationship-panel-text">Envie uma foto para representar o relacionamento.</p>
-            <div class="relationship-photo-box">
-                {% if relationship and relationship.couple_photo %}
-                <img loading="lazy"
-                    src="{{ url_for('static', filename='uploads/couples/' ~ relationship.couple_photo) }}"
-                    alt="Foto do casal">
-                {% else %}
-                <div class="relationship-photo-placeholder">
-                    Sem foto cadastrada
-                </div>
-                {% endif %}
-            </div>
-
+            <div class="relationship-panel-title">Frase do casal</div>
             <div class="form-group">
+                <label class="form-label" for="relationshipPhrase">
+                    {{ form.relationship_phrase.label.text }}
+                </label>
 
-                <input type="hidden" name="form_type" value="photo">
-
-                {{ form.couple_photo(
-                id="couplePhoto",
+                {{ form.relationship_phrase(
+                id="relationshipPhrase",
                 class="form-input",
-                accept="image/png,image/jpeg,image/jpg",
-                style="display:none;"
+                rows=3,
+                placeholder="Escreva uma frase bonita para o casal"
                 ) }}
-
-                <button type="button" class="btn btn-outline" id="btnAlterarFotoRelacionamento">
-                    Alterar Foto
-                </button>
-
             </div>
         </div>
-</div>
-
-<div class="relationship-grid secondary-grid">
-    <div class="form-group">
-        <label class="form-label" for="relationshipDate">
-            {{ form.relationship_start_date.label.text }}
-        </label>
-
-        {{ form.relationship_start_date(
-        id="relationshipDate",
-        class="form-input"
-        ) }}
     </div>
 
-    <div class="relationship-panel">
-        <div class="relationship-panel-title">Frase do casal</div>
-        <div class="form-group">
-            <label class="form-label" for="relationshipPhrase">
-                {{ form.relationship_phrase.label.text }}
-            </label>
-
-            {{ form.relationship_phrase(
-            id="relationshipPhrase",
-            class="form-input",
-            rows=3,
-            placeholder="Escreva uma frase bonita para o casal"
-            ) }}
-        </div>
+    <div class="relationship-actions">
+        <button type="submit" class="btn btn-primary">Salvar informações</button>
     </div>
-</div>
-
-<div class="relationship-actions">
-    <button type="submit" class="btn btn-primary">Salvar informações</button>
-</div>
 </form>
 
 <div class="account-card relationship-danger">

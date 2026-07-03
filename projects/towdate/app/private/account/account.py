@@ -36,8 +36,6 @@ def preencher_formulario(form, user):
 
 def atualizar_foto_perfil(user, novo_nome):
     user.avatar = novo_nome
-    db.session.commit()
-
 
 def remover_avatar(user):
     if not user.avatar:
@@ -46,8 +44,6 @@ def remover_avatar(user):
     remover_foto_perfil(user.avatar)
 
     user.avatar = None
-
-    db.session.commit()
 
     return True
 
@@ -76,6 +72,9 @@ def account():
 
             atualizar_foto_perfil(current_user, novo_nome)
 
+            db.session.commit()
+            
+
             flash("Foto de perfil atualizada com sucesso!", "success")
             return redirect(url_for("private.account"))
 
@@ -85,6 +84,7 @@ def account():
                 flash("Nenhuma foto de perfil para remover.", "warning")
             else:
                 flash("Foto removida com sucesso!", "success")
+                db.session.commit()
 
             return redirect(url_for("private.account"))
 
