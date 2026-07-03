@@ -34,46 +34,56 @@ def preencher_formulario(form, user):
     form.email.data = user.email
     form.data_nascimento.data = user.date_of_birth
 
+def atualizar_foto_perfil(user, novo_nome):
+    user.avatar = novo_nome
+    db.session.commit()
+
+
+def remover_avatar(user):
+    if not user.avatar:
+        return False
+
+    remover_foto_perfil(user.avatar)
+
+    user.avatar = None
+
+    db.session.commit()
+
+    return True
 
 @private.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
+
     form = EditProfileForm()
     photo_form = EditPhotoForm()
 
     if request.method == "POST":
+
         form_type = request.form.get("form_type")
 
         if form_type == "photo":
 
-            if photo_form.validate_on_submit():
-                novo_nome = salvar_foto_perfil(photo_form.foto_perfil.data)
-                if novo_nome:
-                    current_user.avatar = novo_nome
-                    db.session.commit()
-                    flash("Foto de perfil atualizada com sucesso!", "success")
-                    return redirect(url_for("private.account"))
-                
-                else:
-                    flash("Erro ao atualizar a foto de perfil.", "error")
-            else:
+            if not photo_form.validate_on_submit():
                 flash("Erro ao atualizar a foto de perfil.", "error")
-
-        elif form_type == "remove_photo":
-            if (
-                current_user.avatar == "avatars/default.svg"
-                or current_user.avatar is None
-            ):
-                flash("Nenhuma foto de perfil para remover.", "warning")
                 return redirect(url_for("private.account"))
 
-            if current_user.avatar and current_user.avatar != "avatars/default.svg":
-                remover_foto_perfil(current_user.avatar)
+            novo_nome = salvar_foto_perfil(photo_form.foto_perfil.data)
 
-                current_user.avatar = None
+            if not novo_nome:
+                flash("Erro ao atualizar a foto de perfil.", "error")
+                return redirect(url_for("private.account"))
 
-                db.session.commit()
+            atualizar_foto_perfil(current_user, novo_nome)
 
+            flash("Foto de perfil atualizada com sucesso!", "success")
+            return redirect(url_for("private.account"))
+
+        elif form_type == "remove_photo":
+
+            if not remover_avatar(current_user):
+                flash("Nenhuma foto de perfil para remover.", "warning")
+            else:
                 flash("Foto removida com sucesso!", "success")
 
             return redirect(url_for("private.account"))
@@ -81,6 +91,7 @@ def account():
         elif form_type == "profile":
 
             if form.validate_on_submit():
+
                 if (
                     form.nome.data == current_user.first_name
                     and form.sobrenome.data == current_user.last_name
@@ -99,7 +110,7 @@ def account():
 
             flash("Erro ao atualizar o perfil.", "error")
 
-    elif request.method == "GET":
+    else:
         preencher_formulario(form, current_user)
 
     return render_template(
