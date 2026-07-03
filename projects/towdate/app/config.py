@@ -10,12 +10,21 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Upload configuration
-    UPLOAD_FOLDER = os.path.join(
+    # Uploads
+    UPLOAD_ROOT = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
         "static",
         "uploads",
-        "profile_pictures",
     )
+
+    ALLOWED_IMAGE_EXTENSIONS = {
+        "jpg",
+        "jpeg",
+        "png",
+        "webp",
+        "gif",
+    }
+
     MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # 5 MB
 
     # Segurança dos cookies

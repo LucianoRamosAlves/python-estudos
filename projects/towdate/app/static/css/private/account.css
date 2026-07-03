@@ -289,6 +289,13 @@
 
 .reg-input-wrap .form-input.is-invalid{
     padding-left:46px;
+    border-color:rgba(201,141,166,.85);
+    box-shadow:0 0 0 3px rgba(177,114,138,.14);
+}
+
+.reg-input-wrap .form-input.is-invalid:focus{
+    border-color:rgba(201,141,166,.9);
+    box-shadow:0 0 0 3px rgba(177,114,138,.18);
 }
 
 .security-password-field .form-input{
@@ -348,14 +355,24 @@
 .account-card .form-group{
     display:flex;
     flex-direction:column;
-    gap:0.45rem;
+    gap:0.3rem;
+}
+
+.account-card .form-label{
+    margin-bottom:0;
 }
 
 .account-card .field-error{
     margin-top:0.35rem;
+    margin-bottom:0.55rem;
     font-family:'Inter',sans-serif;
-    font-size:0.92rem;
-    line-height:1.6;
+    font-size:12px;
+    line-height:1.5;
+    color:var(--danger);
+}
+
+.account-card .field-error span{
+    display:block;
 }
 
 .account-card .field-helper{

@@ -24,6 +24,14 @@ from app.auth.forms import (
     LogoutSessionsForm,
 )
 
+def update_password(user, new_password):
+    user.password_hash = bcrypt.generate_password_hash(
+        new_password
+    ).decode("utf-8")
+
+    user.session_version += 1
+
+    
 @private.route("/account/security", methods=["GET", "POST"])
 @login_required
 def account_security():
@@ -32,38 +40,27 @@ def account_security():
     delete_account_form = DeleteAccountForm()
 
     if form.validate_on_submit():
-        check_password = bcrypt.check_password_hash(
-            current_user.password_hash, form.senha_atual.data
-        )
-        if not check_password:
-            flash("Senha atual incorreta.", "error")
+
+        if not bcrypt.check_password_hash(
+            current_user.password_hash,
+            form.senha_atual.data
+        ):
             form.senha_atual.errors.append("Senha atual incorreta.")
-            return render_template(
-                "private/accounts/security.html", active_page="security", form=form, logout_sessions_form=logout_sessions_form, delete_account_form=delete_account_form
-            )
+            flash("Senha atual incorreta.", "error")
 
-        elif form.nova_senha.data != form.confirmar_nova_senha.data:
-            flash("As senhas não coincidem.", "error")
-            form.confirmar_nova_senha.errors.append("As senhas não coincidem.")
-            return render_template(
-                "private/accounts/security.html", active_page="security", form=form, logout_sessions_form=logout_sessions_form, delete_account_form=delete_account_form
-            )
+        else:
+            update_password(current_user, form.nova_senha.data)
 
+            db.session.commit()
 
-        current_user.password_hash = bcrypt.generate_password_hash(
-            form.nova_senha.data
-        ).decode("utf-8")
+            session["session_version"] = current_user.session_version
 
-        current_user.session_version += 1
-        db.session.commit()
+            flash("Senha alterada com sucesso!", "success")
 
-        session["session_version"] = current_user.session_version
+            return redirect(url_for("private.account_security"))
 
-        flash("Senha alterada com sucesso!", "success")
-        return redirect(url_for("private.account_security"))
-
-    elif form.is_submitted() and not form.validate():
-        flash("Erro ao alterar a senha.", "error")
+    elif form.is_submitted():
+        flash("Corrija os erros do formulário.", "error")
 
 
     return render_template(

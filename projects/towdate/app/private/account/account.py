@@ -22,6 +22,18 @@ from app.services.upload_services import (
     salvar_foto_perfil,
 )
 
+def atualizar_perfil(user, form):
+    user.first_name = form.nome.data
+    user.last_name = form.sobrenome.data
+    user.email = form.email.data
+    user.date_of_birth = form.data_nascimento.data
+
+def preencher_formulario(form, user):
+    form.nome.data = user.first_name
+    form.sobrenome.data = user.last_name
+    form.email.data = user.email
+    form.data_nascimento.data = user.date_of_birth
+
 
 @private.route("/account", methods=["GET", "POST"])
 @login_required
@@ -48,8 +60,6 @@ def account():
                 flash("Erro ao atualizar a foto de perfil.", "error")
 
         elif form_type == "remove_photo":
-            form_type = request.form.get("form_type")
-
             if (
                 current_user.avatar == "avatars/default.svg"
                 or current_user.avatar is None
@@ -57,10 +67,10 @@ def account():
                 flash("Nenhuma foto de perfil para remover.", "warning")
                 return redirect(url_for("private.account"))
 
-            if current_user.avatar:
+            if current_user.avatar and current_user.avatar != "avatars/default.svg":
                 remover_foto_perfil(current_user.avatar)
 
-                current_user.avatar = None
+                current_user.avatar = "avatars/default.svg"
 
                 db.session.commit()
 
@@ -80,10 +90,7 @@ def account():
                     flash("Nenhuma alteração foi realizada.", "warning")
                     return redirect(url_for("private.account"))
 
-                current_user.first_name = form.nome.data
-                current_user.last_name = form.sobrenome.data
-                current_user.email = form.email.data
-                current_user.date_of_birth = form.data_nascimento.data
+                atualizar_perfil(current_user, form)
 
                 db.session.commit()
 
@@ -93,10 +100,7 @@ def account():
             flash("Erro ao atualizar o perfil.", "error")
 
     elif request.method == "GET":
-        form.nome.data = current_user.first_name
-        form.sobrenome.data = current_user.last_name
-        form.email.data = current_user.email
-        form.data_nascimento.data = current_user.date_of_birth
+        preencher_formulario(form, current_user)
 
     return render_template(
         "private/accounts/account.html",

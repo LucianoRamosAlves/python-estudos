@@ -1,24 +1,34 @@
 import os
 import uuid
+
 from flask import current_app
 from werkzeug.utils import secure_filename
-from PIL import Image, ImageOps
-from flask_login import current_user
+
+from PIL import Image, ImageOps, UnidentifiedImageError
 
 
 def arquivo_permitido(nome_arquivo):
-    extensao_permitida = {"png", "jpg", "jpeg"}
-    return (
-        "." in nome_arquivo
-        and nome_arquivo.rsplit(".", 1)[1].lower() in extensao_permitida
-    )
+    if "." not in nome_arquivo:
+        return False
+
+    extensao = nome_arquivo.rsplit(".", 1)[1].lower()
+
+    return extensao in current_app.config["ALLOWED_IMAGE_EXTENSIONS"]
 
 
-def salvar_foto_perfil(arquivo):
-    if arquivo is None:
-        return None
+def gerar_nome_arquivo(nome_arquivo):
+    extensao = nome_arquivo.rsplit(".", 1)[1].lower()
+    return f"{uuid.uuid4().hex}.{extensao}"
 
-    if arquivo.filename == "":
+
+def salvar_imagem(
+    arquivo,
+    pasta,
+    largura=400,
+    altura=400,
+    qualidade=85,
+):
+    if not arquivo or not arquivo.filename:
         return None
 
     nome_arquivo = secure_filename(arquivo.filename)
@@ -27,6 +37,7 @@ def salvar_foto_perfil(arquivo):
         return None
 
     limite_tamanho = current_app.config.get("MAX_CONTENT_LENGTH")
+
     if (
         limite_tamanho
         and arquivo.content_length
@@ -34,32 +45,67 @@ def salvar_foto_perfil(arquivo):
     ):
         return None
 
-    extensao = nome_arquivo.rsplit(".", 1)[1].lower()
+    novo_nome = gerar_nome_arquivo(nome_arquivo)
 
-    novo_nome = f"{uuid.uuid4().hex}.{extensao}"
-
-    pasta_upload = current_app.config["UPLOAD_FOLDER"]
+    pasta_upload = os.path.join(
+        current_app.config["UPLOAD_ROOT"],
+        pasta,
+    )
 
     os.makedirs(pasta_upload, exist_ok=True)
 
-    caminho_completo = os.path.join(pasta_upload, novo_nome)
+    caminho = os.path.join(
+        pasta_upload,
+        novo_nome,
+    )
 
-    imagem = Image.open(arquivo)
-    imagem = ImageOps.exif_transpose(imagem)
-    imagem.thumbnail((400, 400))
-    imagem.save(caminho_completo, optimize=True, quality=85)
+    try:
+        with Image.open(arquivo) as imagem:
+            imagem = ImageOps.exif_transpose(imagem)
+            imagem = imagem.convert("RGB")
+            imagem.thumbnail((largura, altura))
 
-    if current_user.avatar and current_user.avatar != "avatars/default.png":
-        remover_foto_perfil(current_user.avatar)
+            imagem.save(
+                caminho,
+                optimize=True,
+                quality=qualidade,
+            )
+
+    except (UnidentifiedImageError, OSError):
+        return None
 
     return novo_nome
 
 
-def remover_foto_perfil(nome_arquivo):
+def salvar_foto_perfil(arquivo):
+    return salvar_imagem(
+        arquivo,
+        pasta="avatars",
+        largura=400,
+        altura=400,
+        qualidade=85,
+    )
+
+
+def remover_imagem(nome_arquivo, pasta):
     if not nome_arquivo:
         return
 
-    caminho = os.path.join(current_app.config["UPLOAD_FOLDER"], nome_arquivo)
+    caminho = os.path.join(
+        current_app.config["UPLOAD_ROOT"],
+        pasta,
+        nome_arquivo,
+    )
 
-    if os.path.exists(caminho):
+    if os.path.isfile(caminho):
         os.remove(caminho)
+
+
+def remover_foto_perfil(nome_arquivo):
+    remover_imagem(
+        nome_arquivo,
+        "avatars",
+    )
+
+
+
