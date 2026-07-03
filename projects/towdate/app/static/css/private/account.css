@@ -228,12 +228,61 @@
     width:100%;
 }
 
+.reg-input-wrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+    width:100%;
+}
+
+.reg-input-wrap .form-input{
+    padding-left:46px;
+}
+
+.reg-input-icon{
+    position:absolute;
+    left:16px;
+    top:50%;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:18px;
+    height:18px;
+    color:var(--text-muted);
+    transform:translateY(-50%);
+    pointer-events:none;
+    z-index:1;
+}
+
+.reg-input-icon svg{
+    width:100%;
+    height:100%;
+}
+
+.reg-input-wrap .form-input.is-invalid{
+    padding-left:46px;
+}
+
 .account-card .reg-field-label{
     margin-bottom:20px;
 }
 
 .account-card .reg-row{
     margin-bottom:0;
+}
+
+.account-card .form-group{
+    display:flex;
+    flex-direction:column;
+    gap:0.45rem;
+}
+
+.account-card .field-error{
+    margin-top:0.35rem;
+}
+
+.account-card .field-helper{
+    margin-top:0.5rem;
 }
 
 .form-actions{

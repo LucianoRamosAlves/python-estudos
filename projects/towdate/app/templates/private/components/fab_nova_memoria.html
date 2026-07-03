@@ -24,263 +24,338 @@
             </header>
 
             <div class="td-memory-fab-modal__body">
-                <section class="memory-new__section memory-new__section--photos">
-                    <div class="memory-new__section-header">
-                        <span class="memory-new__phase">Etapa 1 • Seleção de fotos</span>
-                        <h4>Comece pelo momento</h4>
-                        <p>Adicione pelo menos uma imagem para começar a registrar esta memória.</p>
+                <div class="memory-new__wizard-head">
+                    <div class="memory-new__progress" aria-label="Progresso das etapas">
+                        <div class="memory-new__progress-track" aria-hidden="true">
+                            <span class="memory-new__progress-fill" data-progress-fill></span>
+                        </div>
                     </div>
 
-                    <div class="memory-new__photo-actions">
-                        <button class="memory-new__photo-button" type="button" data-photo-action="camera">
-                            <span class="memory-new__button-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M4 7h3l2-2h6l2 2h3v12H4V7z" />
-                                    <circle cx="12" cy="13" r="3.2" />
-                                </svg>
-                            </span>
-                            <span>Tirar foto</span>
-                        </button>
-                        <button class="memory-new__photo-button" type="button" data-photo-action="gallery">
-                            <span class="memory-new__button-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="5" width="18" height="14" rx="2" />
-                                    <path d="M3 9l4 4 3-3 5 5 3-3 4 4" />
-                                </svg>
-                            </span>
-                            <span>Escolher da galeria</span>
-                        </button>
+                    <div class="memory-new__step-counter" aria-live="polite">
+                        <span data-step-counter>1 de 4</span>
                     </div>
+                </div>
 
-                    <label class="memory-new__dropzone" for="memoryFileInput">
-                        <input id="memoryFileInput" type="file" accept="image/*" multiple hidden>
-                        <div class="memory-new__dropzone-body">
-                            <div>
-                                <strong>Arraste suas fotos aqui</strong>
-                                <span>ou clique para selecionar da galeria</span>
+                <div class="memory-new__form-wrapper memory-new__form-wrapper--wizard" data-form-wrapper>
+                    <section class="memory-new__step memory-new__step--active" data-step-panel="1" id="memoryStep1"
+                        role="tabpanel" aria-label="Etapa 1 de 4" tabindex="-1">
+                        <section class="memory-new__section memory-new__section--photos">
+                            <div class="memory-new__section-header">
+                                <span class="memory-new__phase">Etapa 1 • Fotos</span>
+                                <h4>Comece pelo momento</h4>
+                                <p>Adicione pelo menos uma imagem para começar a registrar esta memória.</p>
                             </div>
-                        </div>
-                    </label>
 
-                    <div class="memory-new__preview-grid" aria-live="polite"></div>
-                </section>
+                            <div class="memory-new__photo-actions">
+                                <button class="memory-new__photo-button" type="button" data-photo-action="camera">
+                                    <span class="memory-new__button-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M4 7h3l2-2h6l2 2h3v12H4V7z" />
+                                            <circle cx="12" cy="13" r="3.2" />
+                                        </svg>
+                                    </span>
+                                    <span>Tirar foto</span>
+                                </button>
+                                <button class="memory-new__photo-button" type="button" data-photo-action="gallery">
+                                    <span class="memory-new__button-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="5" width="18" height="14" rx="2" />
+                                            <path d="M3 9l4 4 3-3 5 5 3-3 4 4" />
+                                        </svg>
+                                    </span>
+                                    <span>Escolher da galeria</span>
+                                </button>
+                            </div>
 
-                <div class="memory-new__form-wrapper" data-form-wrapper>
-                    <section class="memory-new__section">
-                        <div class="memory-new__section-header">
-                            <span class="memory-new__phase">Etapa 2 • Informações da memória</span>
-                            <h4>Conte esse momento</h4>
-                        </div>
-
-                        <div class="memory-new__field-grid">
-                            <label class="memory-new__field">
-                                <span>Título</span>
-                                <input class="memory-new__input" type="text" placeholder="Ex.: Jantar de aniversário"
-                                    aria-label="Título da memória" data-memory-title>
-                            </label>
-
-                            <label class="memory-new__field memory-new__field--full">
-                                <div class="memory-new__field-label-row">
-                                    <span>Descrição</span>
-                                    <span class="memory-new__charcount" data-description-counter>0 / 280</span>
+                            <label class="memory-new__dropzone" for="memoryFileInput">
+                                <input id="memoryFileInput" type="file" accept="image/*" hidden>
+                                <div class="memory-new__dropzone-body">
+                                    <div>
+                                        <strong>Arraste suas fotos aqui</strong>
+                                        <span>ou clique para selecionar da galeria</span>
+                                    </div>
                                 </div>
-                                <textarea class="memory-new__textarea" rows="5" maxlength="280"
-                                    placeholder="Conte como foi esse momento especial..."
-                                    aria-label="Descrição da memória" data-memory-description></textarea>
                             </label>
-                        </div>
+
+                            <div class="memory-new__preview-grid" aria-live="polite"></div>
+                        </section>
                     </section>
 
-                    <section class="memory-new__section">
-                        <div class="memory-new__section-header">
-                            <span class="memory-new__phase">Etapa 3 • Coleção</span>
-                            <h4>Selecione uma coleção</h4>
-                        </div>
-
-                        <div class="memory-new__collection-grid">
-                            <button class="memory-new__collection-card" type="button" data-collection-option="romance">
-                                <span class="memory-new__collection-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path
-                                            d="M12 21s-6-4.35-9-9c-1.4-2.45-.18-5.5 2.5-6.5 2.05-.82 4.28.15 5.5 2.2 1.22-2.05 3.45-3.02 5.5-2.2 2.68 1 3.9 4.05 2.5 6.5-3 4.65-9 9-9 9z" />
-                                    </svg>
-                                </span>
-                                <span>Romance</span>
-                            </button>
-                            <button class="memory-new__collection-card" type="button"
-                                data-collection-option="restaurante">
-                                <span class="memory-new__collection-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M8 2v7a2 2 0 0 1-4 0V2" />
-                                        <path d="M18 2v7a2 2 0 0 1-4 0V2" />
-                                        <path d="M6 13h12" />
-                                        <path d="M7 21h10" />
-                                    </svg>
-                                </span>
-                                <span>Restaurante</span>
-                            </button>
-                            <button class="memory-new__collection-card" type="button" data-collection-option="cinema">
-                                <span class="memory-new__collection-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="3" y="5" width="18" height="14" rx="2" />
-                                        <path d="M3.5 5.8l3 1.2m0 0l3-1.2m0 0l3 1.2m0 0l3-1.2m0 0l3 1.2" />
-                                    </svg>
-                                </span>
-                                <span>Cinema</span>
-                            </button>
-                            <button class="memory-new__collection-card" type="button" data-collection-option="parque">
-                                <span class="memory-new__collection-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M12 3l3.5 7H17l-5 8-5-8h1.5L12 3z" />
-                                        <path d="M12 19v2" />
-                                    </svg>
-                                </span>
-                                <span>Parque</span>
-                            </button>
-                            <button class="memory-new__collection-card" type="button" data-collection-option="viagem">
-                                <span class="memory-new__collection-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M2 12l9-3 9 3-9 3-9-3z" />
-                                        <path d="M11 9v6" />
-                                        <path d="M14 9v6" />
-                                        <path d="M11 15c-1.5 1.5-3 2.5-5 2.5" />
-                                        <path d="M14 15c1.5 1.5 3 2.5 5 2.5" />
-                                    </svg>
-                                </span>
-                                <span>Viagem</span>
-                            </button>
-                            <button class="memory-new__collection-card" type="button" data-collection-option="datas">
-                                <span class="memory-new__collection-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="3" y="4" width="18" height="18" rx="3" />
-                                        <path d="M16 2v4" />
-                                        <path d="M8 2v4" />
-                                        <path d="M3 10h18" />
-                                    </svg>
-                                </span>
-                                <span>Datas especiais</span>
-                            </button>
-                            <button class="memory-new__collection-card memory-new__collection-card--new" type="button"
-                                data-collection-option="nova">
-                                <span class="memory-new__collection-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M12 5v14" />
-                                        <path d="M5 12h14" />
-                                    </svg>
-                                </span>
-                                <span>Nova coleção</span>
-                            </button>
-                        </div>
-                    </section>
-
-                    <section class="memory-new__section memory-new__split">
-                        <div class="memory-new__field">
-                            <span>Data</span>
-                            <input class="memory-new__input" type="date" value="" aria-label="Data da memória"
-                                data-memory-date>
-                        </div>
-
-                        <div class="memory-new__field">
-                            <span>Local</span>
-                            <div class="memory-new__input-icon-wrapper">
-                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 14.5 9 2.5 2.5 0 0 1 12 11.5z" />
-                                </svg>
-                                <input class="memory-new__input memory-new__input--icon" type="text"
-                                    placeholder="Adicionar localização" aria-label="Local da memória"
-                                    data-memory-location>
+                    <section class="memory-new__step" data-step-panel="2" id="memoryStep2" role="tabpanel"
+                        aria-label="Etapa 2 de 4" tabindex="-1">
+                        <section class="memory-new__section">
+                            <div class="memory-new__section-header">
+                                <span class="memory-new__phase">Etapa 2 • Informações</span>
+                                <h4>Conte esse momento</h4>
+                                <p>Inclua um título, descrição, data e local para organizar a memória.</p>
                             </div>
-                        </div>
+
+                            <div class="memory-new__field-grid">
+                                <label class="memory-new__field">
+                                    <span>Título</span>
+                                    <input class="memory-new__input" type="text"
+                                        placeholder="Ex.: Jantar de aniversário" aria-label="Título da memória"
+                                        data-memory-title>
+                                </label>
+
+                                <label class="memory-new__field memory-new__field--full">
+                                    <div class="memory-new__field-label-row">
+                                        <span>Descrição</span>
+                                        <span class="memory-new__charcount" data-description-counter>0 / 280</span>
+                                    </div>
+                                    <textarea class="memory-new__textarea" rows="5" maxlength="280"
+                                        placeholder="Conte como foi esse momento especial..."
+                                        aria-label="Descrição da memória" data-memory-description></textarea>
+                                </label>
+                            </div>
+
+                            <div class="memory-new__split">
+                                <div class="memory-new__field">
+                                    <span>Data</span>
+                                    <input class="memory-new__input" type="date" value="" aria-label="Data da memória"
+                                        data-memory-date>
+                                </div>
+
+                                <div class="memory-new__field">
+                                    <span>Local</span>
+                                    <div class="memory-new__input-icon-wrapper">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path
+                                                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 14.5 9 2.5 2.5 0 0 1 12 11.5z" />
+                                        </svg>
+                                        <input class="memory-new__input memory-new__input--icon" type="text"
+                                            placeholder="Adicionar localização" aria-label="Local da memória"
+                                            data-memory-location>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </section>
 
-                    <section class="memory-new__section">
-                        <div class="memory-new__section-header">
-                            <span class="memory-new__phase">Etapa 6 • Tags</span>
-                            <h4>Adicione etiquetas</h4>
-                        </div>
+                    <section class="memory-new__step" data-step-panel="3" id="memoryStep3" role="tabpanel"
+                        aria-label="Etapa 3 de 4" tabindex="-1">
+                        <section class="memory-new__section">
+                            <div class="memory-new__section-header">
+                                <span class="memory-new__phase">Etapa 3 • Coleção</span>
+                                <h4>Selecione uma coleção</h4>
+                                <p>Escolha uma coleção principal para organizar esta memória ou crie uma nova.</p>
+                            </div>
 
-                        <div class="memory-new__tags-shell">
-                            <div class="memory-new__tag-list" aria-live="polite"></div>
-                            <input class="memory-new__tag-input" type="text"
-                                placeholder="#romântico, #viagem, #aniversário, #parque" aria-label="Adicionar tag">
-                        </div>
+                            <div class="memory-new__collection-grid memory-new__collection-grid--large">
+                                <button class="memory-new__collection-card memory-new__collection-card--large"
+                                    type="button" data-collection-option="romance">
+                                    <span class="memory-new__collection-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path
+                                                d="M12 21s-6-4.35-9-9c-1.4-2.45-.18-5.5 2.5-6.5 2.05-.82 4.28.15 5.5 2.2 1.22-2.05 3.45-3.02 5.5-2.2 2.68 1 3.9 4.05 2.5 6.5-3 4.65-9 9-9 9z" />
+                                        </svg>
+                                    </span>
+                                    <span class="memory-new__collection-card-copy">
+                                        <strong>Romance</strong>
+                                        <span>Histórias afetivas e momentos marcantes</span>
+                                        <small>Futuro: 12 memórias</small>
+                                    </span>
+                                </button>
+                                <button class="memory-new__collection-card memory-new__collection-card--large"
+                                    type="button" data-collection-option="restaurante">
+                                    <span class="memory-new__collection-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M8 2v7a2 2 0 0 1-4 0V2" />
+                                            <path d="M18 2v7a2 2 0 0 1-4 0V2" />
+                                            <path d="M6 13h12" />
+                                            <path d="M7 21h10" />
+                                        </svg>
+                                    </span>
+                                    <span class="memory-new__collection-card-copy">
+                                        <strong>Restaurantes</strong>
+                                        <span>Jantares, cafés e encontros especiais</span>
+                                        <small>Futuro: 8 memórias</small>
+                                    </span>
+                                </button>
+                                <button class="memory-new__collection-card memory-new__collection-card--large"
+                                    type="button" data-collection-option="cinema">
+                                    <span class="memory-new__collection-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="5" width="18" height="14" rx="2" />
+                                            <path d="M3.5 5.8l3 1.2m0 0l3-1.2m0 0l3 1.2m0 0l3-1.2m0 0l3 1.2" />
+                                        </svg>
+                                    </span>
+                                    <span class="memory-new__collection-card-copy">
+                                        <strong>Cinema</strong>
+                                        <span>Sessões, estreias e noites a dois</span>
+                                        <small>Futuro: 5 memórias</small>
+                                    </span>
+                                </button>
+                                <button class="memory-new__collection-card memory-new__collection-card--large"
+                                    type="button" data-collection-option="parque">
+                                    <span class="memory-new__collection-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 3l3.5 7H17l-5 8-5-8h1.5L12 3z" />
+                                            <path d="M12 19v2" />
+                                        </svg>
+                                    </span>
+                                    <span class="memory-new__collection-card-copy">
+                                        <strong>Parques</strong>
+                                        <span>Passeios leves e dias ao ar livre</span>
+                                        <small>Futuro: 7 memórias</small>
+                                    </span>
+                                </button>
+                                <button class="memory-new__collection-card memory-new__collection-card--large"
+                                    type="button" data-collection-option="viagem">
+                                    <span class="memory-new__collection-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M2 12l9-3 9 3-9 3-9-3z" />
+                                            <path d="M11 9v6" />
+                                            <path d="M14 9v6" />
+                                            <path d="M11 15c-1.5 1.5-3 2.5-5 2.5" />
+                                            <path d="M14 15c1.5 1.5 3 2.5 5 2.5" />
+                                        </svg>
+                                    </span>
+                                    <span class="memory-new__collection-card-copy">
+                                        <strong>Viagens</strong>
+                                        <span>Viagens, roteiros e descobertas</span>
+                                        <small>Futuro: 14 memórias</small>
+                                    </span>
+                                </button>
+                                <button class="memory-new__collection-card memory-new__collection-card--large"
+                                    type="button" data-collection-option="datas">
+                                    <span class="memory-new__collection-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="4" width="18" height="18" rx="3" />
+                                            <path d="M16 2v4" />
+                                            <path d="M8 2v4" />
+                                            <path d="M3 10h18" />
+                                        </svg>
+                                    </span>
+                                    <span class="memory-new__collection-card-copy">
+                                        <strong>Datas especiais</strong>
+                                        <span>Aniversários, conquistas e celebrações</span>
+                                        <small>Futuro: 9 memórias</small>
+                                    </span>
+                                </button>
+                                <button
+                                    class="memory-new__collection-card memory-new__collection-card--large memory-new__collection-card--new"
+                                    type="button" data-collection-option="nova">
+                                    <span class="memory-new__collection-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 5v14" />
+                                            <path d="M5 12h14" />
+                                        </svg>
+                                    </span>
+                                    <span class="memory-new__collection-card-copy">
+                                        <strong>Nova coleção</strong>
+                                        <span>Criar uma coleção personalizada</span>
+                                        <small>Escolha livre para o futuro</small>
+                                    </span>
+                                </button>
+                            </div>
+                        </section>
                     </section>
 
-                    <section class="memory-new__section">
-                        <div class="memory-new__section-header">
-                            <span class="memory-new__phase">Etapa 7 • Avaliação</span>
-                            <h4>Como foi esse momento?</h4>
-                        </div>
+                    <section class="memory-new__step" data-step-panel="4" id="memoryStep4" role="tabpanel"
+                        aria-label="Etapa 4 de 4" tabindex="-1">
+                        <section class="memory-new__section memory-new__section--personalization">
+                            <div class="memory-new__section-header">
+                                <span class="memory-new__phase">Etapa 4 • Personalização</span>
+                                <h4>Dê o acabamento final</h4>
+                                <p>Adicione tags, avalie a experiência e marque como favorita se quiser.</p>
+                            </div>
 
-                        <div class="memory-new__rating" aria-label="Avaliação da memória">
-                            <button class="memory-new__star" type="button" data-star="1" aria-label="1 estrela">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                                </svg>
-                            </button>
-                            <button class="memory-new__star" type="button" data-star="2" aria-label="2 estrelas">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                                </svg>
-                            </button>
-                            <button class="memory-new__star" type="button" data-star="3" aria-label="3 estrelas">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                                </svg>
-                            </button>
-                            <button class="memory-new__star" type="button" data-star="4" aria-label="4 estrelas">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                                </svg>
-                            </button>
-                            <button class="memory-new__star" type="button" data-star="5" aria-label="5 estrelas">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </section>
+                            <section class="memory-new__section memory-new__section--compact">
+                                <div class="memory-new__section-header">
+                                    <h4>Tags</h4>
+                                </div>
 
-                    <section class="memory-new__section memory-new__favorite">
-                        <label class="memory-new__switch">
-                            <input id="memoryFavorite" type="checkbox">
-                            <span class="memory-new__switch-track"></span>
-                            <span class="memory-new__switch-thumb"></span>
-                        </label>
-                        <div>
-                            <span class="memory-new__favorite-label">❤️ Marcar esta memória como favorita</span>
-                        </div>
+                                <div class="memory-new__tags-shell">
+                                    <div class="memory-new__tag-list" aria-live="polite"></div>
+                                    <input class="memory-new__tag-input" type="text"
+                                        placeholder="#romântico, #viagem, #aniversário, #parque"
+                                        aria-label="Adicionar tag">
+                                </div>
+                            </section>
+
+                            <section class="memory-new__section memory-new__section--compact">
+                                <div class="memory-new__section-header">
+                                    <h4>Avaliação</h4>
+                                </div>
+
+                                <div class="memory-new__rating" aria-label="Avaliação da memória">
+                                    <button class="memory-new__star" type="button" data-star="1" aria-label="1 estrela">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                        </svg>
+                                    </button>
+                                    <button class="memory-new__star" type="button" data-star="2"
+                                        aria-label="2 estrelas">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                        </svg>
+                                    </button>
+                                    <button class="memory-new__star" type="button" data-star="3"
+                                        aria-label="3 estrelas">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                        </svg>
+                                    </button>
+                                    <button class="memory-new__star" type="button" data-star="4"
+                                        aria-label="4 estrelas">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                        </svg>
+                                    </button>
+                                    <button class="memory-new__star" type="button" data-star="5"
+                                        aria-label="5 estrelas">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </section>
+
+                            <section class="memory-new__section memory-new__favorite">
+                                <label class="memory-new__switch">
+                                    <input id="memoryFavorite" type="checkbox">
+                                    <span class="memory-new__switch-track"></span>
+                                    <span class="memory-new__switch-thumb"></span>
+                                </label>
+                                <div>
+                                    <span class="memory-new__favorite-label">❤️ Marcar esta memória como favorita</span>
+                                </div>
+                            </section>
+                        </section>
                     </section>
                 </div>
-            </div>
 
-            <div class="memory-new__error-list" aria-live="assertive"></div>
-            <div class="memory-new__toast" role="status" aria-live="polite" hidden>
-                <span class="memory-new__toast-message">Memória registrada com sucesso! (Modo demonstração)</span>
-            </div>
+                <div class="memory-new__error-list" aria-live="assertive"></div>
+                <div class="memory-new__toast" role="status" aria-live="polite" hidden>
+                    <span class="memory-new__toast-message">Memória registrada com sucesso! (Modo demonstração)</span>
+                </div>
 
-            <footer class="memory-new__footer">
-                <button class="memory-new__cancel" type="button" data-memory-fab-close>Cancelar</button>
-                <button class="memory-new__save" type="button">Salvar Memória</button>
-            </footer>
+                <footer class="memory-new__footer">
+                    <button class="memory-new__cancel memory-new__footer-back" type="button"
+                        data-step-back>Voltar</button>
+                    <button class="memory-new__save memory-new__footer-next" type="button"
+                        data-step-next>Próximo</button>
+                    <button class="memory-new__save memory-new__footer-save" type="button" data-memory-save
+                        hidden>Salvar Memória</button>
+                </footer>
+            </div>
         </div>
+
     </div>
 
-</div>
-
-{% endif %}
+    {% endif %}
