@@ -70,7 +70,7 @@ def account():
             if current_user.avatar and current_user.avatar != "avatars/default.svg":
                 remover_foto_perfil(current_user.avatar)
 
-                current_user.avatar = "avatars/default.svg"
+                current_user.avatar = None
 
                 db.session.commit()
 
