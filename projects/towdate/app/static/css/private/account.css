@@ -55,9 +55,11 @@
 }
 
 .account-sidebar h3{
-    font-family:'Cormorant Garamond',serif;
+    font-family:'Playfair Display',serif;
     font-size:32px;
-    font-weight:500;
+    font-weight:700;
+    line-height:1.05;
+    letter-spacing:-0.02em;
     color:var(--text-primary);
     margin-bottom:28px;
 }
@@ -70,6 +72,11 @@
     border-radius:12px;
     border:1px solid transparent;
     color:var(--text-secondary);
+    font-family:'Inter',sans-serif;
+    font-size:0.97rem;
+    font-weight:500;
+    line-height:1.45;
+    letter-spacing:0.005em;
     transition:background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
 }
 
@@ -126,9 +133,11 @@
 }
 
 .account-card h2{
-    font-family:'Cormorant Garamond',serif;
+    font-family:'Playfair Display',serif;
     font-size:34px;
-    font-weight:500;
+    font-weight:700;
+    line-height:1.05;
+    letter-spacing:-0.02em;
     margin-bottom:28px;
 }
 
@@ -167,27 +176,34 @@
 .profile-card p{
     color:var(--text-secondary);
     margin-top:4px;
+    font-family:'Inter',sans-serif;
+    font-size:0.98rem;
+    line-height:1.7;
 }
 
 .profile-username{
-    font-size:13px;
-    letter-spacing:.08em;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.06em;
     text-transform:uppercase;
     color:var(--gold-light);
 }
 
 .profile-email{
-    font-size:14px;
+    font-size:0.98rem;
+    line-height:1.7;
 }
 
 .profile-member-since{
     margin-top:16px;
     padding-top:14px;
     border-top:1px solid var(--border-color);
-    font-size:12px;
-    letter-spacing:.08em;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.10em;
     text-transform:uppercase;
     color:var(--text-muted);
+    line-height:1.45;
 }
 
 .profile-actions{
@@ -208,6 +224,17 @@
 .profile-card .profile-actions .btn{
     width:100%;
     min-height:46px;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    letter-spacing:0.005em;
+    line-height:1.2;
+}
+
+.account-card .btn{
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    letter-spacing:0.005em;
+    line-height:1.2;
 }
 
 .profile-card .profile-actions .photo-actions-secondary{
@@ -237,6 +264,7 @@
 
 .reg-input-wrap .form-input{
     padding-left:46px;
+    min-width:0;
 }
 
 .reg-input-icon{
@@ -263,8 +291,54 @@
     padding-left:46px;
 }
 
+.security-password-field .form-input{
+    padding-right:58px;
+}
+
+.security-password-field .reg-pw-toggle{
+    position:absolute;
+    right:12px;
+    top:50%;
+    width:34px;
+    height:34px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:10px;
+    background:rgba(255,255,255,.05);
+    color:var(--text-secondary);
+    cursor:pointer;
+    transform:translateY(-50%);
+    z-index:2;
+    transition:background .24s ease, border-color .24s ease, color .24s ease, transform .24s ease;
+}
+
+.security-password-field .reg-pw-toggle:hover{
+    background:rgba(99,179,237,.08);
+    border-color:rgba(99,179,237,.2);
+    color:var(--text-primary);
+    transform:translateY(-50%) translateY(-1px);
+}
+
+.security-password-field .reg-pw-toggle svg{
+    width:18px;
+    height:18px;
+}
+
+.security-password-field .form-input.is-invalid{
+    padding-right:58px;
+}
+
 .account-card .reg-field-label{
     margin-bottom:20px;
+    font-family:'Inter',sans-serif;
+    font-size:0.78rem;
+    font-weight:700;
+    letter-spacing:.18em;
+    line-height:1.3;
+    text-transform:uppercase;
+    color:var(--text-muted);
 }
 
 .account-card .reg-row{
@@ -279,10 +353,16 @@
 
 .account-card .field-error{
     margin-top:0.35rem;
+    font-family:'Inter',sans-serif;
+    font-size:0.92rem;
+    line-height:1.6;
 }
 
 .account-card .field-helper{
     margin-top:0.5rem;
+    font-family:'Inter',sans-serif;
+    font-size:0.9rem;
+    line-height:1.6;
 }
 
 .form-actions{
@@ -337,38 +417,85 @@
 
 /* safety page */
 
-.account-desc{
-    color:var(--text-secondary);
+.account-card .account-desc{
+    font-family:'Inter',sans-serif;
+    font-size:0.98rem;
+    font-weight:400;
+    letter-spacing:0;
     line-height:1.7;
+    color:var(--text-secondary);
     margin-bottom:32px;
 }
 
 .account-danger{
-    border-color:rgba(210,122,122,.25);
+    border-color:rgba(248,113,113,.22);
+    background:linear-gradient(180deg, rgba(50,21,24,.55) 0%, rgba(27,15,17,.9) 100%);
+    box-shadow:0 10px 24px rgba(122,27,33,.08);
 }
 
 .account-danger::before{
+    height:1px;
     background:linear-gradient(
         90deg,
         transparent,
-        rgba(210,122,122,.45),
+        rgba(248,113,113,.55),
+        rgba(251,146,163,.28),
         transparent
     );
 }
 
+.account-danger::after{
+    content:'';
+    position:absolute;
+    inset:14px;
+    border:1px solid rgba(248,113,113,.06);
+    border-radius:18px;
+    pointer-events:none;
+}
+
 .account-danger h2{
-    color:#f0a2a2;
+    color:#f3b0b0;
+    text-shadow:none;
+}
+
+.account-danger .account-desc{
+    color:#e4bcbc;
+    font-weight:400;
+}
+
+.account-danger .btn-danger-outline{
+    width:100%;
+    min-height:48px;
+    border-color:rgba(248,113,113,.22);
+    color:#efb3b3;
+    background:rgba(54,22,25,.72);
+    box-shadow:none;
+    transition:transform .22s ease, border-color .22s ease, background .22s ease, color .22s ease;
+}
+
+.account-danger .btn-danger-outline:hover,
+.account-danger .btn-danger-outline:focus-visible{
+    transform:translateY(-1px);
+    border-color:rgba(248,113,113,.48);
+    color:#fff;
+    background:rgba(122,28,36,.9);
+}
+
+.account-danger .btn-danger-outline:active{
+    transform:translateY(0);
 }
 
 .account-danger form + form {
     margin-top: 14px;
 }
 
-.account-delete-password {
-    display: none;
-    margin: 10px 0 14px;
+.account-card .form-group.account-delete-password[hidden] {
+    display: none !important;
 }
 
-.account-delete-password.is-visible {
-    display: block;
+.account-card .form-group.account-delete-password.is-visible {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin: 10px 0 14px;
 }

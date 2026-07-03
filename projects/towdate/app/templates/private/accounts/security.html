@@ -14,11 +14,19 @@
         {{ form.hidden_tag() }}
         <div class="form-group">
 
-            <label class="reg-field-label">
+            <label class="form-label">
                 Senha atual
             </label>
 
-            <div class="reg-input-wrap">
+            <div class="reg-input-wrap security-password-field">
+                <span class="reg-input-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path
+                            d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v7a2 2 0 002 2h12a2 2 0 002-2v-7a2 2 0 00-2-2h-1V7a5 5 0 00-5-5z" />
+                        <path d="M9 10V7a3 3 0 016 0v3" />
+                    </svg>
+                </span>
                 {% if form.senha_atual.errors %}
                 {{ form.senha_atual(class="form-input is-invalid", id="currentPassword",
                 autocomplete="current-password") }}
@@ -47,12 +55,20 @@
 
         <div class="form-group">
 
-            <label class="reg-field-label">
+            <label class="form-label">
                 Nova senha
             </label>
 
 
-            <div class="reg-input-wrap">
+            <div class="reg-input-wrap security-password-field">
+                <span class="reg-input-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path
+                            d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v7a2 2 0 002 2h12a2 2 0 002-2v-7a2 2 0 00-2-2h-1V7a5 5 0 00-5-5z" />
+                        <path d="M9 10V7a3 3 0 016 0v3" />
+                    </svg>
+                </span>
                 {% if form.nova_senha.errors %}
                 {{ form.nova_senha(class="form-input is-invalid", id="newPassword", autocomplete="new-password") }}
                 {% else %}
@@ -80,12 +96,20 @@
 
         <div class="form-group">
 
-            <label class="reg-field-label">
+            <label class="form-label">
                 Confirmar nova senha
             </label>
 
 
-            <div class="reg-input-wrap">
+            <div class="reg-input-wrap security-password-field">
+                <span class="reg-input-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path
+                            d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v7a2 2 0 002 2h12a2 2 0 002-2v-7a2 2 0 00-2-2h-1V7a5 5 0 00-5-5z" />
+                        <path d="M9 10V7a3 3 0 016 0v3" />
+                    </svg>
+                </span>
                 {% if form.confirmar_nova_senha.errors %}
                 {{ form.confirmar_nova_senha(class="form-input is-invalid", id="confirmPassword",
                 autocomplete="new-password") }}
@@ -158,13 +182,22 @@
     <form method="POST" action="{{ url_for('private.delete_account') }}" id="deleteAccountForm">
         {{ delete_account_form.hidden_tag() }}
 
-        <div class="form-group account-delete-password" id="deletePasswordWrap">
-            <label class="reg-field-label" for="deleteAccountPassword">
+        <div class="form-group account-delete-password" id="deletePasswordWrap" hidden>
+            <label class="form-label" for="deleteAccountPassword">
                 Confirme sua senha para excluir a conta
             </label>
 
-            <div class="reg-input-wrap">
-                {{ delete_account_form.senha(class="form-input", id="deleteAccountPassword", placeholder="Digite sua senha", autocomplete="current-password") }}
+            <div class="reg-input-wrap security-password-field">
+                <span class="reg-input-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path
+                            d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v7a2 2 0 002 2h12a2 2 0 002-2v-7a2 2 0 00-2-2h-1V7a5 5 0 00-5-5z" />
+                        <path d="M9 10V7a3 3 0 016 0v3" />
+                    </svg>
+                </span>
+                {{ delete_account_form.senha(class="form-input", id="deleteAccountPassword", placeholder="Digite sua
+                senha", autocomplete="current-password") }}
                 <button type="button" class="reg-pw-toggle" id="deletePasswordToggle"
                     aria-label="Mostrar senha da exclusão">
                     <svg id="deletePasswordEyeIcon" width="15" height="15" viewBox="0 0 24 24" fill="none"

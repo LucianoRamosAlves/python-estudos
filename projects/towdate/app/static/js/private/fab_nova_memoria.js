@@ -29,8 +29,6 @@
     const toast = modal.querySelector(".memory-new__toast");
     const photoActionButtons = modal.querySelectorAll("[data-photo-action]");
 
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    let expanded = false;
     let currentStep = 1;
     let selectedFiles = [];
     let tags = [];
@@ -78,6 +76,8 @@
         window.setTimeout(() => {
             toast.classList.remove("memory-new__toast--visible");
             toast.setAttribute("hidden", "true");
+            const TOTAL_STEPS = 4;
+            const MAX_DESCRIPTION_LENGTH = 280;
         }, 3200);
     }
 
@@ -288,11 +288,6 @@
         modal.hidden = true;
         document.body.style.overflow = "";
         trigger.classList.remove("is-expanded");
-        expanded = false;
-    }
-
-    function toggleExpanded() {
-        openModal();
     }
 
     function validateForm() {
@@ -355,18 +350,12 @@
         goToStep(1, "next");
     }
 
-    trigger.addEventListener("click", toggleExpanded);
+    trigger.addEventListener("click", openModal);
     closeButtons.forEach(button => button.addEventListener("click", closeModal));
 
     if (backdrop) {
         backdrop.addEventListener("click", closeModal);
     }
-
-    document.addEventListener("click", event => {
-        if (!trigger.contains(event.target) && !modal.contains(event.target) && expanded) {
-            closeModal();
-        }
-    });
 
     document.addEventListener("keydown", event => {
         if (event.key === "Escape" && !modal.hidden) {

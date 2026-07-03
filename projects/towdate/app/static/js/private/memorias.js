@@ -3,23 +3,41 @@
    Premium interactions
 ========================== */
 
-document.addEventListener('DOMContentLoaded', () => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const page = document.querySelector('.memories-page');
+const SELECTORS = Object.freeze({
+    page: '.memories-page',
+    revealTargets: '.memories-stat-card, .memories-featured__card, .memories-grid-card',
+    collectionCards: '.memories-collection-card',
+    collectionTitle: '.memories-collection-card__title',
+    memoryCards: '.memories-grid-card',
+    memoryTitle: '.memories-grid-card__title'
+});
 
-    if (!reduceMotion) {
-        page?.classList.add('is-motion-ready');
-    }
+document.addEventListener('DOMContentLoaded', bootstrapMemoriesPage);
 
+function bootstrapMemoriesPage() {
+    const reduceMotion = prefersReducedMotion();
+
+    setPageMotionState(reduceMotion);
     initializeRevealAnimations(reduceMotion);
     initializeCollectionCards();
     initializeMemoryCards();
-});
+}
+
+function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function setPageMotionState(reduceMotion) {
+    if (reduceMotion) {
+        return;
+    }
+
+    const page = document.querySelector(SELECTORS.page);
+    page?.classList.add('is-motion-ready');
+}
 
 function initializeRevealAnimations(reduceMotion) {
-    const elements = document.querySelectorAll(
-        '.memories-stat-card, .memories-featured__card, .memories-grid-card'
-    );
+    const elements = document.querySelectorAll(SELECTORS.revealTargets);
 
     if (reduceMotion || !('IntersectionObserver' in window)) {
         elements.forEach((element) => element.classList.add('is-visible'));
@@ -47,25 +65,29 @@ function initializeRevealAnimations(reduceMotion) {
 }
 
 function initializeCollectionCards() {
-    const cards = document.querySelectorAll('.memories-collection-card');
+    const cards = document.querySelectorAll(SELECTORS.collectionCards);
 
     cards.forEach((card) => {
-        const title = card.querySelector('.memories-collection-card__title')?.textContent.trim() || '';
+        const title = getCardTitle(card, SELECTORS.collectionTitle);
 
         makeCardAccessible(card, `Coleção ${title}`, () => {
-            openCollection(card.dataset.collection, card);
+            openCollection(card.dataset.collection);
         });
     });
 }
 
 function initializeMemoryCards() {
-    document.querySelectorAll('.memories-grid-card').forEach((card) => {
-        const title = card.querySelector('.memories-grid-card__title')?.textContent.trim() || '';
+    document.querySelectorAll(SELECTORS.memoryCards).forEach((card) => {
+        const title = getCardTitle(card, SELECTORS.memoryTitle);
 
         makeCardAccessible(card, `Memória: ${title}`, () => {
             openMemory(title, card);
         });
     });
+}
+
+function getCardTitle(card, titleSelector) {
+    return card.querySelector(titleSelector)?.textContent.trim() || '';
 }
 
 function makeCardAccessible(card, label, activate) {
@@ -102,7 +124,7 @@ function createRipple(card, event = null) {
     ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
 }
 
-function openCollection(collection, card) {
+function openCollection(collection) {
     window.location.href = `/memorias/colecao/${collection}`;
 }
 
