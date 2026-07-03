@@ -118,6 +118,7 @@
 }
 
 .relationship-danger {
+    --relationship-danger-motion: 0.22s ease;
     border-color: rgba(248, 113, 113, 0.22);
     background: linear-gradient(180deg, rgba(50, 21, 24, 0.55) 0%, rgba(27, 15, 17, 0.9) 100%);
     box-shadow: 0 10px 24px rgba(122, 27, 33, 0.08);
@@ -141,7 +142,7 @@
     color: #efb3b3;
     background: rgba(54, 22, 25, 0.72);
     box-shadow: none;
-    transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, color 0.22s ease;
+    transition: transform var(--relationship-danger-motion), border-color var(--relationship-danger-motion), background var(--relationship-danger-motion), color var(--relationship-danger-motion);
 }
 
 .relationship-danger .btn.btn-danger:hover,

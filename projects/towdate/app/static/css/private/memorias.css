@@ -11,6 +11,7 @@
     --memories-surface: rgba(15, 19, 38, 0.78);
     --memories-surface-strong: rgba(10, 13, 28, 0.94);
     --memories-line: rgba(226, 199, 143, 0.18);
+    --memories-motion-base: 260ms ease;
     min-height: 100vh;
     padding: 92px 0 28px;
     position: relative;
@@ -149,9 +150,9 @@
     box-shadow: 0 12px 32px rgba(2, 5, 18, 0.2);
     backdrop-filter: blur(16px);
     transition:
-        border-color 260ms ease,
-        box-shadow 260ms ease,
-        transform 260ms ease;
+        border-color var(--memories-motion-base),
+        box-shadow var(--memories-motion-base),
+        transform var(--memories-motion-base);
 }
 
 .memories-stat-card::before {

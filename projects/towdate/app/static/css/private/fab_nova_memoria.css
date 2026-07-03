@@ -3,6 +3,8 @@
 ========================== */
 
 .td-memory-fab {
+    --fab-motion-fast: 0.25s ease;
+    --fab-motion-medium: 0.35s ease;
     position: fixed;
     right: 24px;
     bottom: 24px;
@@ -18,7 +20,7 @@
     cursor: pointer;
     overflow: hidden;
     box-shadow: 0 14px 30px rgba(106, 61, 109, 0.3);
-    transition: width 0.35s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    transition: width var(--fab-motion-medium), box-shadow var(--fab-motion-fast), transform var(--fab-motion-fast);
     z-index: 9999;
 }
 
@@ -61,6 +63,8 @@
 ========================== */
 
 .td-memory-fab-modal {
+    --fab-modal-motion-base: 260ms ease;
+    --fab-modal-motion-fast: 180ms ease;
     position: fixed;
     inset: 0;
     display: grid;
@@ -93,7 +97,7 @@
     color: #f3f0ec;
     color-scheme: dark;
     overflow: hidden;
-    animation: slideUp 260ms ease;
+    animation: slideUp var(--fab-modal-motion-base);
     display: flex;
     flex-direction: column;
 }
@@ -139,7 +143,7 @@
     background: rgba(90, 16, 16, 0.28);
     box-shadow: 0 0 0 2px rgba(255, 99, 99, 0.18);
     cursor: pointer;
-    transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    transition: transform var(--fab-modal-motion-fast), background var(--fab-modal-motion-fast), box-shadow var(--fab-modal-motion-fast);
 }
 
 .td-memory-fab-modal__close:hover {
@@ -184,7 +188,7 @@
     border-radius: inherit;
     background: linear-gradient(90deg, #7a62c4 0%, #b1728a 72%, #e2c78f 100%);
     box-shadow: 0 0 16px rgba(106, 61, 109, 0.28);
-    transition: width 260ms ease;
+    transition: width var(--fab-modal-motion-base);
 }
 
 .memory-new__step-counter {
@@ -212,7 +216,7 @@
     opacity: 0;
     transform: translate3d(var(--step-enter-x, 18px), 0, 0);
     pointer-events: none;
-    transition: opacity 260ms ease, transform 260ms ease;
+    transition: opacity var(--fab-modal-motion-base), transform var(--fab-modal-motion-base);
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(226, 199, 143, 0.55) rgba(255, 255, 255, 0.06);

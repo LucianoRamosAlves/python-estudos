@@ -445,6 +445,7 @@
 }
 
 .account-danger{
+    --account-danger-motion:.22s ease;
     border-color:rgba(248,113,113,.22);
     background:linear-gradient(180deg, rgba(50,21,24,.55) 0%, rgba(27,15,17,.9) 100%);
     box-shadow:0 10px 24px rgba(122,27,33,.08);
@@ -487,7 +488,7 @@
     color:#efb3b3;
     background:rgba(54,22,25,.72);
     box-shadow:none;
-    transition:transform .22s ease, border-color .22s ease, background .22s ease, color .22s ease;
+    transition:transform var(--account-danger-motion), border-color var(--account-danger-motion), background var(--account-danger-motion), color var(--account-danger-motion);
 }
 
 .account-danger .btn-danger-outline:hover,
