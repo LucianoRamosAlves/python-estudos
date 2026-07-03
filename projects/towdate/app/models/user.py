@@ -36,6 +36,10 @@ class User(db.Model, UserMixin):
 
     session_version = db.Column(db.Integer, default=1, nullable=False)
 
+    relationships = db.relationship(
+    "RelationshipMember",
+    back_populates="user",cascade="all, delete-orphan",lazy=True,)
+
     # auditoria
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 

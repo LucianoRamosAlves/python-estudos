@@ -1,6 +1,7 @@
 from flask import session, redirect, url_for, flash, Flask, request
 from flask_login import current_user, logout_user
 from werkzeug.exceptions import RequestEntityTooLarge
+from app import models
 
 from app.config import Config
 from app.extensions import db, migrate, login_manager, bcrypt
