@@ -1,62 +1,89 @@
 {% extends 'private/accounts/settings_base.html' %}
 
 {% block settings_content %}
-<form class="account-card relationship-card">
+<form id="relationshipPhotoForm" class="account-card relationship-card" method="POST" enctype="multipart/form-data">
+    {{ photo_form.hidden_tag() }}
+    <input type="hidden" name="form_type" value="photo">
     <div class="relationship-header">
         <div>
             <p class="section-label">Relacionamento</p>
             <h2>Perfil do casal</h2>
         </div>
-        <span class="relationship-pill">{{ relationship.relationship_status }}</span>
+        <span class="relationship-pill">{{ relationship.relationship_status if relationship else 'Sem status' }}</span>
     </div>
-    <form id="relationshipPhotoForm" method="POST" enctype="multipart/form-data" class="relationship-form"></form>
-    {{ form.hidden_tag() }}
-    <div class="relationship-panel">
-        <div class="relationship-panel-title">Foto do casal</div>
-        <p class="relationship-panel-text">Envie uma foto para representar o relacionamento.</p>
-        <div class="relationship-photo-box">
-            {% if relationship and relationship.couple_photo %}
-            <img loading="lazy" src="{{ url_for('static', filename='uploads/couples/' ~ relationship.couple_photo) }}"
-                alt="Foto do casal">
-            {% else %}
-            <div class="relationship-photo-placeholder">
-                Sem foto cadastrada
+
+    <div class="relationship-form">
+        <div class="relationship-panel r">
+            <div class="relationship-panel-title">Foto do casal</div>
+            <p class="relationship-panel-text">Envie uma foto para representar o relacionamento.</p>
+            <div class="relationship-photo-box">
+                {% if relationship and relationship.couple_photo %}
+                <img loading="lazy"
+                    src="{{ url_for('static', filename='uploads/couples/' ~ relationship.couple_photo) }}"
+                    alt="Foto do casal">
+                {% else %}
+                <div class="relationship-photo-placeholder">
+                    Sem foto cadastrada
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
 
-        <div class="form-group">
+            <div class="form-group {% if photo_form.couple_photo.errors %}is-invalid{% endif %}">
 
-            <input type="hidden" name="form_type" value="photo">
+                {{ photo_form.couple_photo(
+                id="couplePhoto",
+                class="form-input{% if photo_form.couple_photo.errors %} is-invalid{% endif %}",
+                accept="image/png,image/jpeg,image/jpg,image/webp",
+                style="display:none;"
+                ) }}
 
-            {{ form.couple_photo(
-            id="couplePhoto",
-            class="form-input",
-            accept="image/png,image/jpeg,image/jpg",
-            style="display:none;"
-            ) }}
+                <button type="button" class="btn btn-outline" id="btnAlterarFotoRelacionamento">
+                    Alterar Foto
+                </button>
 
-            <button type="button" class="btn btn-outline" id="btnAlterarFotoRelacionamento">
-                Alterar Foto
-            </button>
+                {% if photo_form.couple_photo.errors %}
+                <div class="field-error" role="alert">
+                    {% for error in photo_form.couple_photo.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
 
+            </div>
         </div>
     </div>
 </form>
 
-<form id="relationshipPhotoForm" method="POST" class="relationship-form">
+<form id="relationshipForm" method="POST" class="relationship-form">
     {{ form.hidden_tag() }}
+    <input type="hidden" name="form_type" value="relationship">
+
     <div class="form-group">
         <label class="form-label" for="relationshipStatus">
             {{ form.relationship_status.label.text }}
         </label>
 
+        {% if form.relationship_status.errors %}
+        {{ form.relationship_status(
+        id="relationshipStatus",
+        class="form-input is-invalid"
+        ) }}
+        {% else %}
         {{ form.relationship_status(
         id="relationshipStatus",
         class="form-input"
         ) }}
+        {% endif %}
+
+        {% if form.relationship_status.errors %}
+        <div class="field-error" role="alert">
+            {% for error in form.relationship_status.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
-    </div>
+
 
     <div class="relationship-grid secondary-grid">
         <div class="form-group">
@@ -64,10 +91,25 @@
                 {{ form.relationship_start_date.label.text }}
             </label>
 
+            {% if form.relationship_start_date.errors %}
+            {{ form.relationship_start_date(
+            id="relationshipDate",
+            class="form-input is-invalid"
+            ) }}
+            {% else %}
             {{ form.relationship_start_date(
             id="relationshipDate",
             class="form-input"
             ) }}
+            {% endif %}
+
+            {% if form.relationship_start_date.errors %}
+            <div class="field-error" role="alert">
+                {% for error in form.relationship_start_date.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
 
         <div class="relationship-panel">
@@ -77,12 +119,29 @@
                     {{ form.relationship_phrase.label.text }}
                 </label>
 
+                {% if form.relationship_phrase.errors %}
+                {{ form.relationship_phrase(
+                id="relationshipPhrase",
+                class="form-input is-invalid",
+                rows=3,
+                placeholder="Escreva uma frase bonita para o casal"
+                ) }}
+                {% else %}
                 {{ form.relationship_phrase(
                 id="relationshipPhrase",
                 class="form-input",
                 rows=3,
                 placeholder="Escreva uma frase bonita para o casal"
                 ) }}
+                {% endif %}
+
+                {% if form.relationship_phrase.errors %}
+                <div class="field-error" role="alert">
+                    {% for error in form.relationship_phrase.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -97,15 +156,38 @@
     <p>Encerrar relacionamento é uma ação irreversível e removerá o perfil do relacionamento da sua conta.</p>
 
     <form id="endRelationshipForm" class="relationship-form" method="POST">
+        {{ end_relationship_form.hidden_tag() }}
         <input type="hidden" name="form_type" value="end_relationship">
         <div id="endRelationshipPasswordWrap" class="form-group" style="display:none;">
             <label class="form-label" for="endRelationshipPassword">Confirme sua senha</label>
-            <input class="form-input" type="password" id="endRelationshipPassword" name="password"
-                placeholder="Digite sua senha atual">
+
+            {% if end_relationship_form.password.errors %}
+            {{ end_relationship_form.password(
+            class="form-input is-invalid",
+            id="endRelationshipPassword",
+            placeholder="Digite sua senha atual",
+            autocomplete="current-password"
+            ) }}
+            {% else %}
+            {{ end_relationship_form.password(
+            class="form-input",
+            id="endRelationshipPassword",
+            placeholder="Digite sua senha atual",
+            autocomplete="current-password"
+            ) }}
+            {% endif %}
+
+            {% if end_relationship_form.password.errors %}
+            <div class="field-error" role="alert">
+                {% for error in end_relationship_form.password.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
+
         <button type="button" class="btn btn-danger" id="btnEndRelationship">Encerrar relacionamento</button>
     </form>
-</div>
 </div>
 {% endblock %}
 
