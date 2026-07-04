@@ -10,6 +10,7 @@
         initProfileFormConfirmation();
         initProfilePhotoChange();
         initRelationshipPhotoChange();
+        initPartnerPage();
         initProfilePhotoRemoval();
         initSecurityConfirmButtons();
         initEndRelationshipFlow();
@@ -92,6 +93,127 @@
             title: "Alterar foto do relacionamento",
             message: "Tem certeza que deseja alterar a foto do relacionamento?",
         });
+    }
+
+    function initPartnerPage() {
+        initPartnerCodeCopy();
+        initPartnerCodeShare();
+        initPartnerCodeInput();
+        initPartnerDisconnectFlow();
+    }
+
+    function initPartnerCodeCopy() {
+        const button = byId("btnCopyPartnerCode");
+        const input = byId("inviteCode");
+
+        if (!button || !input || button.disabled) {
+            return;
+        }
+
+        button.addEventListener("click", async () => {
+            const value = input.value?.trim();
+            if (!value) {
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(value);
+                showClientToast("success", "Código copiado", "O código do convite foi copiado.");
+            } catch {
+                const wasDisabled = input.disabled;
+                if (wasDisabled) {
+                    input.removeAttribute("disabled");
+                }
+                input.select();
+                document.execCommand("copy");
+                input.setSelectionRange(0, 0);
+                if (wasDisabled) {
+                    input.setAttribute("disabled", "disabled");
+                }
+                showClientToast("success", "Código copiado", "O código do convite foi copiado.");
+            }
+        });
+    }
+
+    function initPartnerCodeShare() {
+        const button = byId("btnSharePartnerCode");
+        const input = byId("inviteCode");
+
+        if (!button || !input || button.disabled) {
+            return;
+        }
+
+        button.addEventListener("click", async () => {
+            const value = input.value?.trim();
+            if (!value) {
+                return;
+            }
+
+            const shareText = `Use este código para conectar seu parceiro no ToDate: ${value}`;
+
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: "Convite ToDate",
+                        text: shareText,
+                    });
+                    return;
+                } catch {
+                    // Fallback para cópia abaixo.
+                }
+            }
+
+            try {
+                await navigator.clipboard.writeText(shareText);
+                showClientToast("info", "Convite pronto", "O texto do convite foi copiado para compartilhar.");
+            } catch {
+                showClientToast("warning", "Compartilhamento indisponível", "Não foi possível compartilhar o convite neste dispositivo.");
+            }
+        });
+    }
+
+    function initPartnerCodeInput() {
+        const input = byId("partnerCode");
+
+        if (!input || input.disabled) {
+            return;
+        }
+
+        input.addEventListener("input", () => {
+            input.value = input.value.trimStart();
+            input.setCustomValidity("");
+        });
+    }
+
+    function initPartnerDisconnectFlow() {
+        bindConfirmSubmission({
+            button: byId("btnDisconnectPartner"),
+            form: byId("disconnectPartnerForm"),
+            type: "danger",
+            title: "Desconectar parceiro",
+            message: "Tem certeza que deseja remover o vínculo entre as duas contas?",
+            confirmText: "Desconectar",
+            cancelText: "Cancelar",
+        });
+    }
+
+    function showClientToast(type, title, message) {
+        if (typeof ToDate === "undefined" || typeof ToDate.presentToastElement !== "function") {
+            return;
+        }
+
+        const toast = document.createElement("div");
+        toast.className = `todate-toast todate-toast-${type}`;
+        toast.innerHTML = `
+            <div class="todate-toast-body">
+                <div class="todate-toast-title">${title}</div>
+                <div class="todate-toast-message">${message}</div>
+            </div>
+            <button class="todate-toast-close" type="button" aria-label="Fechar notificação">✕</button>
+            <span class="todate-toast-progress"></span>
+        `;
+
+        ToDate.presentToastElement(toast);
     }
 
     function bindPhotoUploadAutoSubmit({ formId, inputId, buttonId, title, message }) {

@@ -63,11 +63,7 @@ def salvar_imagem(
     limite_tamanho = current_app.config.get("MAX_CONTENT_LENGTH")
     tamanho_arquivo = obter_tamanho_arquivo(arquivo)
 
-    if (
-        limite_tamanho
-        and tamanho_arquivo
-        and tamanho_arquivo > limite_tamanho
-    ):
+    if limite_tamanho and tamanho_arquivo and tamanho_arquivo > limite_tamanho:
         return None
 
     pasta_upload = os.path.join(
