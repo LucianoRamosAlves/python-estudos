@@ -139,9 +139,27 @@ def _validate_user_can_join_relationship(current_user, relationship):
     if current_member is not None:
         if current_member.relationship_id == relationship.id:
             return "Você já participa deste relacionamento."
+
+        if _is_user_solo_relationship_member(current_member, current_user.id):
+            return None
+
         return "Você já participa de um relacionamento e não pode se conectar sem perder dados existentes."
 
     return None
+
+
+def _is_user_solo_relationship_member(relationship_member, user_id):
+    """Verifica se o membro pertence a um relacionamento ativo só com o próprio usuário."""
+
+    if relationship_member is None:
+        return False
+
+    relationship = relationship_member.relationship
+    if relationship is None or not relationship.relationship_is_active:
+        return False
+
+    members = relationship.members or []
+    return len(members) == 1 and members[0].user_id == user_id
 
 
 def connect_user_by_invitation_code(current_user, code):
@@ -156,6 +174,16 @@ def connect_user_by_invitation_code(current_user, code):
         return validation_error
 
     try:
+        current_member = get_active_relationship_member(current_user)
+        if (
+            current_member is not None
+            and current_member.relationship_id != relationship.id
+            and _is_user_solo_relationship_member(current_member, current_user.id)
+        ):
+            previous_relationship = current_member.relationship
+            db.session.delete(current_member)
+            db.session.delete(previous_relationship)
+
         db.session.add(
             RelationshipMember(
                 relationship_id=relationship.id,
