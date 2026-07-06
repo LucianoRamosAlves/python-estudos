@@ -24,6 +24,8 @@ class Relationship(db.Model):
 
     relationship_is_active = db.Column(db.Boolean, default=True, nullable=False)
 
+    invitation_code = db.Column(db.String(20), unique=True, nullable=True, index=True)
+
     created_at = db.Column(
         db.DateTime,
         default=datetime.utcnow,

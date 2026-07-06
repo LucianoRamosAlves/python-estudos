@@ -98,7 +98,6 @@
     function initPartnerPage() {
         initPartnerCodeCopy();
         initPartnerCodeShare();
-        initPartnerCodeInput();
         initPartnerDisconnectFlow();
     }
 
@@ -169,19 +168,6 @@
             } catch {
                 showClientToast("warning", "Compartilhamento indisponível", "Não foi possível compartilhar o convite neste dispositivo.");
             }
-        });
-    }
-
-    function initPartnerCodeInput() {
-        const input = byId("partnerCode");
-
-        if (!input || input.disabled) {
-            return;
-        }
-
-        input.addEventListener("input", () => {
-            input.value = input.value.trimStart();
-            input.setCustomValidity("");
         });
     }
 

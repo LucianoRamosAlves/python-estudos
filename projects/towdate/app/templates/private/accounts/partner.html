@@ -1,7 +1,8 @@
 {% extends 'private/accounts/settings_base.html' %}
 
 {% block settings_content %}
-<div class="account-card relationship-card partner-page {{ 'partner-connected' if is_connected else 'partner-disconnected' }}">
+<div
+    class="account-card relationship-card partner-page {{ 'partner-connected' if is_connected else 'partner-disconnected' }}">
     <div class="relationship-header">
         <div>
             <p class="section-label">Parceiro</p>
@@ -55,20 +56,25 @@
 
                 <div class="form-group">
                     <label class="form-label" for="inviteCode">Código de convite</label>
-                    <input class="form-input" type="text" id="inviteCode" value="{{ invite_code }}" readonly {% if is_connected %}disabled{% endif %}>
+                    <input class="form-input" type="text" id="inviteCode" value="{{ invite_code or '' }}" readonly {% if
+                        is_connected %}disabled{% endif %}>
                 </div>
 
                 <div class="relationship-actions">
-                    <button type="button" class="btn btn-outline" id="btnCopyPartnerCode" {% if is_connected %}disabled{% endif %}>Copiar código</button>
-                    <button type="button" class="btn btn-outline" id="btnSharePartnerCode" {% if is_connected %}disabled{% endif %}>Compartilhar convite</button>
+                    <button type="button" class="btn btn-outline" id="btnCopyPartnerCode" {% if is_connected
+                        %}disabled{% endif %}>Copiar código</button>
+                    <button type="button" class="btn btn-outline" id="btnSharePartnerCode" {% if is_connected
+                        %}disabled{% endif %}>Compartilhar convite</button>
                 </div>
 
                 <div class="form-group" style="margin-top: 0.8rem;">
                     <label class="form-label" for="partnerCode">Digite o código</label>
                     {% if connect_form.partner_code.errors %}
-                    {{ connect_form.partner_code(class="form-input is-invalid", id="partnerCode", placeholder="Cole o código recebido", disabled=is_connected) }}
+                    {{ connect_form.partner_code(class="form-input is-invalid", id="partnerCode", placeholder="Cole o
+                    código recebido", disabled=is_connected) }}
                     {% else %}
-                    {{ connect_form.partner_code(class="form-input", id="partnerCode", placeholder="Cole o código recebido", disabled=is_connected) }}
+                    {{ connect_form.partner_code(class="form-input", id="partnerCode", placeholder="Cole o código
+                    recebido", disabled=is_connected) }}
                     {% endif %}
 
                     {% if connect_form.partner_code.errors %}
@@ -80,7 +86,8 @@
                     {% endif %}
                 </div>
 
-                <button type="submit" class="btn btn-primary" id="btnConnectPartner" {% if is_connected %}disabled{% endif %}>Conectar parceiro</button>
+                <button type="submit" class="btn btn-primary" id="btnConnectPartner" {% if is_connected %}disabled{%
+                    endif %}>Conectar parceiro</button>
             </form>
         </div>
     </div>
@@ -109,7 +116,8 @@
         <form id="disconnectPartnerForm" method="POST" class="relationship-form">
             {{ disconnect_form.hidden_tag() }}
             <input type="hidden" name="form_type" value="disconnect_partner">
-            <button type="button" class="btn btn-danger" id="btnDisconnectPartner" {% if not is_connected %}disabled{% endif %}>Desconectar parceiro</button>
+            <button type="button" class="btn btn-danger" id="btnDisconnectPartner" {% if not is_connected %}disabled{%
+                endif %}>Desconectar parceiro</button>
         </form>
     </div>
 </div>

@@ -1,4 +1,3 @@
-
 from app.forms.relationship_forms import (
     EndRelationshipForm,
     RelationshipForm,
@@ -17,21 +16,26 @@ from app.extensions import bcrypt, db
 from app.private.routes import private
 from app.models.relationship import Relationship
 from app.models.relationship_member import RelationshipMember
+from app.services.invitation_service import generate_invitation_code
 from app.services.upload_services import salvar_foto_casal, remover_foto_casal
+
 
 def preencher_formulario_relacionamento(form, relationship):
     form.relationship_status.data = relationship.relationship_status
     form.relationship_phrase.data = relationship.relationship_phrase
     form.relationship_start_date.data = relationship.relationship_start_date
 
+
 def atualizar_relacionamento(relationship, form):
     relationship.relationship_status = form.relationship_status.data
     relationship.relationship_phrase = form.relationship_phrase.data
     relationship.relationship_start_date = form.relationship_start_date.data
 
+
 def obter_relacionamento_atual(user):
     member = user.relationships[0] if user.relationships else None
     return member.relationship if member else None
+
 
 def encerrar_relacionamento(relationship, password):
     if not bcrypt.check_password_hash(current_user.password_hash, password):
@@ -44,8 +48,6 @@ def encerrar_relacionamento(relationship, password):
     db.session.commit()
 
     return True
-
-
 
 
 @private.route("/account/relationship", methods=["GET", "POST"])
@@ -80,15 +82,18 @@ def account_relationship():
                 )
 
             if relationship is None:
-                    flash("Você ainda não possui um relacionamento registrado. Preencha os campos abaixo para criar um.", "warning")
-                    return render_template(
-                        "private/accounts/relationship.html",
-                        active_page="relationship",
-                        form=form,
-                        photo_form=photo_form,
-                        end_relationship_form=end_relationship_form,
-                        relationship=relationship,
-                    )
+                flash(
+                    "Você ainda não possui um relacionamento registrado. Preencha os campos abaixo para criar um.",
+                    "warning",
+                )
+                return render_template(
+                    "private/accounts/relationship.html",
+                    active_page="relationship",
+                    form=form,
+                    photo_form=photo_form,
+                    end_relationship_form=end_relationship_form,
+                    relationship=relationship,
+                )
 
             if not photo_form.couple_photo.data:
                 flash("Selecione uma imagem para atualizar a foto do casal.", "warning")
@@ -122,6 +127,7 @@ def account_relationship():
                         relationship_status=form.relationship_status.data,
                         relationship_phrase=form.relationship_phrase.data,
                         relationship_start_date=form.relationship_start_date.data,
+                        invitation_code=generate_invitation_code(),
                     )
 
                     db.session.add(relationship)
@@ -165,7 +171,9 @@ def account_relationship():
                     relationship=relationship,
                 )
 
-            if not encerrar_relacionamento(relationship, end_relationship_form.password.data):
+            if not encerrar_relacionamento(
+                relationship, end_relationship_form.password.data
+            ):
                 end_relationship_form.password.errors.append("Senha incorreta.")
                 preencher_formulario_relacionamento(form, relationship)
                 flash("Senha incorreta.", "error")
