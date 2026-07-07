@@ -6,3 +6,9 @@ from .memory import Memory
 from .memory_photo import MemoryPhoto
 from .tag import Tag
 from .memory_tag import MemoryTag
+from .calendar_event import CalendarEvent
+from .goal import Goal
+from .piggy_bank import PiggyBank
+from .piggy_bank_movement import PiggyBankMovement
+from .wish import Wish
+from .achievement import Achievement

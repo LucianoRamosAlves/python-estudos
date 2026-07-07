@@ -1,0 +1,69 @@
+{% extends "private/base.html" %}
+
+{% block title %}Editar cofrinho - TowDate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/memorias.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/cofrinho.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="memories-page">
+    <div class="container">
+        <section class="memory-section memory-section--tight">
+            <div class="memory-card account-card">
+                <div class="memory-card__header">
+                    <h3>Editar cofrinho</h3>
+                </div>
+                <div class="memory-card__body">
+                    <form class="reg-form" method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="piggyTitle">Título</label>
+                                {{ form.title(class_='form-input', id='piggyTitle') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="piggyCategory">Categoria</label>
+                                {{ form.category(class_='form-select', id='piggyCategory') }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="piggyDescription">Descrição</label>
+                            {{ form.description(class_='form-textarea', id='piggyDescription', rows=4) }}
+                        </div>
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="piggyTarget">Valor da meta</label>
+                                {{ form.target_amount(class_='form-input', id='piggyTarget', step='0.01') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="piggyCurrent">Valor atual</label>
+                                {{ form.current_amount(class_='form-input', id='piggyCurrent', step='0.01') }}
+                            </div>
+                        </div>
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="piggyStatus">Status</label>
+                                {{ form.status(class_='form-select', id='piggyStatus') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="piggyDate">Data prevista</label>
+                                {{ form.target_date(class_='form-input', id='piggyDate') }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="piggyFavorite">Favorito</label>
+                            {{ form.favorite(id='piggyFavorite') }}
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-primary" type="submit">Salvar alterações</button>
+                            <a class="btn btn-outline" href="{{ url_for('private.cofrinho') }}">Voltar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

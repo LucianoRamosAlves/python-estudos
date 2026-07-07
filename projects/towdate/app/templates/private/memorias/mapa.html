@@ -1,0 +1,77 @@
+{% extends "private/base.html" %}
+
+{% block title %}Mapa de Memórias - TowDate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/memorias.css') }}">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="" crossorigin="" />
+<style>
+    #memoriesMap {
+        height: 600px;
+        border-radius: 8px;
+    }
+
+    .map-sidebar {
+        max-width: 320px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="memories-page">
+    <div class="container">
+        <section class="memories-hero">
+            <div class="memories-hero__content">
+                <span class="memories-hero__eyebrow">Explorar</span>
+                <h1 class="memories-hero__title">Mapa de Memórias</h1>
+                <p class="memories-hero__subtitle">Veja os lugares especiais que vocês registraram juntos.</p>
+            </div>
+        </section>
+
+        <section class="memory-section memory-section--tight">
+            <div class="memory-toolbar">
+                <form class="goal-filter-form" method="get">
+                    <div class="goal-filter-form__controls">
+                        {{ filter_form.csrf_token }}
+                        {{ filter_form.category(class_='form-input') }}
+                        {{ filter_form.date_from(class_='form-input') }}
+                        {{ filter_form.date_to(class_='form-input') }}
+                        {{ filter_form.city(class_='form-input', placeholder='Cidade') }}
+                        <label class="form-input" style="display:flex;align-items:center;gap:8px;">
+                            {{ filter_form.favorites_only() }} Apenas favoritos
+                        </label>
+                        <button class="btn btn-outline" type="submit">Aplicar</button>
+                        <button class="btn btn-outline" type="button" id="clearFilters">Limpar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="memory-section">
+            <div style="display:grid; grid-template-columns: 1fr 320px; gap:1rem; align-items:start;">
+                <div>
+                    <div id="memoriesMap"></div>
+                </div>
+                <aside class="map-sidebar">
+                    <div class="memory-card">
+                        <h4>Resumo</h4>
+                        <p>Total de lugares visitados: <span id="totalPlaces">0</span></p>
+                        <p>Memórias com localização: <span id="totalMemories">0</span></p>
+                        <p>Cidades visitadas: <span id="citiesList">—</span></p>
+                        <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+                            <button class="btn btn-outline" id="centerMap">Centralizar</button>
+                            <button class="btn btn-outline" id="resetFilters">Limpar filtros</button>
+                        </div>
+                    </div>
+                    <div style="margin-top:1rem;" id="placesList"></div>
+                </aside>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script defer src="{{ url_for('static', filename='js/private/map_memories.js') }}"></script>
+{% endblock %}

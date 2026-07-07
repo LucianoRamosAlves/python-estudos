@@ -1,0 +1,96 @@
+{% extends "private/base.html" %}
+
+{% block title %}Dashboard - TowDate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <div class="container">
+    <section class="dashboard-hero">
+      <div class="dashboard-hero__media" style="background-image:url('{{ relationship.photo }}')"></div>
+      <div class="dashboard-hero__content">
+        <h1 class="dashboard-hero__title">{{ relationship.phrase or 'Seu painel' }}</h1>
+        <div class="dashboard-hero__meta">{{ relationship.status }} • {{ relationship.days_together }} dias • Início: {{ relationship.start_date.strftime('%d/%m/%Y') if relationship.start_date }}</div>
+      </div>
+    </section>
+
+    <section class="dashboard-stats">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-value">{{ stats.memories }}</div><div class="stat-label">Memórias</div></div>
+        <div class="stat-card"><div class="stat-value">{{ stats.photos }}</div><div class="stat-label">Fotos</div></div>
+        <div class="stat-card"><div class="stat-value">{{ stats.events_month }}</div><div class="stat-label">Eventos (mês)</div></div>
+        <div class="stat-card"><div class="stat-value">{{ stats.goals_active }}</div><div class="stat-label">Metas ativas</div></div>
+        <div class="stat-card"><div class="stat-value">{{ stats.piggy_active }}</div><div class="stat-label">Cofrinhos</div></div>
+        <div class="stat-card"><div class="stat-value">{{ stats.wishes_pending }}</div><div class="stat-label">Desejos</div></div>
+        <div class="stat-card"><div class="stat-value">{{ stats.achievements_unlocked }}</div><div class="stat-label">Conquistas</div></div>
+      </div>
+    </section>
+
+    <section class="dashboard-columns">
+      <div class="col-left">
+        <div class="panel">
+          <h3>Próximos eventos</h3>
+          <ul class="upcoming-list">
+            {% for e in upcoming %}
+            <li><strong>{{ e.title }}</strong> — {{ e.date.strftime('%d/%m/%Y') }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Últimas memórias</h3>
+          <div class="memories-grid">
+            {% for m in last_memories %}
+            <article class="mem-card">
+              <div class="mem-card__img" style="background-image:url('{{ m.photos[0].image_path if m.photos else url_for('static', filename='img/private/default_memory.jpg') }}')"></div>
+              <div class="mem-card__body">
+                <h4>{{ m.title }}</h4>
+                <div class="muted">{{ m.memory_date.strftime('%d/%m/%Y') }} • {{ m.collection.title if m.collection }}</div>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <aside class="col-right">
+        <div class="panel">
+          <h3>Metas</h3>
+          <ul class="goals-list">
+            {% for g in goals %}
+            <li>{{ g.title }} — {{ g.progress }}% • {{ g.priority }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Cofrinhos</h3>
+          <ul class="piggy-list">
+            {% for p in piggies %}
+            <li>{{ p.title }} — {{ p.current_amount }} (faltam {{ p.remaining_amount }})</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Conquistas recentes</h3>
+          <ul class="ach-list">
+            {% for a in achievements %}
+            <li>{{ a.title }} {% if a.unlocked_at %}- {{ a.unlocked_at.strftime('%d/%m/%Y') }}{% endif %}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script defer src="{{ url_for('static', filename='js/private/dashboard.js') }}"></script>
+{% endblock %}

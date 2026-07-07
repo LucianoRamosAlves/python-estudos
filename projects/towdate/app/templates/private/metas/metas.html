@@ -1,0 +1,214 @@
+{% extends "private/base.html" %}
+
+{% block title %}Metas do Casal - TowDate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/memorias.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/goals.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="memories-page">
+    <div class="container">
+        <section class="memories-hero">
+            <div class="memories-hero__content">
+                <span class="memories-hero__eyebrow">Planejamento a dois</span>
+                <h1 class="memories-hero__title">Metas do Casal</h1>
+                <p class="memories-hero__subtitle">Acompanhe objetivos, prioridades e o progresso de tudo que vocês
+                    desejam conquistar juntos.</p>
+            </div>
+        </section>
+
+        <section class="memory-section memory-section--tight">
+            <div class="memory-toolbar">
+                <form class="goal-filter-form" method="get">
+                    <div class="goal-filter-form__controls">
+                        <select class="form-input" name="category" aria-label="Filtrar por categoria">
+                            <option value="" {% if not filter_form.category.data %}selected{% endif %}>Todas as
+                                categorias</option>
+                            <option value="casal" {% if filter_form.category.data=='casal' %}selected{% endif %}>Casal
+                            </option>
+                            <option value="financas" {% if filter_form.category.data=='financas' %}selected{% endif %}>
+                                Finanças</option>
+                            <option value="viagem" {% if filter_form.category.data=='viagem' %}selected{% endif %}>
+                                Viagem</option>
+                            <option value="casa" {% if filter_form.category.data=='casa' %}selected{% endif %}>Casa
+                            </option>
+                            <option value="saude" {% if filter_form.category.data=='saude' %}selected{% endif %}>Saúde
+                            </option>
+                            <option value="outros" {% if filter_form.category.data=='outros' %}selected{% endif %}>
+                                Outros</option>
+                        </select>
+                        <select class="form-input" name="status" aria-label="Filtrar por status">
+                            <option value="" {% if not filter_form.status.data %}selected{% endif %}>Todos os status
+                            </option>
+                            <option value="planned" {% if filter_form.status.data=='planned' %}selected{% endif %}>
+                                Planejada</option>
+                            <option value="in_progress" {% if filter_form.status.data=='in_progress' %}selected{% endif
+                                %}>Em andamento</option>
+                            <option value="paused" {% if filter_form.status.data=='paused' %}selected{% endif %}>Pausada
+                            </option>
+                            <option value="completed" {% if filter_form.status.data=='completed' %}selected{% endif %}>
+                                Concluída</option>
+                        </select>
+                        <select class="form-input" name="sort_by" aria-label="Ordenar por">
+                            <option value="priority" {% if filter_form.sort_by.data=='priority' %}selected{% endif %}>
+                                Prioridade</option>
+                            <option value="target_date" {% if filter_form.sort_by.data=='target_date' %}selected{% endif
+                                %}>Data prevista</option>
+                        </select>
+                        <select class="form-input" name="order" aria-label="Ordem">
+                            <option value="desc" {% if filter_form.order.data=='desc' %}selected{% endif %}>Decrescente
+                            </option>
+                            <option value="asc" {% if filter_form.order.data=='asc' %}selected{% endif %}>Crescente
+                            </option>
+                        </select>
+                        <button class="btn btn-outline" type="submit">Aplicar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="memory-section">
+            <div class="memory-card account-card">
+                <div class="memory-card__header">
+                    <h3>Adicionar nova meta</h3>
+                </div>
+                <div class="memory-card__body">
+                    <form class="reg-form" method="post">
+                        {{ form.hidden_tag() }}
+
+                        <p class="reg-field-label">Detalhes da meta</p>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="goalTitle">Título</label>
+                                {{ form.title(class_='form-input', id='goalTitle') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="goalCategory">Categoria</label>
+                                {{ form.category(class_='form-select', id='goalCategory') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="goalDescription">Descrição</label>
+                            {{ form.description(class_='form-textarea', id='goalDescription', rows=4) }}
+                        </div>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="goalPriority">Prioridade</label>
+                                {{ form.priority(class_='form-select', id='goalPriority') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="goalStatus">Status</label>
+                                {{ form.status(class_='form-select', id='goalStatus') }}
+                            </div>
+                        </div>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="goalProgress">Progresso</label>
+                                {{ form.progress(class_='form-input', id='goalProgress', min='0', max='100') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="goalTargetDate">Data prevista</label>
+                                {{ form.target_date(class_='form-input', id='goalTargetDate') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="goalFavorite">Favorita</label>
+                            {{ form.favorite(id='goalFavorite') }}
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary" type="submit">Salvar meta</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="memory-section">
+            {% if goals %}
+            <div class="goal-grid">
+                {% for goal in goals %}
+                <article class="goal-card">
+                    <div class="goal-card__header">
+                        <div>
+                            <div class="goal-card__topline">
+                                <span class="goal-pill goal-pill--{{ goal.category }}">{{ goal.category }}</span>
+                                {% if goal.favorite %}
+                                <span class="goal-pill goal-pill--favorite">Favorita</span>
+                                {% endif %}
+                            </div>
+                            <h3>{{ goal.title }}</h3>
+                        </div>
+                        <span class="goal-pill goal-pill--{{ goal.priority }}">{{ goal.priority }}</span>
+                    </div>
+
+                    {% if goal.description %}
+                    <p class="goal-card__description">{{ goal.description }}</p>
+                    {% endif %}
+
+                    <div class="goal-progress">
+                        <div class="goal-progress__meta">
+                            <span>Progresso</span>
+                            <strong>{{ goal.progress }}%</strong>
+                        </div>
+                        <div class="goal-progress__bar">
+                            <span style="width: {{ goal.progress }}%;"></span>
+                        </div>
+                    </div>
+
+                    <div class="goal-card__details">
+                        <div>
+                            <span class="goal-card__label">Status</span>
+                            <p>{{ goal.status }}</p>
+                        </div>
+                        <div>
+                            <span class="goal-card__label">Data prevista</span>
+                            <p>{{ goal.target_date.strftime('%d/%m/%Y') if goal.target_date else '—' }}</p>
+                        </div>
+                    </div>
+
+                    <div class="goal-card__actions">
+                        <a class="btn btn-outline"
+                            href="{{ url_for('private.editar_meta', goal_id=goal.id) }}">Editar</a>
+                        <form method="post" action="{{ url_for('private.concluir_meta', goal_id=goal.id) }}"
+                            class="goal-inline-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="btn btn-primary" type="submit" {% if goal.status=='completed' %}disabled{%
+                                endif %}>Concluir</button>
+                        </form>
+                    </div>
+
+                    <form method="post" action="{{ url_for('private.atualizar_progresso_meta', goal_id=goal.id) }}"
+                        class="goal-progress-form">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <label class="goal-progress-form__label" for="progress-{{ goal.id }}">Atualizar
+                            progresso</label>
+                        <div class="goal-progress-form__controls">
+                            <input id="progress-{{ goal.id }}" type="range" min="0" max="100"
+                                value="{{ goal.progress }}" name="progress" data-goal-progress-range>
+                            <button class="btn btn-outline" type="submit">Salvar</button>
+                        </div>
+                    </form>
+                </article>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="memory-card">
+                <p>Nenhuma meta cadastrada ainda. Adicione uma nova meta para começar.</p>
+            </div>
+            {% endif %}
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script defer src="{{ url_for('static', filename='js/private/goals.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "private/base.html" %}
+
+{% block title %}Editar meta - TowDate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/memorias.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/goals.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="memories-page">
+    <div class="container">
+        <section class="memory-section memory-section--tight">
+            <div class="memory-card account-card">
+                <div class="memory-card__header">
+                    <h3>Editar meta</h3>
+                </div>
+                <div class="memory-card__body">
+                    <form class="reg-form" method="post">
+                        {{ form.hidden_tag() }}
+
+                        <p class="reg-field-label">Detalhes da meta</p>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="goalTitle">Título</label>
+                                {{ form.title(class_='form-input', id='goalTitle') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="goalCategory">Categoria</label>
+                                {{ form.category(class_='form-select', id='goalCategory') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="goalDescription">Descrição</label>
+                            {{ form.description(class_='form-textarea', id='goalDescription', rows=4) }}
+                        </div>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="goalPriority">Prioridade</label>
+                                {{ form.priority(class_='form-select', id='goalPriority') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="goalStatus">Status</label>
+                                {{ form.status(class_='form-select', id='goalStatus') }}
+                            </div>
+                        </div>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="goalProgress">Progresso</label>
+                                {{ form.progress(class_='form-input', id='goalProgress', min='0', max='100') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="goalTargetDate">Data prevista</label>
+                                {{ form.target_date(class_='form-input', id='goalTargetDate') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="goalFavorite">Favorita</label>
+                            {{ form.favorite(id='goalFavorite') }}
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary" type="submit">Salvar alterações</button>
+                            <a class="btn btn-outline" href="{{ url_for('private.metas') }}">Voltar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

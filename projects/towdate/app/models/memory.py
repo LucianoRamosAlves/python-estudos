@@ -26,6 +26,9 @@ class Memory(db.Model):
     description = db.Column(db.Text, nullable=False)
     memory_date = db.Column(db.Date, nullable=False)
     location = db.Column(db.String(120), nullable=True)
+    city = db.Column(db.String(80), nullable=True)
+    latitude = db.Column(db.Float, nullable=True)
+    longitude = db.Column(db.Float, nullable=True)
 
     rating = db.Column(db.Integer, nullable=False)
     is_favorite = db.Column(db.Boolean, nullable=False, default=False)

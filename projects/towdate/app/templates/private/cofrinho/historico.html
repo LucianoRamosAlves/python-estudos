@@ -1,0 +1,39 @@
+{% extends "private/base.html" %}
+
+{% block title %}Histórico do cofrinho - TowDate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/memorias.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/cofrinho.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="memories-page">
+    <div class="container">
+        <section class="memory-section memory-section--tight">
+            <div class="memory-card account-card">
+                <div class="memory-card__header">
+                    <h3>Histórico de {{ piggy_bank.title }}</h3>
+                </div>
+                <div class="memory-card__body">
+                    {% if movements %}
+                    <div class="history-list">
+                        {% for movement in movements %}
+                        <div class="history-item">
+                            <div>
+                                <strong>R$ {{ "%.2f"|format(movement.amount) }}</strong>
+                                <p>{{ movement.observation or 'Depósito registrado.' }}</p>
+                            </div>
+                            <span>{{ movement.created_at.strftime('%d/%m/%Y %H:%M') }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p>Nenhuma movimentação registrada ainda.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

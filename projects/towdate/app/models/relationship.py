@@ -60,5 +60,40 @@ class Relationship(db.Model):
         lazy=True,
     )
 
+    calendar_events = db.relationship(
+        "CalendarEvent",
+        back_populates="relationship",
+        cascade="all, delete-orphan",
+        lazy=True,
+    )
+
+    goals = db.relationship(
+        "Goal",
+        back_populates="relationship",
+        cascade="all, delete-orphan",
+        lazy=True,
+    )
+
+    piggy_banks = db.relationship(
+        "PiggyBank",
+        back_populates="relationship",
+        cascade="all, delete-orphan",
+        lazy=True,
+    )
+
+    wishes = db.relationship(
+        "Wish",
+        back_populates="relationship",
+        cascade="all, delete-orphan",
+        lazy=True,
+    )
+
+    achievements = db.relationship(
+        "Achievement",
+        back_populates="relationship",
+        cascade="all, delete-orphan",
+        lazy=True,
+    )
+
     def __repr__(self):
         return f"<Relationship {self.id}>"

@@ -14,4 +14,11 @@ from app.private.account import (
     partner,
     memorias,
     colecao,
+    calendar,
+    metas,
+    cofrinho,
+    desejos,
+    conquistas,
+    dashboard,
+    mapa_memorias,
 )

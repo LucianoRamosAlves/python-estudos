@@ -1,0 +1,156 @@
+{% extends "private/base.html" %}
+
+{% block title %}Calendário - ToDate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/memorias.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="memories-page">
+    <div class="container">
+        <section class="memories-hero">
+            <div class="memories-hero__content">
+                <span class="memories-hero__eyebrow">Planejamento a dois</span>
+                <h1 class="memories-hero__title">Calendário</h1>
+                <p class="memories-hero__subtitle">Organize os momentos do casal em um só lugar com datas especiais,
+                    memórias e eventos personalizados.</p>
+            </div>
+        </section>
+
+        <section class="memory-section memory-section--tight">
+            <div class="memory-toolbar">
+                <div class="memory-toolbar__group">
+                    <a class="btn btn-outline"
+                        href="{{ url_for('private.calendario') }}?year={{ calendar.year if calendar.month > 1 else calendar.year - 1 }}&month={{ calendar.month - 1 if calendar.month > 1 else 12 }}">←
+                        Mês anterior</a>
+                    <strong>{{ calendar.month_name|title }} {{ calendar.year }}</strong>
+                    <a class="btn btn-outline"
+                        href="{{ url_for('private.calendario') }}?year={{ calendar.year if calendar.month < 12 else calendar.year + 1 }}&month={{ calendar.month + 1 if calendar.month < 12 else 1 }}">Próximo
+                        mês →</a>
+                </div>
+                <a class="btn btn-primary" href="#calendar-event-form">Adicionar evento</a>
+            </div>
+        </section>
+
+        <section class="memory-section">
+            <div class="calendar-grid">
+                {% for day_name in ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'] %}
+                <div class="calendar-day-name">{{ day_name }}</div>
+                {% endfor %}
+
+                {% for day in calendar.days %}
+                <div class="calendar-cell {% if day.day == 1 %}calendar-cell--first{% endif %}">
+                    <div class="calendar-cell__header">
+                        <span class="calendar-cell__number">{{ day.day }}</span>
+                    </div>
+                    <div class="calendar-cell__body">
+                        {% set day_key = day.strftime('%Y-%m-%d') %}
+                        {% set day_events = calendar.events_by_day.get(day_key, []) %}
+                        {% if day_events %}
+                        {% for event in day_events[:2] %}
+                        <div class="calendar-pill calendar-pill--{{ event.category }}">{{ event.title }}</div>
+                        {% endfor %}
+                        {% if day_events|length > 2 %}
+                        <div class="calendar-pill calendar-pill--muted">+{{ day_events|length - 2 }} mais</div>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="memory-section memory-section--tight">
+            <div class="memory-card">
+                <div class="memory-card__header">
+                    <h3>Eventos de {{ calendar.selected_day.strftime('%d/%m/%Y') if calendar.selected_day else 'hoje' }}
+                    </h3>
+                </div>
+                <div class="memory-card__body">
+                    {% if calendar.selected_events %}
+                    {% for event in calendar.selected_events %}
+                    <div class="memory-list-item">
+                        <div>
+                            <strong>{{ event.title }}</strong>
+                            <p>{{ event.description or 'Sem descrição.' }}</p>
+                        </div>
+                        <div class="memory-list-item__actions">
+                            {% if event.source == 'custom' %}
+                            <a class="btn btn-outline"
+                                href="{{ url_for('private.editar_evento', event_id=event.id) }}">Editar</a>
+                            <form method="post" action="{{ url_for('private.excluir_evento', event_id=event.id) }}"
+                                style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-outline" type="submit">Excluir</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p>Nenhum evento para esta data.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <section class="memory-section memory-section--tight" id="calendar-event-form">
+            <div class="memory-card account-card">
+                <div class="memory-card__header">
+                    <h3>Adicionar evento</h3>
+                </div>
+                <div class="memory-card__body">
+                    <form class="reg-form" method="post">
+                        {{ form.hidden_tag() }}
+
+                        <p class="reg-field-label">Detalhes do evento</p>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="eventTitle">Título</label>
+                                {{ form.title(class_='form-input', id='eventTitle') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="eventDate">Data</label>
+                                {{ form.event_date(class_='form-input', id='eventDate') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="eventDescription">Descrição</label>
+                            {{ form.description(class_='form-textarea', id='eventDescription', rows=4) }}
+                        </div>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="eventTime">Horário</label>
+                                {{ form.event_time(class_='form-input', id='eventTime') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="eventLocation">Local</label>
+                                {{ form.location(class_='form-input', id='eventLocation') }}
+                            </div>
+                        </div>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="eventCategory">Categoria</label>
+                                {{ form.category(class_='form-select', id='eventCategory') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="eventFavorite">Favorito</label>
+                                {{ form.favorite(id='eventFavorite') }}
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary" type="submit">Salvar evento</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

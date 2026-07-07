@@ -1,0 +1,219 @@
+{% extends "private/base.html" %}
+
+{% block title %}Lista de Desejos - TowDate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/memorias.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/desejos.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="memories-page">
+    <div class="container">
+        <section class="memories-hero">
+            <div class="memories-hero__content">
+                <span class="memories-hero__eyebrow">Desejos a dois</span>
+                <h1 class="memories-hero__title">Lista de Desejos</h1>
+                <p class="memories-hero__subtitle">Registre, organize e acompanhe os desejos que vocês têm juntos.</p>
+            </div>
+        </section>
+
+        <section class="memory-section memory-section--tight">
+            <div class="memory-toolbar">
+                <form class="goal-filter-form" method="get">
+                    <div class="goal-filter-form__controls">
+                        <select class="form-input" name="category" aria-label="Filtrar por categoria">
+                            <option value="" {% if not filter_form.category.data %}selected{% endif %}>Todas as
+                                categorias</option>
+                            <option value="viagem" {% if filter_form.category.data=='viagem' %}selected{% endif %}>
+                                Viagem</option>
+                            <option value="restaurante" {% if filter_form.category.data=='restaurante' %}selected{%
+                                endif %}>Restaurante</option>
+                            <option value="cinema" {% if filter_form.category.data=='cinema' %}selected{% endif %}>
+                                Cinema</option>
+                            <option value="serie" {% if filter_form.category.data=='serie' %}selected{% endif %}>Série
+                            </option>
+                            <option value="livro" {% if filter_form.category.data=='livro' %}selected{% endif %}>Livro
+                            </option>
+                            <option value="presente" {% if filter_form.category.data=='presente' %}selected{% endif %}>
+                                Presente</option>
+                            <option value="experiencia" {% if filter_form.category.data=='experiencia' %}selected{%
+                                endif %}>Experiência</option>
+                            <option value="casa" {% if filter_form.category.data=='casa' %}selected{% endif %}>Casa
+                            </option>
+                            <option value="compras" {% if filter_form.category.data=='compras' %}selected{% endif %}>
+                                Compras</option>
+                            <option value="outro" {% if filter_form.category.data=='outro' %}selected{% endif %}>Outro
+                            </option>
+                        </select>
+                        <select class="form-input" name="status" aria-label="Filtrar por status">
+                            <option value="" {% if not filter_form.status.data %}selected{% endif %}>Todos</option>
+                            <option value="pending" {% if filter_form.status.data=='pending' %}selected{% endif %}>
+                                Pendente</option>
+                            <option value="completed" {% if filter_form.status.data=='completed' %}selected{% endif %}>
+                                Realizado</option>
+                        </select>
+                        <select class="form-input" name="sort_by" aria-label="Ordenar por">
+                            <option value="created_at" {% if filter_form.sort_by.data=='created_at' %}selected{% endif
+                                %}>Data de criação</option>
+                            <option value="planned_date" {% if filter_form.sort_by.data=='planned_date' %}selected{%
+                                endif %}>Data prevista</option>
+                        </select>
+                        <select class="form-input" name="order" aria-label="Ordem">
+                            <option value="desc" {% if filter_form.order.data=='desc' %}selected{% endif %}>Decrescente
+                            </option>
+                            <option value="asc" {% if filter_form.order.data=='asc' %}selected{% endif %}>Crescente
+                            </option>
+                        </select>
+                        <input class="form-input" name="q" placeholder="Pesquisar"
+                            value="{{ request.args.get('q','') }}">
+                        <button class="btn btn-outline" type="submit">Aplicar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="memory-section">
+            <div class="memory-card account-card">
+                <div class="memory-card__header">
+                    <h3>Adicionar novo desejo</h3>
+                </div>
+                <div class="memory-card__body">
+                    <form class="reg-form" method="post">
+                        {{ form.hidden_tag() }}
+
+                        <p class="reg-field-label">Detalhes do desejo</p>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="wishTitle">Título</label>
+                                {{ form.title(class_='form-input', id='wishTitle') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="wishCategory">Categoria</label>
+                                {{ form.category(class_='form-select', id='wishCategory') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="wishDescription">Descrição</label>
+                            {{ form.description(class_='form-textarea', id='wishDescription', rows=4) }}
+                        </div>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="wishPriority">Prioridade</label>
+                                {{ form.priority(class_='form-select', id='wishPriority') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="wishStatus">Status</label>
+                                {{ form.status(class_='form-select', id='wishStatus') }}
+                            </div>
+                        </div>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="wishPrice">Preço estimado</label>
+                                {{ form.price_estimated(class_='form-input', id='wishPrice', step='0.01') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="wishPlannedDate">Data prevista</label>
+                                {{ form.planned_date(class_='form-input', id='wishPlannedDate') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="wishLink">Link</label>
+                            {{ form.link(class_='form-input', id='wishLink') }}
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="wishFavorite">Favorito</label>
+                            {{ form.favorite(id='wishFavorite') }}
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary" type="submit">Salvar desejo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="memory-section">
+            {% if wishes %}
+            <div class="goal-grid">
+                {% for wish in wishes %}
+                <article class="goal-card">
+                    <div class="goal-card__header">
+                        <div>
+                            <div class="goal-card__topline">
+                                <span class="goal-pill goal-pill--{{ wish.category }}">{{ wish.category }}</span>
+                                {% if wish.favorite %}
+                                <span class="goal-pill goal-pill--favorite">Favorito</span>
+                                {% endif %}
+                            </div>
+                            <h3>{{ wish.title }}</h3>
+                        </div>
+                        <span class="goal-pill goal-pill--{{ wish.priority }}">{{ wish.priority }}</span>
+                    </div>
+
+                    {% if wish.description %}
+                    <p class="goal-card__description">{{ wish.description }}</p>
+                    {% endif %}
+
+                    <div class="goal-card__details">
+                        <div>
+                            <span class="goal-card__label">Status</span>
+                            <p>{{ 'Realizado' if wish.status=='completed' else 'Pendente' }}</p>
+                        </div>
+                        <div>
+                            <span class="goal-card__label">Data prevista</span>
+                            <p>{{ wish.planned_date.strftime('%d/%m/%Y') if wish.planned_date else '—' }}</p>
+                        </div>
+                        <div>
+                            <span class="goal-card__label">Preço</span>
+                            <p>{{ ('R$ ' + ('{:.2f}'.format(wish.price_estimated))) if wish.price_estimated else '—' }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="goal-card__actions">
+                        <a class="btn btn-outline"
+                            href="{{ url_for('private.editar_desejo', wish_id=wish.id) }}">Editar</a>
+                        <form method="post" action="{{ url_for('private.realizar_desejo', wish_id=wish.id) }}"
+                            class="goal-inline-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="btn btn-primary" type="submit" {% if wish.status=='completed' %}disabled{%
+                                endif %}>Marcar como realizado</button>
+                        </form>
+                    </div>
+
+                    <div class="goal-card__actions">
+                        <form method="post" action="{{ url_for('private.favorito_desejo', wish_id=wish.id) }}"
+                            class="goal-inline-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="btn btn-outline" type="submit">{% if wish.favorite %}Remover favorito{% else
+                                %}Favorito{% endif %}</button>
+                        </form>
+                        <form method="post" action="{{ url_for('private.excluir_desejo', wish_id=wish.id) }}"
+                            class="goal-inline-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="btn btn-danger" type="submit">Excluir</button>
+                        </form>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="memory-card">
+                <p>Nenhum desejo cadastrado ainda. Adicione um novo desejo para começar.</p>
+            </div>
+            {% endif %}
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

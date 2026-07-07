@@ -1,0 +1,194 @@
+{% extends "private/base.html" %}
+
+{% block title %}Cofrinho do Casal - TowDate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/memorias.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/goals.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/cofrinho.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="memories-page">
+    <div class="container">
+        <section class="memories-hero">
+            <div class="memories-hero__content">
+                <span class="memories-hero__eyebrow">Economia a dois</span>
+                <h1 class="memories-hero__title">Cofrinho do Casal</h1>
+                <p class="memories-hero__subtitle">Organize metas financeiras, acompanhe depósitos e veja o progresso de
+                    cada objetivo juntos.</p>
+            </div>
+        </section>
+
+        <section class="memory-section memory-section--tight">
+            <div class="dashboard-grid">
+                <div class="memory-card account-card">
+                    <div class="memory-card__header">
+                        <h3>Resumo</h3>
+                    </div>
+                    <div class="memory-card__body dashboard-stats">
+                        <div>
+                            <span class="goal-card__label">Total economizado</span>
+                            <p class="dashboard-value">R$ {{ "%.2f"|format(dashboard.total_saved) }}</p>
+                        </div>
+                        <div>
+                            <span class="goal-card__label">Cofrinhos</span>
+                            <p class="dashboard-value">{{ dashboard.total_banks }}</p>
+                        </div>
+                        <div>
+                            <span class="goal-card__label">Concluídos</span>
+                            <p class="dashboard-value">{{ dashboard.completed_banks }}</p>
+                        </div>
+                        <div>
+                            <span class="goal-card__label">Média</span>
+                            <p class="dashboard-value">{{ dashboard.average_progress }}%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="memory-section">
+            <div class="memory-card account-card">
+                <div class="memory-card__header">
+                    <h3>Criar novo cofrinho</h3>
+                </div>
+                <div class="memory-card__body">
+                    <form class="reg-form" method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="piggyTitle">Título</label>
+                                {{ form.title(class_='form-input', id='piggyTitle') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="piggyCategory">Categoria</label>
+                                {{ form.category(class_='form-select', id='piggyCategory') }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="piggyDescription">Descrição</label>
+                            {{ form.description(class_='form-textarea', id='piggyDescription', rows=4) }}
+                        </div>
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="piggyTarget">Valor da meta</label>
+                                {{ form.target_amount(class_='form-input', id='piggyTarget', step='0.01') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="piggyCurrent">Valor atual</label>
+                                {{ form.current_amount(class_='form-input', id='piggyCurrent', step='0.01') }}
+                            </div>
+                        </div>
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="piggyStatus">Status</label>
+                                {{ form.status(class_='form-select', id='piggyStatus') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="piggyDate">Data prevista</label>
+                                {{ form.target_date(class_='form-input', id='piggyDate') }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="piggyFavorite">Favorito</label>
+                            {{ form.favorite(id='piggyFavorite') }}
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-primary" type="submit">Salvar cofrinho</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="memory-section">
+            {% if piggy_banks %}
+            <div class="goal-grid">
+                {% for piggy_bank in piggy_banks %}
+                <article class="goal-card">
+                    <div class="goal-card__header">
+                        <div>
+                            <div class="goal-card__topline">
+                                <span class="goal-pill goal-pill--{{ piggy_bank.category }}">{{ piggy_bank.category
+                                    }}</span>
+                                {% if piggy_bank.favorite %}
+                                <span class="goal-pill goal-pill--favorite">Favorito</span>
+                                {% endif %}
+                            </div>
+                            <h3>{{ piggy_bank.title }}</h3>
+                        </div>
+                        <span class="goal-pill goal-pill--{{ piggy_bank.status }}">{{ piggy_bank.status }}</span>
+                    </div>
+
+                    {% if piggy_bank.description %}
+                    <p class="goal-card__description">{{ piggy_bank.description }}</p>
+                    {% endif %}
+
+                    <div class="goal-progress">
+                        <div class="goal-progress__meta">
+                            <span>Progresso</span>
+                            <strong>{{ piggy_bank.progress_percentage }}%</strong>
+                        </div>
+                        <div class="goal-progress__bar">
+                            <span style="width: {{ piggy_bank.progress_percentage }}%;"></span>
+                        </div>
+                    </div>
+
+                    <div class="goal-card__details">
+                        <div>
+                            <span class="goal-card__label">Atual</span>
+                            <p>R$ {{ "%.2f"|format(piggy_bank.current_amount) }}</p>
+                        </div>
+                        <div>
+                            <span class="goal-card__label">Meta</span>
+                            <p>R$ {{ "%.2f"|format(piggy_bank.target_amount) }}</p>
+                        </div>
+                        <div>
+                            <span class="goal-card__label">Falta</span>
+                            <p>R$ {{ "%.2f"|format(piggy_bank.remaining_amount) }}</p>
+                        </div>
+                        <div>
+                            <span class="goal-card__label">Prevista</span>
+                            <p>{{ piggy_bank.target_date.strftime('%d/%m/%Y') if piggy_bank.target_date else '—' }}</p>
+                        </div>
+                    </div>
+
+                    <div class="goal-card__actions">
+                        <a class="btn btn-outline"
+                            href="{{ url_for('private.editar_cofrinho', piggy_bank_id=piggy_bank.id) }}">Editar</a>
+                        <a class="btn btn-outline"
+                            href="{{ url_for('private.historico_cofrinho', piggy_bank_id=piggy_bank.id) }}">Histórico</a>
+                        <form method="post"
+                            action="{{ url_for('private.excluir_cofrinho', piggy_bank_id=piggy_bank.id) }}"
+                            class="goal-inline-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="btn btn-primary" type="submit">Excluir</button>
+                        </form>
+                    </div>
+
+                    <form method="post"
+                        action="{{ url_for('private.adicionar_movimento_cofrinho', piggy_bank_id=piggy_bank.id) }}"
+                        class="goal-progress-form">
+                        {{ csrf_token() }}
+                        <label class="goal-progress-form__label" for="movement-{{ piggy_bank.id }}">Adicionar
+                            valor</label>
+                        <div class="goal-progress-form__controls">
+                            <input id="movement-{{ piggy_bank.id }}" type="number" step="0.01" min="0.01"
+                                placeholder="0,00" name="amount" class="form-input">
+                            <button class="btn btn-outline" type="submit">Salvar</button>
+                        </div>
+                        <textarea name="observation" class="form-textarea" rows="2" placeholder="Observação"></textarea>
+                    </form>
+                </article>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="memory-card">
+                <p>Nenhum cofrinho cadastrado ainda. Crie o primeiro para começar a guardar juntos.</p>
+            </div>
+            {% endif %}
+        </section>
+    </div>
+</div>
+{% endblock %}

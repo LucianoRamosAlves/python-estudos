@@ -1,0 +1,87 @@
+{% extends "private/base.html" %}
+
+{% block title %}Editar Desejo - TowDate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/memorias.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/private/desejos.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="memories-page">
+    <div class="container">
+        <section class="memories-hero">
+            <div class="memories-hero__content">
+                <span class="memories-hero__eyebrow">Desejos a dois</span>
+                <h1 class="memories-hero__title">Editar desejo</h1>
+            </div>
+        </section>
+
+        <section class="memory-section">
+            <div class="memory-card account-card">
+                <div class="memory-card__header">
+                    <h3>Editar desejo</h3>
+                </div>
+                <div class="memory-card__body">
+                    <form class="reg-form" method="post">
+                        {{ form.hidden_tag() }}
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="wishTitle">Título</label>
+                                {{ form.title(class_='form-input', id='wishTitle') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="wishCategory">Categoria</label>
+                                {{ form.category(class_='form-select', id='wishCategory') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="wishDescription">Descrição</label>
+                            {{ form.description(class_='form-textarea', id='wishDescription', rows=4) }}
+                        </div>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="wishPriority">Prioridade</label>
+                                {{ form.priority(class_='form-select', id='wishPriority') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="wishStatus">Status</label>
+                                {{ form.status(class_='form-select', id='wishStatus') }}
+                            </div>
+                        </div>
+
+                        <div class="reg-row">
+                            <div class="form-group">
+                                <label class="form-label" for="wishPrice">Preço estimado</label>
+                                {{ form.price_estimated(class_='form-input', id='wishPrice', step='0.01') }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="wishPlannedDate">Data prevista</label>
+                                {{ form.planned_date(class_='form-input', id='wishPlannedDate') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="wishLink">Link</label>
+                            {{ form.link(class_='form-input', id='wishLink') }}
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="wishFavorite">Favorito</label>
+                            {{ form.favorite(id='wishFavorite') }}
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary" type="submit">Salvar alterações</button>
+                            <a class="btn btn-outline" href="{{ url_for('private.desejos') }}">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

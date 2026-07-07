@@ -1,0 +1,194 @@
+.memory-shell {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.25rem 2.5rem;
+}
+
+.memory-hero {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    box-shadow: 0 12px 30px rgba(7, 12, 24, 0.14);
+}
+
+.memory-hero__eyebrow {
+    margin: 0 0 0.5rem;
+    color: #e2c78f;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.memory-hero__title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+    color: #f7efe5;
+}
+
+.memory-hero__description {
+    margin: 0;
+    max-width: 720px;
+    color: rgba(247, 239, 229, 0.8);
+    line-height: 1.6;
+}
+
+.memory-section {
+    margin-bottom: 1rem;
+}
+
+.memory-section--tight {
+    margin-bottom: 0.75rem;
+}
+
+.memory-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.memory-toolbar__group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.memory-card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 1rem 1.1rem;
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 10px 24px rgba(7, 12, 24, 0.12);
+}
+
+.memory-card__header {
+    margin-bottom: 0.75rem;
+}
+
+.memory-card__header h3 {
+    margin: 0;
+    color: #f7efe5;
+    font-size: 1.1rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.calendar-day-name {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: rgba(247, 239, 229, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.calendar-cell {
+    min-height: 120px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 0.75rem;
+    background: rgba(255,255,255,0.045);
+    backdrop-filter: blur(10px);
+}
+
+.calendar-cell__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.calendar-cell__number {
+    font-weight: 600;
+    color: #f7efe5;
+}
+
+.calendar-pill {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 0.45rem;
+    margin-bottom: 0.35rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+}
+
+.calendar-pill--relationship,
+.calendar-pill--birthday,
+.calendar-pill--special {
+    background: linear-gradient(135deg, #f472b6, #ec4899);
+}
+
+.calendar-pill--memory {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+}
+
+.calendar-pill--personal,
+.calendar-pill--date {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.calendar-pill--trip {
+    background: linear-gradient(135deg, #34d399, #10b981);
+}
+
+.calendar-pill--muted {
+    background: rgba(255,255,255,0.12);
+    color: rgba(247, 239, 229, 0.8);
+}
+
+.memory-list-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.memory-list-item:last-child {
+    border-bottom: none;
+}
+
+.memory-list-item__actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .memory-shell {
+        padding: 1rem 0.9rem 2.5rem;
+    }
+
+    .memory-hero {
+        padding: 1.25rem;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.6rem;
+    }
+
+    .calendar-cell {
+        min-height: 100px;
+    }
+
+    .memory-list-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

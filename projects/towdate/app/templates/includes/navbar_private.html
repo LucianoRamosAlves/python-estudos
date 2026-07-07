@@ -4,8 +4,14 @@
         <div class="nav-inner">
             <a href="{{ url_for('private.home') }}" class="logo">Tow <span>Date</span></a>
             <ul class="nav-links">
-                <li><a href="{{ url_for('private.home') }}">Home</a></li>
+                <li><a href="{{ url_for('private.dashboard') }}">Dashboard</a></li>
                 <li><a href="{{ url_for('private.memorias') }}">Memórias</a></li>
+                <li><a href="{{ url_for('private.calendario') }}">Calendário</a></li>
+                <li><a href="{{ url_for('private.metas') }}">Metas</a></li>
+                <li><a href="{{ url_for('private.cofrinho') }}">Cofrinho</a></li>
+                <li><a href="{{ url_for('private.desejos') }}">Desejos</a></li>
+                <li><a href="{{ url_for('private.conquistas') }}">Conquistas</a></li>
+                <li><a href="{{ url_for('private.mapa_memorias') }}">Mapa</a></li>
             </ul>
             <div class="nav-cta">
                 <a href="{{ url_for('private.account') }}" class="btn btn-outline">Perfil</a>
@@ -32,8 +38,14 @@
         </svg>
     </button>
     <ul class="mobile-nav-links">
-        <li><a href="{{ url_for('private.home') }}">Home</a></li>
+        <li><a href="{{ url_for('private.dashboard') }}">Dashboard</a></li>
         <li><a href="{{ url_for('private.memorias') }}">Memórias</a></li>
+        <li><a href="{{ url_for('private.calendario') }}">Calendário</a></li>
+        <li><a href="{{ url_for('private.metas') }}">Metas</a></li>
+        <li><a href="{{ url_for('private.cofrinho') }}">Cofrinho</a></li>
+        <li><a href="{{ url_for('private.desejos') }}">Desejos</a></li>
+        <li><a href="{{ url_for('private.conquistas') }}">Conquistas</a></li>
+        <li><a href="{{ url_for('private.mapa_memorias') }}">Mapa</a></li>
     </ul>
     <div class="mobile-menu-cta">
         <a href="{{ url_for('private.account') }}" class="btn btn-outline">Perfil</a>

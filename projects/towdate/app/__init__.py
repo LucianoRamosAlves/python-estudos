@@ -1,5 +1,6 @@
 from flask import session, redirect, url_for, flash, Flask, request
 from flask_login import current_user, logout_user
+from flask_wtf.csrf import CSRFProtect
 from werkzeug.exceptions import RequestEntityTooLarge
 from app import models
 
@@ -12,10 +13,13 @@ def create_app():
     app = Flask(__name__, template_folder="templates", static_folder="static")
 
     app.config.from_object(Config)
+    app.config.setdefault("WTF_CSRF_ENABLED", True)
+    app.config.setdefault("WTF_CSRF_TIME_LIMIT", None)
     bcrypt.init_app(app)  # Inicializa o Bcrypt com a instância do aplicativo
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
+    CSRFProtect(app)
 
     from app.public.routes import public
 

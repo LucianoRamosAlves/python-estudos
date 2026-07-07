@@ -1,0 +1,53 @@
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.dashboard-value {
+    margin: 0.25rem 0 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #f7efe5;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.history-item p {
+    margin: 0.2rem 0 0;
+    color: rgba(247, 239, 229, 0.8);
+}
+
+.history-item span {
+    color: rgba(247, 239, 229, 0.68);
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .dashboard-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+}
