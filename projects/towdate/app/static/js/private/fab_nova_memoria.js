@@ -1,8 +1,9 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
     const trigger = document.querySelector("[data-memory-fab-trigger]");
     const modal = document.querySelector("[data-memory-fab-modal]");
+    const form = modal?.querySelector("[data-memory-create-form]");
 
-    if (!trigger || !modal) return;
+    if (!trigger || !modal || !form) return;
 
     const backdrop = modal.querySelector(".td-memory-fab-modal__backdrop");
     const closeButtons = modal.querySelectorAll("[data-memory-fab-close]");
@@ -20,6 +21,7 @@
     const descriptionCounter = modal.querySelector("[data-description-counter]");
     const dateInput = modal.querySelector("[data-memory-date]");
     const locationInput = modal.querySelector("[data-memory-location]");
+    const favoriteInput = modal.querySelector("#memoryFavorite");
     const tagInput = modal.querySelector(".memory-new__tag-input");
     const tagList = modal.querySelector(".memory-new__tag-list");
     const starButtons = modal.querySelectorAll(".memory-new__star");
@@ -28,12 +30,22 @@
     const errorList = modal.querySelector(".memory-new__error-list");
     const toast = modal.querySelector(".memory-new__toast");
     const photoActionButtons = modal.querySelectorAll("[data-photo-action]");
+    const submitTitle = modal.querySelector("[data-memory-submit-title]");
+    const submitDescription = modal.querySelector("[data-memory-submit-description]");
+    const submitDate = modal.querySelector("[data-memory-submit-date]");
+    const submitLocation = modal.querySelector("[data-memory-submit-location]");
+    const submitCollection = modal.querySelector("[data-memory-submit-collection]");
+    const submitCustomCollection = modal.querySelector("[data-memory-submit-custom-collection]");
+    const submitTags = modal.querySelector("[data-memory-submit-tags]");
+    const submitRating = modal.querySelector("[data-memory-submit-rating]");
+    const submitFavorite = modal.querySelector("[data-memory-submit-favorite]");
 
     let currentStep = 1;
     let selectedFiles = [];
     let tags = [];
     let rating = 0;
     let selectedCollection = null;
+    let customCollectionName = "";
 
     function setDefaultDate() {
         if (!dateInput || dateInput.value) return;
@@ -76,8 +88,6 @@
         window.setTimeout(() => {
             toast.classList.remove("memory-new__toast--visible");
             toast.setAttribute("hidden", "true");
-            const TOTAL_STEPS = 4;
-            const MAX_DESCRIPTION_LENGTH = 280;
         }, 3200);
     }
 
@@ -99,9 +109,28 @@
             removeButton.className = "memory-new__preview-remove";
             removeButton.textContent = "✕";
             removeButton.addEventListener("click", () => {
-                selectedFiles = selectedFiles.filter((_, fileIndex) => fileIndex !== index);
-                updatePreview();
-                updateWizardState();
+                const removeSelectedFile = () => {
+                    selectedFiles = selectedFiles.filter((_, fileIndex) => fileIndex !== index);
+                    updatePreview();
+                    updateWizardState();
+                };
+
+                if (typeof ToDate !== "undefined" && typeof ToDate.showConfirm === "function") {
+                    ToDate.showConfirm({
+                        type: "warning",
+                        title: "Remover foto",
+                        message: "Tem certeza que deseja remover esta foto da memória?",
+                        confirmText: "Remover",
+                        cancelText: "Cancelar",
+                    }).then((confirmed) => {
+                        if (confirmed) {
+                            removeSelectedFile();
+                        }
+                    });
+                    return;
+                }
+
+                removeSelectedFile();
             });
 
             item.appendChild(img);
@@ -114,11 +143,31 @@
         const chosenFiles = Array.from(files).filter(file => file.type.startsWith("image/"));
         if (!chosenFiles.length) return;
 
-        // Single-image flow: keep only one photo per modal session.
-        selectedFiles = [chosenFiles[0]];
+        const uniqueFiles = [];
+        const existingKeys = new Set(
+            selectedFiles.map(file => `${file.name}-${file.size}-${file.lastModified}`)
+        );
+
+        chosenFiles.forEach(file => {
+            const key = `${file.name}-${file.size}-${file.lastModified}`;
+            if (!existingKeys.has(key)) {
+                uniqueFiles.push(file);
+                existingKeys.add(key);
+            }
+        });
+
+        selectedFiles = [...selectedFiles, ...uniqueFiles].slice(0, 10);
         updatePreview();
         updateWizardState();
         clearErrorList();
+    }
+
+    function syncFileInputFromSelectedFiles() {
+        if (!fileInput) return;
+
+        const dataTransfer = new DataTransfer();
+        selectedFiles.forEach(file => dataTransfer.items.add(file));
+        fileInput.files = dataTransfer.files;
     }
 
     function openFilePicker(capture = false) {
@@ -185,9 +234,41 @@
     function handleCollectionSelection(event) {
         collectionButtons.forEach(button => button.classList.remove("memory-new__collection-card--selected", "memory-new__collection-card--invalid"));
         const target = event.currentTarget;
-        selectedCollection = target.dataset.collectionOption || null;
+
+        const option = target.dataset.collectionOption || null;
+
+        if (option === "nova") {
+            const typedName = window.prompt("Digite o nome da nova colecao:", customCollectionName || "");
+            if (!typedName || !typedName.trim()) {
+                selectedCollection = null;
+                customCollectionName = "";
+                clearErrorList();
+                return;
+            }
+            customCollectionName = typedName.trim();
+        } else {
+            customCollectionName = "";
+        }
+
+        selectedCollection = option;
         target.classList.add("memory-new__collection-card--selected");
         clearErrorList();
+    }
+
+    function populateSubmitFields() {
+        if (submitTitle) submitTitle.value = titleInput?.value?.trim() || "";
+        if (submitDescription) submitDescription.value = descriptionInput?.value?.trim() || "";
+        if (submitDate) submitDate.value = dateInput?.value || "";
+        if (submitLocation) submitLocation.value = locationInput?.value?.trim() || "";
+        if (submitCollection) submitCollection.value = selectedCollection || "";
+        if (submitCustomCollection) submitCustomCollection.value = customCollectionName;
+        if (submitTags) submitTags.value = tags.join(",");
+        if (submitRating) submitRating.value = String(rating || "");
+        if (submitFavorite) {
+            submitFavorite.value = favoriteInput?.checked ? "y" : "";
+        }
+
+        syncFileInputFromSelectedFiles();
     }
 
     function focusCurrentStep() {
@@ -334,11 +415,13 @@
         tags = [];
         rating = 0;
         selectedCollection = null;
+        customCollectionName = "";
 
         if (titleInput) titleInput.value = "";
         if (descriptionInput) descriptionInput.value = "";
         if (locationInput) locationInput.value = "";
         if (tagInput) tagInput.value = "";
+        if (favoriteInput) favoriteInput.checked = false;
         if (descriptionCounter) descriptionCounter.textContent = "0 / 280";
 
         collectionButtons.forEach(button => button.classList.remove("memory-new__collection-card--selected", "memory-new__collection-card--invalid"));
@@ -430,11 +513,13 @@
         goToStep(currentStep + 1, "next");
     });
 
-    stepSaveButton?.addEventListener("click", () => {
-        if (validateForm()) {
-            resetForm();
-            showToast("Memória registrada com sucesso! (Modo demonstração)");
+    form.addEventListener("submit", event => {
+        if (!validateForm()) {
+            event.preventDefault();
+            return;
         }
+
+        populateSubmitFields();
     });
 
     updatePreview();

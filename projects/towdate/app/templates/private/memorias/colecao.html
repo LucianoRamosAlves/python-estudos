@@ -45,7 +45,8 @@
         </div>
         {%- endif -%}
 
-        <section class="collection-detail-actions">
+        <form class="collection-detail-actions" method="GET"
+            action="{{ url_for('private.colecao', collection_slug=collection.slug) }}">
             <div class="collection-detail-search-wrapper">
                 <div class="collection-detail-search">
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
@@ -53,31 +54,40 @@
                         <circle cx="11" cy="11" r="7" />
                         <path d="m21 21-4.35-4.35" />
                     </svg>
-                    <input type="search" placeholder="Buscar nesta coleção" aria-label="Buscar nesta coleção">
+                    <input type="search" name="q"
+                        value="{{ collection.filter_state.query if collection.filter_state else '' }}"
+                        placeholder="Buscar nesta coleção" aria-label="Buscar nesta coleção">
                 </div>
             </div>
 
             <div class="collection-detail-controls">
                 <div class="collection-detail-select">
                     <label for="filterDate">Filtrar por data</label>
-                    <select id="filterDate">
-                        <option>Todo período</option>
-                        <option>Últimos 7 dias</option>
-                        <option>Últimos 30 dias</option>
-                        <option>Este mês</option>
+                    <select id="filterDate" name="date_filter">
+                        <option value="all" {% if collection.filter_state and collection.filter_state.date_filter=='all'
+                            %}selected{% endif %}>Todo período</option>
+                        <option value="7d" {% if collection.filter_state and collection.filter_state.date_filter=='7d'
+                            %}selected{% endif %}>Últimos 7 dias</option>
+                        <option value="30d" {% if collection.filter_state and collection.filter_state.date_filter=='30d'
+                            %}selected{% endif %}>Últimos 30 dias</option>
+                        <option value="this_month" {% if collection.filter_state and
+                            collection.filter_state.date_filter=='this_month' %}selected{% endif %}>Este mês</option>
                     </select>
                 </div>
 
                 <div class="collection-detail-select">
                     <label for="sortCollection">Ordenar por</label>
-                    <select id="sortCollection">
-                        <option>Mais recentes</option>
-                        <option>Mais antigas</option>
-                        <option>Melhor avaliadas</option>
+                    <select id="sortCollection" name="sort">
+                        <option value="recent" {% if collection.filter_state and collection.filter_state.sort=='recent'
+                            %}selected{% endif %}>Mais recentes</option>
+                        <option value="oldest" {% if collection.filter_state and collection.filter_state.sort=='oldest'
+                            %}selected{% endif %}>Mais antigas</option>
+                        <option value="best_rating" {% if collection.filter_state and
+                            collection.filter_state.sort=='best_rating' %}selected{% endif %}>Melhor avaliadas</option>
                     </select>
                 </div>
 
-                <button type="button" class="btn btn-outline collection-detail-pill">
+                <button type="submit" class="btn btn-outline collection-detail-pill">
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 6h16M4 12h10M4 18h7" />
@@ -85,7 +95,7 @@
                     Filtros
                 </button>
             </div>
-        </section>
+        </form>
 
         <section class="collection-detail-grid">
             <div class="collection-detail-memories">
@@ -132,8 +142,15 @@
                             <p class="collection-detail-card-description">{{ memory.description }}</p>
 
                             <div class="collection-detail-card-actions">
-                                <button type="button" class="btn btn-outline collection-detail-card-btn">Editar</button>
-                                <button type="button" class="btn btn-empty collection-detail-card-btn">Excluir</button>
+                                <a href="{{ url_for('private.editar_memoria', memory_id=memory.id) }}"
+                                    class="btn btn-outline collection-detail-card-btn">Editar</a>
+                                <form method="POST"
+                                    action="{{ url_for('private.excluir_memoria', memory_id=memory.id) }}"
+                                    style="display:inline;">
+                                    {{ delete_form.csrf_token }}
+                                    <button type="submit"
+                                        class="btn btn-empty collection-detail-card-btn">Excluir</button>
+                                </form>
                             </div>
                         </div>
                     </article>

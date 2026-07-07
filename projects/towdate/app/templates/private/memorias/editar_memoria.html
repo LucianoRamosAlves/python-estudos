@@ -1,0 +1,90 @@
+{% extends "private/base.html" %}
+
+{% block title %}Editar Memoria - TowDate{% endblock %}
+
+{% block content %}
+<div class="collection-detail-page">
+    <div class="collection-detail-shell container" style="max-width: 860px;">
+        <a href="{{ url_for('private.colecao', collection_slug=memory.collection.slug if memory.collection else 'cinema') }}"
+            class="collection-detail-back" aria-label="Voltar para colecao">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+            </svg>
+            Voltar
+        </a>
+
+        <section class="collection-detail-actions" style="display:block;">
+            <div class="collection-detail-section-header">
+                <div>
+                    <span class="collection-detail-section-kicker">Edicao</span>
+                    <h2 class="collection-detail-section-title">Editar memoria</h2>
+                </div>
+            </div>
+
+            <form method="POST" action="{{ url_for('private.editar_memoria', memory_id=memory.id) }}"
+                style="margin-top:1rem; display:grid; gap:1rem;">
+                {{ form.hidden_tag() }}
+
+                <label class="memory-new__field">
+                    <span>Titulo</span>
+                    {{ form.title(class_="memory-new__input") }}
+                </label>
+
+                <label class="memory-new__field">
+                    <span>Descricao</span>
+                    {{ form.description(class_="memory-new__textarea", rows="5") }}
+                </label>
+
+                <div class="memory-new__split">
+                    <label class="memory-new__field">
+                        <span>Data</span>
+                        {{ form.memory_date(class_="memory-new__input") }}
+                    </label>
+
+                    <label class="memory-new__field">
+                        <span>Localizacao</span>
+                        {{ form.location(class_="memory-new__input") }}
+                    </label>
+                </div>
+
+                <div class="memory-new__split">
+                    <label class="memory-new__field">
+                        <span>Colecao</span>
+                        {{ form.collection_slug(class_="memory-new__input") }}
+                    </label>
+
+                    <label class="memory-new__field">
+                        <span>Nova colecao (opcional)</span>
+                        {{ form.custom_collection_name(class_="memory-new__input") }}
+                    </label>
+                </div>
+
+                <label class="memory-new__field">
+                    <span>Tags (separadas por virgula)</span>
+                    {{ form.tags(class_="memory-new__input") }}
+                </label>
+
+                <div class="memory-new__split">
+                    <label class="memory-new__field">
+                        <span>Avaliacao (1 a 5)</span>
+                        {{ form.rating(class_="memory-new__input", min="1", max="5") }}
+                    </label>
+
+                    <label class="memory-new__field"
+                        style="display:flex; align-items:center; gap:.5rem; margin-top:1.75rem;">
+                        {{ form.favorite() }}
+                        <span>Favorita</span>
+                    </label>
+                </div>
+
+                <div style="display:flex; gap:.75rem;">
+                    <button type="submit" class="btn">Salvar alteracoes</button>
+                    <a class="btn btn-outline"
+                        href="{{ url_for('private.colecao', collection_slug=memory.collection.slug if memory.collection else 'cinema') }}">Cancelar</a>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+{% endblock %}

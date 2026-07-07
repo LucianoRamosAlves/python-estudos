@@ -46,5 +46,19 @@ class Relationship(db.Model):
         lazy=True,
     )
 
+    memory_collections = db.relationship(
+        "MemoryCollection",
+        back_populates="relationship",
+        cascade="all, delete-orphan",
+        lazy=True,
+    )
+
+    memories = db.relationship(
+        "Memory",
+        back_populates="relationship",
+        cascade="all, delete-orphan",
+        lazy=True,
+    )
+
     def __repr__(self):
         return f"<Relationship {self.id}>"

@@ -30,7 +30,7 @@
                         </svg>
                     </div>
                     <div class="memories-stat-card__content">
-                        <div class="memories-stat-card__value">47</div>
+                        <div class="memories-stat-card__value">{{ dashboard.stats.photos }}</div>
                         <div class="memories-stat-card__label">Fotos</div>
                     </div>
                 </article>
@@ -43,7 +43,7 @@
                         </svg>
                     </div>
                     <div class="memories-stat-card__content">
-                        <div class="memories-stat-card__value">23</div>
+                        <div class="memories-stat-card__value">{{ dashboard.stats.memories }}</div>
                         <div class="memories-stat-card__label">Memórias</div>
                     </div>
                 </article>
@@ -55,7 +55,7 @@
                         </svg>
                     </div>
                     <div class="memories-stat-card__content">
-                        <div class="memories-stat-card__value">6</div>
+                        <div class="memories-stat-card__value">{{ dashboard.stats.collections }}</div>
                         <div class="memories-stat-card__label">Coleções</div>
                     </div>
                 </article>
@@ -68,7 +68,7 @@
                         </svg>
                     </div>
                     <div class="memories-stat-card__content">
-                        <div class="memories-stat-card__value">há 3 dias</div>
+                        <div class="memories-stat-card__value">{{ dashboard.stats.last_label }}</div>
                         <div class="memories-stat-card__label">Última</div>
                     </div>
                 </article>
@@ -78,19 +78,17 @@
         <!-- Featured Memory -->
         <section class="memories-featured">
             <div class="memories-featured__card">
-                <div class="memories-featured__image"
-                    style="background-image: url('https://images.unsplash.com/photo-1544078751-58fee2d8a03b?w=600&h=500&fit=crop');">
+                <div class="memories-featured__image" style="background-image: url('{{ dashboard.featured.image }}');">
                 </div>
                 <div class="memories-featured__content">
                     <div class="memories-featured__label">Memória em destaque</div>
-                    <h2 class="memories-featured__title">Nosso primeiro encontro</h2>
-                    <div class="memories-featured__date">12 de Junho, 2022</div>
+                    <h2 class="memories-featured__title">{{ dashboard.featured.title }}</h2>
+                    <div class="memories-featured__date">{{ dashboard.featured.date }}</div>
                     <p class="memories-featured__description">
-                        Aquele dia em que nos conhecemos na praça central da cidade. O sol se pôs enquanto conversávamos
-                        por horas, e soubemos que era especial.
+                        {{ dashboard.featured.description }}
                     </p>
                     <div class="memories-featured__meta">
-                        <span class="memories-featured__category">Parques</span>
+                        <span class="memories-featured__category">{{ dashboard.featured.category }}</span>
                     </div>
                 </div>
             </div>
@@ -103,127 +101,41 @@
                     <span class="memories-section-kicker">Experiência principal</span>
                     <h2 class="memories-section-title">Coleções</h2>
                 </div>
-                <span class="memories-section-hint" aria-hidden="true">6 coleções <span>↓</span></span>
+                <span class="memories-section-hint" aria-hidden="true">{{ dashboard.collections|length }} coleções
+                    <span>↓</span></span>
             </div>
 
             <div class="memories-collections__grid">
-                <!-- Cinema - 4 memórias -->
-                <article class="memories-collection-card" data-collection="cinema" data-count="4" data-days="5">
+                {% for collection in dashboard.collections %}
+                <article
+                    class="memories-collection-card {% if collection.is_featured %}memories-collection-card--featured{% endif %}"
+                    data-collection="{{ collection.slug }}" data-count="{{ collection.memory_count }}"
+                    data-days="{{ collection.days_since_last }}">
                     <div class="memories-collection-card__image"
-                        style="background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=400&fit=crop');">
+                        style="background-image: url('{{ collection.image }}');">
                     </div>
                     <div class="memories-collection-card__overlay"></div>
-                    <div class="memories-collection-card__content">
-                        <h3 class="memories-collection-card__title">Cinema</h3>
-                        <div class="memories-collection-card__rating" style="--rating: 4.1; --rating-fill: 82%;">
-                            <div class="memories-collection-card__rating-label">Média</div>
-                            <div class="memories-collection-card__rating-value">4.1</div>
-                        </div>
-                        <div class="memories-collection-card__rating-track" aria-hidden="true">
-                            <span class="memories-collection-card__rating-fill"></span>
-                        </div>
-                        <p class="memories-collection-card__subtitle">4 memórias • 5 dias</p>
-                    </div>
-                </article>
-
-                <!-- Parks - 7 memórias (Destaque) -->
-                <article class="memories-collection-card memories-collection-card--featured" data-collection="parks"
-                    data-count="7" data-days="2">
-                    <div class="memories-collection-card__image"
-                        style="background-image: url('https://images.unsplash.com/photo-1469022563149-aa64dbd37d59?w=400&h=400&fit=crop');">
-                    </div>
-                    <div class="memories-collection-card__overlay"></div>
+                    {% if collection.is_featured %}
                     <div class="memories-collection-card__badge">
                         Mais utilizada
                     </div>
+                    {% endif %}
                     <div class="memories-collection-card__content">
-                        <h3 class="memories-collection-card__title">Parques</h3>
-                        <div class="memories-collection-card__rating" style="--rating: 4.8; --rating-fill: 96%;">
+                        <h3 class="memories-collection-card__title">{{ collection.title }}</h3>
+                        <div class="memories-collection-card__rating"
+                            style="--rating: {{ '%.1f'|format(collection.average_rating) }}; --rating-fill: {{ (collection.average_rating * 20)|round(0, 'common')|int }}%;">
                             <div class="memories-collection-card__rating-label">Média</div>
-                            <div class="memories-collection-card__rating-value">4.8</div>
+                            <div class="memories-collection-card__rating-value">{{
+                                '%.1f'|format(collection.average_rating) }}</div>
                         </div>
                         <div class="memories-collection-card__rating-track" aria-hidden="true">
                             <span class="memories-collection-card__rating-fill"></span>
                         </div>
-                        <p class="memories-collection-card__subtitle">7 memórias • 2 dias</p>
+                        <p class="memories-collection-card__subtitle">{{ collection.memory_count }} memórias • {{
+                            collection.days_since_last }} dias</p>
                     </div>
                 </article>
-
-                <!-- Restaurants - 9 memórias -->
-                <article class="memories-collection-card" data-collection="restaurants" data-count="9" data-days="3">
-                    <div class="memories-collection-card__image"
-                        style="background-image: url('https://images.unsplash.com/photo-1504674900152-b8b0cb6f3f61?w=400&h=400&fit=crop');">
-                    </div>
-                    <div class="memories-collection-card__overlay"></div>
-                    <div class="memories-collection-card__content">
-                        <h3 class="memories-collection-card__title">Restaurantes</h3>
-                        <div class="memories-collection-card__rating" style="--rating: 4.5; --rating-fill: 90%;">
-                            <div class="memories-collection-card__rating-label">Média</div>
-                            <div class="memories-collection-card__rating-value">4.5</div>
-                        </div>
-                        <div class="memories-collection-card__rating-track" aria-hidden="true">
-                            <span class="memories-collection-card__rating-fill"></span>
-                        </div>
-                        <p class="memories-collection-card__subtitle">9 memórias • 3 dias</p>
-                    </div>
-                </article>
-
-                <!-- Travels - 5 memórias -->
-                <article class="memories-collection-card" data-collection="travels" data-count="5" data-days="8">
-                    <div class="memories-collection-card__image"
-                        style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=400&fit=crop');">
-                    </div>
-                    <div class="memories-collection-card__overlay"></div>
-                    <div class="memories-collection-card__content">
-                        <h3 class="memories-collection-card__title">Viagens</h3>
-                        <div class="memories-collection-card__rating" style="--rating: 4.2; --rating-fill: 84%;">
-                            <div class="memories-collection-card__rating-label">Média</div>
-                            <div class="memories-collection-card__rating-value">4.2</div>
-                        </div>
-                        <div class="memories-collection-card__rating-track" aria-hidden="true">
-                            <span class="memories-collection-card__rating-fill"></span>
-                        </div>
-                        <p class="memories-collection-card__subtitle">5 memórias • 8 dias</p>
-                    </div>
-                </article>
-
-                <!-- Special Dates - 3 memórias -->
-                <article class="memories-collection-card" data-collection="special" data-count="3" data-days="10">
-                    <div class="memories-collection-card__image"
-                        style="background-image: url('https://images.unsplash.com/photo-1478759509037-27186f19749a?w=400&h=400&fit=crop');">
-                    </div>
-                    <div class="memories-collection-card__overlay"></div>
-                    <div class="memories-collection-card__content">
-                        <h3 class="memories-collection-card__title">Datas Especiais</h3>
-                        <div class="memories-collection-card__rating" style="--rating: 4.0; --rating-fill: 80%;">
-                            <div class="memories-collection-card__rating-label">Média</div>
-                            <div class="memories-collection-card__rating-value">4.0</div>
-                        </div>
-                        <div class="memories-collection-card__rating-track" aria-hidden="true">
-                            <span class="memories-collection-card__rating-fill"></span>
-                        </div>
-                        <p class="memories-collection-card__subtitle">3 memórias • 10 dias</p>
-                    </div>
-                </article>
-
-                <!-- Random - 2 memórias -->
-                <article class="memories-collection-card" data-collection="random" data-count="2" data-days="15">
-                    <div class="memories-collection-card__image"
-                        style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06140bcbcc0?w=400&h=400&fit=crop');">
-                    </div>
-                    <div class="memories-collection-card__overlay"></div>
-                    <div class="memories-collection-card__content">
-                        <h3 class="memories-collection-card__title">Aleatórias</h3>
-                        <div class="memories-collection-card__rating" style="--rating: 3.6; --rating-fill: 72%;">
-                            <div class="memories-collection-card__rating-label">Média</div>
-                            <div class="memories-collection-card__rating-value">3.6</div>
-                        </div>
-                        <div class="memories-collection-card__rating-track" aria-hidden="true">
-                            <span class="memories-collection-card__rating-fill"></span>
-                        </div>
-                        <p class="memories-collection-card__subtitle">2 memórias • 15 dias</p>
-                    </div>
-                </article>
+                {% endfor %}
             </div>
         </section>
 
@@ -237,62 +149,19 @@
             </div>
 
             <div class="memories-grid">
-                <!-- Memory 1 -->
+                {% for memory in dashboard.latest_memories %}
                 <article class="memories-grid-card">
-                    <div class="memories-grid-card__image"
-                        style="background-image: url('https://images.unsplash.com/photo-1474447585909-b79a2b3e74eb?w=400&h=400&fit=crop');">
+                    <div class="memories-grid-card__image" style="background-image: url('{{ memory.image }}');">
                     </div>
                     <div class="memories-grid-card__content">
-                        <h3 class="memories-grid-card__title">Café da manhã especial</h3>
+                        <h3 class="memories-grid-card__title">{{ memory.title }}</h3>
                         <div class="memories-grid-card__meta">
-                            <span class="memories-grid-card__category">Restaurantes</span>
-                            <span class="memories-grid-card__date">23 Nov</span>
+                            <span class="memories-grid-card__category">{{ memory.category }}</span>
+                            <span class="memories-grid-card__date">{{ memory.date }}</span>
                         </div>
                     </div>
                 </article>
-
-                <!-- Memory 2 -->
-                <article class="memories-grid-card">
-                    <div class="memories-grid-card__image"
-                        style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop');">
-                    </div>
-                    <div class="memories-grid-card__content">
-                        <h3 class="memories-grid-card__title">Passeio pelo centro</h3>
-                        <div class="memories-grid-card__meta">
-                            <span class="memories-grid-card__category">Parques</span>
-                            <span class="memories-grid-card__date">20 Nov</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Memory 3 -->
-                <article class="memories-grid-card">
-                    <div class="memories-grid-card__image"
-                        style="background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=400&fit=crop');">
-                    </div>
-                    <div class="memories-grid-card__content">
-                        <h3 class="memories-grid-card__title">Noite de cinema</h3>
-                        <div class="memories-grid-card__meta">
-                            <span class="memories-grid-card__category">Cinema</span>
-                            <span class="memories-grid-card__date">18 Nov</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Memory 4 -->
-                <article class="memories-grid-card">
-                    <div class="memories-grid-card__image"
-                        style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop');">
-                    </div>
-                    <div class="memories-grid-card__content">
-                        <h3 class="memories-grid-card__title">Praia ao pôr do sol</h3>
-                        <div class="memories-grid-card__meta">
-                            <span class="memories-grid-card__category">Viagens</span>
-                            <span class="memories-grid-card__date">15 Nov</span>
-                        </div>
-                    </div>
-                </article>
-
+                {% endfor %}
             </div>
         </section>
     </div>

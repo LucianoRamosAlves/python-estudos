@@ -25,6 +25,16 @@ def get_active_relationship_member(user):
     return None
 
 
+def get_active_relationship_id(user):
+    """Retorna o id do relationship ativo do usuário autenticado."""
+
+    member = get_active_relationship_member(user)
+    if member is None or member.relationship is None:
+        return None
+
+    return member.relationship.id
+
+
 def get_connected_partner(user):
     """Retorna o parceiro conectado e o membro correspondente no relacionamento."""
 

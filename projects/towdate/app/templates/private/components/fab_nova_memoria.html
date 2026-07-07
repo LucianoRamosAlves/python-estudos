@@ -1,4 +1,4 @@
-{% if show_memory_fab %}
+{% if show_memory_fab and memory_form %}
 
 <button class="td-memory-fab" type="button" data-memory-fab-trigger aria-label="Nova Memória">
     <span class="td-memory-fab__plus">+</span>
@@ -23,7 +23,9 @@
                 </button>
             </header>
 
-            <div class="td-memory-fab-modal__body">
+            <form class="td-memory-fab-modal__body" method="POST" action="{{ url_for('private.memorias') }}"
+                enctype="multipart/form-data" data-memory-create-form>
+                {{ memory_form.csrf_token }}
                 <div class="memory-new__wizard-head">
                     <div class="memory-new__progress" aria-label="Progresso das etapas">
                         <div class="memory-new__progress-track" aria-hidden="true">
@@ -70,7 +72,8 @@
                             </div>
 
                             <label class="memory-new__dropzone" for="memoryFileInput">
-                                <input id="memoryFileInput" type="file" accept="image/*" hidden>
+                                <input id="memoryFileInput" name="{{ memory_form.photos.name }}" type="file"
+                                    accept="image/*" hidden multiple>
                                 <div class="memory-new__dropzone-body">
                                     <div>
                                         <strong>Arraste suas fotos aqui</strong>
@@ -340,6 +343,17 @@
                     </section>
                 </div>
 
+                <input type="hidden" name="{{ memory_form.title.name }}" data-memory-submit-title>
+                <input type="hidden" name="{{ memory_form.description.name }}" data-memory-submit-description>
+                <input type="hidden" name="{{ memory_form.memory_date.name }}" data-memory-submit-date>
+                <input type="hidden" name="{{ memory_form.location.name }}" data-memory-submit-location>
+                <input type="hidden" name="{{ memory_form.collection_slug.name }}" data-memory-submit-collection>
+                <input type="hidden" name="{{ memory_form.custom_collection_name.name }}"
+                    data-memory-submit-custom-collection>
+                <input type="hidden" name="{{ memory_form.tags.name }}" data-memory-submit-tags>
+                <input type="hidden" name="{{ memory_form.rating.name }}" data-memory-submit-rating>
+                <input type="hidden" name="{{ memory_form.favorite.name }}" data-memory-submit-favorite>
+
                 <div class="memory-new__error-list" aria-live="assertive"></div>
                 <div class="memory-new__toast" role="status" aria-live="polite" hidden>
                     <span class="memory-new__toast-message">Memória registrada com sucesso! (Modo demonstração)</span>
@@ -350,10 +364,10 @@
                         data-step-back>Voltar</button>
                     <button class="memory-new__save memory-new__footer-next" type="button"
                         data-step-next>Próximo</button>
-                    <button class="memory-new__save memory-new__footer-save" type="button" data-memory-save
+                    <button class="memory-new__save memory-new__footer-save" type="submit" data-memory-save
                         hidden>Salvar Memória</button>
                 </footer>
-            </div>
+            </form>
         </div>
 
     </div>

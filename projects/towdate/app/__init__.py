@@ -6,6 +6,7 @@ from app import models
 from app.config import Config
 from app.extensions import db, migrate, login_manager, bcrypt
 
+
 def create_app():
 
     app = Flask(__name__, template_folder="templates", static_folder="static")
@@ -17,12 +18,15 @@ def create_app():
     login_manager.init_app(app)
 
     from app.public.routes import public
+
     app.register_blueprint(public)
 
     from app.private.routes import private
+
     app.register_blueprint(private)
 
     from app.auth.routes import auth
+
     app.register_blueprint(auth)
 
     @app.errorhandler(RequestEntityTooLarge)
@@ -37,12 +41,23 @@ def create_app():
     @app.context_processor
     def inject_memory_fab_visibility():
         show_memory_fab = False
+        memory_form = None
 
         if current_user.is_authenticated:
             endpoint = request.endpoint or ""
             show_memory_fab = not endpoint.startswith("private.account")
 
-        return {"show_memory_fab": show_memory_fab}
+            if show_memory_fab:
+                from app.forms.memory_forms import MemoryCreateForm
+                from app.services.memory_service import apply_memory_form_defaults
+
+                memory_form = MemoryCreateForm()
+                apply_memory_form_defaults(memory_form)
+
+        return {
+            "show_memory_fab": show_memory_fab,
+            "memory_form": memory_form,
+        }
 
     @app.before_request
     def check_session_version():
