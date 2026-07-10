@@ -14,6 +14,3 @@ def gerar_codigo():
     codigo = "".join(secrets.choice(caracteres) for _ in range(10))
 
     return f"BR-{codigo}{caracteres_especial}{milisegundos}-LRA"
-
-codigo = gerar_codigo()
-print(codigo)
