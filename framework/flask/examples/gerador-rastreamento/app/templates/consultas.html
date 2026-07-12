@@ -27,7 +27,15 @@
                 {% if registro %}
                 <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Status:{{ registro.status }}</p>
                 <hr class="my-5">
+                
+                <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Categoria do produto: {{ registro.categoria_produto }}</p>
+                <hr class="my-5">
+                
+                <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Tipo de entrega: {{ registro.tipo_entrega }}</p>
+                <hr class="my-5">
+                
                 <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Criado em: {{ registro.criado_em }}</p>
+
                 {% else %}
                 <p id="mensagem" class="mt-3 text-sm font-medium text-red-600" style="white-space: pre-line;">{{ mensagem }}</p>
                 {% endif %}   

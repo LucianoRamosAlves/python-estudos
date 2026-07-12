@@ -9,19 +9,25 @@ def register_routes(app):
     def index():
         codigo = None
         mensagem = None
+        categoria_produto = None
+        tipo_entrega = None
         
         if request.method == "POST":
             codigo = gerar_codigo()
+            categoria_produto = request.form.get("categoria_produto")
+            tipo_entrega = request.form.get("tipo_entrega")
 
             novo_codigo = TrackingCode(
-                codigo=codigo)
+                codigo=codigo,
+                categoria_produto=categoria_produto,
+                tipo_entrega=tipo_entrega)
             
             db.session.add(novo_codigo)
             db.session.commit()
 
             mensagem = "Código gerado com sucesso!"
 
-        return render_template("index.html", codigo=codigo, mensagem=mensagem)
+        return render_template("index.html", codigo=codigo, mensagem=mensagem, categoria_produto=categoria_produto, tipo_entrega=tipo_entrega)
 
     @app.route("/consultas", methods=["GET", "POST"])
     def consultas():
@@ -33,6 +39,7 @@ def register_routes(app):
 
         if request.method == "POST":
             codigo = request.form.get("codigo").strip() # Remove espaços em branco extras
+
             pesquisa_realizada = True
 
             if not codigo:
@@ -40,7 +47,7 @@ def register_routes(app):
 
             elif len(codigo) < tamanho_minimo_codigo:
                 mensagem = f"O código deve ter pelo menos {tamanho_minimo_codigo} caracteres."
-                
+
             else:
                 registro = TrackingCode.query.filter_by(codigo=codigo).first()
 

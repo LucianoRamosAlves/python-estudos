@@ -27,21 +27,21 @@
     </div>
 
     <form method="POST" max-w-md class="w-full flex flex-col items-center gap-4 mt-6">
-        <label for="tipo" class="text-xl font-bold mb-4">Tipo do produto</label>
+        <label for="categoria_produto" class="text-xl font-bold mb-4">Categoria do produto</label>
 
-        <select name="tipo" id="tipo" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200">
+        <select name="categoria_produto" id="categoria_produto" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200">
 
             <option value="" selected disabled>Selecione</option>
-            <option value="produto">Eletrônicos</option>
-            <option value="documento">Roupas</option>
-            <option value="documento">Móveis</option>
-            <option value="documento">Livros</option>
+            <option value="eletronicos">Eletrônicos</option>
+            <option value="roupas">Roupas</option>
+            <option value="moveis">Móveis</option>
+            <option value="livros">Livros</option>
             <option value="outro">Outro</option>
         </select>
 
         <div class=" flex items-center gap-3">
-        <label for="entrega" class="text-base font-bold mb-4">Tipo da entrega</label>
-        <select name="entrega" id="entrega" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-2 text-center text-sm font-mono tracking-[0.2em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200"flex-row>
+        <label for="tipo_entrega" class="text-base font-bold mb-4">Tipo da entrega</label>
+        <select name="tipo_entrega" id="tipo_entrega" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-2 text-center text-sm font-mono tracking-[0.2em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200"flex-row>
             <option value="" selected disabled>Selecione</option>
             <option value="normal">Normal</option>
             <option value="expressa">Expressa</option>
