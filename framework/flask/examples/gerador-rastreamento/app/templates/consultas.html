@@ -13,25 +13,34 @@
             <input type="text" name="codigo" placeholder="Digite o código"
                 class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent">
 
-        {% if mensagem %}
 
-        <div id="resultado"
-            class="w-full bg-slate-100 border-2 border-dashed border-green-400 rounded-xl p-5 text-center text-2xl font-mono font-bold tracking-[0.3em] text-cyan-700">
+                {% if pesquisa_realizada %}
+                <div id="resultado"
+                class="w-full border-2 border-dashed  rounded-xl p-5 text-center text-2xl font-mono font-bold tracking-[0.3em] 
+                {% if registro %}
+                bg-slate-100 border-green-400 text-cyan-700
+                {% else %}
+                bg-slate-100 border-red-400 text-red-700
+                {% endif %}">
 
-            <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">{{ mensagem }}</p>
 
-        </div>
+                {% if registro %}
+                <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Status:{{ registro.status }}</p>
+                <hr class="my-5">
+                <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Criado em: {{ registro.criado_em }}</p>
+                {% else %}
+                <p id="mensagem" class="mt-3 text-sm font-medium text-red-600" style="white-space: pre-line;">{{ mensagem }}</p>
+                {% endif %}   
+                </div>
+                {% endif %}
 
-        {% else %}
+            <p>Digite o código para consulta.</p>
 
-        <p>Digite o código para consulta.</p>
-
-        {% endif %}
     </div>
 
-        <button
-            class="mt-6 bg-cyan-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:bg-cyan-700 hover:scale-105 active:scale-95"
-            type="submit">Consultar</button>
+    <button
+        class="mt-6 bg-cyan-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:bg-cyan-700 hover:scale-105 active:scale-95"
+        type="submit">Consultar</button>
     </form>
     <a href="/">
         <button

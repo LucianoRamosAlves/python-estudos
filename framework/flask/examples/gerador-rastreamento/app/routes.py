@@ -26,16 +26,25 @@ def register_routes(app):
     @app.route("/consultas", methods=["GET", "POST"])
     def consultas():
         codigo = None
+        registro = None
+        pesquisa_realizada = False
         mensagem = None
+        tamanho_minimo_codigo = 15  # Defina o tamanho mínimo do código
 
         if request.method == "POST":
-            codigo = request.form.get("codigo")
- 
-            registro = TrackingCode.query.filter_by(codigo=codigo).first()
+            codigo = request.form.get("codigo").strip() # Remove espaços em branco extras
+            pesquisa_realizada = True
 
-            if registro:
-                mensagem = f"Status: {registro.status} \n Criado em: {registro.criado_em}"
+            if not codigo:
+                mensagem = "Por favor, insira um código para consulta."
+
+            elif len(codigo) < tamanho_minimo_codigo:
+                mensagem = f"O código deve ter pelo menos {tamanho_minimo_codigo} caracteres."
+                
             else:
-                mensagem = "Código não encontrado."
+                registro = TrackingCode.query.filter_by(codigo=codigo).first()
 
-        return render_template("consultas.html", codigo=codigo, mensagem=mensagem)
+                if not registro:
+                    mensagem = "Código não registrado."
+
+        return render_template("consultas.html", codigo=codigo, registro=registro, pesquisa_realizada=pesquisa_realizada, mensagem=mensagem)
