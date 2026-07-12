@@ -13,9 +13,9 @@ def register_routes(app):
         tipo_entrega = None
         
         if request.method == "POST":
-            codigo = gerar_codigo()
             categoria_produto = request.form.get("categoria_produto")
             tipo_entrega = request.form.get("tipo_entrega")
+            codigo = gerar_codigo(categoria_produto, tipo_entrega)
 
             novo_codigo = TrackingCode(
                 codigo=codigo,

@@ -25,16 +25,16 @@
 
 
                 {% if registro %}
-                <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Status:{{ registro.status }}</p>
+                <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Status: <span class="text-cyan-700">{{ registro.status }}</span></p>
                 <hr class="my-5">
                 
-                <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Categoria do produto: {{ registro.categoria_produto }}</p>
+                <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Categoria do produto: <span class="text-cyan-700">{{ registro.categoria_produto }}</span></p>
                 <hr class="my-5">
                 
-                <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Tipo de entrega: {{ registro.tipo_entrega }}</p>
+                <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Tipo de entrega: <span class="text-cyan-700">{{ registro.tipo_entrega }}</span></p>
                 <hr class="my-5">
                 
-                <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Criado em: {{ registro.criado_em }}</p>
+                <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;">Criado em: <span class="text-cyan-700">{{ registro.criado_em }}</span></p>
 
                 {% else %}
                 <p id="mensagem" class="mt-3 text-sm font-medium text-red-600" style="white-space: pre-line;">{{ mensagem }}</p>
