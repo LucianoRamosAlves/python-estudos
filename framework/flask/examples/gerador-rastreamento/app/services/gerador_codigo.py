@@ -2,8 +2,6 @@ import secrets
 import string
 import time
 
-
-
 def gerar_codigo():
     milisegundos = str(int(time.time() * 1000))[-8:]  # Obtém os últimos 8 dígitos dos milissegundos
 
