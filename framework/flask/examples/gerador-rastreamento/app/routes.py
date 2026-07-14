@@ -84,8 +84,10 @@ def register_routes(app):
 
         if request.method == "GET":
             filtro_categoria = request.args.get("filtro_categoria")
+            q_codigos = TrackingCode.query.limit(int(request.args.get("q_codigos", 10)))
 
             codigos = TrackingCode.query.filter_by(categoria_produto=filtro_categoria).all()
+            codigos = q_codigos.all()
 
 
 

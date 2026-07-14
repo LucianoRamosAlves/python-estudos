@@ -5,26 +5,25 @@
 <main class="flex flex-col items-center justify-center min-h-screen bg-cyan-100 p-6">
 
     <div id="tela_codigo"
-        class="flex flex-col items-center bg-white p-8 rounded-2xl shadow-xl border border-cyan-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+        class="flex flex-col items-center bg-white p-8 gap-2 rounded-2xl shadow-xl border border-cyan-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
 
         <h2 class="text-xl font-bold mb-4">Central de pesquisa</h2>
 
-        <div id="codigo"
-            class="w-full bg-slate-100 border-2 border-dashed border-green-400 rounded-xl  text-center text-2xl font-mono font-bold tracking-[0.3em] text-cyan-700
-            ">
-        
-        <spam id="mensagem" class=" text-sm font-medium text-cyan-700" style="white-space: pre-line;">
         {% for codigo in codigos %}
-            {{ codigo.codigo  }}<hr>
-        {% endfor %}
-    </spam>
+        <div id="codigo"
+            class=" w-full bg-slate-100 border-2 border-dashed border-green-400 rounded-xl p-3 text-center text-2xl font-mono font-bold tracking-[0.3em]">
+        
+        <p id="mensagem" class=" text-sm font-medium text-cyan-700 leading-none" style="white-space: pre-line;">
+        {{ codigo.codigo  }}
+        </p>
 
         </div>
+        {% endfor %}
 
         <p>Clique no botão para pesquisar um código.</p>
 
         {% if mensagem %}
-        <p id="mensagem" class="mt-3 text-sm font-medium text-green-600">{{ codigos }}</p>
+        <p id="mensagem" class=" text-sm font-medium text-green-600">{{ codigos }}</p>
         {% endif %}
 
     </div>
@@ -44,16 +43,16 @@
             <option value="todos">Todos</option>
         </select>
   
-        <label for="quantidade_codigos" class="text-xl font-bold">Quantidade de codigos</label>
-        <select name="quantidade_codigos" id="quantidade_codigos" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200 mb-4">
+        <label for="q_codigos" class="text-xl font-bold">Quantidade de codigos</label>
+        <select name="q_codigos" id="q_codigos" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200 mb-4">
 
             <option value="" selected disabled>Selecione</option>
-            <option value="eletronicos">Eletrônicos</option>
-            <option value="roupas">Roupas</option>
-            <option value="moveis">Móveis</option>
-            <option value="livros">Livros</option>
-            <option value="outros">Outros</option>
-            <option value="todos">Todos</option>
+            <option value="q_eletronicos">Eletrônicos</option>
+            <option value="q_roupas">Roupas</option>
+            <option value="q_moveis">Móveis</option>
+            <option value="q_livros">Livros</option>
+            <option value="q_outros">Outros</option>
+            <option value="q_todos">Todos</option>
         </select>
 
         <label for="lista_codigos" class="text-xl font-bold">Lista de códigos</label>
