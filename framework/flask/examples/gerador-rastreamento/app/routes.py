@@ -83,17 +83,10 @@ def register_routes(app):
         mensagem = None
 
         if request.method == "GET":
-            codigo = request.args.get("codigo").strip() if request.args.get("codigo") else None
-            registro = TrackingCode.query.filter_by(codigo=codigo).first() if codigo else None
-            if codigo and not registro:
-                mensagem = "Código não registrado."
+            filtro_categoria = request.args.get("filtro_categoria")
 
-            if registro:
-                mensagem = TrackingCode.query.filter_by(codigo=codigo).all()
-        
+            codigos = TrackingCode.query.filter_by(categoria_produto=filtro_categoria).all()
 
 
 
-
-
-        return render_template("admin_pesquisas.html", codigo=codigo, registro=registro, mensagem=mensagem)
+        return render_template("admin_pesquisas.html", codigo=codigo, registro=registro, mensagem=mensagem, codigos=codigos, filtro_categoria=filtro_categoria)
