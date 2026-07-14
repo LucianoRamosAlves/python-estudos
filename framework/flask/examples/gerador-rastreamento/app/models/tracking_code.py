@@ -12,6 +12,8 @@ class TrackingCode(db.Model):
 
     status = db.Column(db.String(30), nullable=False, default="Criado")
 
+    estado = db.Column(db.String(30), nullable=False, default="Ativado")
+
     categoria_produto = db.Column(db.String(30), nullable=False)
 
     tipo_entrega = db.Column(db.String(30), nullable=False)

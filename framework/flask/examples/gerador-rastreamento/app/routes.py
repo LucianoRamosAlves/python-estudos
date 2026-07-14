@@ -11,8 +11,16 @@ def register_routes(app):
         mensagem = None
         categoria_produto = None
         tipo_entrega = None
+        pesquisa_realizada = False
         
         if request.method == "POST":
+            pesquisa_realizada = True
+
+            if not request.form.get("categoria_produto") or not request.form.get("tipo_entrega"):
+                mensagem = "Por favor, selecione uma categoria de produto e um tipo de entrega."
+                return render_template("index.html", codigo=codigo, mensagem=mensagem, categoria_produto=categoria_produto, tipo_entrega=tipo_entrega, pesquisa_realizada=pesquisa_realizada)
+
+            
             categoria_produto = request.form.get("categoria_produto")
             tipo_entrega = request.form.get("tipo_entrega")
             codigo = gerar_codigo(categoria_produto, tipo_entrega)
@@ -27,7 +35,7 @@ def register_routes(app):
 
             mensagem = "Código gerado com sucesso!"
 
-        return render_template("index.html", codigo=codigo, mensagem=mensagem, categoria_produto=categoria_produto, tipo_entrega=tipo_entrega)
+        return render_template("index.html", codigo=codigo, mensagem=mensagem, categoria_produto=categoria_produto, tipo_entrega=tipo_entrega, pesquisa_realizada=pesquisa_realizada)
 
     @app.route("/consultas", methods=["GET", "POST"])
     def consultas():
@@ -55,3 +63,19 @@ def register_routes(app):
                     mensagem = "Código não registrado."
 
         return render_template("consultas.html", codigo=codigo, registro=registro, pesquisa_realizada=pesquisa_realizada, mensagem=mensagem)
+
+    @app.route("/admin", methods=["GET", "POST"])
+    def admin():
+        codigo = None
+        registro = None
+        mensagem = None
+        if request.method == "POST":
+            codigo = request.form.get("codigo").strip()
+            registro = TrackingCode.query.filter_by(codigo=codigo).first()
+            if not registro:
+                mensagem = "Código não registrado."
+        return render_template("admin.html", codigo=codigo, registro=registro, mensagem=mensagem)
+    
+    @app.route("/admin_pesquisas", methods=["GET"])
+    def admin_pesquisas():
+        return render_template("admin_pesquisas.html")
