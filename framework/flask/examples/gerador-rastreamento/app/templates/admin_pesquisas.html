@@ -9,16 +9,11 @@
 
         <h2 class="text-xl font-bold mb-4">Central de pesquisa</h2>
 
-        {% if codigo %}
         <div id="codigo"
             class="w-full bg-slate-100 border-2 border-dashed border-green-400 rounded-xl p-5 text-center text-2xl font-mono font-bold tracking-[0.3em] text-cyan-700">
-            {{ codigo }}
         </div>
 
-        {% else %}
         <p>Clique no botão para pesquisar um código.</p>
-        {% endif %}
-
 
         {% if mensagem %}
         <p id="mensagem" class="mt-3 text-sm font-medium text-green-600">{{ mensagem }}</p>
@@ -26,24 +21,11 @@
 
     </div>
 
-    <form method="POST" max-w-md class="w-full flex flex-col items-center gap-4 mt-6">
+    <form method="get" max-w-md class="w-full flex flex-col items-center gap-1 mt-5">
 
-        <label for="categoria_produto" class="text-xl font-bold mb-4">Quantidade de codigos</label>
+        <label for="categoria_produto" class="text-xl font-bold">Quantidade de codigos</label>
 
-        <select name="categoria_produto" id="categoria_produto" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200">
-
-            <option value="" selected disabled>Selecione</option>
-            <option value="eletronicos">Eletrônicos</option>
-            <option value="roupas">Roupas</option>
-            <option value="moveis">Móveis</option>
-            <option value="livros">Livros</option>
-            <option value="outros">Outros</option>
-            <option value="todos">Todos</option>
-        </select>
-
-        <label for="lista_codigos" class="text-xl font-bold mb-4">Lista de códigos</label>
-
-        <select name="lista_codigos" id="lista_codigos" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200">
+        <select name="categoria_produto" id="categoria_produto" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200 mb-4">
 
             <option value="" selected disabled>Selecione</option>
             <option value="eletronicos">Eletrônicos</option>
@@ -54,10 +36,23 @@
             <option value="todos">Todos</option>
         </select>
 
+        <label for="lista_codigos" class="text-xl font-bold">Lista de códigos</label>
 
-        <label for="categoria_produto" class="text-xl font-bold mb-4">Status</label>
+        <select name="lista_codigos" id="lista_codigos" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200 mb-4">
 
-        <select name="categoria_produto" id="categoria_produto" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200">
+            <option value="" selected disabled>Selecione</option>
+            <option value="eletronicos">Eletrônicos</option>
+            <option value="roupas">Roupas</option>
+            <option value="moveis">Móveis</option>
+            <option value="livros">Livros</option>
+            <option value="outros">Outros</option>
+            <option value="todos">Todos</option>
+        </select>
+
+
+        <label for="categoria_produto" class="text-xl font-bold">Status</label>
+
+        <select name="categoria_produto" id="categoria_produto" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200 mb-4">
 
             <option value="" selected disabled>Selecione</option>
             <option value="processando">Processando</option>
@@ -70,9 +65,9 @@
             <option value="cancelado">Recusado</option>
         </select>
 
-        <label for="pesquisa_acoes" class="text-xl font-bold mb-4">Pesquisar por ações</label>
+        <label for="pesquisa_acoes" class="text-xl font-bold">Pesquisar por ações</label>
 
-        <select name="pesquisa_acoes" id="pesquisa_acoes" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200">
+        <select name="pesquisa_acoes" id="pesquisa_acoes" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200 mb-4">
 
             <option value="" selected disabled>Selecione</option>
             <option value="ativos">Ativos</option>

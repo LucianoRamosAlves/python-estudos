@@ -15,14 +15,14 @@ def register_routes(app):
         
         if request.method == "POST":
             pesquisa_realizada = True
+            categoria_produto = request.form.get("categoria_produto")
+            tipo_entrega = request.form.get("tipo_entrega")
 
-            if not request.form.get("categoria_produto") or not request.form.get("tipo_entrega"):
+            if not categoria_produto or not tipo_entrega:
                 mensagem = "Por favor, selecione uma categoria de produto e um tipo de entrega."
                 return render_template("index.html", codigo=codigo, mensagem=mensagem, categoria_produto=categoria_produto, tipo_entrega=tipo_entrega, pesquisa_realizada=pesquisa_realizada)
 
             
-            categoria_produto = request.form.get("categoria_produto")
-            tipo_entrega = request.form.get("tipo_entrega")
             codigo = gerar_codigo(categoria_produto, tipo_entrega)
 
             novo_codigo = TrackingCode(
@@ -78,4 +78,22 @@ def register_routes(app):
     
     @app.route("/admin_pesquisas", methods=["GET"])
     def admin_pesquisas():
-        return render_template("admin_pesquisas.html")
+        codigo = None
+        registro = None
+        mensagem = None
+
+        if request.method == "GET":
+            codigo = request.args.get("codigo").strip() if request.args.get("codigo") else None
+            registro = TrackingCode.query.filter_by(codigo=codigo).first() if codigo else None
+            if codigo and not registro:
+                mensagem = "Código não registrado."
+
+            if registro:
+                mensagem = TrackingCode.query.filter_by(codigo=codigo).all()
+        
+
+
+
+
+
+        return render_template("admin_pesquisas.html", codigo=codigo, registro=registro, mensagem=mensagem)
