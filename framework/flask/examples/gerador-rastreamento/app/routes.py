@@ -18,9 +18,13 @@ def register_routes(app):
             categoria_produto = request.form.get("categoria_produto")
             tipo_entrega = request.form.get("tipo_entrega")
 
-            if not categoria_produto or not tipo_entrega:
-                mensagem = "Por favor, selecione uma categoria de produto e um tipo de entrega."
-                return render_template("index.html", codigo=codigo, mensagem=mensagem, categoria_produto=categoria_produto, tipo_entrega=tipo_entrega, pesquisa_realizada=pesquisa_realizada)
+            if not categoria_produto:
+                mensagem = "Por favor, selecione uma categoria de produto."
+                return render_template("index.html", codigo=codigo, mensagem=mensagem, categoria_produto=categoria_produto, pesquisa_realizada=pesquisa_realizada)
+
+            elif not tipo_entrega:
+                mensagem = "Por favor, selecione um tipo de entrega."
+                return render_template("index.html", codigo=codigo, mensagem=mensagem, tipo_entrega=tipo_entrega, pesquisa_realizada=pesquisa_realizada)
 
             
             codigo = gerar_codigo(categoria_produto, tipo_entrega)
