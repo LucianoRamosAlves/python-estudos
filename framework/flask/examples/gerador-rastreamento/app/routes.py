@@ -69,25 +69,23 @@ def register_routes(app):
         codigo = None
         registro = None
         mensagem = None
+
         if request.method == "POST":
-            print(request.form)
-            print("Código:", codigo)
-            print("Novo status:", request.form.get("novo_status"))
             codigo = request.form.get("codigo").strip()
             registro = TrackingCode.query.filter_by(codigo=codigo).first()
+
             if not registro:
                 mensagem = "Código não registrado."
 
             if registro:
                 novo_status = request.form.get("novo_status")
+                novo_estado = request.form.get("novo_estado")
                 if novo_status:
                     registro.status = novo_status
-                    print("Registro:", registro)
-                    print("Novo status:", novo_status)
-                    print("Status antes:", registro.status if registro else None)
-                    db.session.commit()
-                    print("Status depois:", registro.status)
-                    mensagem = "Status atualizado com sucesso."
+                if novo_estado:
+                    registro.estado = novo_estado
+                db.session.commit()
+                mensagem = "Status atualizado com sucesso."
 
         return render_template("admin.html", codigo=codigo, registro=registro, mensagem=mensagem)
     
