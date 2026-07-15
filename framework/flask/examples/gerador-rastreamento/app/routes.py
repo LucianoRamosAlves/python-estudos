@@ -62,6 +62,11 @@ def register_routes(app):
                 if not registro:
                     mensagem = "Código não registrado."
 
+                elif registro and registro.estado == "deletado":
+                    mensagem = "Este código não está mais disponível para consulta."
+                    registro = None  # Não exibir o registro deletado
+
+
         return render_template("consultas.html", codigo=codigo, registro=registro, pesquisa_realizada=pesquisa_realizada, mensagem=mensagem)
 
     @app.route("/admin", methods=["GET", "POST"])
@@ -80,12 +85,27 @@ def register_routes(app):
             if registro:
                 novo_status = request.form.get("novo_status")
                 novo_estado = request.form.get("novo_estado")
-                if novo_status:
-                    registro.status = novo_status
-                if novo_estado:
-                    registro.estado = novo_estado
-                db.session.commit()
-                mensagem = "Status atualizado com sucesso."
+                b_acao = request.form.get("b_acao")
+
+                if b_acao == "deletar":
+                    registro.estado = "deletado"
+                    db.session.commit()
+                    codigo = None
+                    registro = None
+                    mensagem = "Código deletado com sucesso."
+
+                else:
+
+                    if novo_status:
+                        registro.status = novo_status
+
+                    if novo_estado:
+                        registro.estado = novo_estado
+
+                    if novo_status or novo_estado:
+                        db.session.commit()
+                        mensagem = "Dados atualizados com sucesso."
+
 
         return render_template("admin.html", codigo=codigo, registro=registro, mensagem=mensagem)
     
