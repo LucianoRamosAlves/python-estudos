@@ -10,9 +10,12 @@
 
             <h2 class="text-xl font-bold mb-4">Central de Administração</h2>
 
+            {% if not registro %}
 
             <input type="text" name="codigo" placeholder="Digite o código"
                 class=" w-4/4 bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent">
+
+            {% endif %}
 
 
             {% if codigo %}
@@ -34,8 +37,10 @@
 
         {% if registro %}
 
-        <label for="categoria_produto" class="text-xl font-bold mb-4">Mudança de status</label>
-        <select name="categoria_produto" id="categoria_produto"
+        <input type="hidden" name="codigo" value="{{ registro.codigo }}">
+
+        <label for="novo_status" class="text-xl font-bold mb-4">Mudança de status</label>
+        <select name="novo_status" id="novo_status"
             class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200">
 
             <option value="" selected disabled>{{ registro.status }}</option>
@@ -66,6 +71,12 @@
                 class="mt-6 bg-red-500 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:bg-red-700 hover:scale-105 active:scale-95"
                 type="button">Deletar codigo</button>
         </a>
+
+            <button
+                class="mt-6 bg-cyan-500 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:bg-cyan-700 hover:scale-105 active:scale-95"
+                type="submit">Confirmar</button>
+
+
         <a href="{{ url_for('admin') }}">
             <button
                 class="mt-6 bg-cyan-500 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:bg-cyan-700 hover:scale-105 active:scale-95"
@@ -75,7 +86,7 @@
         <button
             class="mt-6 bg-cyan-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:bg-cyan-700 hover:scale-105 active:scale-95"
             type="submit">Confirmar</button>
-    </form>
+
     <a href="{{ url_for('admin_pesquisas') }}">
         <button
             class="mt-6 bg-cyan-500 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:bg-cyan-900 hover:scale-105 active:scale-95"
@@ -83,6 +94,8 @@
     </a>
 
     {% endif %}
+
+    </form>
 </main>
 
 
