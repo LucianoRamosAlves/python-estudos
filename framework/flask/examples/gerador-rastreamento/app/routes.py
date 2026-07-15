@@ -78,17 +78,41 @@ def register_routes(app):
     
     @app.route("/admin_pesquisas", methods=["GET"])
     def admin_pesquisas():
+        codigos = []
         codigo = None
         registro = None
         mensagem = None
+        quantidade_codigos = 0
+        pesquisa_quantidade = False
+
 
         if request.method == "GET":
             filtro_categoria = request.args.get("filtro_categoria")
-            q_codigos = TrackingCode.query.limit(int(request.args.get("q_codigos", 10)))
+            filtro_status = request.args.get("filtro_status")
+            filtro_tipo_entrega = request.args.get("filtro_tipo_entrega")
+            filtro_acoes = request.args.get("filtro_acoes")
+            b_acao = request.args.get("b_acao")
 
-            codigos = TrackingCode.query.filter_by(categoria_produto=filtro_categoria).all()
-            codigos = q_codigos.all()
+            query = TrackingCode.query
 
+            if filtro_categoria:
+                query = query.filter_by(categoria_produto=filtro_categoria)
+            
+            if filtro_status:
+                query = query.filter_by(status=filtro_status)
 
+            if filtro_tipo_entrega:
+                query = query.filter_by(tipo_entrega=filtro_tipo_entrega)
 
-        return render_template("admin_pesquisas.html", codigo=codigo, registro=registro, mensagem=mensagem, codigos=codigos, filtro_categoria=filtro_categoria)
+            if filtro_acoes:
+                query = query.filter_by(estado=filtro_acoes)
+
+            if b_acao:
+                if b_acao == "ver_codigos":
+                    codigos = query.all()
+
+                elif b_acao == "quantidade":
+                    pesquisa_quantidade = True
+                    quantidade_codigos = query.count()
+
+        return render_template("admin_pesquisas.html", codigo=codigo, registro=registro, mensagem=mensagem, codigos=codigos, lista_codigos=filtro_categoria, quantidade_codigos=quantidade_codigos, pesquisa_quantidade=pesquisa_quantidade)

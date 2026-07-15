@@ -12,14 +12,33 @@
         {% for codigo in codigos %}
         <div id="codigo"
             class=" w-full bg-slate-100 border-2 border-dashed border-green-400 rounded-xl p-3 text-center text-2xl font-mono font-bold tracking-[0.3em]">
-        
         <p id="mensagem" class=" text-sm font-medium text-cyan-700 leading-none" style="white-space: pre-line;">
-        {{ codigo.codigo  }}
+        {{ codigo.codigo }}
         </p>
-
         </div>
         {% endfor %}
 
+
+        {% if pesquisa_quantidade %}
+        {% if quantidade_codigos %}
+        <div id="codigo"
+            class=" w-full bg-slate-100 border-2 border-dashed rounded-xl p-3 text-center text-2xl font-mono font-bold tracking-[0.3em]
+            {% if quantidade_codigos > 0 %} text-green-600 {% else %} text-red-600 {% endif %}">
+        
+        <p id="mensagem" class=" text-sm font-medium text-cyan-700 leading-none" style="white-space: pre-line;">
+        <span class="font-bold text-red-600">{{ quantidade_codigos }}</span> códigos encontrados.
+        </p>
+        </div>
+        {% else %}
+        <div id="codigo"
+            class=" w-full bg-slate-100 border-2 border-dashed rounded-xl p-3 text-center text-2xl font-mono font-bold tracking-[0.3em] text-red-600">
+        <p id="mensagem" class=" text-sm font-medium text-cyan-700 leading-none" style="white-space: pre-line;">
+        Nenhum código encontrado.
+        </p>
+        </div>
+        {% endif %}
+    
+        {% endif %}
         <p>Clique no botão para pesquisar um código.</p>
 
         {% if mensagem %}
@@ -30,8 +49,7 @@
 
     <form method="get" max-w-md class="w-full flex flex-col items-center gap-1 mt-5">
 
-        <label for="filtro_categoria" class="text-xl font-bold">Filtros</label>
-
+        <label for="filtro_categoria" class="text-xl font-bold">Filtros: Categoria</label>
         <select name="filtro_categoria" id="filtro_categoria" class="w-full bg-slate-200 border border-cyan-900 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent hover:cursor-pointer hover:bg-slate-100 mb-4">
 
             <option value="" selected disabled>Selecione</option>
@@ -42,36 +60,10 @@
             <option value="outros">Outros</option>
             <option value="todos">Todos</option>
         </select>
-  
-        <label for="q_codigos" class="text-xl font-bold">Quantidade de codigos</label>
-        <select name="q_codigos" id="q_codigos" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200 mb-4">
-
-            <option value="" selected disabled>Selecione</option>
-            <option value="q_eletronicos">Eletrônicos</option>
-            <option value="q_roupas">Roupas</option>
-            <option value="q_moveis">Móveis</option>
-            <option value="q_livros">Livros</option>
-            <option value="q_outros">Outros</option>
-            <option value="q_todos">Todos</option>
-        </select>
-
-        <label for="lista_codigos" class="text-xl font-bold">Lista de códigos</label>
-
-        <select name="lista_codigos" id="lista_codigos" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200 mb-4">
-
-            <option value="" selected disabled>Selecione</option>
-            <option value="eletronicos">Eletrônicos</option>
-            <option value="roupas">Roupas</option>
-            <option value="moveis">Móveis</option>
-            <option value="livros">Livros</option>
-            <option value="outros">Outros</option>
-            <option value="todos">Todos</option>
-        </select>
 
 
-        <label for="categoria_produto" class="text-xl font-bold">Status</label>
-
-        <select name="categoria_produto" id="categoria_produto" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200 mb-4">
+        <label for="filtro_status" class="text-xl font-bold">Filtros: status</label>
+        <select name="filtro_status" id="filtro_status" class="w-full bg-slate-200 border border-cyan-900 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent hover:cursor-pointer hover:bg-slate-100 mb-4">
 
             <option value="" selected disabled>Selecione</option>
             <option value="processando">Processando</option>
@@ -84,9 +76,18 @@
             <option value="cancelado">Recusado</option>
         </select>
 
-        <label for="pesquisa_acoes" class="text-xl font-bold">Pesquisar por ações</label>
+        <label for="filtro_tipo_entrega" class="text-xl font-bold">Filtros: Tipo Entrega</label>
+        <select name="filtro_tipo_entrega" id="filtro_tipo_entrega" class="w-full bg-slate-200 border border-cyan-900 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent hover:cursor-pointer hover:bg-slate-100 mb-4">
 
-        <select name="pesquisa_acoes" id="pesquisa_acoes" class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200 mb-4">
+            <option value="" selected disabled>Selecione</option>
+            <option value="normal">Normal</option>
+            <option value="expressa">Express</option>
+            <option value="economica">Economica</option>
+        </select>
+
+
+        <label for="filtro_acoes" class="text-xl font-bold">Filtros: Ações</label>
+        <select name="filtro_acoes" id="filtro_acoes" class="w-full bg-slate-200 border border-cyan-900 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent hover:cursor-pointer hover:bg-slate-100 mb-4">
 
             <option value="" selected disabled>Selecione</option>
             <option value="ativos">Ativos</option>
@@ -95,11 +96,17 @@
             <option value="deletado">Deletado</option>
         </select>
 
+        <button
+            class="mt-1.5 bg-cyan-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:bg-cyan-700 hover:scale-105 active:scale-95"
+            type="submit" name="b_acao" value="ver_codigos">ver códigos</button>
 
         <button
-            class="mt-6 bg-cyan-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:bg-cyan-700 hover:scale-105 active:scale-95"
-            type="submit">Pesquisar</button>
+            class="mt-5 bg-cyan-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:bg-cyan-700 hover:scale-105 active:scale-95"
+            type="submit" name="b_acao" value="quantidade">Quantidade</button>
     </form>
+
+    <hr class="my-6 mt-6 w-full border-t border-cyan-300">
+
     <a href="{{ url_for('admin') }}">
         <button
             class="mt-6 bg-cyan-500 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:bg-cyan-900 hover:scale-105 active:scale-95"
