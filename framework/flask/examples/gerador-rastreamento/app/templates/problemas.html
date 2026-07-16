@@ -10,8 +10,7 @@
         <h2 class="text-xl font-bold mb-4">Registro de Problemas</h2>
 
         <form method="POST" class="w-full flex flex-col items-center gap-4">
-            <input type="hidden" name="codigo" value="{{ codigo }}">
-            <input type="text" name="codigo" placeholder="Digite o código"
+            <input type="text" name="codigo" value="{{ codigo }}" placeholder="Digite o código"
                 class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent">
 
             {% if pesquisa_realizada %}

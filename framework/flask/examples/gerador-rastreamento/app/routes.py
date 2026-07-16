@@ -99,6 +99,7 @@ def register_routes(app):
             elif registro:
                 novo_status = request.form.get("novo_status")
                 novo_estado = request.form.get("novo_estado")
+                novo_tem_problema = request.form.get("novo_tem_problema")
                 b_acao = request.form.get("b_acao")
 
                 if b_acao == "deletar":
@@ -116,7 +117,12 @@ def register_routes(app):
                     if novo_estado:
                         registro.estado = novo_estado
 
-                    if novo_status or novo_estado:
+                    if novo_tem_problema == "resolvido":  
+                        registro.tem_problema = False
+                    elif novo_tem_problema == "nao_resolvido":
+                        registro.tem_problema = True
+
+                    if novo_status or novo_estado or novo_tem_problema:
                         db.session.commit()
                         mensagem = "Dados atualizados com sucesso."
 
