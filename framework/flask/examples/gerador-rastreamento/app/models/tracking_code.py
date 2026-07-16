@@ -18,4 +18,8 @@ class TrackingCode(db.Model):
 
     tipo_entrega = db.Column(db.String(30), nullable=False)
 
+    tem_problema = db.Column(db.Boolean, nullable=False, default=False)
+
+    descricao_problema = db.Column(db.Text, nullable=True)
+
     criado_em = db.Column(db.DateTime, default=datetime.utcnow)

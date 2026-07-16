@@ -83,6 +83,7 @@ def register_routes(app):
         registro = None
         mensagem = None
         pesquisa_realizada = False
+        descricao_problema = None
 
         if request.method == "POST":
             pesquisa_realizada = True
@@ -120,7 +121,7 @@ def register_routes(app):
                         mensagem = "Dados atualizados com sucesso."
 
 
-        return render_template("admin.html", codigo=codigo, registro=registro, mensagem=mensagem, pesquisa_realizada=pesquisa_realizada)
+        return render_template("admin.html", codigo=codigo, registro=registro, mensagem=mensagem, pesquisa_realizada=pesquisa_realizada, descricao_problema=descricao_problema)
     
     @app.route("/admin_pesquisas", methods=["GET"])
     def admin_pesquisas():
@@ -135,6 +136,7 @@ def register_routes(app):
             filtro_categoria = request.args.get("filtro_categoria")
             filtro_status = request.args.get("filtro_status")
             filtro_tipo_entrega = request.args.get("filtro_tipo_entrega")
+            filtro_problemas = request.args.get("filtro_problemas")
             filtro_acoes = request.args.get("filtro_acoes")
             b_acao = request.args.get("b_acao")
 
@@ -152,6 +154,12 @@ def register_routes(app):
             if filtro_acoes:
                 query = query.filter_by(estado=filtro_acoes)
 
+            if filtro_problemas:
+                if filtro_problemas == "resolvidos":
+                    query = query.filter_by(tem_problema=False)
+                elif filtro_problemas == "nao_resolvidos":
+                    query = query.filter_by(tem_problema=True)
+
             if b_acao:
                 if b_acao == "ver_codigos":
                     codigos = query.all()
@@ -161,3 +169,40 @@ def register_routes(app):
                     quantidade_codigos = query.count()
 
         return render_template("admin_pesquisas.html", codigo=codigo, registro=registro, mensagem=mensagem, codigos=codigos, lista_codigos=filtro_categoria, quantidade_codigos=quantidade_codigos, pesquisa_quantidade=pesquisa_quantidade)
+
+    @app.route("/problemas", methods=["GET", "POST"])
+    def problemas():
+        codigo = None
+        registro = None
+        mensagem = None
+        pesquisa_realizada = False
+        descricao_problema = None   
+
+        if request.method == "POST":
+            pesquisa_realizada = True
+            codigo = request.form.get("codigo").strip()
+            descricao_problema = request.form.get("descricao_problema")
+            registro = TrackingCode.query.filter_by(codigo=codigo).first()
+
+            if codigo == "":
+                mensagem = "Por favor, insira um código para consulta."
+
+            elif not registro:
+                mensagem = "Código não registrado."
+
+            elif registro and registro.estado == "cancelado":
+                mensagem = "Este código foi cancelado."
+                registro = None  # Não exibir o registro cancelado
+
+            elif registro and registro.estado == "deletado":
+                mensagem = "Este código não está mais disponível para consulta."
+                registro = None  # Não exibir o registro deletado
+
+            else:
+                if registro:
+                    registro.tem_problema = True
+                    registro.descricao_problema = descricao_problema
+                    db.session.commit()
+                    mensagem = "Problema registrado com sucesso."
+
+        return render_template("problemas.html", codigo=codigo, registro=registro, mensagem=mensagem, pesquisa_realizada=pesquisa_realizada)

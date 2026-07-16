@@ -25,7 +25,15 @@
                 
             </div>
 
-            {% else %}
+            {% if registro.descricao_problema %}
+            <div id="codigo"
+                class=" bg-slate-100 border-2 border-dashed  border-green-400 rounded-xl p-5 text-center text-2xl font-mono font-bold tracking-[0.3em] text-cyan-700 {% if not registro %} border-red-400 focus:ring-red-500 focus:border-red-400 {% endif %}">
+                    <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;"><span class="text-cyan-700">{{ registro.descricao_problema }}</span></p>
+                
+            </div>
+            {% endif %}
+
+
             <p>Clique no botão para administração.</p>
             {% endif %}
 
@@ -64,6 +72,17 @@
                 <option value="ativado">Ativar</option>
                 <option value="desativado">Desativar</option>
                 <option value="cancelado">Cancelar</option>
+            </select>
+        </div>
+
+        <div class=" flex items-center gap-3">
+            <label for="novo_tem_problema" class="text-base font-bold mb-4">problema</label>
+            <select name="novo_tem_problema" id="novo_tem_problema"
+                class="w-full bg-slate-100 border border-cyan-300 rounded-xl p-2 text-center text-sm font-mono tracking-[0.2em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:cursor-pointer hover:bg-slate-200"
+                flex-row>
+                <option value="" selected disabled>{{ registro.tem_problema }}</option>
+                <option value="ativado">Resolvido</option>
+                <option value="desativado">Não resolvido</option>
             </select>
         </div>
 
