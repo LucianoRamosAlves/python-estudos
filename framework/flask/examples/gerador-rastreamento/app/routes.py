@@ -66,6 +66,10 @@ def register_routes(app):
                 if not registro:
                     mensagem = "Código não registrado."
 
+                elif registro and registro.estado == "cancelado":
+                    mensagem = "Este código foi cancelado."
+                    registro = None  # Não exibir o registro cancelado
+
                 elif registro and registro.estado == "deletado":
                     mensagem = "Este código não está mais disponível para consulta."
                     registro = None  # Não exibir o registro deletado
@@ -78,15 +82,20 @@ def register_routes(app):
         codigo = None
         registro = None
         mensagem = None
+        pesquisa_realizada = False
 
         if request.method == "POST":
+            pesquisa_realizada = True
             codigo = request.form.get("codigo").strip()
             registro = TrackingCode.query.filter_by(codigo=codigo).first()
 
-            if not registro:
+            if codigo == "":
+                mensagem = "Por favor, insira um código para consulta."
+
+            elif not registro:
                 mensagem = "Código não registrado."
 
-            if registro:
+            elif registro:
                 novo_status = request.form.get("novo_status")
                 novo_estado = request.form.get("novo_estado")
                 b_acao = request.form.get("b_acao")
@@ -111,7 +120,7 @@ def register_routes(app):
                         mensagem = "Dados atualizados com sucesso."
 
 
-        return render_template("admin.html", codigo=codigo, registro=registro, mensagem=mensagem)
+        return render_template("admin.html", codigo=codigo, registro=registro, mensagem=mensagem, pesquisa_realizada=pesquisa_realizada)
     
     @app.route("/admin_pesquisas", methods=["GET"])
     def admin_pesquisas():
@@ -121,7 +130,6 @@ def register_routes(app):
         mensagem = None
         quantidade_codigos = 0
         pesquisa_quantidade = False
-
 
         if request.method == "GET":
             filtro_categoria = request.args.get("filtro_categoria")

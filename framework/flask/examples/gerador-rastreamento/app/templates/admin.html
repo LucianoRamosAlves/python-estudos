@@ -13,15 +13,16 @@
             {% if not registro %}
 
             <input type="text" name="codigo" placeholder="Digite o código"
-                class=" w-4/4 bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent">
+                class=" w-4/4 bg-slate-100 border border-cyan-300 rounded-xl p-3 text-center text-lg font-mono tracking-[0.3em] text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent {% if not registro and pesquisa_realizada %} border-red-400 focus:ring-red-500 focus:border-red-400 {% endif %}">
 
             {% endif %}
 
 
             {% if codigo %}
             <div id="codigo"
-                class=" bg-slate-100 border-2 border-dashed border-green-400 rounded-xl p-5 text-center text-2xl font-mono font-bold tracking-[0.3em] text-cyan-700">
-                {{ codigo }}
+                class=" bg-slate-100 border-2 border-dashed  border-green-400 rounded-xl p-5 text-center text-2xl font-mono font-bold tracking-[0.3em] text-cyan-700 {% if not registro %} border-red-400 focus:ring-red-500 focus:border-red-400 {% endif %}">
+                    <p id="mensagem" class="mt-3 text-sm font-medium text-green-600" style="white-space: pre-line;"><span class="text-cyan-700">{{ codigo }}</span></p>
+                
             </div>
 
             {% else %}
@@ -30,7 +31,7 @@
 
 
             {% if mensagem %}
-            <p id="mensagem" class="mt-3 text-sm font-medium text-green-600">{{ mensagem }}</p>
+            <p id="mensagem" class="mt-2 text-sm font-medium {% if registro %} text-green-600 {% else %} text-red-600 {% endif %} ">{{ mensagem }}</p>
             {% endif %}
 
         </div>
