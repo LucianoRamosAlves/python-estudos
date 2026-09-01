@@ -19,3 +19,15 @@ pip freeze > requirements.txt
 
 para baixar as depedencias
 pip install -r requirements.txt
+
+baixar as configuraçoes 
+django-admin startproject config .
+
+migar o banco de dados 
+python manage.py migrate
+
+quando for fazer meu proprio tabela tem que fazer
+python manage.py makemigrations
+
+para rodar o servidor 
+python manage.py runserver
