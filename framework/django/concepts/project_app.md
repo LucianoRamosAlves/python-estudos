@@ -16,3 +16,5 @@ e dentro de cada app pode ter varias informações que são as tabelas no caso
 # criando um app 
 
 . primeiro passo é python manage.py startapp filmes  -> cria o app de filmes 
+
+. depois eu crio a tabela desse app
