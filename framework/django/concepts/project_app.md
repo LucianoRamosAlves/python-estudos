@@ -20,3 +20,9 @@ e dentro de cada app pode ter varias informações que são as tabelas no caso
 . depois eu crio a tabela desse app
 
 depois faco reconher e atualizar
+
+# depois registra ele no djngo ou shopping geral 
+
+no config.py da pasta config
+"filmes.apps.FilmesConfig"
+
