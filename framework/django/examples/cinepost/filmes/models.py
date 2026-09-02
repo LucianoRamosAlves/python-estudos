@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django.conf import settings
 
 class PostFilme(models.Model):
 
@@ -10,6 +10,13 @@ class PostFilme(models.Model):
 
     titulo = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250)
+
+    autor = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="posts_filmes",
+    )
+
     comentario = models.TextField()
     nota = models.IntegerField()
     publicado_em = models.DateTimeField(default=timezone.now)
