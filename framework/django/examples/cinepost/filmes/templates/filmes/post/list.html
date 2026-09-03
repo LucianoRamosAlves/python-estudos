@@ -1,0 +1,26 @@
+{% extends "filmes/base.html" %}
+
+{% block title %}CinePost{% endblock %}
+
+{% block content %}
+
+    <h1>CinePost</h1>
+
+    {% for post in posts %}
+
+        <h2>
+            <a href="{% url 'filmes:post_detail' post.id %}">
+                {{ post.titulo }}
+            </a>
+        </h2>
+
+        <p class="date">
+            Publicado em {{ post.publicado_em }}
+            por {{ post.autor }}
+        </p>
+
+        {{ post.comentario|truncatewords:30|linebreaks }}
+
+    {% endfor %}
+
+{% endblock %}

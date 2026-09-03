@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+
+    <link
+        href="{% static 'css/filmes.css' %}"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div id="sidebar">
+        <h2>CinePost</h2>
+        <p>Compartilhe sua opinião sobre filmes.</p>
+    </div>
+
+</body>
+</html>
