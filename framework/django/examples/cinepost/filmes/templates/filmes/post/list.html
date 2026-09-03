@@ -9,9 +9,9 @@
     {% for post in posts %}
 
         <h2>
-            <a href="{% url 'filmes:post_detail' post.id %}">
-                {{ post.titulo }}
-            </a>
+            <a href="{{ post.get_absolute_url }}">
+    {{ post.titulo }}
+</a>
         </h2>
 
         <p class="date">

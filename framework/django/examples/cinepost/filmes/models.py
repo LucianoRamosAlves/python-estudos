@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
+from django.urls import reverse
 
 
 class PublicadosManager(models.Manager):
@@ -45,3 +46,9 @@ class PostFilme(models.Model):
 
     def __str__(self):
         return self.titulo
+
+    def get_absolute_url(self):
+        return reverse(
+            "filmes:post_detail",
+            args=[self.id],
+        )
