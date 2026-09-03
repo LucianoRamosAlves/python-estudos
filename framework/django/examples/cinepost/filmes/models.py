@@ -2,6 +2,12 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 
+
+class PublicadosManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status=self.model.Status.PUBLICADO)
+
+
 class PostFilme(models.Model):
 
     class Status(models.TextChoices):
@@ -33,6 +39,9 @@ class PostFilme(models.Model):
         indexes = [
             models.Index(fields=["-publicado_em"]),
         ]
+
+    objects = models.Manager()
+    publicados = PublicadosManager()
 
     def __str__(self):
         return self.titulo
