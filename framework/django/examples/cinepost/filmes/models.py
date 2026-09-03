@@ -16,7 +16,10 @@ class PostFilme(models.Model):
         PUBLICADO = "PU", "Publicado"
 
     titulo = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250)
+    slug = models.SlugField(
+        max_length=250,
+        unique_for_date="publicado_em",
+    )
 
     autor = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -50,5 +53,10 @@ class PostFilme(models.Model):
     def get_absolute_url(self):
         return reverse(
             "filmes:post_detail",
-            args=[self.id],
+            kwargs={
+                "year": self.publicado_em.year,
+                "month": self.publicado_em.month,
+                "day": self.publicado_em.day,
+                "post": self.slug,
+            },
         )
