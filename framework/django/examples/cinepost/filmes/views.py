@@ -2,9 +2,17 @@ from django.shortcuts import get_object_or_404, render
 
 from .models import PostFilme
 
+from django.core.paginator import Paginator
+
 
 def post_list(request):
     posts = PostFilme.publicados.all()
+
+    paginator = Paginator(post_list, 3)
+
+    page_number = request.Get.get("page", 1)
+
+    posts = paginator.get_page(page_number)
 
     return render(
         request,
