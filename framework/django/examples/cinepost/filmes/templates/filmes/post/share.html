@@ -1,36 +1,72 @@
 {% extends "filmes/base.html" %}
 
 {% block title %}
-    Recomendar post
+    Recomendar {{ post.titulo }}
 {% endblock %}
 
 {% block content %}
 
+<div class="share-container">
+
     {% if enviado %}
 
-        <h1>E-mail enviado com sucesso</h1>
+        <h1>E-mail enviado!</h1>
 
         <p>
-            "{{ post.titulo }}" foi enviado com sucesso para
-            {{ form.cleaned_data.destinatario }}.
+            A recomendação de
+            <strong>{{ post.titulo }}</strong>
+            foi enviada para
+            <strong>{{ form.cleaned_data.destinatario }}</strong>.
         </p>
+
+        <a href="{{ post.get_absolute_url }}">
+            Voltar para o post
+        </a>
 
     {% else %}
 
-        <h1>
-            Recomendar "{{ post.titulo }}" por e-mail
-        </h1>
+        <h1>Recomendar "{{ post.titulo }}"</h1>
+
+        <p>
+            Envie este post para alguém por e-mail.
+        </p>
 
         <form method="post">
 
-            {{ form.as_p }}
-
             {% csrf_token %}
 
-            <input type="submit" value="Enviar e-mail">
+            <div class="form-group">
+                {{ form.nome.label_tag }}
+                {{ form.nome }}
+                {{ form.nome.errors }}
+            </div>
+
+            <div class="form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+
+            <div class="form-group">
+                {{ form.destinatario.label_tag }}
+                {{ form.destinatario }}
+                {{ form.destinatario.errors }}
+            </div>
+
+            <div class="form-group">
+                {{ form.comentario.label_tag }}
+                {{ form.comentario }}
+                {{ form.comentario.errors }}
+            </div>
+
+            <button type="submit">
+                Enviar recomendação
+            </button>
 
         </form>
 
     {% endif %}
+
+</div>
 
 {% endblock %}
