@@ -1,15 +1,15 @@
 <nav aria-label="Paginação das publicações">
     <ul class="pagination justify-content-center mb-0">
         {% if page.has_previous %}
-            <li class="page-item">
-                <a class="page-link bg-dark border-secondary text-light" href="?page={{ page.previous_page_number }}">
-                    Anterior
-                </a>
-            </li>
+        <li class="page-item">
+            <a class="page-link bg-dark border-secondary text-light" href="?page={{ page.previous_page_number }}">
+                Anterior
+            </a>
+        </li>
         {% else %}
-            <li class="page-item disabled">
-                <span class="page-link bg-dark border-secondary text-secondary">Anterior</span>
-            </li>
+        <li class="page-item disabled">
+            <span class="page-link bg-dark border-secondary text-secondary">Anterior</span>
+        </li>
         {% endif %}
 
         <li class="page-item active" aria-current="page">
@@ -19,15 +19,15 @@
         </li>
 
         {% if page.has_next %}
-            <li class="page-item">
-                <a class="page-link bg-dark border-secondary text-light" href="?page={{ page.next_page_number }}">
-                    Próxima
-                </a>
-            </li>
+        <li class="page-item">
+            <a class="page-link bg-dark border-secondary text-light" href="?page={{ page.next_page_number }}">
+                Próxima
+            </a>
+        </li>
         {% else %}
-            <li class="page-item disabled">
-                <span class="page-link bg-dark border-secondary text-secondary">Próxima</span>
-            </li>
+        <li class="page-item disabled">
+            <span class="page-link bg-dark border-secondary text-secondary">Próxima</span>
+        </li>
         {% endif %}
     </ul>
 </nav>

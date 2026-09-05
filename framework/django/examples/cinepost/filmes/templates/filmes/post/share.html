@@ -1,7 +1,7 @@
 {% extends "filmes/base.html" %}
 
 {% block title %}
-    Recomendar {{ post.titulo }}
+Recomendar {{ post.titulo }}
 {% endblock %}
 
 {% block content %}
@@ -12,65 +12,65 @@
 
             {% if enviado %}
 
-                <div class="alert alert-success" role="alert">
-                    <h1 class="h3 alert-heading">E-mail enviado!</h1>
-                    <p class="mb-0">
-                        A recomendação de
-                        <strong>{{ post.titulo }}</strong>
-                        foi enviada para
-                        <strong>{{ form.cleaned_data.destinatario }}</strong>.
-                    </p>
-                </div>
+            <div class="alert alert-success" role="alert">
+                <h1 class="h3 alert-heading">E-mail enviado!</h1>
+                <p class="mb-0">
+                    A recomendação de
+                    <strong>{{ post.titulo }}</strong>
+                    foi enviada para
+                    <strong>{{ form.cleaned_data.destinatario }}</strong>.
+                </p>
+            </div>
 
-                <a class="btn btn-outline-light" href="{{ post.get_absolute_url }}">
-                    Voltar para o post
-                </a>
+            <a class="btn btn-outline-light" href="{{ post.get_absolute_url }}">
+                Voltar para o post
+            </a>
 
             {% else %}
 
-                <p class="text-uppercase text-accent small fw-semibold mb-2">Compartilhe</p>
-                <h1 class="h2 mb-3">Recomendar &quot;{{ post.titulo }}&quot;</h1>
-                <p class="text-secondary mb-4">Envie este post para alguém por e-mail.</p>
+            <p class="text-uppercase text-accent small fw-semibold mb-2">Compartilhe</p>
+            <h1 class="h2 mb-3">Recomendar &quot;{{ post.titulo }}&quot;</h1>
+            <p class="text-secondary mb-4">Envie este post para alguém por e-mail.</p>
 
-                <form method="post">
-                    {% csrf_token %}
+            <form method="post">
+                {% csrf_token %}
 
-                    {% if form.non_field_errors %}
-                        <div class="alert alert-danger" role="alert">
-                            {{ form.non_field_errors }}
-                        </div>
-                    {% endif %}
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.non_field_errors }}
+                </div>
+                {% endif %}
 
-                    <div class="row g-3">
-                        <div class="col-12 col-md-6">
-                            {{ form.nome.label_tag }}
-                            {{ form.nome }}
-                            {{ form.nome.errors }}
-                        </div>
-
-                        <div class="col-12 col-md-6">
-                            {{ form.email.label_tag }}
-                            {{ form.email }}
-                            {{ form.email.errors }}
-                        </div>
-
-                        <div class="col-12">
-                            {{ form.destinatario.label_tag }}
-                            {{ form.destinatario }}
-                            {{ form.destinatario.errors }}
-                        </div>
-
-                        <div class="col-12">
-                            {{ form.comentario.label_tag }}
-                            {{ form.comentario }}
-                            {{ form.comentario.errors }}
-                        </div>
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        {{ form.nome.label_tag }}
+                        {{ form.nome }}
+                        {{ form.nome.errors }}
                     </div>
 
-                    <button class="btn btn-accent mt-4" type="submit">
-                        Enviar recomendação
-                    </button>
-                </form>
+                    <div class="col-12 col-md-6">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                        {{ form.email.errors }}
+                    </div>
+
+                    <div class="col-12">
+                        {{ form.destinatario.label_tag }}
+                        {{ form.destinatario }}
+                        {{ form.destinatario.errors }}
+                    </div>
+
+                    <div class="col-12">
+                        {{ form.comentario.label_tag }}
+                        {{ form.comentario }}
+                        {{ form.comentario.errors }}
+                    </div>
+                </div>
+
+                <button class="btn btn-accent mt-4" type="submit">
+                    Enviar recomendação
+                </button>
+            </form>
 
             {% endif %}
 

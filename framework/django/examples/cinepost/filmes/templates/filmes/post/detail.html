@@ -1,65 +1,65 @@
 {% extends "filmes/base.html" %}
 
 {% block title %}
-    {{ post.titulo }}
+{{ post.titulo }}
 {% endblock %}
 
 {% block content %}
 
-    <article class="cinepost-surface rounded-3 shadow-sm p-4 p-lg-5 mb-5">
-        <div class="d-flex flex-column flex-md-row justify-content-between gap-4">
-            <div>
-                <p class="text-uppercase text-accent small fw-semibold mb-2">Publicação</p>
-                <h1 class="display-6 fw-bold mb-3">{{ post.titulo }}</h1>
-                <p class="text-secondary mb-0">
-                    Publicado em {{ post.publicado_em }} por {{ post.autor }}
-                </p>
-            </div>
-            <div class="text-md-end">
-                <span class="text-secondary small d-block mb-1">Nota</span>
-                <span class="text-accent fs-2 fw-bold">{{ post.nota }}</span>
-            </div>
+<article class="cinepost-surface rounded-3 shadow-sm p-4 p-lg-5 mb-5">
+    <div class="d-flex flex-column flex-md-row justify-content-between gap-4">
+        <div>
+            <p class="text-uppercase text-accent small fw-semibold mb-2">Publicação</p>
+            <h1 class="display-6 fw-bold mb-3">{{ post.titulo }}</h1>
+            <p class="text-secondary mb-0">
+                Publicado em {{ post.publicado_em }} por {{ post.autor }}
+            </p>
         </div>
-
-        <hr class="border-secondary-subtle my-4">
-
-        <div class="fs-5 lh-lg mb-4">
-            {{ post.comentario|linebreaks }}
+        <div class="text-md-end">
+            <span class="text-secondary small d-block mb-1">Nota</span>
+            <span class="text-accent fs-2 fw-bold">{{ post.nota }}</span>
         </div>
+    </div>
 
-        <a class="btn btn-accent" href="{% url 'filmes:recomendar_post' post.id %}">
-            Recomendar por e-mail
-        </a>
+    <hr class="border-secondary-subtle my-4">
+
+    <div class="fs-5 lh-lg mb-4">
+        {{ post.comentario|linebreaks }}
+    </div>
+
+    <a class="btn btn-accent" href="{% url 'filmes:recomendar_post' post.id %}">
+        Recomendar por e-mail
+    </a>
+</article>
+
+<section class="mb-5">
+    {% with comentarios.count as total_comentarios %}
+    <div class="d-flex align-items-center justify-content-between gap-3 mb-4">
+        <h2 class="h3 mb-0">Comentários</h2>
+        <span class="badge text-bg-dark border border-secondary-subtle rounded-pill">
+            {{ total_comentarios }} comentário{{ total_comentarios|pluralize }}
+        </span>
+    </div>
+    {% endwith %}
+
+    {% for comentario in comentarios %}
+    <article class="cinepost-surface rounded-3 p-4 mb-3">
+        <p class="text-secondary small mb-3">
+            Comentário {{ forloop.counter }} · {{ comentario.nome }} · {{ comentario.criado_em }}
+        </p>
+        <div class="mb-0">
+            {{ comentario.texto|linebreaks }}
+        </div>
     </article>
+    {% empty %}
+    <div class="cinepost-surface rounded-3 p-4 text-secondary">
+        Ainda não existem comentários.
+    </div>
+    {% endfor %}
+</section>
 
-    <section class="mb-5">
-        {% with comentarios.count as total_comentarios %}
-            <div class="d-flex align-items-center justify-content-between gap-3 mb-4">
-                <h2 class="h3 mb-0">Comentários</h2>
-                <span class="badge text-bg-dark border border-secondary-subtle rounded-pill">
-                    {{ total_comentarios }} comentário{{ total_comentarios|pluralize }}
-                </span>
-            </div>
-        {% endwith %}
-
-        {% for comentario in comentarios %}
-            <article class="cinepost-surface rounded-3 p-4 mb-3">
-                <p class="text-secondary small mb-3">
-                    Comentário {{ forloop.counter }} · {{ comentario.nome }} · {{ comentario.criado_em }}
-                </p>
-                <div class="mb-0">
-                    {{ comentario.texto|linebreaks }}
-                </div>
-            </article>
-        {% empty %}
-            <div class="cinepost-surface rounded-3 p-4 text-secondary">
-                Ainda não existem comentários.
-            </div>
-        {% endfor %}
-    </section>
-
-    <section class="cinepost-surface rounded-3 p-4 p-lg-5">
-        {% include "filmes/post/includes/comentario_form.html" %}
-    </section>
+<section class="cinepost-surface rounded-3 p-4 p-lg-5">
+    {% include "filmes/post/includes/comentario_form.html" %}
+</section>
 
 {% endblock %}

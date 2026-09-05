@@ -1,35 +1,35 @@
 {% extends "filmes/base.html" %}
 
 {% block title %}
-    Adicionar comentário
+Adicionar comentário
 {% endblock %}
 
 {% block content %}
 
-    {% if comentario %}
+{% if comentario %}
 
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-8">
-                <div class="alert alert-success shadow-sm" role="alert">
-                    <h1 class="h3 alert-heading">Comentário adicionado</h1>
-                    <p class="mb-3">Seu comentário foi publicado com sucesso.</p>
-                    <a class="btn btn-outline-dark" href="{{ post.get_absolute_url }}">
-                        Voltar para o post
-                    </a>
-                </div>
-            </div>
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+        <div class="alert alert-success shadow-sm" role="alert">
+            <h1 class="h3 alert-heading">Comentário adicionado</h1>
+            <p class="mb-3">Seu comentário foi publicado com sucesso.</p>
+            <a class="btn btn-outline-dark" href="{{ post.get_absolute_url }}">
+                Voltar para o post
+            </a>
         </div>
+    </div>
+</div>
 
-    {% else %}
+{% else %}
 
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-8">
-                <div class="cinepost-surface rounded-3 p-4 p-lg-5">
-                    {% include "filmes/post/includes/comentario_form.html" %}
-                </div>
-            </div>
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+        <div class="cinepost-surface rounded-3 p-4 p-lg-5">
+            {% include "filmes/post/includes/comentario_form.html" %}
         </div>
+    </div>
+</div>
 
-    {% endif %}
+{% endif %}
 
 {% endblock %}
