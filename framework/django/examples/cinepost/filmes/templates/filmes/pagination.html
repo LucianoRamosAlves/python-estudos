@@ -1,22 +1,33 @@
-<div class="pagination">
-    <span class="step-links">
-
+<nav aria-label="Paginação das publicações">
+    <ul class="pagination justify-content-center mb-0">
         {% if page.has_previous %}
-            <a href="?page={{ page.previous_page_number }}">
-                Anterior
-            </a>
+            <li class="page-item">
+                <a class="page-link bg-dark border-secondary text-light" href="?page={{ page.previous_page_number }}">
+                    Anterior
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link bg-dark border-secondary text-secondary">Anterior</span>
+            </li>
         {% endif %}
 
-        <span class="current">
-            Página {{ page.number }}
-            de {{ page.paginator.num_pages }}
-        </span>
+        <li class="page-item active" aria-current="page">
+            <span class="page-link bg-warning border-warning text-dark">
+                Página {{ page.number }} de {{ page.paginator.num_pages }}
+            </span>
+        </li>
 
         {% if page.has_next %}
-            <a href="?page={{ page.next_page_number }}">
-                Próxima
-            </a>
+            <li class="page-item">
+                <a class="page-link bg-dark border-secondary text-light" href="?page={{ page.next_page_number }}">
+                    Próxima
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link bg-dark border-secondary text-secondary">Próxima</span>
+            </li>
         {% endif %}
-
-    </span>
-</div>
+    </ul>
+</nav>
