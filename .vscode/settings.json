@@ -1,11 +1,11 @@
 {
-    "inline-bookmarks.view.showVisibleFilesOnly": true,
-    "python-envs.pythonProjects": [
-        {
-            "path": "file/concepts",
-            "envManager": "ms-python.python:venv",
-            "packageManager": "ms-python.python:pip"
-        }
-    ],
-    "python-envs.defaultEnvManager": "ms-python.python:venv"
+  "inline-bookmarks.view.showVisibleFilesOnly": true,
+  "python-envs.pythonProjects": [
+    {
+      "path": "file/concepts",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    }
+  ],
+  "python-envs.defaultEnvManager": "ms-python.python:system"
 }

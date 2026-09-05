@@ -12,8 +12,14 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 from pathlib import Path
 
+import os
+
+from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / ".env")
 
 
 # Quick-start development settings - unsuitable for production
@@ -121,8 +127,21 @@ STATIC_URL = 'static/'
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
+EMAIL_USER = os.environ["CINEPOST_EMAIL_USER"]
+EMAIL_PASSWORD = os.environ["CINEPOST_EMAIL_PASSWORD"]
+
 MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+    "default": {
+        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+        "OPTIONS": {
+            "host": "smtp.gmail.com",
+            "port": 587,
+            "username": EMAIL_USER,
+            "password": EMAIL_PASSWORD,
+            "use_tls": True,
+            "timeout": 30,
+        },
     },
 }
+
+DEFAULT_FROM_EMAIL = EMAIL_USER
