@@ -8,7 +8,7 @@ app_name = "filmes"
 urlpatterns = [
     path(
         "",
-        views.post_list,
+        views.PostListView.as_view(),
         name="post_list",
     ),
     path(
