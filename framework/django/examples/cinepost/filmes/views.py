@@ -6,6 +6,8 @@ from django.views.generic import ListView
 
 from .forms import RecomendarPostForm
 
+from django.core.mail import send_mail
+
 class PostListView(ListView):
     template_name = "filmes/post/list.html"
     context_object_name = "posts"
@@ -32,24 +34,45 @@ def post_detail(request, year, month, day, post):
     )
 
 def recomendar_post(request, post_id):
-    # Busca somente um post publicado
     post = get_object_or_404(
         PostFilme.publicados,
         id=post_id,
     )
 
+    enviado = False
+
     if request.method == "POST":
-        # O usuário enviou o formulário
         form = RecomendarPostForm(request.POST)
 
         if form.is_valid():
-            # Dados passaram pela validação
             dados = form.cleaned_data
 
-            # Depois colocaremos aqui o envio do e-mail
+            post_url = request.build_absolute_uri(
+                post.get_absolute_url()
+            )
+
+            assunto = (
+                f"{dados['nome']} ({dados['email']}) "
+                f"recomenda o post {post.titulo}"
+            )
+
+            mensagem = (
+                f"Veja {post.titulo} em:\n"
+                f"{post_url}\n\n"
+                f"Comentário de {dados['nome']}:\n"
+                f"{dados['comentario']}"
+            )
+
+            send_mail(
+                subject=assunto,
+                message=mensagem,
+                from_email=None,
+                recipient_list=[dados["destinatario"]],
+            )
+
+            enviado = True
 
     else:
-        # Usuário apenas abriu a página
         form = RecomendarPostForm()
 
     return render(
@@ -58,5 +81,6 @@ def recomendar_post(request, post_id):
         {
             "post": post,
             "form": form,
+            "enviado": enviado,
         },
     )

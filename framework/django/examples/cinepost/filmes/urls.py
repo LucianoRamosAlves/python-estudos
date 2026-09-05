@@ -16,4 +16,9 @@ urlpatterns = [
         views.post_detail,
         name="post_detail",
     ),
+    path(
+        "<int:post_id>/recomendar/",
+        views.recomendar_post,
+        name="recomendar_post",
+    ),
 ]

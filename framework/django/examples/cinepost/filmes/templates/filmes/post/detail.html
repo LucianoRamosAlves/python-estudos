@@ -17,4 +17,11 @@
 
     {{ post.comentario|linebreaks }}
 
+
+    <p>
+    <a href="{% url 'filmes:recomendar_post' post.id %}">
+        Recomendar este post
+    </a>
+</p>
+
 {% endblock %}
