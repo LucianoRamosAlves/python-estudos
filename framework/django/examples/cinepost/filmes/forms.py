@@ -1,5 +1,7 @@
 from django import forms
 
+from .models import Comentario
+
 
 class RecomendarPostForm(forms.Form):
     nome = forms.CharField(
@@ -25,3 +27,13 @@ class RecomendarPostForm(forms.Form):
             }
         ),
     )
+
+
+class ComentarioForm(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = [
+            "nome",
+            "email",
+            "texto",
+        ]

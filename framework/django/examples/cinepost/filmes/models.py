@@ -60,3 +60,29 @@ class PostFilme(models.Model):
                 "post": self.slug,
             },
         )
+
+
+class Comentario(models.Model):
+    post = models.ForeignKey(
+        PostFilme,
+        on_delete=models.CASCADE,
+        related_name="comentarios",
+    )
+
+    nome = models.CharField(max_length=80)
+    email = models.EmailField()
+    texto = models.TextField()
+
+    criado_em = models.DateTimeField(auto_now_add=True)
+    atualizado_em = models.DateTimeField(auto_now=True)
+
+    ativo = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["criado_em"]
+        indexes = [
+            models.Index(fields=["criado_em"]),
+        ]
+
+    def __str__(self):
+        return f"Comentário de {self.nome} em {self.post}"

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import PostFilme
+from .models import PostFilme, Comentario
 
 @admin.register(PostFilme)
 class PostFilmeAdmin(admin.ModelAdmin):
@@ -39,3 +39,25 @@ class PostFilmeAdmin(admin.ModelAdmin):
     ]
 
     show_facets = admin.ShowFacets.ALWAYS
+
+@admin.register(Comentario)
+class ComentarioAdmin(admin.ModelAdmin):
+    list_display = [
+        "nome",
+        "email",
+        "post",
+        "criado_em",
+        "ativo",
+    ]
+
+    list_filter = [
+        "ativo",
+        "criado_em",
+        "atualizado_em",
+    ]
+
+    search_fields = [
+        "nome",
+        "email",
+        "texto",
+    ]

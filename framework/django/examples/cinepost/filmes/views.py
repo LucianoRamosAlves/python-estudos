@@ -4,9 +4,12 @@ from .models import PostFilme
 
 from django.views.generic import ListView
 
-from .forms import RecomendarPostForm
+from .forms import RecomendarPostForm, ComentarioForm
 
 from django.core.mail import send_mail
+
+from django.views.decorators.http import require_POST
+
 
 class PostListView(ListView):
     template_name = "filmes/post/list.html"
@@ -84,3 +87,33 @@ def recomendar_post(request, post_id):
             "enviado": enviado,
         },
     )
+
+
+@require_POST
+def comentar_post(request, post_id):
+    post = get_object_or_404(
+        PostFilme.publicados,
+        id=post_id,
+    )
+
+    comentario = None
+
+    form = ComentarioForm(data=request.POST)
+
+    if form.is_valid():
+        comentario = form.save(commit=False)
+
+        comentario.post = post
+
+        comentario.save()
+
+    return render(
+        request,
+        "filmes/post/comment.html",
+        {
+            "post": post,
+            "form": form,
+            "comentario": comentario,
+        },
+    )
+
