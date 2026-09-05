@@ -30,10 +30,20 @@ def post_detail(request, year, month, day, post):
         publicado_em__day=day,
     )
 
+    # Comentários ativos deste post
+    comentarios = post.comentarios.filter(ativo=True)
+
+    # Formulário vazio para novo comentário
+    form = ComentarioForm()
+
     return render(
         request,
         "filmes/post/detail.html",
-        {"post": post},
+        {
+            "post": post,
+            "comentarios": comentarios,
+            "form": form,
+        },
     )
 
 def recomendar_post(request, post_id):
@@ -109,7 +119,7 @@ def comentar_post(request, post_id):
 
     return render(
         request,
-        "filmes/post/comment.html",
+        "filmes/post/comentario.html",
         {
             "post": post,
             "form": form,

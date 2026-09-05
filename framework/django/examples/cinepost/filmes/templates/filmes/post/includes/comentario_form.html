@@ -1,0 +1,14 @@
+<h2>Adicionar comentário</h2>
+
+<form
+    action="{% url 'filmes:comentar_post' post.id %}"
+    method="post"
+>
+    {{ form.as_p }}
+
+    {% csrf_token %}
+
+    <p>
+        <input type="submit" value="Adicionar comentário">
+    </p>
+</form>

@@ -13,15 +13,50 @@
         por {{ post.autor }}
     </p>
 
-    <p>Nota: {{ post.nota }}</p>
+    <p>
+        Nota: {{ post.nota }}
+    </p>
 
     {{ post.comentario|linebreaks }}
 
-
     <p>
-    <a href="{% url 'filmes:recomendar_post' post.id %}">
-        Recomendar este post
-    </a>
-</p>
+        <a href="{% url 'filmes:recomendar_post' post.id %}">
+            Recomendar este post
+        </a>
+    </p>
+
+
+    {% with comentarios.count as total_comentarios %}
+
+        <h2>
+            {{ total_comentarios }}
+            comentário{{ total_comentarios|pluralize }}
+        </h2>
+
+    {% endwith %}
+
+
+    {% for comentario in comentarios %}
+
+        <div class="comment">
+
+            <p class="info">
+                Comentário {{ forloop.counter }}
+                por {{ comentario.nome }}
+                em {{ comentario.criado_em }}
+            </p>
+
+            {{ comentario.texto|linebreaks }}
+
+        </div>
+
+    {% empty %}
+
+        <p>Ainda não existem comentários.</p>
+
+    {% endfor %}
+
+
+    {% include "filmes/post/includes/comentario_form.html" %}
 
 {% endblock %}

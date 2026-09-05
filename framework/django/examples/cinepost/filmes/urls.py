@@ -21,4 +21,9 @@ urlpatterns = [
         views.recomendar_post,
         name="recomendar_post",
     ),
+    path(
+        "<int:post_id>/comentar/",
+        views.comentar_post,
+        name="comentar_post",
+    ),
 ]
