@@ -4,38 +4,41 @@
 
 {% block content %}
 
-<div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-3 mb-4">
+<div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between mb-4">
     <div>
-        <p class="text-uppercase text-accent small fw-semibold mb-2">Caderno de cinema</p>
+        <p class="text-uppercase text-danger small fw-semibold mb-2">Caderno de cinema</p>
         <h1 class="display-5 fw-bold mb-2">CinePost</h1>
         <p class="text-secondary mb-0">Descubra histórias e compartilhe sua opinião sobre filmes.</p>
     </div>
-    <span class="badge text-bg-dark border border-secondary-subtle rounded-pill px-3 py-2">
+    <span class="badge bg-danger px-3 py-2 mt-3 mt-md-0">
         {{ posts|length }} publicação{{ posts|length|pluralize }}
     </span>
 </div>
 
-<div class="row g-4">
+<div class="row g-3">
     {% for post in posts %}
     <div class="col-12 col-md-6 col-xl-4">
-        <article class="card cinepost-surface h-100 shadow-sm">
-            <div class="card-body d-flex flex-column p-4">
+        <article class="card h-100 bg-dark border-secondary">
+            <div class="card-body d-flex flex-column">
                 <h2 class="h4 card-title mb-3">
                     <a class="text-decoration-none" href="{{ post.get_absolute_url }}">
                         {{ post.titulo }}
                     </a>
                 </h2>
+                <code class="mb-2 text-warning">
+                    Tags: {{ post.tags.all|join:", " }}
+                </code>
 
                 <p class="card-text text-secondary small mb-3">
                     Publicado em {{ post.publicado_em }}<br>
                     por {{ post.autor }}
                 </p>
 
-                <div class="card-text text-light mb-4">
+                <div class="card-text mb-4">
                     {{ post.comentario|truncatewords:30|linebreaks }}
                 </div>
 
-                <a class="btn btn-outline-light btn-sm mt-auto align-self-start" href="{{ post.get_absolute_url }}">
+                <a class="btn btn-danger btn-sm mt-auto align-self-start" href="{{ post.get_absolute_url }}">
                     Ler publicação
                 </a>
             </div>

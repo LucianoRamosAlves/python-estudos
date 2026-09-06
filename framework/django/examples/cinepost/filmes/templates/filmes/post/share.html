@@ -8,7 +8,7 @@ Recomendar {{ post.titulo }}
 
 <div class="row justify-content-center">
     <div class="col-12 col-lg-8 col-xl-7">
-        <div class="cinepost-surface rounded-3 shadow-sm p-4 p-lg-5">
+        <div class="card p-4 bg-dark border-secondary">
 
             {% if enviado %}
 
@@ -22,13 +22,13 @@ Recomendar {{ post.titulo }}
                 </p>
             </div>
 
-            <a class="btn btn-outline-light" href="{{ post.get_absolute_url }}">
+            <a class="btn btn-outline-danger" href="{{ post.get_absolute_url }}">
                 Voltar para o post
             </a>
 
             {% else %}
 
-            <p class="text-uppercase text-accent small fw-semibold mb-2">Compartilhe</p>
+            <p class="text-uppercase text-danger small fw-semibold mb-2">Compartilhe</p>
             <h1 class="h2 mb-3">Recomendar &quot;{{ post.titulo }}&quot;</h1>
             <p class="text-secondary mb-4">Envie este post para alguém por e-mail.</p>
 
@@ -67,7 +67,7 @@ Recomendar {{ post.titulo }}
                     </div>
                 </div>
 
-                <button class="btn btn-accent mt-4" type="submit">
+                <button class="btn btn-danger mt-4" type="submit">
                     Enviar recomendação
                 </button>
             </form>
