@@ -10,6 +10,8 @@ from django.core.mail import send_mail
 
 from django.views.decorators.http import require_POST
 
+from taggit.models import Tag
+
 
 class PostListView(ListView):
     template_name = "filmes/post/list.html"
@@ -17,8 +19,26 @@ class PostListView(ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        return PostFilme.publicados.all()
+        posts = PostFilme.publicados.all()
 
+        tag_slug = self.kwargs.get("tag_slug")
+
+        if tag_slug:
+            tag = get_object_or_404(
+                Tag,
+                slug=tag_slug,
+            )
+
+            posts = posts.filter(tags__in=[tag])
+
+        return posts
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["tag"] = self.tag
+
+        return context
 
 
 def post_detail(request, year, month, day, post):
@@ -46,6 +66,7 @@ def post_detail(request, year, month, day, post):
         },
     )
 
+
 def recomendar_post(request, post_id):
     post = get_object_or_404(
         PostFilme.publicados,
@@ -60,13 +81,10 @@ def recomendar_post(request, post_id):
         if form.is_valid():
             dados = form.cleaned_data
 
-            post_url = request.build_absolute_uri(
-                post.get_absolute_url()
-            )
+            post_url = request.build_absolute_uri(post.get_absolute_url())
 
             assunto = (
-                f"{dados['nome']} ({dados['email']}) "
-                f"recomenda o post {post.titulo}"
+                f"{dados['nome']} ({dados['email']}) " f"recomenda o post {post.titulo}"
             )
 
             mensagem = (
@@ -126,4 +144,3 @@ def comentar_post(request, post_id):
             "comentario": comentario,
         },
     )
-
