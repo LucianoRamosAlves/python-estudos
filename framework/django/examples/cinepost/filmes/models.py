@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 
 class PublicadosManager(models.Manager):
@@ -46,6 +47,7 @@ class PostFilme(models.Model):
 
     objects = models.Manager()
     publicados = PublicadosManager()
+    tags = TaggableManager()
 
     def __str__(self):
         return self.titulo
