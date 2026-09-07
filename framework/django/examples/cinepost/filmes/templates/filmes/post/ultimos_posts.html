@@ -1,11 +1,43 @@
-<ul class="list-unstyled capitalize">
+<div class="vstack gap-2">
+
     {% for post in ultimos_posts %}
 
-        <li>
-            <a href="{{ post.get_absolute_url }}">
-                {{ post.titulo }}
-            </a>
-        </li>
+    <a href="{{ post.get_absolute_url }}" class="text-decoration-none">
+        <div class="card bg-black border-secondary shadow-sm">
+
+            <div class="card-body py-3 px-3">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <h3 class="h6 text-light mb-1">
+                            {{ post.titulo }}
+                        </h3>
+
+                        <small class="text-secondary">
+                            {{ post.publicado_em|date:"d/m/Y" }}
+                        </small>
+
+                    </div>
+
+                    <span class="badge bg-danger">
+                        Ver
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+    </a>
+
+    {% empty %}
+
+    <p class="text-secondary mb-0">
+        Nenhuma publicação recente.
+    </p>
 
     {% endfor %}
-</ul>
+
+</div>
