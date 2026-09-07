@@ -1,0 +1,530 @@
+[
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$Fi0QrJ8EWfPNGJB9c07iOm$scav/sVrvoRkAfydumnJU/0oqtyJSvfqIltzNvbAIKU=",
+    "last_login": "2026-09-02T10:53:22.177Z",
+    "is_superuser": true,
+    "username": "carmo",
+    "first_name": "",
+    "last_name": "",
+    "email": "carmo@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-09-02T10:52:12.799Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "filmes.postfilme",
+  "pk": 1,
+  "fields": {
+    "titulo": "Interestelar",
+    "slug": "interestelar",
+    "autor": [
+      "carmo"
+    ],
+    "comentario": "Gostei muito do filme.",
+    "nota": 9,
+    "publicado_em": "2026-09-03T09:05:42Z",
+    "criado_em": "2026-09-03T09:06:15.787Z",
+    "atualizado_em": "2026-09-07T13:24:40.060Z",
+    "status": "PU"
+  }
+},
+{
+  "model": "filmes.postfilme",
+  "pk": 2,
+  "fields": {
+    "titulo": "poucos com muitos",
+    "slug": "poucos-com-muitos",
+    "autor": [
+      "carmo"
+    ],
+    "comentario": "esperava mais do filme, abaixo da média",
+    "nota": 3,
+    "publicado_em": "2026-09-03T09:16:20Z",
+    "criado_em": "2026-09-03T09:17:21.027Z",
+    "atualizado_em": "2026-09-07T13:25:56.074Z",
+    "status": "PU"
+  }
+},
+{
+  "model": "filmes.postfilme",
+  "pk": 3,
+  "fields": {
+    "titulo": "corra",
+    "slug": "corra",
+    "autor": [
+      "carmo"
+    ],
+    "comentario": "filme forte, não recomendo para quem é fraco",
+    "nota": 8,
+    "publicado_em": "2026-09-03T13:20:50Z",
+    "criado_em": "2026-09-03T13:22:35.520Z",
+    "atualizado_em": "2026-09-06T01:48:13.496Z",
+    "status": "PU"
+  }
+},
+{
+  "model": "filmes.postfilme",
+  "pk": 4,
+  "fields": {
+    "titulo": "a casa caiu",
+    "slug": "a-casa-caiu",
+    "autor": [
+      "carmo"
+    ],
+    "comentario": "bom, mas final sem sentido",
+    "nota": 8,
+    "publicado_em": "2026-09-04T13:42:40Z",
+    "criado_em": "2026-09-04T13:43:19.183Z",
+    "atualizado_em": "2026-09-04T13:43:19.183Z",
+    "status": "PU"
+  }
+},
+{
+  "model": "filmes.postfilme",
+  "pk": 5,
+  "fields": {
+    "titulo": "uma hora dar",
+    "slug": "uma-hora-dar",
+    "autor": [
+      "carmo"
+    ],
+    "comentario": "muito bom, mas meio repetitivo",
+    "nota": 5,
+    "publicado_em": "2026-09-04T13:43:22Z",
+    "criado_em": "2026-09-04T13:44:58.835Z",
+    "atualizado_em": "2026-09-06T01:50:04.306Z",
+    "status": "PU"
+  }
+},
+{
+  "model": "filmes.postfilme",
+  "pk": 6,
+  "fields": {
+    "titulo": "a fé",
+    "slug": "a-fe",
+    "autor": [
+      "carmo"
+    ],
+    "comentario": "filme curto",
+    "nota": 5,
+    "publicado_em": "2026-09-04T13:45:01Z",
+    "criado_em": "2026-09-04T13:47:46.778Z",
+    "atualizado_em": "2026-09-06T01:49:38.077Z",
+    "status": "PU"
+  }
+},
+{
+  "model": "filmes.postfilme",
+  "pk": 7,
+  "fields": {
+    "titulo": "casa de cera",
+    "slug": "casa-de-cera",
+    "autor": [
+      "carmo"
+    ],
+    "comentario": "filme ultrapassado",
+    "nota": 5,
+    "publicado_em": "2026-09-05T18:20:33Z",
+    "criado_em": "2026-09-05T18:21:15.547Z",
+    "atualizado_em": "2026-09-05T18:21:15.547Z",
+    "status": "PU"
+  }
+},
+{
+  "model": "filmes.postfilme",
+  "pk": 8,
+  "fields": {
+    "titulo": "Cuidado com TUDO",
+    "slug": "cuidado-com-tudo",
+    "autor": [
+      "carmo"
+    ],
+    "comentario": "filme muito bom, pqp kkk",
+    "nota": 10,
+    "publicado_em": "2026-09-07T13:50:00Z",
+    "criado_em": "2026-09-07T13:51:05.344Z",
+    "atualizado_em": "2026-09-07T13:51:05.344Z",
+    "status": "PU"
+  }
+},
+{
+  "model": "filmes.postfilme",
+  "pk": 9,
+  "fields": {
+    "titulo": "365",
+    "slug": "365",
+    "autor": [
+      "carmo"
+    ],
+    "comentario": "filme bom",
+    "nota": 10,
+    "publicado_em": "2026-09-07T14:42:21Z",
+    "criado_em": "2026-09-07T14:43:23.906Z",
+    "atualizado_em": "2026-09-07T14:43:23.906Z",
+    "status": "PU"
+  }
+},
+{
+  "model": "filmes.postfilme",
+  "pk": 10,
+  "fields": {
+    "titulo": "american can pei",
+    "slug": "american-can-pei",
+    "autor": [
+      "carmo"
+    ],
+    "comentario": "filme ruim",
+    "nota": -37,
+    "publicado_em": "2026-09-07T14:43:26Z",
+    "criado_em": "2026-09-07T14:44:04.794Z",
+    "atualizado_em": "2026-09-07T14:44:04.794Z",
+    "status": "PU"
+  }
+},
+{
+  "model": "filmes.comentario",
+  "pk": 1,
+  "fields": {
+    "post": 3,
+    "nome": "paulo",
+    "email": "admin@gmail.com",
+    "texto": "realmente a nota esta de acordo",
+    "criado_em": "2026-09-05T17:11:38.018Z",
+    "atualizado_em": "2026-09-05T17:11:38.018Z",
+    "ativo": true
+  }
+},
+{
+  "model": "filmes.comentario",
+  "pk": 2,
+  "fields": {
+    "post": 3,
+    "nome": "paulo",
+    "email": "admin@gmail.com",
+    "texto": "realmente a nota esta de acordo",
+    "criado_em": "2026-09-05T17:13:55.332Z",
+    "atualizado_em": "2026-09-05T17:13:55.332Z",
+    "ativo": true
+  }
+},
+{
+  "model": "filmes.comentario",
+  "pk": 3,
+  "fields": {
+    "post": 3,
+    "nome": "maria",
+    "email": "ferroforte@gmail.com",
+    "texto": "eu achei ruim a nota poderia ser um 5 ou 6",
+    "criado_em": "2026-09-05T17:14:55.320Z",
+    "atualizado_em": "2026-09-05T17:14:55.320Z",
+    "ativo": true
+  }
+},
+{
+  "model": "filmes.comentario",
+  "pk": 4,
+  "fields": {
+    "post": 4,
+    "nome": "prin",
+    "email": "kilmateus93@gmail.com",
+    "texto": "bom filme, voltarei a ver de novo",
+    "criado_em": "2026-09-05T18:05:13.497Z",
+    "atualizado_em": "2026-09-05T18:05:13.497Z",
+    "ativo": true
+  }
+},
+{
+  "model": "filmes.comentario",
+  "pk": 5,
+  "fields": {
+    "post": 7,
+    "nome": "Mateus",
+    "email": "admin@gmail.com",
+    "texto": "bom e velho terror",
+    "criado_em": "2026-09-06T01:25:41.732Z",
+    "atualizado_em": "2026-09-06T01:25:41.732Z",
+    "ativo": true
+  }
+},
+{
+  "model": "filmes.comentario",
+  "pk": 6,
+  "fields": {
+    "post": 7,
+    "nome": "Mateus",
+    "email": "admin@gmail.com",
+    "texto": "ytggc cmuc,ux66r.i",
+    "criado_em": "2026-09-06T18:22:56.224Z",
+    "atualizado_em": "2026-09-06T18:22:56.224Z",
+    "ativo": true
+  }
+},
+{
+  "model": "filmes.comentario",
+  "pk": 7,
+  "fields": {
+    "post": 9,
+    "nome": "pedro dinis",
+    "email": "kilmateus93@gmail.com",
+    "texto": "filme para maiores",
+    "criado_em": "2026-09-07T14:50:52.763Z",
+    "atualizado_em": "2026-09-07T14:50:52.763Z",
+    "ativo": true
+  }
+},
+{
+  "model": "filmes.comentario",
+  "pk": 8,
+  "fields": {
+    "post": 9,
+    "nome": "pedro manuel",
+    "email": "pedrita@gmail.com",
+    "texto": "bom filme paara casal",
+    "criado_em": "2026-09-07T14:51:28.974Z",
+    "atualizado_em": "2026-09-07T14:51:28.974Z",
+    "ativo": true
+  }
+},
+{
+  "model": "filmes.comentario",
+  "pk": 9,
+  "fields": {
+    "post": 9,
+    "nome": "Pamela",
+    "email": "kilmateus93@gmail.com",
+    "texto": "filme envolvente",
+    "criado_em": "2026-09-07T14:52:14.678Z",
+    "atualizado_em": "2026-09-07T14:52:14.678Z",
+    "ativo": true
+  }
+},
+{
+  "model": "filmes.comentario",
+  "pk": 10,
+  "fields": {
+    "post": 9,
+    "nome": "Mateus",
+    "email": "kilmateus93@gmail.com",
+    "texto": "filme sem nexo",
+    "criado_em": "2026-09-07T14:53:41.556Z",
+    "atualizado_em": "2026-09-07T14:53:41.556Z",
+    "ativo": true
+  }
+},
+{
+  "model": "taggit.tag",
+  "fields": {
+    "name": "terror",
+    "slug": "terror"
+  }
+},
+{
+  "model": "taggit.tag",
+  "fields": {
+    "name": "suspense",
+    "slug": "suspense"
+  }
+},
+{
+  "model": "taggit.tag",
+  "fields": {
+    "name": "psicologico",
+    "slug": "psicologico"
+  }
+},
+{
+  "model": "taggit.tag",
+  "fields": {
+    "name": "clima",
+    "slug": "clima"
+  }
+},
+{
+  "model": "taggit.tag",
+  "fields": {
+    "name": "religião",
+    "slug": "religiao"
+  }
+},
+{
+  "model": "taggit.tag",
+  "fields": {
+    "name": "adulto",
+    "slug": "adulto"
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "terror"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 7
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "suspense"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 7
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "psicologico"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 7
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "clima"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 7
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "terror"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 3
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "religião"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 6
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "religião"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 5
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "religião"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 1
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "religião"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 2
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "clima"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 8
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "terror"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 8
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "adulto"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 9
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "fields": {
+    "tag": [
+      "adulto"
+    ],
+    "content_type": [
+      "filmes",
+      "postfilme"
+    ],
+    "object_id": 10
+  }
+}
+]

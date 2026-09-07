@@ -94,7 +94,11 @@ DATABASES = {
         "PASSWORD": os.getenv("CINEPOST_DB_PASSWORD"),
         "HOST": os.getenv("CINEPOST_DB_HOST"),
         "PORT": os.getenv("CINEPOST_DB_PORT"),
-    }
+    },
+        "sqlite_antigo": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    },
 }
 
 
