@@ -36,3 +36,20 @@ def posts_mais_comentados(quantidade=5):
         )
         .order_by("-total_comentarios")[:quantidade]
     )
+
+@register.simple_tag
+def melhores_notas(quantidade=3):
+    return (
+        PostFilme.publicados
+        .annotate(
+            total_comentarios=Count(
+                "comentarios",
+                filter=Q(comentarios__ativo=True),
+            )
+        )
+        .order_by(
+            "-nota",
+            "-total_comentarios",
+            "-publicado_em",
+        )[:quantidade]
+    )
