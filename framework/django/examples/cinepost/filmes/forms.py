@@ -46,3 +46,6 @@ class ComentarioForm(forms.ModelForm):
             "email": forms.EmailInput(attrs={"class": "form-control"}),
             "texto": forms.Textarea(attrs={"class": "form-control", "rows": 5}),
         }
+
+class BuscaForm(forms.Form):
+    query = forms.CharField()

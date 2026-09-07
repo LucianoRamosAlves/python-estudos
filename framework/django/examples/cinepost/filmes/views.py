@@ -14,6 +14,11 @@ from taggit.models import Tag
 
 from django.db.models import Count
 
+from django.contrib.postgres.search import SearchVector
+from .forms import BuscaForm
+
+from django.db.models import Q
+
 
 class PostListView(ListView):
     template_name = "filmes/post/list.html"
@@ -163,5 +168,38 @@ def comentar_post(request, post_id):
             "post": post,
             "form": form,
             "comentario": comentario,
+        },
+    )
+
+
+def post_search(request):
+    form = BuscaForm()
+    query = None
+    resultados = []
+
+    if "query" in request.GET:
+        form = BuscaForm(request.GET)
+
+        if form.is_valid():
+            query = form.cleaned_data["query"]
+
+            resultados = (
+                PostFilme.publicados.annotate(
+                    search=SearchVector(
+                        "titulo",
+                        "comentario",
+                    )
+                )
+                .filter(Q(search=query) | Q(tags__name__icontains=query))
+                .distinct()
+            )
+
+    return render(
+        request,
+        "filmes/post/search.html",
+        {
+            "form": form,
+            "query": query,
+            "resultados": resultados,
         },
     )

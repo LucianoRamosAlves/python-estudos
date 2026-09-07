@@ -1,0 +1,80 @@
+{% extends "filmes/base.html" %}
+
+{% block title %}Buscar filmes{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    {% if query %}
+
+    <h1 class="h3 mb-3">
+        Resultados para "{{ query }}"
+    </h1>
+
+    <p class="text-secondary">
+        Encontrados: {{ resultados.count }}
+    </p>
+
+    <div class="vstack gap-3">
+
+        {% for post in resultados %}
+
+        <div class="card bg-black border-secondary">
+
+            <div class="card-body">
+
+                <h2 class="h5">
+                    <a href="{{ post.get_absolute_url }}" class="text-light text-decoration-none">
+                        {{ post.titulo }}
+                    </a>
+                </h2>
+
+                <p class="text-secondary mb-0">
+                    {{ post.comentario|truncatewords:30 }}
+                </p>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <p class="text-secondary">
+            Nenhum resultado encontrado.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'filmes:post_search' %}" class="btn btn-outline-light">
+            Pesquisar novamente
+        </a>
+    </div>
+
+    {% else %}
+
+    <h1 class="h3 mb-4">
+        Buscar filmes
+    </h1>
+
+    <form method="get">
+
+        <div class="mb-3">
+            {{ form.query.label_tag }}
+            {{ form.query }}
+        </div>
+
+        <button type="submit" class="btn btn-danger">
+            Pesquisar
+        </button>
+
+    </form>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
