@@ -87,9 +87,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("CINEPOST_DB_NAME"),
+        "USER": os.getenv("CINEPOST_DB_USER"),
+        "PASSWORD": os.getenv("CINEPOST_DB_PASSWORD"),
+        "HOST": os.getenv("CINEPOST_DB_HOST"),
+        "PORT": os.getenv("CINEPOST_DB_PORT"),
     }
 }
 
