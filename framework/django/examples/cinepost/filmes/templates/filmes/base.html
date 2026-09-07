@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-BR" data-bs-theme="dark">
 
@@ -14,6 +16,8 @@
 </head>
 
 <body class="bg-dark text-light">
+    {% load filmes_tags %}
+{% load static %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{% url 'filmes:post_list' %}">
@@ -37,6 +41,16 @@
             {% endblock %}
         </div>
     </main>
+
+    <div class="card bg-dark border-secondary">
+    <div class="card-body">
+        <h2 class="h5">CinePost</h2>
+
+        <p class="text-secondary mb-0">
+            Já publicamos {% total_posts %} posts.
+        </p>
+    </div>
+</div>
 
     <footer class="bg-black text-white py-4 mt-4 border-top border-secondary">
         <div class="container text-center small">
