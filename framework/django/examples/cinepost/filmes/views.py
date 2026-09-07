@@ -12,6 +12,8 @@ from django.views.decorators.http import require_POST
 
 from taggit.models import Tag
 
+from django.db.models import Count
+
 
 class PostListView(ListView):
     template_name = "filmes/post/list.html"
@@ -22,6 +24,8 @@ class PostListView(ListView):
         posts = PostFilme.publicados.all()
 
         tag_slug = self.kwargs.get("tag_slug")
+
+        self.tag = None
 
         if tag_slug:
             tag = get_object_or_404(
@@ -42,6 +46,7 @@ class PostListView(ListView):
 
 
 def post_detail(request, year, month, day, post):
+
     post = get_object_or_404(
         PostFilme.publicados,
         slug=post,
@@ -50,11 +55,26 @@ def post_detail(request, year, month, day, post):
         publicado_em__day=day,
     )
 
-    # Comentários ativos deste post
     comentarios = post.comentarios.filter(ativo=True)
 
-    # Formulário vazio para novo comentário
     form = ComentarioForm()
+
+    # Tags do post atual
+    post_tags_ids = post.tags.values_list(
+        "id",
+        flat=True,
+    )
+
+    # Posts semelhantes
+    posts_similares = (
+        PostFilme.publicados.filter(tags__in=post_tags_ids)
+        .exclude(id=post.id)
+        .annotate(mesmas_tags=Count("tags"))
+        .order_by(
+            "-mesmas_tags",
+            "-publicado_em",
+        )[:4]
+    )
 
     return render(
         request,
@@ -63,6 +83,7 @@ def post_detail(request, year, month, day, post):
             "post": post,
             "comentarios": comentarios,
             "form": form,
+            "posts_similares": posts_similares,
         },
     )
 
