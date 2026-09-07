@@ -42,7 +42,8 @@
         </div>
     </main>
 
-    <div class="card bg-dark border-secondary">
+<div class="card bg-dark border-secondary">
+
     <div class="card-body">
         <h2 class="h5">CinePost</h2>
 
@@ -50,7 +51,12 @@
             Já publicamos {% total_posts %} posts.
         </p>
     </div>
+    <h3 class="mt-4" >Últimos posts</h3>
+    
+    {% mostrar_ultimos_posts 3 %}
 </div>
+
+
 
     <footer class="bg-black text-white py-4 mt-4 border-top border-secondary">
         <div class="container text-center small">

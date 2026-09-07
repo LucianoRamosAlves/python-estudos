@@ -1,0 +1,11 @@
+<ul class="list-unstyled capitalize">
+    {% for post in ultimos_posts %}
+
+        <li>
+            <a href="{{ post.get_absolute_url }}">
+                {{ post.titulo }}
+            </a>
+        </li>
+
+    {% endfor %}
+</ul>
