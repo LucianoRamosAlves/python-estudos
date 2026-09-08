@@ -1,0 +1,51 @@
+{% extends "filmes/base.html" %}
+
+{% block title %}
+Editar perfil | CinePost
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-md-8 col-lg-6">
+
+            <div class="card bg-black border-secondary">
+
+                <div class="card-body p-4">
+
+                    <h1 class="h3 mb-3">
+                        Editar minha conta
+                    </h1>
+
+                    <p class="text-secondary">
+                        Altere seus dados pessoais e seu perfil.
+                    </p>
+
+                    <form method="post" enctype="multipart/form-data">
+
+                        {{ user_form.as_p }}
+
+                        {{ profile_form.as_p }}
+
+                        {% csrf_token %}
+
+                        <button type="submit" class="btn btn-danger">
+                            Salvar alterações
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

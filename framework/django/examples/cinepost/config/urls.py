@@ -21,6 +21,9 @@ from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from filmes.sitemaps import PostFilmeSitemap, TagSitemap
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 sitemaps = {
     "posts": PostFilmeSitemap,
     "tags": TagSitemap,
@@ -44,3 +47,9 @@ urlpatterns = [
         name="django.contrib.sitemaps.views.sitemap",
     ),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT,
+    )
