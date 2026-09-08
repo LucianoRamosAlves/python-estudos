@@ -1,0 +1,32 @@
+{% extends "filmes/base.html" %}
+
+{% block title %}
+    Conta criada | CinePost
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center">
+
+        <h1 class="h3">
+            Bem-vindo, {{ new_user.first_name }}!
+        </h1>
+
+        <p>
+            Sua conta foi criada com sucesso.
+        </p>
+
+        <a
+            href="{% url 'login' %}"
+            class="btn btn-danger"
+        >
+            Entrar
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

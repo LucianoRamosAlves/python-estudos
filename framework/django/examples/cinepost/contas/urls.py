@@ -7,6 +7,11 @@ urlpatterns = [
         "",
         include("django.contrib.auth.urls"),
     ),
+    path(
+        "register/",
+        views.register,
+        name="register",
+    ),
 ]
 
 

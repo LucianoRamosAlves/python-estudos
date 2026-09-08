@@ -1,5 +1,7 @@
 from django import forms
 
+from django.contrib.auth import get_user_model
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -22,3 +24,33 @@ class LoginForm(forms.Form):
             }
         ),
     )
+
+class UserRegistrationForm(forms.ModelForm):
+    password = forms.CharField(
+        label="Senha",
+        widget=forms.PasswordInput,
+    )
+
+    password2 = forms.CharField(
+        label="Repita a senha",
+        widget=forms.PasswordInput,
+    )
+
+    class Meta:
+        model = get_user_model()
+        fields = [
+            "username",
+            "first_name",
+            "email",
+        ]
+
+    def clean_password2(self):
+        password = self.cleaned_data.get("password")
+        password2 = self.cleaned_data.get("password2")
+
+        if password and password2 and password != password2:
+            raise forms.ValidationError(
+                "As senhas não são iguais."
+            )
+
+        return password2
