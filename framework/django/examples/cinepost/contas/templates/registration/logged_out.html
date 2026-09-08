@@ -1,0 +1,41 @@
+{% extends "filmes/base.html" %}
+
+{% block title %}
+Sessão encerrada | CinePost
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-md-7 col-lg-5">
+
+            <div class="card bg-black border-secondary">
+
+                <div class="card-body p-4 text-center">
+
+                    <h1 class="h3">
+                        Você saiu da sua conta
+                    </h1>
+
+                    <p class="text-secondary">
+                        Sua sessão foi encerrada com sucesso.
+                    </p>
+
+                    <a href="{% url 'login' %}" class="btn btn-danger">
+                        Entrar novamente
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

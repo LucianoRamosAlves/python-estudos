@@ -167,6 +167,6 @@ DEFAULT_FROM_EMAIL = os.environ["DEFAULT_FROM_EMAIL"]
 
 # URLs de autenticação
 
-LOGIN_URL = "contas:login"
-LOGIN_REDIRECT_URL = "contas:dashboard"
-LOGOUT_REDIRECT_URL = "filmes:post_list"
+# LOGIN_URL = "login"
+# LOGIN_REDIRECT_URL = "contas:dashboard"
+#LOGOUT_REDIRECT_URL = "filmes:post_list"
