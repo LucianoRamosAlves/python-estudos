@@ -14,7 +14,12 @@ from taggit.models import Tag
 
 from django.db.models import Count
 
-from django.contrib.postgres.search import SearchVector
+from django.contrib.postgres.search import (
+    SearchQuery,
+    SearchRank,
+    SearchVector,
+    TrigramSimilarity,
+)
 from .forms import BuscaForm
 
 from django.db.models import Q
@@ -183,14 +188,42 @@ def post_search(request):
         if form.is_valid():
             query = form.cleaned_data["query"]
 
+            search_vector = SearchVector(
+                "titulo",
+                weight="A",
+                config="portuguese",
+            ) + SearchVector(
+                "comentario",
+                weight="B",
+                config="portuguese",
+            )
+
+            search_query = SearchQuery(
+                query,
+                config="portuguese",
+            )
+
             resultados = (
                 PostFilme.publicados.annotate(
-                    search=SearchVector(
+                    search=search_vector,
+                    rank=SearchRank(
+                        search_vector,
+                        search_query,
+                    ),
+                    similarity=TrigramSimilarity(
                         "titulo",
-                        "comentario",
-                    )
+                        query,
+                    ),
                 )
-                .filter(Q(search=query) | Q(tags__name__icontains=query))
+                .filter(
+                    Q(search=search_query)
+                    | Q(tags__name__icontains=query)
+                    | Q(similarity__gt=0.1)
+                )
+                .order_by(
+                    "-rank",
+                    "-similarity",
+                )
                 .distinct()
             )
 
