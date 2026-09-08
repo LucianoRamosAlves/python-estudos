@@ -19,10 +19,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 from django.contrib.sitemaps.views import sitemap
-from filmes.sitemaps import PostFilmeSitemap
+from filmes.sitemaps import PostFilmeSitemap, TagSitemap
 
 sitemaps = {
     "posts": PostFilmeSitemap,
+    "tags": TagSitemap,
 }
 
 urlpatterns = [

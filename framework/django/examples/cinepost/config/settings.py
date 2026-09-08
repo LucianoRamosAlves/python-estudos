@@ -37,6 +37,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "contas.apps.ContasConfig",
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
