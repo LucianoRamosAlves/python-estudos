@@ -30,6 +30,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("filmes/", include("filmes.urls")),
     path(
+        "contas/",
+        include("contas.urls"),
+    ),
+    path(
         "sitemap.xml",
         sitemap,
         {"sitemaps": sitemaps},
