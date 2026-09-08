@@ -38,7 +38,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "contas.apps.ContasConfig",
-    
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -164,3 +164,9 @@ MAILERS = {
 }
 
 DEFAULT_FROM_EMAIL = os.environ["DEFAULT_FROM_EMAIL"]
+
+# URLs de autenticação
+
+LOGIN_URL = "contas:login"
+LOGIN_REDIRECT_URL = "contas:dashboard"
+LOGOUT_REDIRECT_URL = "filmes:post_list"

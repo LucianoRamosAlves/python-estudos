@@ -1,0 +1,57 @@
+{% extends "filmes/base.html" %}
+
+{% block title %}
+Minha conta | CinePost
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <form method="post" action="{% url 'contas:logout' %}">
+            {% csrf_token %}
+
+            <button type="submit" class="btn btn-outline-danger">
+                Sair
+            </button>
+        </form>
+
+        <div class="col-12 col-lg-8">
+
+            <div class="card bg-black border-secondary shadow">
+
+                <div class="card-body p-4">
+
+                    <h1 class="h3 mb-3">
+                        Olá, {{ request.user.username }}!
+                    </h1>
+
+                    <p class="text-secondary mb-4">
+                        Você está autenticado no CinePost.
+                    </p>
+
+                    <div class="alert alert-dark border-secondary">
+
+                        <strong>Usuário:</strong>
+                        {{ request.user.username }}
+
+                        <br>
+
+                        <strong>E-mail:</strong>
+                        {{ request.user.email|default:"Não informado" }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
