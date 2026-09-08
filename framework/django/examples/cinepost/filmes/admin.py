@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import PostFilme, Comentario
+
+from .models import Comentario, PostFilme
+
 
 @admin.register(PostFilme)
 class PostFilmeAdmin(admin.ModelAdmin):
@@ -21,6 +23,7 @@ class PostFilmeAdmin(admin.ModelAdmin):
     search_fields = [
         "titulo",
         "comentario",
+        "autor__username",
     ]
 
     prepopulated_fields = {
@@ -31,14 +34,19 @@ class PostFilmeAdmin(admin.ModelAdmin):
         "autor",
     ]
 
+    list_select_related = [
+        "autor",
+    ]
+
     date_hierarchy = "publicado_em"
 
     ordering = [
         "status",
-        "publicado_em",
+        "-publicado_em",
     ]
 
     show_facets = admin.ShowFacets.ALWAYS
+
 
 @admin.register(Comentario)
 class ComentarioAdmin(admin.ModelAdmin):
@@ -60,4 +68,13 @@ class ComentarioAdmin(admin.ModelAdmin):
         "nome",
         "email",
         "texto",
+        "post__titulo",
+    ]
+
+    list_select_related = [
+        "post",
+    ]
+
+    ordering = [
+        "-criado_em",
     ]

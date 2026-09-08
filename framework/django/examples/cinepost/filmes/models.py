@@ -1,13 +1,16 @@
-from django.db import models
-from django.utils import timezone
 from django.conf import settings
+from django.db import models
 from django.urls import reverse
+from django.utils import timezone
+
 from taggit.managers import TaggableManager
 
 
 class PublicadosManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(status=self.model.Status.PUBLICADO)
+        return super().get_queryset().filter(
+            status=self.model.Status.PUBLICADO
+        )
 
 
 class PostFilme(models.Model):
@@ -16,7 +19,10 @@ class PostFilme(models.Model):
         RASCUNHO = "RA", "Rascunho"
         PUBLICADO = "PU", "Publicado"
 
-    titulo = models.CharField(max_length=250)
+    titulo = models.CharField(
+        max_length=250
+    )
+
     slug = models.SlugField(
         max_length=250,
         unique_for_date="publicado_em",
@@ -29,25 +35,42 @@ class PostFilme(models.Model):
     )
 
     comentario = models.TextField()
+
     nota = models.IntegerField()
-    publicado_em = models.DateTimeField(default=timezone.now)
-    criado_em = models.DateTimeField(auto_now_add=True)
-    atualizado_em = models.DateTimeField(auto_now=True)
+
+    publicado_em = models.DateTimeField(
+        default=timezone.now
+    )
+
+    criado_em = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    atualizado_em = models.DateTimeField(
+        auto_now=True
+    )
+
     status = models.CharField(
         max_length=2,
         choices=Status,
         default=Status.RASCUNHO,
     )
 
-    class Meta:
-        ordering = ["-publicado_em"]
-        indexes = [
-            models.Index(fields=["-publicado_em"]),
-        ]
+    tags = TaggableManager()
 
     objects = models.Manager()
     publicados = PublicadosManager()
-    tags = TaggableManager()
+
+    class Meta:
+        ordering = [
+            "-publicado_em",
+        ]
+
+        indexes = [
+            models.Index(
+                fields=["-publicado_em"]
+            ),
+        ]
 
     def __str__(self):
         return self.titulo
@@ -65,25 +88,42 @@ class PostFilme(models.Model):
 
 
 class Comentario(models.Model):
+
     post = models.ForeignKey(
         PostFilme,
         on_delete=models.CASCADE,
         related_name="comentarios",
     )
 
-    nome = models.CharField(max_length=80)
+    nome = models.CharField(
+        max_length=80
+    )
+
     email = models.EmailField()
+
     texto = models.TextField()
 
-    criado_em = models.DateTimeField(auto_now_add=True)
-    atualizado_em = models.DateTimeField(auto_now=True)
+    criado_em = models.DateTimeField(
+        auto_now_add=True
+    )
 
-    ativo = models.BooleanField(default=True)
+    atualizado_em = models.DateTimeField(
+        auto_now=True
+    )
+
+    ativo = models.BooleanField(
+        default=True
+    )
 
     class Meta:
-        ordering = ["criado_em"]
+        ordering = [
+            "criado_em",
+        ]
+
         indexes = [
-            models.Index(fields=["criado_em"]),
+            models.Index(
+                fields=["criado_em"]
+            ),
         ]
 
     def __str__(self):

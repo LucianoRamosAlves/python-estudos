@@ -1,51 +1,12 @@
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-
-from .forms import LoginForm, UserRegistrationForm
-
-from .models import Profile
+from django.shortcuts import redirect, render
 
 from .forms import (
-    UserEditForm,
     ProfileEditForm,
+    UserEditForm,
+    UserRegistrationForm,
 )
-
-
-def user_login(request):
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-
-        if form.is_valid():
-            dados = form.cleaned_data
-
-            user = authenticate(
-                request,
-                username=dados["username"],
-                password=dados["password"],
-            )
-
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-
-                    return HttpResponse("Autenticado com sucesso.")
-
-                return HttpResponse("Conta desativada.")
-
-            return HttpResponse("Usuário ou senha inválidos.")
-
-    else:
-        form = LoginForm()
-
-    return render(
-        request,
-        "contas/login.html",
-        {
-            "form": form,
-        },
-    )
+from .models import Profile
 
 
 @login_required
@@ -61,11 +22,7 @@ def register(request):
         user_form = UserRegistrationForm(request.POST)
 
         if user_form.is_valid():
-            new_user = user_form.save(commit=False)
-
-            new_user.set_password(user_form.cleaned_data["password"])
-
-            new_user.save()
+            new_user = user_form.save()
 
             Profile.objects.create(user=new_user)
 
@@ -91,6 +48,8 @@ def register(request):
 
 @login_required
 def edit(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+
     if request.method == "POST":
         user_form = UserEditForm(
             instance=request.user,
@@ -98,7 +57,7 @@ def edit(request):
         )
 
         profile_form = ProfileEditForm(
-            instance=request.user.profile,
+            instance=profile,
             data=request.POST,
             files=request.FILES,
         )
@@ -107,14 +66,12 @@ def edit(request):
             user_form.save()
             profile_form.save()
 
-    else:
-        user_form = UserEditForm(
-            instance=request.user
-        )
+            return redirect("edit")
 
-        profile_form = ProfileEditForm(
-            instance=request.user.profile
-        )
+    else:
+        user_form = UserEditForm(instance=request.user)
+
+        profile_form = ProfileEditForm(instance=profile)
 
     return render(
         request,

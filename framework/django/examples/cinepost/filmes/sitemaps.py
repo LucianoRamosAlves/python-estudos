@@ -15,12 +15,20 @@ class PostFilmeSitemap(Sitemap):
     def lastmod(self, obj):
         return obj.atualizado_em
 
+
 class TagSitemap(Sitemap):
     changefreq = "weekly"
     priority = 0.6
 
     def items(self):
-        return Tag.objects.all()
+        tags_ids = PostFilme.publicados.values_list(
+            "tags__id",
+            flat=True,
+        )
+
+        return Tag.objects.filter(
+            id__in=tags_ids,
+        ).distinct()
 
     def location(self, obj):
         return reverse(

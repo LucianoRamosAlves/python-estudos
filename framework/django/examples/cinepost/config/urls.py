@@ -34,10 +34,6 @@ urlpatterns = [
     path("filmes/", include("filmes.urls")),
     path(
         "contas/",
-        include("django.contrib.auth.urls"),
-    ),
-    path(
-        "contas/",
         include("contas.urls"),
     ),
     path(

@@ -6,35 +6,112 @@ Editar perfil | CinePost
 
 {% block content %}
 
-<div class="container py-5">
+<div class="py-5">
 
     <div class="row justify-content-center">
 
-        <div class="col-12 col-md-8 col-lg-6">
+        <div class="col-12 col-md-9 col-lg-7">
 
-            <div class="card bg-black border-secondary">
+            <div class="card bg-black border-secondary shadow">
 
-                <div class="card-body p-4">
+                <div class="card-body p-4 p-md-5">
 
-                    <h1 class="h3 mb-3">
-                        Editar minha conta
-                    </h1>
+                    <!-- CABEÇALHO -->
 
-                    <p class="text-secondary">
-                        Altere seus dados pessoais e seu perfil.
-                    </p>
+                    <div class="mb-4">
 
-                    <form method="post" enctype="multipart/form-data">
+                        <p class="text-uppercase text-danger small fw-semibold mb-1">
+                            Minha conta
+                        </p>
 
-                        {{ user_form.as_p }}
+                        <h1 class="h3 mb-2">
+                            Editar perfil
+                        </h1>
 
-                        {{ profile_form.as_p }}
+                        <p class="text-secondary mb-0">
+                            Atualize seus dados pessoais e sua foto de perfil.
+                        </p>
+
+                    </div>
+
+
+                    <!-- FOTO ATUAL -->
+
+                    {% if request.user.profile.photo %}
+
+                        <div class="mb-4">
+
+                            <p class="text-secondary small mb-2">
+                                Foto atual
+                            </p>
+
+                            <img
+                                src="{{ request.user.profile.photo.url }}"
+                                alt="Foto de perfil de {{ request.user.username }}"
+                                class="img-thumbnail"
+                                style="max-width: 160px;"
+                            >
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- FORMULÁRIO -->
+
+                    <form
+                        method="post"
+                        enctype="multipart/form-data"
+                    >
 
                         {% csrf_token %}
 
-                        <button type="submit" class="btn btn-danger">
-                            Salvar alterações
-                        </button>
+
+                        <!-- DADOS DA CONTA -->
+
+                        <div class="border border-secondary rounded p-4 mb-4">
+
+                            <h2 class="h5 mb-3">
+                                Dados da conta
+                            </h2>
+
+                            {{ user_form.as_p }}
+
+                        </div>
+
+
+                        <!-- DADOS DO PERFIL -->
+
+                        <div class="border border-secondary rounded p-4 mb-4">
+
+                            <h2 class="h5 mb-3">
+                                Perfil
+                            </h2>
+
+                            {{ profile_form.as_p }}
+
+                        </div>
+
+
+                        <!-- AÇÕES -->
+
+                        <div class="d-grid gap-2 d-md-flex">
+
+                            <button
+                                type="submit"
+                                class="btn btn-danger"
+                            >
+                                Salvar alterações
+                            </button>
+
+                            <a
+                                href="{% url 'dashboard' %}"
+                                class="btn btn-outline-secondary"
+                            >
+                                Voltar para minha conta
+                            </a>
+
+                        </div>
 
                     </form>
 

@@ -1,29 +1,68 @@
 {% extends "filmes/base.html" %}
 
 {% block title %}
-    Conta criada | CinePost
+Conta criada | CinePost
 {% endblock %}
 
 {% block content %}
 
-<div class="container py-5">
+<div class="py-5">
 
-    <div class="text-center">
+    <div class="row justify-content-center">
 
-        <h1 class="h3">
-            Bem-vindo, {{ new_user.first_name }}!
-        </h1>
+        <div class="col-12 col-md-8 col-lg-6">
 
-        <p>
-            Sua conta foi criada com sucesso.
-        </p>
+            <div class="card bg-black border-secondary shadow">
 
-        <a
-            href="{% url 'login' %}"
-            class="btn btn-danger"
-        >
-            Entrar
-        </a>
+                <div class="card-body p-4 p-md-5 text-center">
+
+                    <p class="text-uppercase text-danger small fw-semibold mb-2">
+                        Cadastro concluído
+                    </p>
+
+                    <h1 class="h3 mb-3">
+
+                        {% if new_user.first_name %}
+
+                            Bem-vindo, {{ new_user.first_name }}!
+
+                        {% else %}
+
+                            Bem-vindo, {{ new_user.username }}!
+
+                        {% endif %}
+
+                    </h1>
+
+                    <p class="text-secondary mb-4">
+                        Sua conta no CinePost foi criada com sucesso.
+                        Agora você já pode entrar usando seu usuário e sua senha.
+                    </p>
+
+                    <div class="alert alert-dark border-secondary text-start mb-4">
+
+                        <strong>Usuário:</strong>
+                        {{ new_user.username }}
+
+                        <br>
+
+                        <strong>E-mail:</strong>
+                        {{ new_user.email|default:"Não informado" }}
+
+                    </div>
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="btn btn-danger"
+                    >
+                        Entrar na minha conta
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 

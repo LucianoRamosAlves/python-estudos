@@ -1,5 +1,4 @@
 {% load filmes_tags %}
-{% load static %}
 
 <!DOCTYPE html>
 
@@ -12,8 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>
-        {% block title %}
-        {% endblock %}
+        {% block title %}CinePost{% endblock %}
     </title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -23,15 +21,7 @@
 
 <body class="bg-dark text-light">
 
-    {% if request.user.is_authenticated %}
-
-    Usuário está logado
-
-    {% else %}
-
-    Usuário não está logado
-
-    {% endif %}
+    <!-- NAVBAR -->
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary">
 
@@ -50,11 +40,49 @@
 
             <div class="collapse navbar-collapse" id="cinepostNavbar">
 
-                <div class="navbar-nav ms-auto">
+                <div class="navbar-nav ms-auto align-items-lg-center">
 
                     <a class="nav-link" href="{% url 'filmes:post_list' %}">
                         Filmes
                     </a>
+
+                    {% if request.user.is_authenticated %}
+
+                    <a class="nav-link" href="{% url 'dashboard' %}">
+                        Minha conta
+                    </a>
+
+                    <a class="nav-link" href="{% url 'edit' %}">
+                        Editar perfil
+                    </a>
+
+                    <span class="navbar-text mx-lg-3 text-secondary">
+
+                        {{ request.user.username }}
+
+                    </span>
+
+                    <form method="post" action="{% url 'logout' %}" class="m-0">
+
+                        {% csrf_token %}
+
+                        <button type="submit" class="nav-link btn btn-link border-0">
+                            Sair
+                        </button>
+
+                    </form>
+
+                    {% else %}
+
+                    <a class="nav-link" href="{% url 'login' %}">
+                        Entrar
+                    </a>
+
+                    <a class="nav-link" href="{% url 'register' %}">
+                        Criar conta
+                    </a>
+
+                    {% endif %}
 
                 </div>
 
@@ -64,12 +92,25 @@
 
     </nav>
 
+    <!-- CONTEÚDO PRINCIPAL -->
+
     <main class="py-4">
 
         <div class="container">
 
             {% block content %}
             {% endblock %}
+
+            <!--
+                Os rankings aparecem apenas
+                nas páginas do app filmes.
+
+                Assim login, cadastro, perfil,
+                recuperação de senha etc.
+                não fazem consultas desnecessárias.
+            -->
+
+            {% if request.resolver_match.namespace == "filmes" %}
 
             <hr class="border-secondary my-5">
 
@@ -92,7 +133,11 @@
                             </h2>
 
                             <p class="text-secondary small">
-                                Já publicamos {% total_posts %} posts.
+
+                                Já publicamos
+                                {% total_posts %}
+                                posts.
+
                             </p>
 
                             {% mostrar_ultimos_posts 3 %}
@@ -247,23 +292,33 @@
 
             </div>
 
+            {% endif %}
+
         </div>
 
     </main>
 
+    <!-- FOOTER -->
+
     <footer class="bg-black text-white py-4 mt-4 border-top border-secondary">
 
-        <div class="container text-center small">
+        <div class="container text-center">
 
-            CinePost · Compartilhe sua opinião sobre filmes.
+            <p class="small text-secondary mb-3">
+
+                CinePost · Compartilhe sua opinião sobre filmes.
+
+            </p>
+
+            <a href="{% url 'filmes:post_feed' %}" class="btn btn-outline-danger btn-sm">
+                Assinar RSS
+            </a>
 
         </div>
 
-        <a href="{% url 'filmes:post_feed' %}" class="btn btn-outline-danger btn-sm">
-            Assinar RSS
-        </a>
-
     </footer>
+
+    <!-- BOOTSTRAP -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

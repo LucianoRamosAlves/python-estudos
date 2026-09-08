@@ -6,41 +6,115 @@ Minha conta | CinePost
 
 {% block content %}
 
-<div class="container py-5">
+<div class="py-5">
 
     <div class="row justify-content-center">
 
-        <form method="post" action="{% url 'contas:logout' %}">
-            {% csrf_token %}
-
-            <button type="submit" class="btn btn-outline-danger">
-                Sair
-            </button>
-        </form>
-
-        <div class="col-12 col-lg-8">
+        <div class="col-12 col-md-10 col-lg-8">
 
             <div class="card bg-black border-secondary shadow">
 
-                <div class="card-body p-4">
+                <div class="card-body p-4 p-md-5">
 
-                    <h1 class="h3 mb-3">
-                        Olá, {{ request.user.username }}!
-                    </h1>
+                    <!-- CABEÇALHO -->
 
-                    <p class="text-secondary mb-4">
-                        Você está autenticado no CinePost.
-                    </p>
+                    <div class="mb-4">
 
-                    <div class="alert alert-dark border-secondary">
+                        <p class="text-uppercase text-danger small fw-semibold mb-1">
+                            Minha conta
+                        </p>
 
-                        <strong>Usuário:</strong>
-                        {{ request.user.username }}
+                        <h1 class="h3 mb-2">
 
-                        <br>
+                            {% if request.user.first_name %}
 
-                        <strong>E-mail:</strong>
-                        {{ request.user.email|default:"Não informado" }}
+                            Olá, {{ request.user.first_name }}!
+
+                            {% else %}
+
+                            Olá, {{ request.user.username }}!
+
+                            {% endif %}
+
+                        </h1>
+
+                        <p class="text-secondary mb-0">
+                            Gerencie seus dados e as configurações da sua conta no CinePost.
+                        </p>
+
+                    </div>
+
+                    <!-- DADOS DO USUÁRIO -->
+
+                    <div class="border border-secondary rounded p-4 mb-4">
+
+                        <h2 class="h5 mb-3">
+                            Seus dados
+                        </h2>
+
+                        <div class="mb-2">
+
+                            <span class="text-secondary">
+                                Usuário:
+                            </span>
+
+                            <strong>
+                                {{ request.user.username }}
+                            </strong>
+
+                        </div>
+
+                        <div class="mb-2">
+
+                            <span class="text-secondary">
+                                Nome:
+                            </span>
+
+                            <strong>
+
+                                {% if request.user.get_full_name %}
+
+                                {{ request.user.get_full_name }}
+
+                                {% else %}
+
+                                Não informado
+
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span class="text-secondary">
+                                E-mail:
+                            </span>
+
+                            <strong>
+                                {{ request.user.email|default:"Não informado" }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <!-- AÇÕES -->
+
+                    <div class="d-grid gap-2 d-md-flex">
+
+                        <a href="{% url 'edit' %}" class="btn btn-danger">
+                            Editar perfil
+                        </a>
+
+                        <a href="{% url 'password_change' %}" class="btn btn-outline-light">
+                            Alterar senha
+                        </a>
+
+                        <a href="{% url 'filmes:post_list' %}" class="btn btn-outline-secondary">
+                            Ver filmes
+                        </a>
 
                     </div>
 

@@ -24,5 +24,11 @@ class UltimosPostsFeed(Feed):
             30,
         )
 
+    def item_link(self, item):
+        return item.get_absolute_url()
+
     def item_pubdate(self, item):
         return item.publicado_em
+
+    def item_updateddate(self, item):
+        return item.atualizado_em

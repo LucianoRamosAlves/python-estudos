@@ -1,35 +1,77 @@
 {% extends "filmes/base.html" %}
 
 {% block title %}
-Adicionar comentário
+Adicionar comentário | CinePost
 {% endblock %}
 
 {% block content %}
 
-{% if comentario %}
+<div class="py-5">
 
-<div class="row justify-content-center">
-    <div class="col-12 col-lg-8">
-        <div class="alert alert-success shadow-sm" role="alert">
-            <h1 class="h3 alert-heading">Comentário adicionado</h1>
-            <p class="mb-3">Seu comentário foi publicado com sucesso.</p>
-            <a class="btn btn-outline-danger" href="{{ post.get_absolute_url }}">
-                Voltar para o post
-            </a>
+    {% if comentario %}
+
+    <!-- COMENTÁRIO ADICIONADO -->
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-md-9 col-lg-7">
+
+            <div class="card bg-black border-secondary shadow">
+
+                <div class="card-body p-4 p-md-5 text-center">
+
+                    <p class="text-uppercase text-danger small fw-semibold mb-2">
+                        Comentário enviado
+                    </p>
+
+                    <h1 class="h3 mb-3">
+                        Comentário adicionado
+                    </h1>
+
+                    <p class="text-secondary mb-2">
+                        Seu comentário foi publicado com sucesso em:
+                    </p>
+
+                    <p class="fw-semibold mb-4">
+                        {{ post.titulo }}
+                    </p>
+
+                    <a class="btn btn-danger" href="{{ post.get_absolute_url }}">
+                        Voltar para o post
+                    </a>
+
+                </div>
+
+            </div>
+
         </div>
+
     </div>
-</div>
 
-{% else %}
+    {% else %}
 
-<div class="row justify-content-center">
-    <div class="col-12 col-lg-8">
-        <div class="card p-4">
-            {% include "filmes/post/includes/comentario_form.html" %}
+    <!-- FORMULÁRIO COM ERROS -->
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-lg-8">
+
+            <div class="card bg-black border-secondary shadow">
+
+                <div class="card-body p-4 p-md-5">
+
+                    {% include "filmes/post/includes/comentario_form.html" %}
+
+                </div>
+
+            </div>
+
         </div>
-    </div>
-</div>
 
-{% endif %}
+    </div>
+
+    {% endif %}
+
+</div>
 
 {% endblock %}

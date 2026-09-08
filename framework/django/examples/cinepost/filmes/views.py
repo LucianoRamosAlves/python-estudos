@@ -43,6 +43,8 @@ class PostListView(ListView):
                 slug=tag_slug,
             )
 
+            self.tag = tag
+
             posts = posts.filter(tags__in=[tag])
 
         return posts

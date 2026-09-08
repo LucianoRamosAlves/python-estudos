@@ -130,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -169,6 +169,6 @@ DEFAULT_FROM_EMAIL = os.environ["DEFAULT_FROM_EMAIL"]
 
 # URLs de autenticação
 
-# LOGIN_URL = "login"
-# LOGIN_REDIRECT_URL = "contas:dashboard"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "dashboard"
 #LOGOUT_REDIRECT_URL = "filmes:post_list"

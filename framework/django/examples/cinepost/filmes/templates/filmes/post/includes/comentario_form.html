@@ -1,33 +1,107 @@
 <div class="mb-4">
-    <p class="text-uppercase text-danger small fw-semibold mb-2">Sua opinião</p>
-    <h2 class="h3 mb-2">Adicionar comentário</h2>
-    <p class="text-secondary mb-0">Conte o que você achou deste filme.</p>
+
+    <p class="text-uppercase text-danger small fw-semibold mb-2">
+        Sua opinião
+    </p>
+
+    <h2 class="h3 mb-2">
+        Adicionar comentário
+    </h2>
+
+    <p class="text-secondary mb-0">
+        Conte o que você achou deste filme.
+    </p>
+
 </div>
 
-<form action="{% url 'filmes:comentar_post' post.id %}" method="post" novalidate>
+<form action="{% url 'filmes:comentar_post' post.id %}" method="post">
+
     {% csrf_token %}
 
-    {{ form.non_field_errors }}
+    <!-- ERROS GERAIS -->
+
+    {% if form.non_field_errors %}
+
+    <div class="alert alert-danger">
+
+        {% for erro in form.non_field_errors %}
+
+        <div>
+            {{ erro }}
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+    <!-- NOME E E-MAIL -->
 
     <div class="row g-3 mb-3">
+
         <div class="col-12 col-lg-6">
-            {{ form.nome.label_tag }}
+
+            <div class="mb-1">
+                {{ form.nome.label_tag }}
+            </div>
+
             {{ form.nome }}
-            {{ form.nome.errors }}
+
+            {% for erro in form.nome.errors %}
+
+            <div class="text-danger small mt-1">
+                {{ erro }}
+            </div>
+
+            {% endfor %}
+
         </div>
 
         <div class="col-12 col-lg-6">
-            {{ form.email.label_tag }}
+
+            <div class="mb-1">
+                {{ form.email.label_tag }}
+            </div>
+
             {{ form.email }}
-            {{ form.email.errors }}
+
+            {% for erro in form.email.errors %}
+
+            <div class="text-danger small mt-1">
+                {{ erro }}
+            </div>
+
+            {% endfor %}
+
         </div>
+
     </div>
 
-    <div class="mb-3">
-        {{ form.texto.label_tag }}
+    <!-- COMENTÁRIO -->
+
+    <div class="mb-4">
+
+        <div class="mb-1">
+            {{ form.texto.label_tag }}
+        </div>
+
         {{ form.texto }}
-        {{ form.texto.errors }}
+
+        {% for erro in form.texto.errors %}
+
+        <div class="text-danger small mt-1">
+            {{ erro }}
+        </div>
+
+        {% endfor %}
+
     </div>
 
-    <button class="btn btn-danger" type="submit">Adicionar comentário</button>
+    <!-- BOTÃO -->
+
+    <button class="btn btn-danger" type="submit">
+        Adicionar comentário
+    </button>
+
 </form>

@@ -1,33 +1,118 @@
-<nav aria-label="Paginação das publicações">
+<nav aria-label="Paginação das publicações" class="mt-4">
+
     <ul class="pagination justify-content-center mb-0">
+
+        <!-- PRIMEIRA PÁGINA -->
+
         {% if page.has_previous %}
+
         <li class="page-item">
-            <a class="page-link bg-dark border-secondary text-light" href="?page={{ page.previous_page_number }}">
+
+            <a class="page-link bg-dark border-secondary text-light" href="{% querystring page=1 %}"
+                aria-label="Primeira página">
+                Primeira
+            </a>
+
+        </li>
+
+        {% else %}
+
+        <li class="page-item disabled">
+
+            <span class="page-link bg-dark border-secondary text-secondary">
+                Primeira
+            </span>
+
+        </li>
+
+        {% endif %}
+
+        <!-- PÁGINA ANTERIOR -->
+
+        {% if page.has_previous %}
+
+        <li class="page-item">
+
+            <a class="page-link bg-dark border-secondary text-light"
+                href="{% querystring page=page.previous_page_number %}">
                 Anterior
             </a>
+
         </li>
+
         {% else %}
+
         <li class="page-item disabled">
-            <span class="page-link bg-dark border-secondary text-secondary">Anterior</span>
+
+            <span class="page-link bg-dark border-secondary text-secondary">
+                Anterior
+            </span>
+
         </li>
+
         {% endif %}
+
+        <!-- PÁGINA ATUAL -->
 
         <li class="page-item active" aria-current="page">
+
             <span class="page-link bg-danger border-danger text-white">
-                Página {{ page.number }} de {{ page.paginator.num_pages }}
+                Página {{ page.number }}
+                de {{ page.paginator.num_pages }}
             </span>
+
         </li>
 
+        <!-- PRÓXIMA PÁGINA -->
+
         {% if page.has_next %}
+
         <li class="page-item">
-            <a class="page-link bg-dark border-secondary text-light" href="?page={{ page.next_page_number }}">
+
+            <a class="page-link bg-dark border-secondary text-light"
+                href="{% querystring page=page.next_page_number %}">
                 Próxima
             </a>
+
         </li>
+
         {% else %}
+
         <li class="page-item disabled">
-            <span class="page-link bg-dark border-secondary text-secondary">Próxima</span>
+
+            <span class="page-link bg-dark border-secondary text-secondary">
+                Próxima
+            </span>
+
         </li>
+
         {% endif %}
+
+        <!-- ÚLTIMA PÁGINA -->
+
+        {% if page.has_next %}
+
+        <li class="page-item">
+
+            <a class="page-link bg-dark border-secondary text-light"
+                href="{% querystring page=page.paginator.num_pages %}" aria-label="Última página">
+                Última
+            </a>
+
+        </li>
+
+        {% else %}
+
+        <li class="page-item disabled">
+
+            <span class="page-link bg-dark border-secondary text-secondary">
+                Última
+            </span>
+
+        </li>
+
+        {% endif %}
+
     </ul>
+
 </nav>
