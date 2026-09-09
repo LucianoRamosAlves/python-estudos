@@ -30,51 +30,38 @@ Entrar | CinePost
 
                         {% if form.errors %}
 
-                            <div class="alert alert-danger mt-3 mb-0">
-                                Usuário ou senha inválidos.
-                                Verifique os dados e tente novamente.
-                            </div>
+                        <div class="alert alert-danger mt-3 mb-0">
+                            Usuário ou senha inválidos.
+                            Verifique os dados e tente novamente.
+                        </div>
 
                         {% else %}
 
-                            <p class="text-secondary mb-0">
-                                Use seu usuário e sua senha para entrar.
-                            </p>
+                        <p class="text-secondary mb-0">
+                            Use seu usuário e sua senha para entrar.
+                        </p>
 
                         {% endif %}
 
                     </div>
 
-
                     <!-- FORMULÁRIO -->
 
-                    <form
-                        action="{% url 'login' %}"
-                        method="post"
-                    >
+                    <form action="{% url 'login' %}" method="post">
 
                         {% csrf_token %}
 
                         {{ form.as_p }}
 
-
                         {% if next %}
 
-                            <input
-                                type="hidden"
-                                name="next"
-                                value="{{ next }}"
-                            >
+                        <input type="hidden" name="next" value="{{ next }}">
 
                         {% endif %}
 
-
                         <div class="d-grid mt-4">
 
-                            <button
-                                type="submit"
-                                class="btn btn-danger"
-                            >
+                            <button type="submit" class="btn btn-danger">
                                 Entrar
                             </button>
 
@@ -82,23 +69,17 @@ Entrar | CinePost
 
                     </form>
 
-
                     <!-- RECUPERAÇÃO DE SENHA -->
 
                     <div class="text-center mt-4">
 
-                        <a
-                            href="{% url 'password_reset' %}"
-                            class="text-danger text-decoration-none"
-                        >
+                        <a href="{% url 'password_reset' %}" class="text-danger text-decoration-none">
                             Esqueci minha senha
                         </a>
 
                     </div>
 
-
                     <hr class="border-secondary my-4">
-
 
                     <!-- CADASTRO -->
 
@@ -106,14 +87,19 @@ Entrar | CinePost
 
                         Ainda não possui uma conta?
 
-                        <a
-                            href="{% url 'register' %}"
-                            class="text-danger text-decoration-none"
-                        >
+                        <a href="{% url 'register' %}" class="text-danger text-decoration-none">
                             Cadastre-se
                         </a>
 
                     </p>
+
+                    <form method="post" action="{% url 'social:begin' 'google-oauth2' %}">
+                        {% csrf_token %}
+
+                        <button type="submit" class="btn btn-light">
+                            Entrar com Google
+                        </button>
+                    </form>
 
                 </div>
 
