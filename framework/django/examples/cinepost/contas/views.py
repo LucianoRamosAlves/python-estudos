@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+from django.contrib import messages
 
 from .forms import (
     ProfileEditForm,
@@ -66,12 +67,24 @@ def edit(request):
             user_form.save()
             profile_form.save()
 
+            messages.success(
+                request,
+                "Perfil atualizado com sucesso.",
+            )
+
             return redirect("edit")
+
+        else:
+            messages.error(
+                request,
+                "Não foi possível atualizar o perfil. Verifique os campos.",
+            )
 
     else:
         user_form = UserEditForm(instance=request.user)
 
         profile_form = ProfileEditForm(instance=profile)
+        
 
     return render(
         request,
