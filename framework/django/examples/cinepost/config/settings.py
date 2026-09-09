@@ -172,3 +172,8 @@ DEFAULT_FROM_EMAIL = os.environ["DEFAULT_FROM_EMAIL"]
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "dashboard"
 #LOGOUT_REDIRECT_URL = "filmes:post_list"
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "contas.authentication.EmailAuthBackend",
+]
