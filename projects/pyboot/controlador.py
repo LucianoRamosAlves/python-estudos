@@ -4,6 +4,9 @@ from rich.prompt import Prompt
 from functions.bronze.pesquisar_google import pesquisar_google
 from functions.bronze.abrir_programa import abrir_programa
 
+from functions.prata.pesquisar_youtube import pesquisar_youtube
+from functions.prata.preparar_mensagem import preparar_mensagem
+
 console = Console()
 
 
@@ -30,6 +33,26 @@ def executar_opcao(opcao):
     elif opcao in ["2", "02"]:
 
         abrir_programa()
+
+        voltar_menu()
+
+        return True
+
+    # =========================
+    # PRATA
+    # =========================
+
+    elif opcao in ["3", "03"]:
+
+        pesquisar_youtube()
+
+        voltar_menu()
+
+        return True
+
+    elif opcao in ["4", "04"]:
+
+        preparar_mensagem()
 
         voltar_menu()
 
