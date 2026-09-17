@@ -6,11 +6,11 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 from rich.align import Align
 
-
 console = Console()
 
 
 def pesquisar_google():
+
     console.clear()
 
     # =========================
@@ -26,9 +26,7 @@ def pesquisar_google():
         padding=(1, 2),
     )
 
-    console.print(
-        Align.center(titulo)
-    )
+    console.print(Align.center(titulo))
 
     console.print()
 
@@ -36,21 +34,29 @@ def pesquisar_google():
     # RECEBER PESQUISA
     # =========================
 
-    pesquisa = Prompt.ask(
-        "[bold bright_cyan]Pesquisa ❯[/]"
-    )
+    console.print("[dim]Digite 0 para voltar ao PyBoot[/]")
 
-    pesquisa = pesquisa.strip()
+    console.print()
+
+    pesquisa = Prompt.ask("[bold bright_cyan]Pesquisa ❯[/]").strip()
+
+    # =========================
+    # VOLTAR
+    # =========================
+
+    if pesquisa == "0":
+        return
 
     # =========================
     # VALIDAR
     # =========================
 
     if not pesquisa:
+
         console.print()
-        console.print(
-            "[bold red]✕ Digite algo para pesquisar.[/]"
-        )
+
+        console.print("[bold red]✕ Digite algo para pesquisar.[/]")
+
         return
 
     # =========================
@@ -59,19 +65,16 @@ def pesquisar_google():
 
     pesquisa_url = quote_plus(pesquisa)
 
-    url = (
-        "https://www.google.com/search"
-        f"?q={pesquisa_url}"
-    )
+    url = "https://www.google.com/search" f"?q={pesquisa_url}"
 
     # =========================
     # ABRIR GOOGLE
     # =========================
 
     console.print()
+
     console.print(
-        f'[bright_green]✓[/] Pesquisando por '
-        f'[bold white]"{pesquisa}"[/]...'
+        f"[bright_green]✓[/] Pesquisando por " f'[bold white]"{pesquisa}"[/]...'
     )
 
     webbrowser.open(url)

@@ -7,7 +7,6 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 from rich.align import Align
 
-
 console = Console()
 
 
@@ -37,9 +36,7 @@ def preparar_mensagem():
         padding=(1, 2),
     )
 
-    console.print(
-        Align.center(titulo)
-    )
+    console.print(Align.center(titulo))
 
     console.print()
 
@@ -47,34 +44,53 @@ def preparar_mensagem():
     # RECEBER DADOS
     # =========================
 
-    contato = Prompt.ask(
-        "[bold bright_cyan]Contato ❯[/]"
-    ).strip()
+    console.print("[dim]Digite 0 para voltar ao PyBoot[/]")
+
+    console.print()
+
+    contato = Prompt.ask("[bold bright_cyan]Contato ❯[/]").strip()
+
+    # =========================
+    # VOLTAR
+    # =========================
+
+    if contato == "0":
+        return
+
+    # =========================
+    # VALIDAR CONTATO
+    # =========================
 
     if not contato:
-        console.print(
-            "\n[bold red]✕ Digite o nome do contato.[/]"
-        )
+
+        console.print("\n[bold red]✕ Digite o nome do contato.[/]")
+
         return
 
-    mensagem = Prompt.ask(
-        "[bold bright_cyan]Mensagem ❯[/]"
-    ).strip()
+    mensagem = Prompt.ask("[bold bright_cyan]Mensagem ❯[/]").strip()
+
+    # =========================
+    # VOLTAR
+    # =========================
+
+    if mensagem == "0":
+        return
+
+    # =========================
+    # VALIDAR MENSAGEM
+    # =========================
 
     if not mensagem:
-        console.print(
-            "\n[bold red]✕ Digite uma mensagem.[/]"
-        )
-        return
 
+        console.print("\n[bold red]✕ Digite uma mensagem.[/]")
+
+        return
     # =========================
     # ABRIR WHATSAPP
     # =========================
 
     console.print()
-    console.print(
-        "[bright_cyan]●[/] Abrindo WhatsApp..."
-    )
+    console.print("[bright_cyan]●[/] Abrindo WhatsApp...")
 
     os.startfile("whatsapp:")
 
@@ -84,24 +100,15 @@ def preparar_mensagem():
     # PESQUISAR CONTATO
     # =========================
 
-    console.print(
-        f"[bright_cyan]●[/] Procurando "
-        f"[bold white]{contato}[/]..."
-    )
+    console.print(f"[bright_cyan]●[/] Procurando " f"[bold white]{contato}[/]...")
 
     pyautogui.click(*POSICAO_PESQUISA)
 
     time.sleep(2)
 
-    pyautogui.hotkey(
-        "ctrl",
-        "a"
-    )
+    pyautogui.hotkey("ctrl", "a")
 
-    pyautogui.write(
-        contato,
-        interval=0.03
-    )
+    pyautogui.write(contato, interval=0.03)
 
     # Espera aparecer o resultado
     time.sleep(0.8)
@@ -120,10 +127,7 @@ def preparar_mensagem():
 
     pyautogui.click(*POSICAO_MENSAGEM)
 
-    pyautogui.write(
-        mensagem,
-        interval=0.08
-    )
+    pyautogui.write(mensagem, interval=0.08)
 
     # Pequena pausa antes de enviar
     time.sleep(1.5)
@@ -136,7 +140,4 @@ def preparar_mensagem():
 
     console.print()
 
-    console.print(
-        "[bright_green]✓[/] "
-        "[bold white]Mensagem enviada com sucesso![/]"
-    )
+    console.print("[bright_green]✓[/] " "[bold white]Mensagem enviada com sucesso![/]")

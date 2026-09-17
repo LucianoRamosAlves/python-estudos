@@ -6,7 +6,6 @@ from rich.prompt import Confirm
 from rich.panel import Panel
 from rich.align import Align
 
-
 console = Console()
 
 
@@ -27,9 +26,7 @@ def organizar_downloads():
         padding=(1, 2),
     )
 
-    console.print(
-        Align.center(titulo)
-    )
+    console.print(Align.center(titulo))
 
     console.print()
 
@@ -41,9 +38,7 @@ def organizar_downloads():
 
     if not pasta_downloads.exists():
 
-        console.print(
-            "[bold red]✕ Pasta Downloads não encontrada.[/]"
-        )
+        console.print("[bold red]✕ Pasta Downloads não encontrada.[/]")
 
         return
 
@@ -52,15 +47,7 @@ def organizar_downloads():
     # =========================
 
     categorias = {
-
-        "Imagens": [
-            ".jpg",
-            ".jpeg",
-            ".png",
-            ".gif",
-            ".webp"
-        ],
-
+        "Imagens": [".jpg", ".jpeg", ".png", ".gif", ".webp"],
         "Documentos": [
             ".pdf",
             ".doc",
@@ -69,32 +56,12 @@ def organizar_downloads():
             ".xls",
             ".xlsx",
             ".ppt",
-            ".pptx"
+            ".pptx",
         ],
-
-        "Videos": [
-            ".mp4",
-            ".mkv",
-            ".avi",
-            ".mov"
-        ],
-
-        "Musicas": [
-            ".mp3",
-            ".wav",
-            ".flac"
-        ],
-
-        "Compactados": [
-            ".zip",
-            ".rar",
-            ".7z"
-        ],
-
-        "Programas": [
-            ".exe",
-            ".msi"
-        ],
+        "Videos": [".mp4", ".mkv", ".avi", ".mov"],
+        "Musicas": [".mp3", ".wav", ".flac"],
+        "Compactados": [".zip", ".rar", ".7z"],
+        "Programas": [".exe", ".msi"],
     }
 
     # =========================
@@ -108,17 +75,13 @@ def organizar_downloads():
 
     console.print()
 
-    confirmar = Confirm.ask(
-        "[bold white]Deseja continuar?[/]"
-    )
+    confirmar = Confirm.ask("[bold white]Deseja continuar?[/]")
 
     if not confirmar:
 
         console.print()
 
-        console.print(
-            "[dim]Organização cancelada.[/]"
-        )
+        console.print("[dim]Organização cancelada.[/]")
 
         return
 
@@ -143,9 +106,7 @@ def organizar_downloads():
 
                 destino = pasta_downloads / categoria
 
-                destino.mkdir(
-                    exist_ok=True
-                )
+                destino.mkdir(exist_ok=True)
 
                 arquivo_destino = destino / arquivo.name
 
@@ -153,16 +114,12 @@ def organizar_downloads():
                 if arquivo_destino.exists():
 
                     console.print(
-                        f"[yellow]●[/] {arquivo.name} "
-                        "[dim]já existe no destino.[/]"
+                        f"[yellow]●[/] {arquivo.name} " "[dim]já existe no destino.[/]"
                     )
 
                     break
 
-                shutil.move(
-                    str(arquivo),
-                    str(arquivo_destino)
-                )
+                shutil.move(str(arquivo), str(arquivo_destino))
 
                 total_movidos += 1
 
@@ -183,9 +140,7 @@ def organizar_downloads():
 
     if total_movidos == 0:
 
-        console.print(
-            "[yellow]Nenhum arquivo precisou ser organizado.[/]"
-        )
+        console.print("[yellow]Nenhum arquivo precisou ser organizado.[/]")
 
     else:
 

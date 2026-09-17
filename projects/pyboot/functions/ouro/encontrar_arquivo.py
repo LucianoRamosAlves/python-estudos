@@ -6,7 +6,6 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 from rich.align import Align
 
-
 console = Console()
 
 
@@ -27,9 +26,7 @@ def encontrar_arquivo():
         padding=(1, 2),
     )
 
-    console.print(
-        Align.center(titulo)
-    )
+    console.print(Align.center(titulo))
 
     console.print()
 
@@ -37,24 +34,32 @@ def encontrar_arquivo():
     # RECEBER PESQUISA
     # =========================
 
-    nome = Prompt.ask(
-        "[bold bright_cyan]Arquivo ❯[/]"
-    ).strip()
+    console.print("[dim]Digite 0 para voltar ao PyBoot[/]")
+
+    console.print()
+
+    nome = Prompt.ask("[bold bright_cyan]Arquivo ❯[/]").strip()
+
+    # =========================
+    # VOLTAR
+    # =========================
+
+    if nome == "0":
+        return
+
+    # =========================
+    # VALIDAR
+    # =========================
 
     if not nome:
 
-        console.print(
-            "\n[bold red]✕ Digite o nome do arquivo.[/]"
-        )
+        console.print("\n[bold red]✕ Digite o nome do arquivo.[/]")
 
         return
 
     console.print()
 
-    console.print(
-        f"[bright_cyan]●[/] Procurando "
-        f'[bold white]"{nome}"[/]...'
-    )
+    console.print(f"[bright_cyan]●[/] Procurando " f'[bold white]"{nome}"[/]...')
 
     # =========================
     # PASTAS PARA PESQUISAR
@@ -102,9 +107,7 @@ def encontrar_arquivo():
 
         console.print()
 
-        console.print(
-            "[bold red]✕ Arquivo não encontrado.[/]"
-        )
+        console.print("[bold red]✕ Arquivo não encontrado.[/]")
 
         return
 
@@ -114,16 +117,11 @@ def encontrar_arquivo():
 
     console.print()
 
-    console.print(
-        "[bright_green]✓[/] "
-        "[bold white]Arquivo encontrado![/]"
-    )
+    console.print("[bright_green]✓[/] " "[bold white]Arquivo encontrado![/]")
 
     console.print()
 
-    console.print(
-        f"[dim]{arquivo_encontrado}[/]"
-    )
+    console.print(f"[dim]{arquivo_encontrado}[/]")
 
     # =========================
     # ABRIR LOCALIZAÇÃO
@@ -131,14 +129,6 @@ def encontrar_arquivo():
 
     console.print()
 
-    console.print(
-        "[bright_cyan]●[/] Abrindo localização..."
-    )
+    console.print("[bright_cyan]●[/] Abrindo localização...")
 
-    subprocess.Popen(
-        [
-            "explorer",
-            "/select,",
-            str(arquivo_encontrado)
-        ]
-    )
+    subprocess.Popen(["explorer", "/select,", str(arquivo_encontrado)])

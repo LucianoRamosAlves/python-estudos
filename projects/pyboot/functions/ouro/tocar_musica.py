@@ -6,7 +6,6 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 from rich.align import Align
 
-
 console = Console()
 
 
@@ -26,17 +25,14 @@ def tocar_musica():
     # =========================
 
     titulo = Panel(
-        "[bold white]TOCAR MÚSICA[/]\n"
-        "[dim]Digite a música que deseja ouvir.[/]",
+        "[bold white]TOCAR MÚSICA[/]\n" "[dim]Digite a música que deseja ouvir.[/]",
         title="[bold #FFD700]◆ OURO[/]",
         border_style="#FFD700",
         width=60,
         padding=(1, 2),
     )
 
-    console.print(
-        Align.center(titulo)
-    )
+    console.print(Align.center(titulo))
 
     console.print()
 
@@ -44,15 +40,26 @@ def tocar_musica():
     # RECEBER MÚSICA
     # =========================
 
-    musica = Prompt.ask(
-        "[bold bright_cyan]Música ❯[/]"
-    ).strip()
+    console.print("[dim]Digite 0 para voltar ao PyBoot[/]")
+
+    console.print()
+
+    musica = Prompt.ask("[bold bright_cyan]Música ❯[/]").strip()
+
+    # =========================
+    # VOLTAR
+    # =========================
+
+    if musica == "0":
+        return
+
+    # =========================
+    # VALIDAR
+    # =========================
 
     if not musica:
 
-        console.print(
-            "\n[bold red]✕ Digite o nome de uma música.[/]"
-        )
+        console.print("\n[bold red]✕ Digite o nome de uma música.[/]")
 
         return
 
@@ -62,9 +69,7 @@ def tocar_musica():
 
     console.print()
 
-    console.print(
-        "[bright_cyan]●[/] Abrindo Reprodutor Multimídia..."
-    )
+    console.print("[bright_cyan]●[/] Abrindo Reprodutor Multimídia...")
 
     # Abre o menu Iniciar
     pyautogui.press("win")
@@ -72,10 +77,7 @@ def tocar_musica():
     time.sleep(0.8)
 
     # Pesquisa o programa
-    pyautogui.write(
-        "Reprodutor Multimidia",
-        interval=0.04
-    )
+    pyautogui.write("Reprodutor Multimidia", interval=0.04)
 
     time.sleep(0.8)
 
@@ -88,30 +90,18 @@ def tocar_musica():
     # PESQUISAR MÚSICA
     # =========================
 
-    console.print(
-        f"[bright_cyan]●[/] Procurando "
-        f'[bold white]"{musica}"[/]...'
-    )
+    console.print(f"[bright_cyan]●[/] Procurando " f'[bold white]"{musica}"[/]...')
 
     # Atalho de pesquisa do Reprodutor
-    pyautogui.hotkey(
-        "ctrl",
-        "e"
-    )
+    pyautogui.hotkey("ctrl", "e")
 
     time.sleep(0.5)
 
     # Limpa uma pesquisa anterior
-    pyautogui.hotkey(
-        "ctrl",
-        "a"
-    )
+    pyautogui.hotkey("ctrl", "a")
 
     # Digita a música
-    pyautogui.write(
-        musica,
-        interval=0.05
-    )
+    pyautogui.write(musica, interval=0.05)
 
     pyautogui.press("enter")
 
@@ -122,10 +112,7 @@ def tocar_musica():
     # REPRODUZIR
     # =========================
 
-    pyautogui.doubleClick(
-        *POSICAO_MUSICA,
-        interval=0.15
-    )
+    pyautogui.doubleClick(*POSICAO_MUSICA, interval=0.15)
 
     time.sleep(1)
 
@@ -135,7 +122,4 @@ def tocar_musica():
 
     console.print()
 
-    console.print(
-        "[bright_green]▶[/] "
-        f'[bold white]Reproduzindo "{musica}"[/]'
-    )
+    console.print("[bright_green]▶[/] " f'[bold white]Reproduzindo "{musica}"[/]')

@@ -5,7 +5,6 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 from rich.align import Align
 
-
 console = Console()
 
 
@@ -25,9 +24,7 @@ def abrir_programa():
         padding=(1, 2),
     )
 
-    console.print(
-        Align.center(titulo)
-    )
+    console.print(Align.center(titulo))
 
     console.print()
 
@@ -38,19 +35,13 @@ def abrir_programa():
     programas = {
         "bloco de notas": "notepad",
         "notepad": "notepad",
-
         "calculadora": "calc",
         "calc": "calc",
-
         "paint": "mspaint",
-
         "explorador": "explorer",
         "arquivos": "explorer",
-
         "cmd": "cmd",
-
         "powershell": "powershell",
-
         "hp": r"C:\Program Files (x86)\HP\Digital Imaging\bin\Hpqdirec.exe",
         "send": r"C:\Users\lramo\AppData\Local\Programs\LocalSend\localsend_app.exe",
     }
@@ -59,23 +50,32 @@ def abrir_programa():
     # RECEBER PROGRAMA
     # =========================
 
-    nome = Prompt.ask(
-        "[bold bright_cyan]Programa ❯[/]"
-    )
+    console.print("[dim]Digite 0 para voltar ao PyBoot[/]")
+
+    console.print()
+
+    nome = Prompt.ask("[bold bright_cyan]Programa ❯[/]")
 
     nome = nome.strip().lower()
+
+    # =========================
+    # VOLTAR
+    # =========================
+
+    if nome == "0":
+        return
 
     # =========================
     # VALIDAR
     # =========================
 
     if not nome:
-        console.print()
-        console.print(
-            "[bold red]✕ Digite o nome de um programa.[/]"
-        )
-        return
 
+        console.print()
+
+        console.print("[bold red]✕ Digite o nome de um programa.[/]")
+
+        return
     # =========================
     # PROCURAR PROGRAMA
     # =========================
@@ -85,10 +85,7 @@ def abrir_programa():
     if not programa:
         console.print()
 
-        console.print(
-            f'[bold red]✕ Programa "{nome}" '
-            f'não encontrado.[/]'
-        )
+        console.print(f'[bold red]✕ Programa "{nome}" ' f"não encontrado.[/]")
 
         console.print()
 
@@ -108,14 +105,9 @@ def abrir_programa():
 
         console.print()
 
-        console.print(
-            f'[bright_green]✓[/] Abrindo '
-            f'[bold white]"{nome}"[/]...'
-        )
+        console.print(f"[bright_green]✓[/] Abrindo " f'[bold white]"{nome}"[/]...')
 
     except Exception:
         console.print()
 
-        console.print(
-            "[bold red]✕ Não foi possível abrir o programa.[/]"
-        )
+        console.print("[bold red]✕ Não foi possível abrir o programa.[/]")

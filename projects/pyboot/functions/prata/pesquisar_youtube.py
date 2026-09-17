@@ -8,7 +8,6 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 from rich.align import Align
 
-
 console = Console()
 
 
@@ -28,9 +27,7 @@ def pesquisar_youtube():
         padding=(1, 2),
     )
 
-    console.print(
-        Align.center(titulo)
-    )
+    console.print(Align.center(titulo))
 
     console.print()
 
@@ -38,22 +35,28 @@ def pesquisar_youtube():
     # RECEBER PESQUISA
     # =========================
 
-    pesquisa = Prompt.ask(
-        "[bold bright_cyan]Pesquisar ❯[/]"
-    )
+    console.print("[dim]Digite 0 para voltar ao PyBoot[/]")
 
-    pesquisa = pesquisa.strip()
+    console.print()
+
+    pesquisa = Prompt.ask("[bold bright_cyan]Pesquisar ❯[/]").strip()
+
+    # =========================
+    # VOLTAR
+    # =========================
+
+    if pesquisa == "0":
+        return
 
     # =========================
     # VALIDAR
     # =========================
 
     if not pesquisa:
+
         console.print()
 
-        console.print(
-            "[bold red]✕ Digite algo para pesquisar.[/]"
-        )
+        console.print("[bold red]✕ Digite algo para pesquisar.[/]")
 
         return
 
@@ -63,9 +66,7 @@ def pesquisar_youtube():
 
     console.print()
 
-    console.print(
-        "[bright_cyan]●[/] Abrindo YouTube..."
-    )
+    console.print("[bright_cyan]●[/] Abrindo YouTube...")
 
     webbrowser.open("https://www.youtube.com")
 
@@ -76,9 +77,7 @@ def pesquisar_youtube():
     # AUTOMATIZAR PESQUISA
     # =========================
 
-    console.print(
-        "[bright_cyan]●[/] Pesquisando..."
-    )
+    console.print("[bright_cyan]●[/] Pesquisando...")
 
     # Atalho do YouTube para focar
     # na barra de pesquisa
@@ -87,10 +86,7 @@ def pesquisar_youtube():
     time.sleep(1)
 
     # Digita a pesquisa
-    pyautogui.write(
-        pesquisa,
-        interval=0.02
-    )
+    pyautogui.write(pesquisa, interval=0.02)
 
     # Pressiona ENTER
     pyautogui.press("enter")
@@ -98,6 +94,5 @@ def pesquisar_youtube():
     console.print()
 
     console.print(
-        f'[bright_green]✓[/] Pesquisa '
-        f'[bold white]"{pesquisa}"[/] realizada.'
+        f"[bright_green]✓[/] Pesquisa " f'[bold white]"{pesquisa}"[/] realizada.'
     )
