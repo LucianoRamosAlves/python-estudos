@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "taggit",
     "filmes.apps.FilmesConfig",
+    "catalogo.apps.CatalogoConfig",
 ]
 
 SITE_ID = 1
