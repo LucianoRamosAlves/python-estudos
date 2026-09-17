@@ -97,6 +97,14 @@ def preparar_mensagem():
     time.sleep(2)
 
     # =========================
+    # MAXIMIZAR JANELA
+    # =========================
+
+    pyautogui.hotkey("win", "up")
+
+    time.sleep(1)
+
+    # =========================
     # PESQUISAR CONTATO
     # =========================
 

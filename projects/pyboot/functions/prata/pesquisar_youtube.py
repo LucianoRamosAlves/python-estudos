@@ -74,6 +74,14 @@ def pesquisar_youtube():
     time.sleep(2)
 
     # =========================
+    # MAXIMIZAR JANELA
+    # =========================
+
+    pyautogui.hotkey("win", "up")
+
+    time.sleep(1)
+
+    # =========================
     # AUTOMATIZAR PESQUISA
     # =========================
 
