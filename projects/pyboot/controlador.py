@@ -7,6 +7,10 @@ from functions.bronze.abrir_programa import abrir_programa
 from functions.prata.pesquisar_youtube import pesquisar_youtube
 from functions.prata.preparar_mensagem import preparar_mensagem
 
+from functions.ouro.tocar_musica import tocar_musica
+from functions.ouro.encontrar_arquivo import encontrar_arquivo
+from functions.ouro.organizar_downloads import organizar_downloads
+
 console = Console()
 
 
@@ -53,6 +57,34 @@ def executar_opcao(opcao):
     elif opcao in ["4", "04"]:
 
         preparar_mensagem()
+
+        voltar_menu()
+
+        return True
+
+    # =========================
+    # OURO
+    # =========================
+
+    elif opcao in ["5", "05"]:
+
+        tocar_musica()
+
+        voltar_menu()
+
+        return True
+
+    elif opcao in ["6", "06"]:
+
+        encontrar_arquivo()
+
+        voltar_menu()
+
+        return True
+
+    elif opcao in ["7", "07"]:
+
+        organizar_downloads()
 
         voltar_menu()
 
