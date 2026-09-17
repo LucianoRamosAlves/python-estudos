@@ -14,6 +14,9 @@ from functions.ouro.organizar_downloads import organizar_downloads
 from functions.diamante.fechar_janelas import fechar_janelas
 from functions.diamante.limpar_temporarios import limpar_temporarios
 
+from functions.rubi.central_sistema import central_sistema
+from functions.rubi.automacao_personalizada import automacao_personalizada
+
 console = Console()
 
 
@@ -110,6 +113,17 @@ def executar_opcao(opcao):
         voltar_menu()
         return True
 
+    # =========================
+    # RUBI
+    # =========================
+
+    elif opcao in ["10"]:
+        central_sistema()
+        return True
+
+    elif opcao == "11":
+        automacao_personalizada()
+        return True
     # =========================
     # SAIR
     # =========================
