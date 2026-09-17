@@ -11,6 +11,9 @@ from functions.ouro.tocar_musica import tocar_musica
 from functions.ouro.encontrar_arquivo import encontrar_arquivo
 from functions.ouro.organizar_downloads import organizar_downloads
 
+from functions.diamante.fechar_janelas import fechar_janelas
+from functions.diamante.limpar_temporarios import limpar_temporarios
+
 console = Console()
 
 
@@ -88,6 +91,23 @@ def executar_opcao(opcao):
 
         voltar_menu()
 
+        return True
+
+    # =========================
+    # DIAMANTE
+    # =========================
+
+    elif opcao in ["8", "08"]:
+
+        fechar_janelas()
+
+        voltar_menu()
+
+        return True
+
+    elif opcao in ["9", "09"]:
+        limpar_temporarios()
+        voltar_menu()
         return True
 
     # =========================
